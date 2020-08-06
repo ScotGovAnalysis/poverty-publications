@@ -376,8 +376,7 @@ for (year in years){
 # Add factor levels and labels
 for (year in years){
   
-  df <- hbai_clean[[year]] 
-  df <- df %>%
+  df <- hbai_clean[[year]] %>%
     mutate(ecobu = factor(ecobu, levels = ecocodes, labels = econames),
            kidecobu = factor(kidecobu, levels = kidecocodes, labels = kideconames),
            newfambu = factor(newfambu, levels = famcodes, labels = famnames),
