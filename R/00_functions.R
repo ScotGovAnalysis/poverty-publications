@@ -97,8 +97,8 @@ getpov <- function(df, ...){
            warate = wanum/wan,
            pnrate = pnnum/pnn,
            pprate = ppnum/ppn) %>%
-    select(chnum, chrate, wanum, warate, 
-           pnnum, pnrate, ppnum, pprate, ...) %>%
+    select(ppnum, chnum, wanum, pnnum, 
+           pprate, chrate, warate, pnrate, ...) %>%
     filter(.[[9]] == 1)
   
 }
@@ -132,5 +132,5 @@ formatpov <- function(df){
     mutate(years = factor(years, levels = years, labels = years_formatted)) %>%
     mutate_at(vars(ends_with("num")), fmtpop) %>%
     mutate_at(vars(ends_with("rate")), fmtpct) %>%
-    select(1:8)
+    select(1:9)
 }

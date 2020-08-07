@@ -25,14 +25,5 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpov, mdpn))
 
 relpovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, low60bhc)) %>% addyearvar() %>% formatpov()
 relpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, low60ahc)) %>% addyearvar() %>% formatpov()
-abspovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, abspovbhc)) 
-abspovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, abspovahc)) 
-
-
-wb <- auto_df_to_wb(df = relpovbhc, auto_number_format = FALSE, vertical_border = FALSE) 
-
-openxlsx::openXL(wb)
-
-
-
-
+abspovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, abspovbhc)) %>% addyearvar() %>% formatpov()
+abspovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, abspovahc)) %>% addyearvar() %>% formatpov()
