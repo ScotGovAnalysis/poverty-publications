@@ -1,9 +1,6 @@
 
 # Clean datasets to reduce size and address variable name changes
 
-library(tidyverse)
-library(Hmisc)
-
 source("R/00_strings.R")
 source("R/00_functions.R")
 
@@ -378,9 +375,15 @@ for (year in years){
   
   df <- hbai_clean[[year]] %>%
     mutate(ecobu = factor(ecobu, levels = ecocodes, labels = econames),
+           ecobu = forcats::fct_explicit_na(ecobu),
            kidecobu = factor(kidecobu, levels = kidecocodes, labels = kideconames),
+           kidecobu = forcats::fct_explicit_na(kidecobu),
            newfambu = factor(newfambu, levels = famcodes, labels = famnames),
+           newfambu = forcats::fct_explicit_na(newfambu),
            ptentyp2 = factor(ptentyp2, levels = tenurecodes, labels = tenurenames),
+           ptentyp2 = forcats::fct_explicit_na(ptentyp2),
+           depchldh = factor(depchldh, levels = childnocodes, labels = childnolabels),
+           depchldh = forcats::fct_explicit_na(depchldh),
            gvtregn = factor(gvtregn, levels = regioncodes, labels = regionnames))
   
   hbai_clean[[year]] <- df

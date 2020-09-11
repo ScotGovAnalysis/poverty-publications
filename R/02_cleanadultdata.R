@@ -1,8 +1,6 @@
 
 # Clean datasets to reduce size and address variable name changes
 
-library(tidyverse)
-
 source("R/00_strings.R")
 source("R/00_functions.R")
 
@@ -131,6 +129,16 @@ for (year in years[18:length(years)]){
   
   adult_clean[[year]] <- nextdataset 
   
+}
+
+# Add factor levels and labels
+for (year in years){
+  
+  df <- adult_clean[[year]] %>%
+    mutate(marital = factor(marital, levels = maritalcodes, labels = maritalnames),
+           marital = forcats::fct_explicit_na(marital))
+  
+  adult_clean[[year]] <- df
 }
 
 saveRDS(adult_clean, "data/adult_clean.rds")

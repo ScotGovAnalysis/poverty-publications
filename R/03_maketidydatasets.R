@@ -1,55 +1,61 @@
 
 # Prepare minimal tidy datasets
 
-# Load packages, helpers and clean datasets
-
-library(tidyverse)
-library(Hmisc)
+# Load helpers and clean datasets
 source("R/00_strings.R")
 source("R/00_functions.R")
 
 hbai <- readRDS("data/hbai_clean.rds")
 househol <- readRDS("data/househol_clean.rds")
+adult <- readRDS("data/adult_clean.rds")
 
-  # _______________ #
-  #                 #
-  # Poverty dataset #
-  # _______________ # 
+# Get tidy HBAI dataset for most analysis ---------------------------------------
 
-# Flags for poverty outcomes and BU and hhld characteristics _____________
-
-# Store year in comment attribute of each data frame
+# store year in comment attribute of each data frame
 for (year in years){
   df <- hbai[[year]] 
   attr(df, "comment") <- year
   hbai[[year]] <- df 
 }
 
+# get flags for poverty outcomes and BU and hhld characteristics
 hbai <- lapply(hbai, geturbanrural)
 hbai <- lapply(hbai, gethhworkstatus)
 hbai <- lapply(hbai, gethhdisabledstatus)
 hbai <- lapply(hbai, getpovertyflags)
 
-
 tidyhbai <- hbai
 
-# Store year in comment attribute of each data frame
+# store year in comment attribute of each data frame (again)
 for (year in years){
   df <- tidyhbai[[year]] 
   attr(df, "comment") <- year
   tidyhbai[[year]] <- df 
 }
 
-saveRDS(hbai, "data/tidyhbai.rds")
+saveRDS(tidyhbai, "data/tidyhbai.rds")
+
+# Get tidy ADULT dataset for some adult-level analysis (marital/religion) -------
+
+# store year in comment attribute of each data frame
+for (year in years){
+  df <- adult[[year]] 
+  attr(df, "comment") <- year
+  adult[[year]] <- df 
+}
+
+# add adult weights and poverty flags
+adult <- lapply(adult, addpovflagsnadultwgt)
+
+tidyadult <- adult
+
+# store year in comment attribute of each data frame (again)
+for (year in years){
+  df <- tidyadult[[year]] 
+  attr(df, "comment") <- year
+  tidyadult[[year]] <- df 
+}
+
+saveRDS(tidyadult, "data/tidyadult.rds")
+
 rm(list = ls())
-
-
-
-
-
-
-
-
-
-
-
