@@ -4,6 +4,8 @@
 source("R/00_strings.R")
 source("R/00_functions.R")
 
+years <- labels[["years"]]$years
+
 
   #####################
   #   FRS HOUSEHOL    #    

@@ -5,6 +5,8 @@ source("R/00_functions.R")
 source("R/00_strings.R")
 source("R/00_colours.R")
 
+years <- labels[["years"]]$years
+
 hbai <- readRDS("data/tidyhbai.rds")
 
 
@@ -88,7 +90,7 @@ cmdbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc")) %>%
   tail(-2L) %>%
   select(1:3) %>%
   replace(., is.na(.), "-") %>%
-  mutate(years = factor(years, labels = periods_formatted[11:length(periods_formatted)]))
+  mutate(years = factor(years, labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]))
   
 remove(cmdbhc_new)
 
@@ -122,7 +124,7 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
   tail(-2L) %>%
   select(1:3) %>%
   replace(., is.na(.), "-") %>%
-  mutate(years = factor(years, labels = periods_formatted[11:length(periods_formatted)]))
+  mutate(years = factor(years, labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]))
 
 remove(cmdahc_new)
 
@@ -137,7 +139,7 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "mdpn"))%>% add
   mutate(pnnum = get3yraverage(pnnum),
          pnrate = get3yraverage(pnrate),
          years = factor(years, 
-                        labels = periods_formatted[14:length(periods_formatted)])) %>%
+                        labels = labels[["years"]]$periods[16:length(labels[["years"]]$periods)])) %>%
   mutate_at(vars(contains("num")), fmtpop) %>%
   mutate_at(vars(contains("rate")), fmtpct) %>%
   tail(-2L)

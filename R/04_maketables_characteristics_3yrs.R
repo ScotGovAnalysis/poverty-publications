@@ -1,11 +1,20 @@
 
 # Create spreadsheet for characteristics of poverty
 
+# Issue: factor levels in wrong order
+# Issue: economic status - poverty rates wrong (category mix-up?)
+# Issue: Find a clean way of assigning factor levels to tidy datasets
+
 source("R/00_functions.R")
 source("R/00_strings.R")
 source("R/00_colours.R")
 
+# Get formatted periods in vector; get total number of years/periods
+periods <- labels[["years"]]$periods
+yearsno <- length(periods)
+
 hbai <- readRDS("data/tidyhbai.rds")
+adult <- readRDS("data/tidyadult.rds")
 
 # Tenure ---------------------------------------------------------------------------------------
 
@@ -14,7 +23,7 @@ rel <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0506" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[10:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[12:yearsno])) %>%
   arrange(years) %>%
   ppsamplesizecheck
 
@@ -23,7 +32,7 @@ sev <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0506" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[10:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[12:yearsno])) %>%
   arrange(years) %>%
   ppsamplesizecheck
 
@@ -55,7 +64,7 @@ data <- list(sheetname = "Tenure",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", periods_formatted[10:length(periods_formatted)]),
+             headers = c(" ", levels(periods)[12:yearsno-2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -78,7 +87,7 @@ rel <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0809" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[13:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[15:yearsno])) %>%
   arrange(years) %>%
   ppsamplesizecheck
 
@@ -87,7 +96,7 @@ sev <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0809" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[13:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[15:yearsno])) %>%
   arrange(years) %>%
   ppsamplesizecheck
 
@@ -119,7 +128,7 @@ data <- list(sheetname = "Urban rural",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", periods_formatted[13:length(periods_formatted)]),
+             headers = c(" ", levels(periods)[15:yearsno-2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -140,7 +149,7 @@ rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "depchldh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
-  mutate(years = factor(years, labels = periods_formatted)) %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
   ppsamplesizecheck
 
@@ -148,7 +157,7 @@ sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "depchldh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
-  mutate(years = factor(years, labels = periods_formatted)) %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
   ppsamplesizecheck
 
@@ -180,7 +189,7 @@ data <- list(sheetname = "Number of children",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", periods_formatted),
+             headers = c(" ", levels(periods)[3:yearsno-2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -202,7 +211,7 @@ rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "newfambu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
-  mutate(years = factor(years, labels = periods_formatted)) %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
   adsamplesizecheck
 
@@ -210,7 +219,7 @@ sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "newfambu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
-  mutate(years = factor(years, labels = periods_formatted)) %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
   adsamplesizecheck
 
@@ -241,7 +250,7 @@ data <- list(sheetname = "Family type",
              subtitle_c = "Number of adults in each category who are in poverty, Scotland",
              subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", periods_formatted),
+             headers = c(" ", levels(periods)[3:yearsno-2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -260,6 +269,67 @@ remove(rel, rel_rates, rel_comps, rel_numbers,
 
 # Marital status (adults) ----------------------------------------------------------------------
 
+rel <- do.call(rbind.data.frame, 
+               lapply(adult, getpovby_adult, povvar = "low60ahc", groupingvar = "marital")) %>%
+  addyearvar %>%
+  formatpovby3yraverage %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
+  arrange(years) %>%
+  adsamplesizecheck
+
+sev <- do.call(rbind.data.frame, 
+               lapply(adult, getpovby_adult, povvar = "low50ahc", groupingvar = "marital")) %>%
+  addyearvar %>%
+  formatpovby3yraverage %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
+  arrange(years) %>%
+  adsamplesizecheck
+
+# split dataset into rates, numbers, compositions and transpose
+
+rel_rates <- splitntranspose(rel, "adrate")
+rel_comps <- splitntranspose(rel, "adcomp")
+rel_numbers <- splitntranspose(rel, "adnum") 
+
+sev_rates <- splitntranspose(sev, "adrate")
+sev_comps <- splitntranspose(sev, "adcomp")
+sev_numbers <- splitntranspose(sev, "adnum") 
+
+# put all input for the spreadsheet into a list
+data <- list(sheetname = "Marital status",
+             title_a = "A. Proportion of adults in poverty and severe poverty by marital status",
+             title_b = "B. Composition of adults in poverty and severe poverty by marital status",
+             title_c = "C. Number of adults in poverty and severe poverty by marital status",
+             filename = "Poverty characteristics.xlsx",
+             df1 = rel_rates,
+             df2 = sev_rates,
+             df3 = rel_comps,
+             df4 = sev_comps,
+             df5 = rel_numbers,
+             df6 = sev_numbers,
+             subtitle_a = "Proportion of adults in each category who are in poverty, Scotland",
+             subtitle_b = "Proportion of adults in poverty who are in each category, Scotland",
+             subtitle_c = "Number of adults in each category who are in poverty, Scotland",
+             subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
+             subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
+             headers = c(" ", levels(periods)[3:yearsno-2]),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
+             footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
+                           "Longer term trends may offer a better indication of a real change over time.",
+                           "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
+                           "2. In the tables, the following conventions have been used where figures are unavailable:",
+                           "'..'   not available due to small sample size (fewer than 100)",
+                           "3. 'Single' refers to adults who have never been married or in a civil partnership, and are not living with a partner",
+                           "4. 'Separated' refers to adults who are married or in a civil partnership, but are not living together because of estrangement",
+                           "5. 'Married/civil partnership' includes couples who are temporarily living apart (e.g. due to serving in the armed forces")
+)
+
+# Create new worksheet
+createWideSpreadsheet(data)
+
+remove(rel, rel_rates, rel_comps, rel_numbers, 
+       sev, sev_rates, sev_comps, sev_numbers)
+
 # Family economic status (working-age adults) -------------------------------------------------
 
 rel <- do.call(rbind.data.frame, 
@@ -267,7 +337,7 @@ rel <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[3:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
   wasamplesizecheck
 
@@ -276,13 +346,13 @@ sev <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[3:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
   wasamplesizecheck
 
 # rearrange categories
-levels(rel$groupingvar) <- c("All", econames[1:7])
-levels(sev$groupingvar) <- c("All", econames[1:7])
+levels(rel$groupingvar) <- c("All", levels(labels[["economic"]]$labels)[1:7])
+levels(sev$groupingvar) <- c("All", levels(labels[["economic"]]$labels)[1:7])
 
 # split dataset into rates, numbers, compositions and transpose
 
@@ -311,7 +381,7 @@ data <- list(sheetname = "Family economic status",
              subtitle_c = "Number of working-age adults in each category who are in poverty, Scotland",
              subsubtitle_rel = "Working-age adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Working-age adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", periods_formatted[3:length(periods_formatted)]),
+             headers = c(" ", levels(periods)[5:yearsno-2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -336,7 +406,7 @@ rel <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[3:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
   wasamplesizecheck
 
@@ -345,7 +415,7 @@ sev <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
-  mutate(years = factor(years, labels = periods_formatted[3:length(periods_formatted)])) %>%
+  mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
   wasamplesizecheck
 
@@ -380,7 +450,7 @@ data <- list(sheetname = "Household work status",
              subtitle_c = "Number of working-age adults in each category who are in poverty, Scotland",
              subsubtitle_rel = "Working-age adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Working-age adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", periods_formatted[3:length(periods_formatted)]),
+             headers = c(" ", levels(periods)[5:yearsno-2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",

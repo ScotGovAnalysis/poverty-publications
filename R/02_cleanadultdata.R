@@ -4,6 +4,7 @@
 source("R/00_strings.R")
 source("R/00_functions.R")
 
+years <- labels[["years"]]$years
 
   ##################
   #   FRS ADULT    #    
@@ -19,6 +20,8 @@ names(adult_clean) <- years
 # marital new in 9697 (before: ms)
 # penflag from 1011 (before: fixed ages 60 f and 65 m)
 # religsc from 1112 - not needed before
+
+
 
 # From 9495 to 9596
 for (year in years[1:2]){
@@ -135,7 +138,9 @@ for (year in years[18:length(years)]){
 for (year in years){
   
   df <- adult_clean[[year]] %>%
-    mutate(marital = factor(marital, levels = maritalcodes, labels = maritalnames),
+    mutate(marital = factor(marital, 
+                            levels = labels[["marital"]]$codes,
+                            labels = labels[["marital"]]$labels),
            marital = forcats::fct_explicit_na(marital))
   
   adult_clean[[year]] <- df

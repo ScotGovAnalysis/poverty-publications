@@ -5,6 +5,8 @@ source("R/00_functions.R")
 source("R/00_strings.R")
 source("R/00_colours.R")
 
+years <- labels[["years"]]$years
+
 hbai <- readRDS("data/tidyhbai.rds")
 
 
@@ -66,6 +68,7 @@ data[["title"]] <- "Severe poverty after housing costs"
 createSpreadsheet(data)
 
 # Child material deprivation BHC ----
+
 cmdbhc_new <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc_new")) %>%
   addyearvar() %>%
   rename(chnum_new = chnum,
@@ -75,11 +78,15 @@ cmdbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc")) %>%
   select(years, chnum, chrate, chnum_new, chrate_new) %>%
   mutate(years = factor(years, 
                         levels = years, 
-                        labels = years_formatted[11:length(years_formatted)]),
-         chnum_new = ifelse(years %in% years_formatted[18:length(years_formatted)], chnum, chnum_new),
-         chrate_new = ifelse(years %in% years_formatted[18:length(years_formatted)], chrate, chrate_new),
-         chnum = ifelse(years %in% years_formatted[18:length(years_formatted)], NA, chnum),
-         chrate = ifelse(years %in% years_formatted[18:length(years_formatted)], NA, chrate)) %>%
+                        labels = labels[["years"]]$formatted[11:length(labels[["years"]]$years)]),
+         chnum_new = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], 
+                            chnum, chnum_new),
+         chrate_new = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], 
+                             chrate, chrate_new),
+         chnum = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], 
+                        NA, chnum),
+         chrate = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], 
+                         NA, chrate)) %>%
   mutate_at(vars(contains("num")), fmtpop) %>%
   mutate_at(vars(contains("rate")), fmtpct) %>%
   replace(., is.na(.), "-")
@@ -104,11 +111,11 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
   select(years, chnum, chrate, chnum_new, chrate_new) %>%
   mutate(years = factor(years, 
                         levels = years, 
-                        labels = years_formatted[11:length(years_formatted)]),
-         chnum_new = ifelse(years %in% years_formatted[18:length(years_formatted)], chnum, chnum_new),
-         chrate_new = ifelse(years %in% years_formatted[18:length(years_formatted)], chrate, chrate_new),
-         chnum = ifelse(years %in% years_formatted[18:length(years_formatted)], NA, chnum),
-         chrate = ifelse(years %in% years_formatted[18:length(years_formatted)], NA, chrate)) %>%
+                        labels = labels[["years"]]$formatted[11:length(labels[["years"]]$years)]),
+         chnum_new = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], chnum, chnum_new),
+         chrate_new = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], chrate, chrate_new),
+         chnum = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], NA, chnum),
+         chrate = ifelse(years %in% labels[["years"]]$formatted[18:length(labels[["years"]]$years)], NA, chrate)) %>%
   mutate_at(vars(contains("num")), fmtpop) %>%
   mutate_at(vars(contains("rate")), fmtpct) %>%
   replace(., is.na(.), "-")
@@ -124,7 +131,7 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "mdpn"))%>% add
   select(years, pnnum, pnrate) %>%
   mutate(years = factor(years, 
                  levels = years, 
-                 labels = years_formatted[16:length(years_formatted)])) %>%
+                 labels = labels[["years"]]$formatted[16:length(labels[["years"]]$years)])) %>%
   mutate_at(vars(contains("num")), fmtpop) %>%
   mutate_at(vars(contains("rate")), fmtpct)
 

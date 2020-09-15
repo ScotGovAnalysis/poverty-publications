@@ -4,6 +4,8 @@
 source("R/00_strings.R")
 source("R/00_functions.R")
 
+years <- labels[["years"]]$years
+
 
   #############
   #   HBAI    #    
@@ -374,17 +376,29 @@ for (year in years){
 for (year in years){
   
   df <- hbai_clean[[year]] %>%
-    mutate(ecobu = factor(ecobu, levels = ecocodes, labels = econames),
+    mutate(ecobu = factor(ecobu, 
+                          levels = labels[["economic"]]$codes,
+                          labels = labels[["economic"]]$labels),
            ecobu = forcats::fct_explicit_na(ecobu),
-           kidecobu = factor(kidecobu, levels = kidecocodes, labels = kideconames),
+           kidecobu = factor(kidecobu, 
+                             levels = labels[["kideconomic"]]$codes,
+                             labels = labels[["kideconomic"]]$labels),
            kidecobu = forcats::fct_explicit_na(kidecobu),
-           newfambu = factor(newfambu, levels = famcodes, labels = famnames),
+           newfambu = factor(newfambu, 
+                             levels = labels[["familytype"]]$codes,
+                             labels = labels[["familytype"]]$labels),
            newfambu = forcats::fct_explicit_na(newfambu),
-           ptentyp2 = factor(ptentyp2, levels = tenurecodes, labels = tenurenames),
+           ptentyp2 = factor(ptentyp2,
+                             levels = labels[["tenure"]]$codes,
+                             labels = labels[["tenure"]]$labels),
            ptentyp2 = forcats::fct_explicit_na(ptentyp2),
-           depchldh = factor(depchldh, levels = childnocodes, labels = childnolabels),
+           depchldh = factor(depchldh,
+                             levels = labels[["childno"]]$codes,
+                             labels = labels[["childno"]]$labels),
            depchldh = forcats::fct_explicit_na(depchldh),
-           gvtregn = factor(gvtregn, levels = regioncodes, labels = regionnames))
+           gvtregn = factor(gvtregn,
+                            levels = labels[["regions"]]$codes,
+                            labels = labels[["regions"]]$labels))
   
   hbai_clean[[year]] <- df
 }

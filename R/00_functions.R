@@ -29,7 +29,7 @@ gethhworkstatus <- function(df){
   
   # get household level work status
   workinghh <- df %>%
-    mutate(working = ifelse(ecobu %in% econames[1:5], 1, 0)) %>%
+    mutate(working = ifelse(ecobu %in% labels[["economic"]]$labels[1:5], 1, 0)) %>%
     group_by(sernum) %>%
     summarise(workinghh = max(working))
   
@@ -46,7 +46,13 @@ gethhdisabledstatus <- function(df){
               disad_hh = max(discorabflg)) %>%
     mutate(disch_hh = ifelse(disch_hh > 0, 1, 0),
            disad_hh = ifelse(disad_hh >0, 1, 0),
-           dispp_hh = ifelse(disch_hh + disad_hh > 0, 1, 0 ))
+           dispp_hh = ifelse(disch_hh + disad_hh > 0, 1, 0 ),
+           disch_hh = factor(disch_hh, levels = labels[["disch"]]$codes, labels = labels[["disch"]]$labels),
+           disad_hh = factor(disad_hh, levels = labels[["disad"]]$codes, labels = labels[["disad"]]$labels),
+           dispp_hh = factor(dispp_hh, levels = labels[["dispp"]]$codes, labels = labels[["dispp"]]$labels),
+           disch_hh = forcats::fct_explicit_na(disch_hh),
+           disad_hh = forcats::fct_explicit_na(disad_hh),
+           dispp_hh = forcats::fct_explicit_na(dispp_hh))
   
   df %>%
     left_join(disabledhh, by = "sernum")
@@ -81,7 +87,9 @@ geturbanrural <- function(df){
   # join with hbai dataset
   df %>%
     left_join(urindshh, by = "sernum") %>%
-    mutate(urinds = factor(urinds, levels = urbrurcodes, labels = urbrurclasses))
+    mutate(urinds = factor(urinds, 
+                           levels = labels[["urbrur"]]$codes, 
+                           labels = labels[["urbrur"]]$labels))
 }
 
 # get poverty flags and adult weight from tidy hbai dataset
@@ -102,7 +110,7 @@ addpovflagsnadultwgt <- function(df){
   attr(df$benunit, "label") <- NULL
   
   pov_hbai <- pov_hbai %>%
-    select(sernum, benunit, gs_newad, adultb, low50ahc, low60ahc)
+    select(sernum, benunit, gs_newad, adultb, low50ahc, low60ahc, gvtregn)
   
   # join with adult dataset
   df %>%
@@ -262,13 +270,65 @@ getpovby <- function(df, povvar, groupingvar){
   
 }
 
+# get poverty numbers and rates by grouping variable - tidy adult dataset 
+getpovby_adult <- function(df, povvar, groupingvar){
+  
+  df$povvar <- df[[povvar]]
+  df$groupingvar <- df[[groupingvar]]
+  
+  grouped <- df %>%
+    mutate(groupingvar = factor(groupingvar),
+           groupingvar = fct_explicit_na(groupingvar)) %>%
+    filter(gvtregn == "Scotland") %>%
+    group_by(groupingvar) %>%
+    mutate(adn = sum(gs_newad),
+           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    group_by(povvar, groupingvar) %>%
+    summarise(adnum = sum(gs_newad),
+              adn = max(adn),
+              groupsample_ad = max(groupsample_ad),
+              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    filter(povvar == 1) %>%
+    mutate(adrate = adnum/adn,
+           adcomp = adnum/sum(adnum)) %>%
+    ungroup() %>%
+    select(groupingvar, 
+           adnum, adrate, adcomp,
+           groupsample_ad, povsample_ad)
+  
+  total <- df %>%
+    mutate(groupingvar = factor(groupingvar),
+           groupingvar = fct_explicit_na(groupingvar)) %>%
+    filter(gvtregn == "Scotland") %>%
+    mutate(adn = sum(gs_newad),
+           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    group_by(povvar) %>%
+    summarise(adnum = sum(gs_newad),
+              adn = max(adn),
+              groupsample_ad = max(groupsample_ad),
+              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    filter(povvar == 1) %>%
+    mutate(adrate = adnum/adn,
+           adcomp = adnum/sum(adnum),
+           groupingvar = "All") %>%
+    ungroup() %>%
+    select(groupingvar, 
+           adnum, adrate, adcomp,
+           groupsample_ad, povsample_ad)
+  
+  rbind(total, grouped)
+  
+}
+
 # Add year variable to table
 addyearvar <- function(df){
   
   df %>%
     rownames_to_column(var = "years") %>%
     mutate(years = str_sub(years, 1L, 4L),
-           years = factor(years, levels = unique(years), ordered = TRUE)) %>%
+           years = factor(years, 
+                          levels = unique(labels[["years"]]$years), 
+                          ordered = TRUE)) %>%
     select(years, everything())
 }
 
@@ -290,7 +350,9 @@ fmtpct <- function(x){
 formatpov <- function(df){
   
   df %>%
-    mutate(years = factor(years, levels = years, labels = years_formatted)) %>%
+    mutate(years = factor(years, 
+                          levels = labels[["years"]]$years, 
+                          labels = labels[["years"]]$formatted)) %>%
     mutate_at(vars(ends_with("num")), fmtpop) %>%
     mutate_at(vars(ends_with("rate")), fmtpct) %>%
     select(1:9)
@@ -305,7 +367,9 @@ formatpov3yraverage <- function(df){
   df %>%
     mutate_at(vars(c(ends_with("rate")), ends_with("num")), get3yraverage) %>%
     tail(-2L) %>%
-    mutate(years = factor(years, levels = years, labels = periods_formatted)) %>%
+    mutate(years = factor(years, 
+                          levels = labels[["years"]]$years, 
+                          labels = labels[["years"]]$formatted)) %>%
     mutate_at(vars(ends_with("num")), fmtpop) %>%
     mutate_at(vars(ends_with("rate")), fmtpct) %>%
     select(1:9)
@@ -324,7 +388,7 @@ df %>%
   ungroup() %>%
   mutate(groupingvar = factor(groupingvar),
          groupingvar = fct_relevel(groupingvar, "All")) %>%
-  filter(!is.na(ppnum))
+  filter(!is.na(adnum))
 }
 
 ppsamplesizecheck <- function(df){

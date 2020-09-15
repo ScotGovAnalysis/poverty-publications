@@ -5,6 +5,8 @@
 source("R/00_strings.R")
 source("R/00_functions.R")
 
+years <- labels[["years"]]$years
+
 hbai <- readRDS("data/hbai_clean.rds")
 househol <- readRDS("data/househol_clean.rds")
 adult <- readRDS("data/adult_clean.rds")
