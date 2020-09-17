@@ -6,11 +6,6 @@ source("R/00_functions.R")
 
 years <- labels[["years"]]$years
 
-  ##################
-  #   FRS ADULT    #    
-  ##################
-
-
 adult_clean <- vector("list", length(years))
 names(adult_clean) <- years
 
@@ -21,9 +16,7 @@ names(adult_clean) <- years
 # penflag from 1011 (before: fixed ages 60 f and 65 m)
 # religsc from 1112 - not needed before
 
-
-
-# From 9495 to 9596
+# 9495 to 9596 ---------------------------------------------------------------------------------
 for (year in years[1:2]){
   
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -41,7 +34,8 @@ for (year in years[1:2]){
            marital = ms) %>%
     select(sernum, benunit,
            age, sex, marital, empstatc, penflag, religsc,
-           r01:r14)
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14)
   
   # recode relationship matrix
   for (i in c("r01", "r02", "r03", "r04", "r05", "r06", "r07", "r08", "r09", "r10")){  
@@ -59,7 +53,7 @@ for (year in years[1:2]){
   
 }
 
-# For 9697
+# 9697 ------------------------------------------------------------------------------------------
 for (year in years[3]){
   
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -76,13 +70,14 @@ for (year in years[3]){
            r14 = NA) %>%
     select(sernum, benunit,
            age, sex, marital, empstatc, penflag, religsc,
-           r01:r14  )
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14)
   
   adult_clean[[year]] <- nextdataset 
   
 }
 
-# From 9798 to 0910
+# 9798 to 0910 ---------------------------------------------------------------------------------
 for (year in years[4:16]){
   
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -95,13 +90,14 @@ for (year in years[4:16]){
                             ifelse(sex == 1 & age >= 65, 1, 2))) %>%
     select(sernum, benunit,
            age, sex, marital, empstatc, penflag, religsc,
-           r01:r14  )
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14)
   
   adult_clean[[year]] <- nextdataset 
   
 }
 
-# For 1011
+# 1011 ------------------------------------------------------------------------------------------
 for (year in years[17]){
   
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -112,13 +108,14 @@ for (year in years[17]){
     mutate(religsc = NA) %>%
     select(sernum, benunit,
            age, sex, marital, empstatc, penflag, religsc,
-           r01:r14  )
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14)
   
   adult_clean[[year]] <- nextdataset 
   
 }
 
-# From 1112 to latest year
+# 1112 to latest year --------------------------------------------------------------------------
 for (year in years[18:length(years)]){
   
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -128,22 +125,17 @@ for (year in years[18:length(years)]){
   nextdataset <- nextdataset %>%
     select(sernum, benunit,
            age, sex, marital, empstatc, penflag, religsc,
-           r01:r14  )
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14)
   
   adult_clean[[year]] <- nextdataset 
   
 }
 
-# Add factor levels and labels
+# Last: Add year variable and also year in comment attribute to each dataset --------------------------
 for (year in years){
-  
-  df <- adult_clean[[year]] %>%
-    mutate(marital = factor(marital, 
-                            levels = labels[["marital"]]$codes,
-                            labels = labels[["marital"]]$labels),
-           marital = forcats::fct_explicit_na(marital))
-  
-  adult_clean[[year]] <- df
+  adult_clean[[year]]$year <- year
+  attr(adult_clean[[year]], "comment") <- year
 }
 
 saveRDS(adult_clean, "data/adult_clean.rds")

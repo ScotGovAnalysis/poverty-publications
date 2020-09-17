@@ -149,9 +149,12 @@ data[["sheetname"]] <- "Pensioner dep"
 data[["title"]] <- "Pensioners in material deprivation"
 data[["subtitle"]] <- "Number and proportion of pensioners with limited access to goods and services, Scotland"
 data[["headers"]] <- c("Years", "Number", "Proportion")
-data[["footnotes"]] <- "Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure, in that is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation prevent access to goods and services, rather than solely low income."
+data[["footnotes"]] <- c("Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure ",
+                         "in that it is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation ",
+                         "prevent access to goods and services, rather than solely low income.")
 createSpreadsheet(data)
 
 remove(hbai, relpovbhc, relpovahc, sevpovbhc, sevpovahc, abspovbhc, abspovahc, cmdahc, cmdbhc, pndep, data)
 
+rm(list = ls())
 

@@ -6,19 +6,13 @@ source("R/00_functions.R")
 
 years <- labels[["years"]]$years
 
-
-  #####################
-  #   FRS HOUSEHOL    #    
-  #####################
-
-
 househol_clean <- vector("list", length(years))
 names(househol_clean) <- years
 
 # Variable changes
 # urinds from 0405
 
-# From 9495 to 0304
+# 9495 to 0304 ----------------------------------------------------------------------------------------
 for (year in years[1:10]){
   
   nextdataset <- readRDS("data/files_househol.rds")[[year]]
@@ -33,7 +27,7 @@ for (year in years[1:10]){
   
 }
 
-# From 0405 to latest year
+# 0405 to latest year ---------------------------------------------------------------------------------
 for (year in years[11:length(years)]){
   
   nextdataset <- readRDS("data/files_househol.rds")[[year]]

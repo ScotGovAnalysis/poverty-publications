@@ -24,12 +24,12 @@ decode <- function(x, search, replace, default = NULL) {
   return(decode.fun(search, replace, default)(x))
 }
 
-# get flags for poverty outcomes and some hhld level charateristics 
+
 gethhworkstatus <- function(df){
   
   # get household level work status
   workinghh <- df %>%
-    mutate(working = ifelse(ecobu %in% labels[["economic"]]$labels[1:5], 1, 0)) %>%
+    mutate(working = ifelse(ecobu %in% labels[["economic"]]$codes[1:5], 1, 0)) %>%
     group_by(sernum) %>%
     summarise(workinghh = max(working))
   
@@ -46,16 +46,91 @@ gethhdisabledstatus <- function(df){
               disad_hh = max(discorabflg)) %>%
     mutate(disch_hh = ifelse(disch_hh > 0, 1, 0),
            disad_hh = ifelse(disad_hh >0, 1, 0),
-           dispp_hh = ifelse(disch_hh + disad_hh > 0, 1, 0 ),
-           disch_hh = factor(disch_hh, levels = labels[["disch"]]$codes, labels = labels[["disch"]]$labels),
-           disad_hh = factor(disad_hh, levels = labels[["disad"]]$codes, labels = labels[["disad"]]$labels),
-           dispp_hh = factor(dispp_hh, levels = labels[["dispp"]]$codes, labels = labels[["dispp"]]$labels),
-           disch_hh = forcats::fct_explicit_na(disch_hh),
-           disad_hh = forcats::fct_explicit_na(disad_hh),
-           dispp_hh = forcats::fct_explicit_na(dispp_hh))
+           dispp_hh = ifelse(disch_hh + disad_hh > 0, 1, 0 ))
   
   df %>%
     left_join(disabledhh, by = "sernum")
+}
+
+gethhloneparentstatus <- function(df){
+  
+  loneparenthh <- df %>%
+    mutate(loneparent = ifelse(newfambu == 5, 1, 0)) %>%
+    group_by(sernum) %>%
+    summarise(loneparenthh = max(loneparent))
+  
+  df %>%
+    left_join(loneparenthh, by = "sernum")
+}
+
+getdisabilitybenefits <- function(df){
+  
+  # get the correct FRS househol dataset (current year is stored in "comment" attribute)
+  year <- comment(df)
+  disbens <- benefits[[year]] 
+  
+  # remove some attributes to avoid warnings
+  attr(disbens$sernum, "format.sas") <- NULL
+  attr(disbens$sernum, "label") <- NULL
+  attr(df$sernum, "format.sas") <- NULL
+  attr(df$sernum, "label") <- NULL
+  
+  # join with hbai dataset
+  df <- df %>%
+    left_join(disbens, by = "sernum")
+  
+  attr(df, "comment") <- year
+  df
+}
+
+gethhbaby <- function(df){
+  
+  # get the correct FRS child dataset (current year is stored in "comment" attribute)
+  year <- comment(df)
+  child <- child[[year]] %>%
+    mutate(baby = ifelse(age < 1, 1, 0)) %>%
+    group_by(sernum) %>%
+    summarise(babyhh = max(baby))
+  
+  # remove some attributes to avoid warnings
+  attr(child$sernum, "format.sas") <- NULL
+  attr(child$sernum, "label") <- NULL
+  attr(df$sernum, "format.sas") <- NULL
+  attr(df$sernum, "label") <- NULL
+  
+  # join with hbai dataset
+  df <- df %>%
+    left_join(child, by = "sernum")
+  
+  attr(df, "comment") <- year
+  df
+}
+
+gethhyoungmum <- function(df){
+  
+  # get the correct FRS adult dataset (current year is stored in "comment" attribute)
+  year <- comment(df)
+  adult <- adult[[year]] %>%
+    # filter for parents only
+    filter_at(vars(r01, r02, r03, r04, r05, r06, r07, 
+                   r08, r09, r10, r11, r12, r13, r14), any_vars(. %in% c(7, 8))) %>%
+    # filter for mothers and by age
+    mutate(youngmum = ifelse(age < 25 & sex == 2, 1, 0)) %>%
+    group_by(sernum) %>%
+    summarise(youngmumhh = max(youngmum))
+  
+  # remove some attributes to avoid warnings
+  attr(adult$sernum, "format.sas") <- NULL
+  attr(adult$sernum, "label") <- NULL
+  attr(df$sernum, "format.sas") <- NULL
+  attr(df$sernum, "label") <- NULL
+  
+  # join with hbai dataset
+  df <- df %>%
+    left_join(adult, by = "sernum")
+  
+  attr(df, "comment") <- year
+  df
 }
 
 # get flags for poverty outcomes
@@ -72,11 +147,27 @@ getpovertyflags <- function(df){
            cmdbhc_new = ifelse(low70bhc == 1 & mdchnew == 1, 1, 0)) 
 }
 
-# get urban/rural flags from FRS househol dataset
+getpovdisabilityflags <- function(df){
+  df %>%
+    mutate(benamt = ifelse(is.na(benamt), 0,
+                           ifelse(benamt < 0, 0, benamt)),
+           s_oe_ahc_dis = s_oe_ahc - benamt*ahcdef/eqoahchh,
+           relpovahc_dis_threshold = 0.6 * wtd.quantile(s_oe_ahc_dis, 
+                                                        probs = 0.5, 
+                                                        weights = gs_newpp),
+           sevpovahc_dis_threshold = 0.5 * wtd.quantile(s_oe_ahc_dis, 
+                                                        probs = 0.5, 
+                                                        weights = gs_newpp),
+           low60ahc_dis = ifelse(s_oe_ahc_dis < relpovahc_dis_threshold, 1, 0),
+           low50ahc_dis = ifelse(s_oe_ahc_dis < sevpovahc_dis_threshold, 1, 0)) 
+  
+}
+
 geturbanrural <- function(df){
   
   # get the correct FRS househol dataset (current year is stored in "comment" attribute)
-  urindshh <- househol[[comment(df)]]
+  year <- comment(df)
+  urindshh <- househol[[year]]
   
   # remove some attributes to avoid warnings
   attr(urindshh$sernum, "format.sas") <- NULL
@@ -85,11 +176,22 @@ geturbanrural <- function(df){
   attr(df$sernum, "label") <- NULL
   
   # join with hbai dataset
+  df <- df %>%
+    left_join(urindshh, by = "sernum")
+  
+  attr(df, "comment") <- year
+    df
+}
+
+getchildweights <- function(df){
+  
   df %>%
-    left_join(urindshh, by = "sernum") %>%
-    mutate(urinds = factor(urinds, 
-                           levels = labels[["urbrur"]]$codes, 
-                           labels = labels[["urbrur"]]$labels))
+    mutate(kid0_4 = kid0_1 + kid2_4,
+           kid5_12 = kid5_7 + kid8_10 + kid11_12,
+           kid13_19 = kid13_15 + kid16_19,
+           wgt0_4 = ifelse(kid0_4 > 0, gs_newch*kid0_4/depchldb, 0),
+           wgt5_12 = ifelse(kid5_12 > 0, gs_newch*kid5_12/depchldb, 0),
+           wgt13_19 = ifelse(kid13_19 > 0, gs_newch*kid13_19/depchldb, 0))
 }
 
 # get poverty flags and adult weight from tidy hbai dataset
@@ -157,8 +259,6 @@ getpovby <- function(df, povvar, groupingvar){
   df$groupingvar <- df[[groupingvar]]
   
   grouped <- df %>%
-    mutate(groupingvar = factor(groupingvar),
-           groupingvar = fct_explicit_na(groupingvar)) %>%
     filter(gvtregn == "Scotland") %>%
     group_by(groupingvar) %>%
     mutate(chn = sum(gs_newch),
@@ -212,8 +312,6 @@ getpovby <- function(df, povvar, groupingvar){
            povsample, povsample_ch, povsample_wa, povsample_pn, povsample_ad)
   
   total <- df %>%
-    mutate(groupingvar = factor(groupingvar),
-           groupingvar = fct_explicit_na(groupingvar)) %>%
     filter(gvtregn == "Scotland") %>%
     mutate(chn = sum(gs_newch),
            wan = sum(gs_newwa),
@@ -266,8 +364,60 @@ getpovby <- function(df, povvar, groupingvar){
            groupsample, groupsample_ch, groupsample_wa, groupsample_pn, groupsample_ad,
            povsample, povsample_ch, povsample_wa, povsample_pn, povsample_ad)
   
-  rbind(total, grouped)
+  rbind(total, grouped) %>%
+    mutate(groupingvar = factor(groupingvar, levels = as.character(groupingvar)))
   
+}
+
+# get poverty number and rates for child age groups
+getpovbychildage <- function(df, povvar){
+  
+  df$povvar <- df[[povvar]]
+
+  df %>%
+    filter(gvtregn == "Scotland",
+           gs_newch > 0) %>%
+    mutate(n0_4 = sum(wgt0_4),
+           n5_12 = sum(wgt5_12),
+           n13_19 = sum(wgt13_19),
+           n_ch = sum(gs_newch),
+           groupsample0_4 = sum(wgt0_4 > 0, na.rm=TRUE),
+           groupsample5_12 = sum(wgt5_12 > 0, na.rm=TRUE),
+           groupsample13_19 = sum(wgt13_19 > 0, na.rm=TRUE),
+           groupsample_ch = n()) %>%
+    group_by(povvar) %>%
+    summarise(num0_4 = sum(wgt0_4),
+              num5_12 = sum(wgt5_12),
+              num13_19 = sum(wgt13_19),
+              num_ch = sum(gs_newch),
+              n0_4 = max(n0_4),
+              n5_12 = max(n5_12),
+              n13_19 = max(n13_19),
+              n_ch = max(n_ch),
+              groupsample0_4 = max(groupsample0_4),
+              groupsample5_12 = max(groupsample5_12),
+              groupsample13_19 = max(groupsample13_19),
+              groupsample_ch = max(groupsample_ch),
+              povsample0_4 = sum(wgt0_4 > 0, na.rm=TRUE),
+              povsample5_12 = sum(wgt5_12 > 0, na.rm=TRUE),
+              povsample13_19 = sum(wgt13_19 > 0, na.rm=TRUE),
+              povsample_ch = n()) %>%
+    filter(povvar == 1) %>%
+    mutate(rate0_4 = num0_4/n0_4,
+           rate5_12 = num5_12/n5_12,
+           rate13_19 = num13_19/n13_19,
+           rate_ch = num_ch/n_ch,
+           comp0_4 = num0_4/num_ch,
+           comp5_12 = num5_12/num_ch,
+           comp13_19 = num13_19/num_ch,
+           comp_ch = 1) %>%
+    ungroup() %>%
+    select(num0_4, num5_12, num13_19, num_ch,
+           comp0_4, comp5_12, comp13_19, comp_ch, 
+           rate0_4, rate5_12, rate13_19, rate_ch,
+           groupsample0_4, groupsample5_12, groupsample13_19, groupsample_ch,
+           povsample0_4, povsample5_12, povsample13_19, povsample_ch)
+
 }
 
 # get poverty numbers and rates by grouping variable - tidy adult dataset 
@@ -277,8 +427,6 @@ getpovby_adult <- function(df, povvar, groupingvar){
   df$groupingvar <- df[[groupingvar]]
   
   grouped <- df %>%
-    mutate(groupingvar = factor(groupingvar),
-           groupingvar = fct_explicit_na(groupingvar)) %>%
     filter(gvtregn == "Scotland") %>%
     group_by(groupingvar) %>%
     mutate(adn = sum(gs_newad),
@@ -297,8 +445,6 @@ getpovby_adult <- function(df, povvar, groupingvar){
            groupsample_ad, povsample_ad)
   
   total <- df %>%
-    mutate(groupingvar = factor(groupingvar),
-           groupingvar = fct_explicit_na(groupingvar)) %>%
     filter(gvtregn == "Scotland") %>%
     mutate(adn = sum(gs_newad),
            groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
@@ -316,7 +462,8 @@ getpovby_adult <- function(df, povvar, groupingvar){
            adnum, adrate, adcomp,
            groupsample_ad, povsample_ad)
   
-  rbind(total, grouped)
+  rbind(total, grouped) %>%
+    mutate(groupingvar = factor(groupingvar, levels = as.character(groupingvar)))
   
 }
 
@@ -359,20 +506,22 @@ formatpov <- function(df){
 }
 
 get3yraverage <- function(x){x = (x + lag(x, 1L) + lag(x, 2L))/3}
+get5yraverage <- function(x){x = (x + lag(x, 1L) + lag(x, 2L) + lag(x, 3L) + lag(x, 4L))/5}
 
 get3yrtotal <- function(x){x = x + lag(x, 1L) + lag(x, 2L)}
+get5yrtotal <- function(x){x = x + lag(x, 1L) + lag(x, 2L) + lag(x, 3L) + lag(x, 4L)}
 
 formatpov3yraverage <- function(df){
   
   df %>%
-    mutate_at(vars(c(ends_with("rate")), ends_with("num")), get3yraverage) %>%
+    mutate_at(vars(c(contains("rate")), contains("num"), contains("comp")), get3yraverage) %>%
+    mutate_at(vars(contains("sample")), get3yrtotal) %>%
     tail(-2L) %>%
     mutate(years = factor(years, 
                           levels = labels[["years"]]$years, 
                           labels = labels[["years"]]$formatted)) %>%
-    mutate_at(vars(ends_with("num")), fmtpop) %>%
-    mutate_at(vars(ends_with("rate")), fmtpct) %>%
-    select(1:9)
+    mutate_at(vars(contains("num")), fmtpop) %>%
+    mutate_at(vars(contains(c("rate")), contains("comp")), fmtpct)
 }
 
 formatpovby3yraverage <- function(df){
@@ -386,33 +535,45 @@ df %>%
   mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), fmtpct) %>%
   filter(groupingvar != "(Missing)") %>%
   ungroup() %>%
-  mutate(groupingvar = factor(groupingvar),
-         groupingvar = fct_relevel(groupingvar, "All")) %>%
   filter(!is.na(adnum))
 }
 
-ppsamplesizecheck <- function(df){
+formatpovby5yraverage <- function(df){
+  
+  df %>%
+    group_by(groupingvar) %>%
+    arrange(groupingvar, years) %>%
+    mutate_at(vars(c(ends_with("rate")), ends_with("num"), ends_with("comp")), get5yraverage) %>%
+    mutate_at(vars(contains("sample")), get5yrtotal) %>%
+    mutate_at(vars(ends_with("num")), fmtpop) %>%
+    mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), fmtpct) %>%
+    filter(groupingvar != "(Missing)") %>%
+    ungroup() %>%
+    filter(!is.na(adnum))
+}
+
+samplesizecheck <- function(df){
   df %>%
     mutate(ppnum = ifelse(povsample < 100, "..", ppnum),
-           pprate = ifelse(groupsample < 100, "..", pprate))
+           pprate = ifelse(groupsample < 100, "..", pprate),
+           chnum = ifelse(povsample_ch < 100, "..", chnum),
+           chrate = ifelse(groupsample_ch < 100, "..", chrate),
+           wanum = ifelse(povsample_wa < 100, "..", wanum),
+           warate = ifelse(groupsample_wa < 100, "..", warate),
+           pnnum = ifelse(povsample_pn < 100, "..", pnnum),
+           pnrate = ifelse(groupsample_pn < 100, "..", pnrate),
+           adnum = ifelse(povsample_ad < 100, "..", adnum),
+           adrate = ifelse(groupsample_ad < 100, "..", adrate))
 }
 
-chsamplesizecheck <- function(df){
+samplesizecheck_childage <- function(df){
   df %>%
-    mutate(chnum = ifelse(povsample_ch < 100, "..", chnum),
-           chrate = ifelse(groupsample_ch < 100, "..", chrate))
-}
-
-wasamplesizecheck <- function(df){
-  df %>%
-    mutate(wanum = ifelse(povsample_wa < 100, "..", wanum),
-           warate = ifelse(groupsample_wa < 100, "..", warate))
-}
-
-pnsamplesizecheck <- function(df){
-  df %>%
-    mutate(pnnum = ifelse(povsample_pn < 100, "..", pnnum),
-           pnrate = ifelse(groupsample_pn < 100, "..", pnrate))
+    mutate(num0_4 = ifelse(povsample0_4 < 100, "..", num0_4),
+           rate0_4 = ifelse(groupsample0_4 < 100, "..", rate0_4),
+           num5_12 = ifelse(povsample5_12 < 100, "..", num5_12),
+           rate5_12 = ifelse(groupsample5_12 < 100, "..", rate5_12),
+           num13_19 = ifelse(povsample13_19 < 100, "..", num13_19),
+           rate13_19 = ifelse(groupsample13_19 < 100, "..", rate13_19))
 }
 
 adsamplesizecheck <- function(df){
@@ -539,7 +700,7 @@ createSpreadsheet <- function(data){
   writeData(wb, sheetname, "Notes", startRow = endrow + 3, startCol = 2)
   addStyle(wb, sheetname, rows = endrow + 3, cols = 2, style = footnoteHeaderStyle)
   writeData(wb, sheetname, footnotes, startRow = endrow + 4, startCol = 2)
-  addStyle(wb, sheetname, rows = (endrow + 4):(endrow + 14), cols = 2, style = footnoteStyle)
+  addStyle(wb, sheetname, rows = (endrow + 4):(endrow + 4 + length(footnotes)), cols = 2, style = footnoteStyle)
   }
   
   setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto")
@@ -742,7 +903,7 @@ createWideSpreadsheet <- function(data){
     writeData(wb, sheetname, "Notes", startRow = endrow6 + 3, startCol = 2)
     addStyle(wb, sheetname, rows = endrow6 + 3, cols = 2, style = footnoteHeaderStyle)
     writeData(wb, sheetname, footnotes, startRow = endrow6 + 4, startCol = 2)
-    addStyle(wb, sheetname, rows = (endrow6 + 4):(endrow6 + 14), cols = 2, style = footnoteStyle)
+    addStyle(wb, sheetname, rows = (endrow6 + 4):(endrow6 + 4 + length(footnotes)), cols = 2, style = footnoteStyle)
   }
   
   setColWidths(wb, sheetname, cols = 2, widths = 40)

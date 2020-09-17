@@ -1,6 +1,7 @@
 
 # Prepare minimal tidy datasets
 
+
 # Load helpers and clean datasets
 source("R/00_strings.R")
 source("R/00_functions.R")
@@ -10,54 +11,127 @@ years <- labels[["years"]]$years
 hbai <- readRDS("data/hbai_clean.rds")
 househol <- readRDS("data/househol_clean.rds")
 adult <- readRDS("data/adult_clean.rds")
+child <- readRDS("data/child_clean.rds")
+benefits <- readRDS("data/benefits_clean.rds")
 
-# Get tidy HBAI dataset for most analysis ---------------------------------------
+# Create tidy HBAI dataset ----------------------------------------------------------------------------
 
-# store year in comment attribute of each data frame
-for (year in years){
-  df <- hbai[[year]] 
-  attr(df, "comment") <- year
-  hbai[[year]] <- df 
-}
 
-# get flags for poverty outcomes and BU and hhld characteristics
+# get flags for poverty outcomes and hhld characteristics ---------------------------------------------
+hbai <- lapply(hbai, getdisabilitybenefits)
+hbai <- lapply(hbai, gethhbaby)
+hbai <- lapply(hbai, gethhyoungmum)
 hbai <- lapply(hbai, geturbanrural)
 hbai <- lapply(hbai, gethhworkstatus)
 hbai <- lapply(hbai, gethhdisabledstatus)
+hbai <- lapply(hbai, gethhloneparentstatus)
+hbai <- lapply(hbai, getchildweights)
 hbai <- lapply(hbai, getpovertyflags)
+hbai <- lapply(hbai, getpovdisabilityflags)
 
-tidyhbai <- hbai
 
-# store year in comment attribute of each data frame (again)
+# add factor labels -----------------------------------------------------------------------------------
+
 for (year in years){
-  df <- tidyhbai[[year]] 
-  attr(df, "comment") <- year
-  tidyhbai[[year]] <- df 
+  
+  df <- hbai[[year]]
+  
+  df <- df %>%
+    mutate(ecobu = factor(ecobu, 
+                          levels = labels[["economic"]]$codes,
+                          labels = labels[["economic"]]$labels),
+           kidecobu = factor(kidecobu, 
+                          levels = labels[["kideconomic"]]$codes,
+                          labels = labels[["kideconomic"]]$labels),
+           newfambu = factor(newfambu, 
+                          levels = labels[["familytype"]]$codes,
+                          labels = labels[["familytype"]]$labels),
+           ptentyp2 = factor(ptentyp2, 
+                          levels = labels[["tenure"]]$codes,
+                          labels = labels[["tenure"]]$labels),
+           urinds = factor(urinds, 
+                          levels = labels[["urbrur"]]$codes,
+                          labels = labels[["urbrur"]]$labels),
+           workinghh = factor(workinghh, 
+                          levels = labels[["workinghh"]]$codes,
+                          labels = labels[["workinghh"]]$labels),
+           loneparenthh = factor(loneparenthh,
+                                 levels = labels[["loneparent"]]$codes,
+                                 labels = labels[["loneparent"]]$labels),
+           babyhh = factor(babyhh,
+                                 levels = labels[["baby"]]$codes,
+                                 labels = labels[["baby"]]$labels),
+           youngmumhh = factor(youngmumhh,
+                           levels = labels[["youngmum"]]$codes,
+                           labels = labels[["youngmum"]]$labels),
+           disch_hh = factor(disch_hh, 
+                          levels = labels[["disch"]]$codes,
+                          labels = labels[["disch"]]$labels),
+           disad_hh = factor(disad_hh, 
+                          levels = labels[["disad"]]$codes,
+                          labels = labels[["disad"]]$labels),
+           dispp_hh = factor(dispp_hh, 
+                          levels = labels[["dispp"]]$codes,
+                          labels = labels[["dispp"]]$labels),
+           depchldh_ch = depchldh,
+           depchldh = factor(depchldh, 
+                             levels = labels[["childno"]]$codes,
+                             labels = labels[["childno"]]$labels),
+           depchldh_ch = factor(depchldh_ch, 
+                             levels = labels[["childno_ch"]]$codes,
+                             labels = labels[["childno_ch"]]$labels),
+           gvtregn = factor(gvtregn, 
+                             levels = labels[["regions"]]$codes,
+                             labels = labels[["regions"]]$labels),
+           ethgrphh_2f = ethgrphh,
+           ethgrphh = factor(ethgrphh,
+                             levels = labels[["ethnic"]]$codes,
+                             labels = labels[["ethnic"]]$labels),
+           ethgrphh_2f = factor(ethgrphh_2f,
+                             levels = labels[["ethnic_2f"]]$codes,
+                             labels = labels[["ethnic_2f"]]$labels))  %>%
+  mutate_at(vars(c("ecobu", "kidecobu", "newfambu", "ptentyp2", "urinds",
+                   "workinghh", "disch_hh", "disad_hh", "dispp_hh", "depchldh",
+                   "depchldh_ch", "gvtregn", "ethgrphh", "ethgrphh_2f", 
+                   "loneparenthh", "babyhh", "youngmumhh")), 
+            fct_explicit_na)
+  
+  hbai[[year]] <- df
+  
 }
+
+# create tidy hbai dataset for linking with adult dataset
+tidyhbai <- hbai
 
 saveRDS(tidyhbai, "data/tidyhbai.rds")
 
-# Get tidy ADULT dataset for some adult-level analysis (marital/religion) -------
+# Create tidy ADULT dataset ---------------------------------------------------------------------------
 
-# store year in comment attribute of each data frame
-for (year in years){
-  df <- adult[[year]] 
-  attr(df, "comment") <- year
-  adult[[year]] <- df 
-}
+# store year in comment attribute of each data frame --------------------------------------------------
+names(adult) <- years
 
-# add adult weights and poverty flags
+# add adult weights and poverty flags -----------------------------------------------------------------
 adult <- lapply(adult, addpovflagsnadultwgt)
 
-tidyadult <- adult
-
-# store year in comment attribute of each data frame (again)
+# add factor labels ----------------------------------------------------------------------------------- 
 for (year in years){
-  df <- tidyadult[[year]] 
-  attr(df, "comment") <- year
-  tidyadult[[year]] <- df 
+  
+  df <- adult[[year]]
+  
+  df <- df %>%
+    mutate(marital = factor(marital, 
+                          levels = labels[["marital"]]$codes,
+                          labels = labels[["marital"]]$labels),
+           religsc = factor(religsc,
+                            levels = labels[["religion"]]$codes,
+                            labels = labels[["religion"]]$labels))  %>%
+    mutate_at(vars(c("marital", "religsc")), fct_explicit_na)
+  
+  adult[[year]] <- df
+  
 }
 
-saveRDS(tidyadult, "data/tidyadult.rds")
+
+saveRDS(adult, "data/tidyadult.rds")
 
 rm(list = ls())

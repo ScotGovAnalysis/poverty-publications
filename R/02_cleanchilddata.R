@@ -7,18 +7,13 @@ source("R/00_functions.R")
 years <- labels[["years"]]$years
 
 
-##################
-#   FRS CHILD    #    
-##################
-
-
 child_clean <- vector("list", length(years))
 names(child_clean) <- years
 
 # Variable changes
 
 
-# From 9495 to latest year
+# 9495 to latest year -------------------------------------------------------------------------------
 for (year in years[1:length(years)]){
   
   nextdataset <- readRDS("data/files_child.rds")[[year]]
