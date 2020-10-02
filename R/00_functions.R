@@ -479,6 +479,120 @@ addyearvar <- function(df){
     select(years, everything())
 }
 
+getmediansbhc <- function(df){
+  
+  df %>%
+    filter(gvtregn == "Scotland") %>%
+    summarise(pp = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newpp),
+              ch = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newch),
+              wa = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newwa),
+              pn = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newpn)) 
+  
+}
+
+getmediansahc <- function(df){
+  
+  df %>%
+    filter(gvtregn == "Scotland") %>%
+    summarise(pp = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newpp),
+              ch = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newch),
+              wa = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newwa),
+              pn = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newpn)) 
+  
+}
+
+getdecptsbhc <- function(df){
+  
+  df <- df %>%
+    filter(gvtregn == "Scotland") 
+  
+  as.data.frame(wtd.quantile(df$s_oe_bhc*df$infl_bhc, probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+                             weights = df$gs_newpp) ) %>% t()
+  
+}
+
+getdecptsahc <- function(df){
+  
+  df <- df %>%
+    filter(gvtregn == "Scotland") 
+  
+  as.data.frame(wtd.quantile(df$s_oe_ahc*df$infl_ahc, probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+                             weights = df$gs_newpp) ) %>% t()
+  
+}
+
+getdecsharesbhc <- function(df){
+  
+  df <- df %>%
+    filter(gvtregn == "Scotland")
+  
+  decs <- wtd.quantile(df$s_oe_bhc*df$infl_bhc, 
+                       probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+                       weights = df$gs_newpp)
+  
+  df %>%
+    mutate(decbhc = ifelse(s_oe_bhc*infl_bhc <= decs[1], 1,
+                           ifelse(s_oe_bhc*infl_bhc <= decs[2], 2,
+                                  ifelse(s_oe_bhc*infl_bhc <= decs[3], 3,
+                                         ifelse(s_oe_bhc*infl_bhc <= decs[4], 4,
+                                                ifelse(s_oe_bhc*infl_bhc <= decs[5], 5,
+                                                       ifelse(s_oe_bhc*infl_bhc <= decs[6], 6,
+                                                              ifelse(s_oe_bhc*infl_bhc <= decs[7], 7,
+                                                                     ifelse(s_oe_bhc*infl_bhc <= decs[8], 8,
+                                                                            ifelse(s_oe_bhc*infl_bhc <= decs[9], 9, 10)))))))))) %>%
+    group_by(decbhc) %>%
+    summarise(share = 365/7*sum(s_oe_bhc*infl_bhc*gs_newpp)) %>%
+    spread(decbhc, share)
+  
+}
+
+getdecsharesahc <- function(df){
+  
+  df <- df %>%
+    filter(gvtregn == "Scotland")
+  
+  decs <- wtd.quantile(df$s_oe_ahc*df$infl_ahc, 
+                       probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+                       weights = df$gs_newpp)
+  
+  df %>%
+    mutate(decahc = ifelse(s_oe_ahc*infl_ahc <= decs[1], 1,
+                           ifelse(s_oe_ahc*infl_ahc <= decs[2], 2,
+                                  ifelse(s_oe_ahc*infl_ahc <= decs[3], 3,
+                                         ifelse(s_oe_ahc*infl_ahc <= decs[4], 4,
+                                                ifelse(s_oe_ahc*infl_ahc <= decs[5], 5,
+                                                       ifelse(s_oe_ahc*infl_ahc <= decs[6], 6,
+                                                              ifelse(s_oe_ahc*infl_ahc <= decs[7], 7,
+                                                                     ifelse(s_oe_ahc*infl_ahc <= decs[8], 8,
+                                                                            ifelse(s_oe_ahc*infl_ahc <= decs[9], 9, 10)))))))))) %>%
+    group_by(decahc) %>%
+    summarise(share = 365/7*sum(s_oe_ahc*infl_ahc*gs_newpp)) %>%
+    spread(decahc, share)
+  
+}
+
+getpalmabhc <- function(df){
+  
+  shares <- getdecsharesbhc(df)
+  Palma <- shares[10]/sum(shares[1:4]) 
+  colnames(Palma) <- "Palma"
+  Palma
+}
+
+getpalmaahc <- function(df){
+  
+  shares <- getdecsharesahc(df)
+  Palma <- shares[10]/sum(shares[1:4])
+  colnames(Palma) <- "Palma"
+  Palma
+}
+
+fmtweeklyGBP <- function(df){
+  
+  df %>%
+    mutate_if(is.numeric, comma_format(1))
+}
+
 # Format population numbers and rates
 fmtpop <- function(x){
   
@@ -909,4 +1023,64 @@ createWideSpreadsheet <- function(data){
   setColWidths(wb, sheetname, cols = 2, widths = 40)
   setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto")
   saveWorkbook(wb, filename, overwrite = TRUE)
+}
+
+getSheetTitles <- function(filename = filename, sheetname){
+  
+  wb <- loadWorkbook(filename)
+  df3 <- read.xlsx(wb, sheet = sheetname, startRow = 2, colNames = FALSE, cols = 2, rows = 2,
+                   skipEmptyRows = TRUE) %>% pull()
+}
+
+createContentSheet <- function(filename){
+  
+  wb <- loadWorkbook(filename)
+  
+  # get sheet names and titles
+  sheets <- names(wb)
+  sheets <- sheets[!sheets == "Contents"]
+  titles <- sapply(sheets, getSheetTitles, filename = filename)
+  titles <- titles[!titles == "Tables"]
+  
+  # remove "A." from titles
+  titles <- sapply(titles, function(i) ifelse(startsWith(i, "A. "), str_sub(i, 4L), i))
+  
+  # create hyperlinks to sheets
+  sheetlinks <- sapply(seq_along(sheets), function(i) makeHyperlinkString(sheets[[i]], text = titles[[i]], col = 2))
+  
+  # create new worksheet
+  if ("Contents" %in% getSheetNames(filename)){removeWorksheet(wb, "Contents")}
+  addWorksheet(wb, "Contents", gridLines = FALSE)
+  
+  # define styles
+  titleStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 14)
+  tocStyle <- createStyle(fontName="Segoe UI", fontSize = 12, fontColour = "blue", textDecoration = "underline")
+  backButtonStyle <- createStyle(fontName="Segoe UI", fontSize = 9, fontColour = "blue", 
+                                 textDecoration = c("underline", "bold"), halign = "center", fgFill = "#D3D3D3",
+                                 border = "TopBottomLeftRight")
+  
+  # add title
+  writeData(wb, "Contents", "Tables", startRow = 2, startCol = 2)
+  addStyle(wb, "Contents", rows = 2, cols = 2, style = titleStyle)
+  
+  # add list of sheets
+  writeFormula(wb, "Contents", startRow = 3, startCol = 2, x = sheetlinks)
+  addStyle(wb, "Contents", rows = 3:(length(sheets) + 3), cols = 2, style = tocStyle)
+  
+  setColWidths(wb, "Contents", 2, widths = 80)
+  
+  # move contents sheet to first position
+  order <- worksheetOrder(wb)
+  worksheetOrder(wb) <- c(order[length(order)], order[1:(length(order)-1)])
+  
+  # add back button to each sheet
+  for (sheet in sheets){
+    writeFormula(wb, sheet, startRow = 1, startCol = 2, 
+                 x = makeHyperlinkString("Contents", row = 2, col = 2, text = "BACK"))
+    addStyle(wb, sheet, rows = 1, cols = 2, style = backButtonStyle)
+    setRowHeights(wb, sheet, rows = 2, heights = 33)
+  }
+  
+  saveWorkbook(wb, filename, overwrite = TRUE)
+  
 }

@@ -6,8 +6,8 @@ source("R/00_strings.R")
 source("R/00_colours.R")
 
 years <- labels[["years"]]$years
-
 hbai <- readRDS("data/tidyhbai.rds")
+filename <- "Poverty single year.xlsx"
 
 # Relative poverty BHC ----
 
@@ -16,7 +16,7 @@ relpovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60bhc")
 
 # Put all input for the spreadsheet into a list
 data <- list(df = relpovbhc,
-             filename = "Poverty single year.xlsx",
+             filename = filename,
              sheetname = "Relative BHC",
              title = "Relative poverty before housing costs",
              subtitle = "Number and proportion of people with household incomes below 60% of the UK median, Scotland",
@@ -144,6 +144,7 @@ data[["footnotes"]] <- c("Pensioner material deprivation is different to other m
                          "in that it is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation ",
                          "prevent access to goods and services, rather than solely low income.")
 createSpreadsheet(data)
+createContentSheet(paste0("output/", filename))
 
 remove(hbai, relpovbhc, relpovahc, sevpovbhc, sevpovahc, abspovbhc, abspovahc, cmdahc, cmdbhc, pndep, data)
 

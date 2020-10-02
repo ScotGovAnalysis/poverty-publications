@@ -3,8 +3,8 @@
 
 
 # Load helpers and clean datasets
-source("R/00_strings.R")
 source("R/00_functions.R")
+source("R/00_strings.R")
 
 years <- labels[["years"]]$years
 
