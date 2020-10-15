@@ -587,6 +587,124 @@ getpalmaahc <- function(df){
   Palma
 }
 
+gini <- function (x, weights = rep(1, length = length(x))) 
+{
+  ox <- order(x)
+  x <- x[ox]
+  weights <- weights[ox]/sum(weights)
+  p <- cumsum(weights)
+  nu <- cumsum(weights * x)
+  n <- length(nu)
+  nu <- nu/nu[n]
+  sum(nu[-1] * p[-n]) - sum(nu[-n] * p[-1])
+}
+
+getginibhc <- function(df){
+  
+  df %>%
+    filter(gvtregn == "Scotland") %>%
+    summarise(Gini = gini(s_oe_bhc, weights = gs_newpp))
+}  
+
+getginibhc(hbai[[25]])
+
+getginiahc <- function(df){
+  
+  df %>%
+    filter(gvtregn == "Scotland") %>%
+    summarise(Gini = gini(s_oe_ahc, weights = gs_newpp))
+}
+
+getpovertythresholdsbhc <- function(df){
+  
+  df1 <- df %>%
+    mutate(UKmedian = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newpp),
+           relpovbhc_threshold = 0.6*UKmedian) %>%
+    filter(gvtregn == "Scotland") %>%
+    summarise(UKmedian = max(UKmedian),
+              Scotmedian = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newpp),
+              relpovbhc_threshold = max(relpovbhc_threshold), 
+              abspovbhc_threshold = max(abspovbhc_threshold)) 
+  
+  df2 <- as.data.frame(getdecptsbhc(filter(df, gvtregn == "Scotland")) )
+  
+  df <- cbind(df1, df2)
+  row.names(df) <- NULL
+  
+  df <- as.data.frame(t(df)) %>%
+    rownames_to_column(var = "measure") %>%
+    rename(weekly2 = V1) %>%
+    mutate(annual2 = weekly2*365/7,
+           weekly1 = weekly2*0.67,
+           annual1 = weekly1*365/7,
+           weekly3 = weekly2*1.2,
+           annual3 = weekly3*365/7,
+           weekly4 = weekly2*1.53,
+           annual4 = weekly4*365/7) %>%
+    mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
+    mutate_at(vars(starts_with("annual")), comma_format(100)) %>%
+    select(measure, weekly1, annual1, everything())
+  
+  df$measure <- decode(df$measure,
+                       search = c("UKmedian", "Scotmedian", "relpovbhc_threshold", "abspovbhc_threshold",
+                                  "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%"),
+                       replace = c("UK median income", "Scottish median income", 
+                                   "Relative poverty threshold (60% of UK median income)",
+                                   "Absolute poverty threshold (60% of inflation-adjusted 2010/11 UK median income)",
+                                   "Scottish 1st income decile point", "Scottish 2nd income decile point", 
+                                   "Scottish 3rd income decile point", "Scottish 4th income decile point", 
+                                   "Scottish 5th income decile point", "Scottish 6th income decile point", 
+                                   "Scottish 7th income decile point", "Scottish 8th income decile point", 
+                                   "Scottish 9th income decile point"))
+  
+  df
+}
+
+getpovertythresholdsahc <- function(df){
+  
+  df1 <- df %>%
+    mutate(UKmedian = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newpp),
+           relpovahc_threshold = 0.6*UKmedian) %>%
+    filter(gvtregn == "Scotland") %>%
+    summarise(UKmedian = max(UKmedian),
+              Scotmedian = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newpp),
+              relpovahc_threshold = max(relpovahc_threshold), 
+              abspovahc_threshold = max(abspovahc_threshold)) 
+  
+  df2 <- as.data.frame(getdecptsahc(filter(df, gvtregn == "Scotland")) )
+  
+  df <- cbind(df1, df2)
+  row.names(df) <- NULL
+  
+  df <- as.data.frame(t(df)) %>%
+    rownames_to_column(var = "measure") %>%
+    rename(weekly2 = V1) %>%
+    mutate(annual2 = weekly2*365/7,
+           weekly1 = weekly2*0.58,
+           annual1 = weekly1*365/7,
+           weekly3 = weekly2*1.2,
+           annual3 = weekly3*365/7,
+           weekly4 = weekly2*1.62,
+           annual4 = weekly4*365/7) %>%
+    mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
+    mutate_at(vars(starts_with("annual")), comma_format(100)) %>%
+    select(measure, weekly1, annual1, everything())
+  
+  df$measure <- decode(df$measure,
+                       search = c("UKmedian", "Scotmedian", "relpovbhc_threshold", "abspovbhc_threshold",
+                                  "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%"),
+                       replace = c("UK median income", "Scottish median income", 
+                                   "Relative poverty threshold (60% of UK median income)",
+                                   "Absolute poverty threshold (60% of inflation-adjusted 2010/11 UK median income)",
+                                   "Scottish 1st income decile point", "Scottish 2nd income decile point", 
+                                   "Scottish 3rd income decile point", "Scottish 4th income decile point", 
+                                   "Scottish 5th income decile point", "Scottish 6th income decile point", 
+                                   "Scottish 7th income decile point", "Scottish 8th income decile point", 
+                                   "Scottish 9th income decile point"))
+  
+  df
+}
+
 fmtweeklyGBP <- function(df){
   
   df %>%

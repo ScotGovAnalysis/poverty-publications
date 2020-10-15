@@ -181,3 +181,89 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+
+# BHC Gini -------------------------------------------------------------------------
+
+df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>% 
+  addyearvar() %>% 
+  mutate(years = factor(years, labels = labels[["years"]]$formatted),
+         Gini = percent(Gini, 1))
+
+# Put all input for the spreadsheet into a list
+data <- list(df = df,
+             filename = filename,
+             sheetname = "Gini BHC",
+             title = "Gini coefficient of income inequality before housing costs",
+             subtitle = "Scotland",
+             headers = c("Year", "Gini coefficient"),
+             uberheaders = NULL,
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
+             footnotes = NULL)
+
+# Create spreadsheet and new worksheet
+createSpreadsheet(data)
+
+# AHC Gini -------------------------------------------------------------------------
+
+df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>% 
+  addyearvar() %>% 
+  mutate(years = factor(years, labels = labels[["years"]]$formatted),
+         Gini = percent(Gini, 1))
+
+# Put all input for the spreadsheet into a list
+data <- list(df = df,
+             filename = filename,
+             sheetname = "Gini AHC",
+             title = "Gini coefficient of income inequality after housing costs",
+             subtitle = "Scotland",
+             headers = c("Year", "Gini coefficient"),
+             uberheaders = NULL,
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
+             footnotes = NULL)
+
+# Create spreadsheet and new worksheet
+createSpreadsheet(data)
+
+
+# BHC poverty thresholds -----------------------------------------------------------
+
+latesthbai <- hbai[[length(labels$years[[1]])]]
+
+df <- getpovertythresholdsbhc(latesthbai)
+
+# Put all input for the spreadsheet into a list
+data <- list(df = df,
+             filename = filename,
+             sheetname = "Poverty thresholds BHC",
+             title = "Before housing costs income thresholds for different household types",
+             subtitle = "Income in £, after tax and transfers, and in 2018/19 prices, Scotland",
+             headers = c(" ", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual"),
+             uberheaders = c(" " = 1, "Single person with no children" = 2, "Couple with no children" = 2,
+                             "Single person with children aged 5 and 14" = 2, "Couple with children aged 5 and 14" = 2),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
+             footnotes = NULL)
+
+# Create spreadsheet and new worksheet
+createSpreadsheet(data)
+
+# AHC poverty thresholds -----------------------------------------------------------
+
+latesthbai <- hbai[[length(labels$years[[1]])]]
+
+df <- getpovertythresholdsahc(latesthbai)
+
+# Put all input for the spreadsheet into a list
+data <- list(df = df,
+             filename = filename,
+             sheetname = "Poverty thresholds AHC",
+             title = "After housing costs income thresholds for different household types",
+             subtitle = "Income in £, after tax and transfers, and in 2018/19 prices, Scotland",
+             headers = c(" ", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual"),
+             uberheaders = c(" " = 1, "Single person with no children" = 2, "Couple with no children" = 2,
+                             "Single person with children aged 5 and 14" = 2, "Couple with children aged 5 and 14" = 2),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
+             footnotes = NULL)
+
+# Create spreadsheet and new worksheet
+createSpreadsheet(data)
+
