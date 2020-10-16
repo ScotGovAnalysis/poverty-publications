@@ -1040,10 +1040,10 @@ data <- list(sheetname = "Ethnicity 3-year average",
 
 # Create new worksheet
 createWideSpreadsheet(data)
-createContentSheet(paste0("output/", filename))
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
-       sev, sev_rates, sev_comps, sev_numbers)
+# TOC --------------------------------------------------------------------
+
+createContentSheet(paste0("output/", filename))
 
 rm(list = ls())
 

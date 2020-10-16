@@ -24,7 +24,6 @@ decode <- function(x, search, replace, default = NULL) {
   return(decode.fun(search, replace, default)(x))
 }
 
-
 gethhworkstatus <- function(df){
   
   # get household level work status
@@ -506,7 +505,8 @@ getdecptsbhc <- function(df){
   df <- df %>%
     filter(gvtregn == "Scotland") 
   
-  as.data.frame(wtd.quantile(df$s_oe_bhc*df$infl_bhc, probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+  as.data.frame(wtd.quantile(df$s_oe_bhc * df$infl_bhc, 
+                             probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
                              weights = df$gs_newpp) ) %>% t()
   
 }
@@ -516,7 +516,8 @@ getdecptsahc <- function(df){
   df <- df %>%
     filter(gvtregn == "Scotland") 
   
-  as.data.frame(wtd.quantile(df$s_oe_ahc*df$infl_ahc, probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+  as.data.frame(wtd.quantile(df$s_oe_ahc * df$infl_ahc, 
+                             probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
                              weights = df$gs_newpp) ) %>% t()
   
 }
@@ -606,7 +607,6 @@ getginibhc <- function(df){
     summarise(Gini = gini(s_oe_bhc, weights = gs_newpp))
 }  
 
-getginibhc(hbai[[25]])
 
 getginiahc <- function(df){
   
@@ -641,8 +641,6 @@ getpovertythresholdsbhc <- function(df){
            annual3 = weekly3*365/7,
            weekly4 = weekly2*1.53,
            annual4 = weekly4*365/7) %>%
-    mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
-    mutate_at(vars(starts_with("annual")), comma_format(100)) %>%
     select(measure, weekly1, annual1, everything())
   
   df$measure <- decode(df$measure,
@@ -686,12 +684,10 @@ getpovertythresholdsahc <- function(df){
            annual3 = weekly3*365/7,
            weekly4 = weekly2*1.62,
            annual4 = weekly4*365/7) %>%
-    mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
-    mutate_at(vars(starts_with("annual")), comma_format(100)) %>%
     select(measure, weekly1, annual1, everything())
   
   df$measure <- decode(df$measure,
-                       search = c("UKmedian", "Scotmedian", "relpovbhc_threshold", "abspovbhc_threshold",
+                       search = c("UKmedian", "Scotmedian", "relpovahc_threshold", "abspovahc_threshold",
                                   "10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%"),
                        replace = c("UK median income", "Scottish median income", 
                                    "Relative poverty threshold (60% of UK median income)",
@@ -703,6 +699,54 @@ getpovertythresholdsahc <- function(df){
                                    "Scottish 9th income decile point"))
   
   df
+}
+
+getsources <- function(df){
+  
+  data <- df %>%
+    filter(gvtregn == "Scotland") %>%
+    mutate(earns	= (esgjobhh + esgrsehh) * bhcdef/eqobhchh,
+           bens = (esbenihh  + chbenhh)* bhcdef/eqobhchh,
+           pen = esgocchh * bhcdef/eqobhchh,
+           inv = esginvhh * bhcdef/eqobhchh,
+           misc = (esmischh + espribhh + inchilhh) * bhcdef/eqobhchh,
+           total = esginchh * bhcdef/eqobhchh) %>%
+    select(gvtregn, s_oe_bhc, infl_bhc, gs_newpp, earns, bens, pen, inv, misc, total) 
+  
+  decs <- as.data.frame(wtd.quantile(data$s_oe_bhc, 
+                                     probs = c(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+                                     weights = data$gs_newpp) ) %>% t()
+  
+  data <- data %>%
+    mutate(decbhc = ifelse(s_oe_bhc <= decs[1], 1,
+                           ifelse(s_oe_bhc <= decs[2], 2,
+                                  ifelse(s_oe_bhc <= decs[3], 3,
+                                         ifelse(s_oe_bhc <= decs[4], 4,
+                                                ifelse(s_oe_bhc <= decs[5], 5,
+                                                       ifelse(s_oe_bhc <= decs[6], 6,
+                                                              ifelse(s_oe_bhc <= decs[7], 7,
+                                                                     ifelse(s_oe_bhc <= decs[8], 8,
+                                                                            ifelse(s_oe_bhc <= decs[9], 9, 10)))))))))) 
+  
+  bydec <- data  %>%
+    group_by(decbhc) %>%
+    summarise(earnings = sum(earns*gs_newpp)/sum(total*gs_newpp),
+              benefits = sum(bens*gs_newpp)/sum(total*gs_newpp),
+              occpens = sum(pen*gs_newpp)/sum(total*gs_newpp),
+              investments = sum(inv*gs_newpp)/sum(total*gs_newpp),
+              other = sum(misc*gs_newpp)/sum(total*gs_newpp)) %>%
+    ungroup() %>%
+    mutate(decbhc = factor(decbhc))
+  
+  tot <- data %>%
+    summarise(earnings = sum(earns*gs_newpp)/sum(total*gs_newpp),
+              benefits = sum(bens*gs_newpp)/sum(total*gs_newpp),
+              occpens = sum(pen*gs_newpp)/sum(total*gs_newpp),
+              investments = sum(inv*gs_newpp)/sum(total*gs_newpp),
+              other = sum(misc*gs_newpp)/sum(total*gs_newpp)) %>%
+    mutate(decbhc = "All")
+  
+  rbind(bydec, tot)
 }
 
 fmtweeklyGBP <- function(df){
@@ -881,7 +925,8 @@ createSpreadsheet <- function(data){
   subtitleStyle <- createStyle(fontName="Segoe UI", fontSize = 12)
   headerStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 10, halign = "right", border = "bottom")
   uberheaderStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 10, halign = "center", 
-                                 border = "TopBottomLeftRight", borderColour = "#D3D3D3", borderStyle = "thin")
+                                 border = "TopBottomLeftRight", borderColour = "#D3D3D3", borderStyle = "thin",
+                                 wrapText = TRUE)
   bodyStyle <- createStyle(halign = "right")
   endrowStyle <- createStyle(border = "bottom", halign = "right")
   sourceStyle <- createStyle(fontName="Segoe UI", fontSize = 10)
@@ -914,7 +959,9 @@ createSpreadsheet <- function(data){
   # Uber header (above headers)
   addUberheader(wb, sheetname, uberheaders)
   if (is.vector(uberheaders)){
-    addStyle(wb, sheetname, rows = 5, cols = 3:endcol, style = uberheaderStyle)}
+    addStyle(wb, sheetname, rows = 5, cols = 3:endcol, style = uberheaderStyle)
+    setRowHeights(wb, sheetname, rows = 5, heights = 30)
+    }
   
   # Data / body (with header)
   writeData(wb, sheetname, df, startRow = 6, startCol = 2)
@@ -935,7 +982,7 @@ createSpreadsheet <- function(data){
   addStyle(wb, sheetname, rows = (endrow + 4):(endrow + 4 + length(footnotes)), cols = 2, style = footnoteStyle)
   }
   
-  setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto")
+  setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto", ignoreMergedCells = TRUE)
   saveWorkbook(wb, filename, overwrite = TRUE)
 }
 

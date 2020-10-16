@@ -144,9 +144,10 @@ data[["footnotes"]] <- c("Pensioner material deprivation is different to other m
                          "in that it is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation ",
                          "prevent access to goods and services, rather than solely low income.")
 createSpreadsheet(data)
-createContentSheet(paste0("output/", filename))
 
-remove(hbai, relpovbhc, relpovahc, sevpovbhc, sevpovahc, abspovbhc, abspovahc, cmdahc, cmdbhc, pndep, data)
+# TOC ----
+
+createContentSheet(paste0("output/", filename))
 
 rm(list = ls())
 

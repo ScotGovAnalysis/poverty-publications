@@ -874,13 +874,12 @@ data <- list(sheetname = "Religion",
 
 # Create spreadsheet and first worksheet
 createWideSpreadsheet(data)
+
+# TOC --------------------------------------------------------------------
+
 createContentSheet(paste0("output/", filename))
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
-       sev, sev_rates, sev_comps, sev_numbers)
-
 rm(list = ls())
-
 
 
 
