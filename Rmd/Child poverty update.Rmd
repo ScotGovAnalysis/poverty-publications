@@ -1,0 +1,32 @@
+---
+title: "Relative poverty"
+output: 
+  word_document:
+    reference_docx: "template.docx"
+---
+
+**Measures poverty relative to the rest of society** - It is the proportion of children living in households with equivalised incomes below 60% of the median (middle) UK income in the current year.
+
+![](C:/Users/Public/Documents/Poverty_charts/charts/cp1_relpovch_large.png){width=9.7cm}
+
+# Material deprivation
+
+**Measures whether households are able to afford basic necessities** - It is the proportion of children in households with equivalised incomes below 70% of the median UK income AND going without certain basic goods and services.
+
+![](C:/Users/Public/Documents/Poverty_charts/charts/cp3_matdepch_large.png){width=9.7cm}
+
+# Absolute poverty
+
+**Measures changes in poverty relative to a point in time** - It is the proportion of children living in households with equivalised incomes below 60% of the median UK income in a base year (currently 2010/11) adjusted for inflation.
+
+![](C:/Users/Public/Documents/Poverty_charts/charts/cp2_abspovch_large.png){width=9.7cm}
+
+# Persistent poverty
+
+**Measures whether people have been living in poverty for a number of years** - It is the proportion of children who have lived in relative poverty in 3 or more of the last 4 years.                        
+<br><br><br/><br/>
+\n 
+\n
+
+![](C:/Users/Public/Documents/Poverty_charts/charts/cp4_perspov_large.png){width=9.7cm}
+

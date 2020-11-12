@@ -466,6 +466,161 @@ getpovby_adult <- function(df, povvar, groupingvar){
   
 }
 
+getpovbynation <- function(df, povvar){
+  
+  df$povvar <- df[[povvar]]
+  
+  grouped <- df %>%
+    group_by(gvtregn) %>%
+    mutate(chn = sum(gs_newch),
+           wan = sum(gs_newwa),
+           pnn = sum(gs_newpn),
+           ppn = sum(gs_newpp),
+           adn = sum(gs_newad),
+           groupsample = n(),
+           groupsample_ch = sum(gs_newch > 0, na.rm=TRUE),
+           groupsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
+           groupsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
+           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    group_by(povvar, gvtregn) %>%
+    summarise(chnum = sum(gs_newch),
+              wanum = sum(gs_newwa),
+              pnnum = sum(gs_newpn),
+              ppnum = sum(gs_newpp),
+              adnum = sum(gs_newad),
+              chn = max(chn),
+              wan = max(wan),
+              pnn = max(pnn),
+              ppn = max(ppn),
+              adn = max(adn),
+              groupsample = max(groupsample),
+              groupsample_ch = max(groupsample_ch),
+              groupsample_wa = max(groupsample_wa),
+              groupsample_pn = max(groupsample_pn),
+              groupsample_ad = max(groupsample_ad),
+              povsample = n(),
+              povsample_ch = sum(gs_newch > 0, na.rm=TRUE),
+              povsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
+              povsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
+              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    filter(povvar == 1) %>%
+    mutate(chrate = chnum/chn,
+           warate = wanum/wan,
+           pnrate = pnnum/pnn,
+           pprate = ppnum/ppn,
+           adrate = adnum/adn) %>%
+    ungroup() %>%
+    select(gvtregn, 
+           pprate, chrate, warate, pnrate, adrate,
+           ppnum, chnum, wanum, pnnum, adnum,
+           groupsample, groupsample_ch, groupsample_wa, groupsample_pn, groupsample_ad,
+           povsample, povsample_ch, povsample_wa, povsample_pn, povsample_ad)
+  
+  total <- df %>%
+    mutate(chn = sum(gs_newch),
+           wan = sum(gs_newwa),
+           pnn = sum(gs_newpn),
+           ppn = sum(gs_newpp),
+           adn = sum(gs_newad),
+           groupsample = n(),
+           groupsample_ch = sum(gs_newch > 0, na.rm=TRUE),
+           groupsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
+           groupsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
+           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    group_by(povvar) %>%
+    summarise(chnum = sum(gs_newch),
+              wanum = sum(gs_newwa),
+              pnnum = sum(gs_newpn),
+              ppnum = sum(gs_newpp),
+              adnum = sum(gs_newad),
+              chn = max(chn),
+              wan = max(wan),
+              pnn = max(pnn),
+              ppn = max(ppn),
+              adn = max(adn),
+              groupsample = max(groupsample),
+              groupsample_ch = max(groupsample_ch),
+              groupsample_wa = max(groupsample_wa),
+              groupsample_pn = max(groupsample_pn),
+              groupsample_ad = max(groupsample_ad),
+              povsample = n(),
+              povsample_ch = sum(gs_newch > 0, na.rm=TRUE),
+              povsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
+              povsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
+              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    filter(povvar == 1) %>%
+    mutate(chrate = chnum/chn,
+           warate = wanum/wan,
+           pnrate = pnnum/pnn,
+           pprate = ppnum/ppn,
+           adrate = adnum/adn,
+           gvtregn = "UK") %>%
+    ungroup() %>%
+    select(gvtregn, 
+           pprate, chrate, warate, pnrate, adrate,
+           ppnum, chnum, wanum, pnnum, adnum,
+           groupsample, groupsample_ch, groupsample_wa, groupsample_pn, groupsample_ad,
+           povsample, povsample_ch, povsample_wa, povsample_pn, povsample_ad)
+  
+  rbind(total, grouped) %>%
+    mutate(gvtregn = factor(gvtregn, levels = as.character(gvtregn)))
+}
+
+getworkpovbynation <- function(df, povvar){
+  
+  df$povvar <- df[[povvar]]
+  
+  grouped <- df %>%
+    group_by(gvtregn, workinghh) %>%
+    mutate(chn = sum(gs_newch),
+           wan = sum(gs_newwa)) %>%
+    group_by(povvar, gvtregn, workinghh) %>%
+    summarise(chnum = sum(gs_newch),
+              wanum = sum(gs_newwa)) %>%
+    filter(povvar == 1) %>%
+    mutate(chcomp = chnum/sum(chnum),
+           wacomp = wanum/sum(wanum)) %>%
+    filter(workinghh == "Someone in paid work") %>%
+    ungroup() %>%
+    select(gvtregn, chcomp, wacomp)
+  
+  total <- df %>%
+    group_by(workinghh) %>%
+    mutate(chn = sum(gs_newch),
+           wan = sum(gs_newwa)) %>%
+    group_by(povvar, workinghh) %>%
+    summarise(chnum = sum(gs_newch),
+              wanum = sum(gs_newwa)) %>%
+    filter(povvar == 1) %>%
+    mutate(chcomp = chnum/sum(chnum),
+           wacomp = wanum/sum(wanum)) %>%
+    filter(workinghh == "Someone in paid work") %>%
+    ungroup() %>%
+    mutate(gvtregn = "UK") %>%
+    select(gvtregn, chcomp, wacomp)
+  
+  rbind(total, grouped) %>%
+    mutate(gvtregn = factor(gvtregn, levels = as.character(gvtregn)))
+  
+}
+
+checkandfmtUK <- function(df){
+  
+  df %>%
+    group_by(gvtregn) %>%
+    arrange(gvtregn, years) %>%
+    mutate_at(vars(c(ends_with("rate")), ends_with("num"), ends_with("comp")), get3yraverage) %>%
+    mutate_at(vars(contains("sample")), get3yrtotal) %>%
+    mutate_at(vars(ends_with("num")), fmtpop) %>%
+    mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), fmtpct) %>%
+    samplesizecheck %>%
+    mutate(years = factor(years, 
+                          levels = labels[["years"]]$years, 
+                          labels = labels[["years"]]$periods)) %>%
+    ungroup() %>%
+    filter(!is.na(pprate))
+}
+
 # Add year variable to table
 addyearvar <- function(df){
   
@@ -1186,6 +1341,170 @@ createWideSpreadsheet <- function(data){
   }
   
   setColWidths(wb, sheetname, cols = 2, widths = 40)
+  setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto")
+  saveWorkbook(wb, filename, overwrite = TRUE)
+}
+
+
+createUKSpreadsheet <- function(data){
+  
+  df1 <- data[["df1"]]
+  df2 <- data[["df2"]]
+  df3 <- data[["df3"]]
+  df4 <- data[["df4"]]
+
+  filename <- paste0("output/", data[["filename"]])
+  sheetname <- data[["sheetname"]]
+  title_1 <- data[["title_1"]]
+  title_2 <- data[["title_2"]]
+  title_3 <- data[["title_3"]]
+  title_4 <- data[["title_4"]]
+  subtitle_1 <- data[["subtitle_1"]]
+  subtitle_2 <- data[["subtitle_2"]]
+  subtitle_3 <- data[["subtitle_3"]]
+  subtitle_4 <- data[["subtitle_4"]]
+  headers <- data[["headers"]]
+  source <- data[["source"]]
+  footnotes <- data[["footnotes"]]
+  
+  # Styles for Excel outputs
+  
+  options("openxlsx.borderStyle" = "thin")
+  options("openxlsx.borderColour" = "black")
+  
+  titleStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 14)
+  subtitleStyle <- createStyle(fontName="Segoe UI", fontSize = 12)
+  headerStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 10, halign = "right", border = "bottom")
+  bodyStyle <- createStyle(halign = "right")
+  endrowStyle <- createStyle(border = "bottom", halign = "right")
+  sourceStyle <- createStyle(fontName="Segoe UI", fontSize = 10)
+  footnoteHeaderStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 11, textDecoration = "BOLD")
+  footnoteStyle <- createStyle(fontName="Segoe UI", fontSize = 11)
+  
+  # Calculate body dimensions
+  endcol <- length(df1) + 1
+  endrow1 <- dim(df1)[1] + 5
+  endrow2 <- ifelse(is.null(df2), endrow1, endrow1 + dim(df2)[1] + 7)
+  endrow3 <- ifelse(is.null(df3), endrow2, endrow2 + dim(df3)[1] + 7)
+  endrow4 <- ifelse(is.null(df4), endrow3, endrow3 + dim(df4)[1] + 7)
+
+  # Transform headers into a data frame so they can be written as data
+  headers <- ifelse(is.na(headers), NULL, as.data.frame(t(headers)))
+  
+  # If workbook already exists, open it and add sheet, otherwise create new workbook
+  if (file.exists(filename)) {
+    wb <- loadWorkbook(filename)
+    if (sheetname %in% getSheetNames(filename)){removeWorksheet(wb, sheetname)}} 
+  else {wb <- createWorkbook()}
+  
+  addWorksheet(wb, sheetname, gridLines = FALSE)
+  
+  # Table 1 - title row
+  writeData(wb, sheetname, title_1, startRow = 2, startCol = 2)
+  addStyle(wb, sheetname, rows = 2, cols = 2, style = titleStyle)
+  
+  # Table 1 - subtitle row
+  writeData(wb, sheetname, subtitle_1, startRow = 3, startCol = 2)
+  addStyle(wb, sheetname, rows = 3, cols = 2, style = subtitleStyle)
+  
+  # Header
+  writeData(wb, sheetname, headers, startRow = 5, startCol = 2, colNames = FALSE)
+  addStyle(wb, sheetname, rows = 5, cols = 2:endcol, style = headerStyle)
+  
+  # Data / body 1
+  writeData(wb, sheetname, df1, startRow = 6, startCol = 2, colNames = FALSE)
+  addStyle(wb, sheetname, rows = 6, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = 7:endrow1, cols = 2:endcol, style = bodyStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow1, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+  
+  # Data source
+  writeData(wb, sheetname, source, startRow = endrow1 + 1, startCol = 2)
+  addStyle(wb, sheetname, rows = endrow1 + 1, cols = 2, style = sourceStyle)
+
+  if (is.data.frame(df2)) {
+    
+    # Table 2 - title row
+    writeData(wb, sheetname, title_2, startRow = endrow1 + 4, startCol = 2)
+    addStyle(wb, sheetname, rows = endrow1 + 4, cols = 2, style = titleStyle)
+    
+    # Table 2 - subtitle row
+    writeData(wb, sheetname, subtitle_2, startRow = endrow1 + 5, startCol = 2)
+    addStyle(wb, sheetname, rows = endrow1 + 5, cols = 2, style = subtitleStyle)
+    
+    # Header
+    writeData(wb, sheetname, headers, startRow = endrow1 + 7, startCol = 2, colNames = FALSE)
+    addStyle(wb, sheetname, rows = endrow1 + 7, cols = 2:endcol, style = headerStyle)
+    
+    # Data / body 2
+    writeData(wb, sheetname, df2, startRow = endrow1 + 8, startCol = 2, colNames = FALSE)
+    addStyle(wb, sheetname, rows = endrow1 + 8, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+    addStyle(wb, sheetname, rows = endrow1 + 9:endrow2, cols = 2:endcol, style = bodyStyle, gridExpand = TRUE)
+    addStyle(wb, sheetname, rows = endrow2, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+    
+    # Data source
+    writeData(wb, sheetname, source, startRow = endrow2 + 1, startCol = 2)
+    addStyle(wb, sheetname, rows = endrow2 + 1, cols = 2, style = sourceStyle)
+    
+    if (is.data.frame(df3)) {
+      
+      # Table 3 - title row
+      writeData(wb, sheetname, title_3, startRow = endrow2 + 4, startCol = 2)
+      addStyle(wb, sheetname, rows = endrow2 + 4, cols = 2, style = titleStyle)
+      
+      # Table 3 - subtitle row
+      writeData(wb, sheetname, subtitle_3, startRow = endrow2 + 5, startCol = 2)
+      addStyle(wb, sheetname, rows = endrow2 + 5, cols = 2, style = subtitleStyle)
+      
+      # Header
+      writeData(wb, sheetname, headers, startRow = endrow2 + 7, startCol = 2, colNames = FALSE)
+      addStyle(wb, sheetname, rows = endrow2 + 7, cols = 2:endcol, style = headerStyle)
+      
+      # Data / body 3
+      writeData(wb, sheetname, df3, startRow = endrow2 + 8, startCol = 2, colNames = FALSE)
+      addStyle(wb, sheetname, rows = endrow2 + 8, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+      addStyle(wb, sheetname, rows = endrow2 + 9:endrow3, cols = 2:endcol, style = bodyStyle, gridExpand = TRUE)
+      addStyle(wb, sheetname, rows = endrow3, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+      
+      # Data source
+      writeData(wb, sheetname, source, startRow = endrow3 + 1, startCol = 2)
+      addStyle(wb, sheetname, rows = endrow3 + 1, cols = 2, style = sourceStyle)
+      
+      # Table 4 - title row
+      writeData(wb, sheetname, title_4, startRow = endrow3 + 4, startCol = 2)
+      addStyle(wb, sheetname, rows = endrow3 + 4, cols = 2, style = titleStyle)
+      
+      # Table 4 - subtitle row
+      writeData(wb, sheetname, subtitle_4, startRow = endrow3 + 5, startCol = 2)
+      addStyle(wb, sheetname, rows = endrow3 + 5, cols = 2, style = subtitleStyle)
+      
+      # Header
+      writeData(wb, sheetname, headers, startRow = endrow3 + 7, startCol = 2, colNames = FALSE)
+      addStyle(wb, sheetname, rows = endrow3 + 7, cols = 2:endcol, style = headerStyle)
+      
+      # Data / body 4
+      writeData(wb, sheetname, df4, startRow = endrow3 + 8, startCol = 2, colNames = FALSE)
+      addStyle(wb, sheetname, rows = endrow3 + 8, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+      addStyle(wb, sheetname, rows = endrow3 + 9:endrow4, cols = 2:endcol, style = bodyStyle, gridExpand = TRUE)
+      addStyle(wb, sheetname, rows = endrow4, cols = 2:endcol, style = endrowStyle, gridExpand = TRUE)
+      
+      # Data source
+      writeData(wb, sheetname, source, startRow = endrow4 + 1, startCol = 2)
+      addStyle(wb, sheetname, rows = endrow4 + 1, cols = 2, style = sourceStyle)
+      
+    }
+    
+  }
+  
+  # Footnotes
+  if (is.vector(footnotes)){
+    writeData(wb, sheetname, "Notes", startRow = endrow4 + 3, startCol = 2)
+    addStyle(wb, sheetname, rows = endrow4 + 3, cols = 2, style = footnoteHeaderStyle)
+    writeData(wb, sheetname, footnotes, startRow = endrow4 + 4, startCol = 2)
+    addStyle(wb, sheetname, rows = (endrow4 + 4):(endrow4 + 4 + length(footnotes)), cols = 2, style = footnoteStyle)
+  
+    } else {}
+  
+  setColWidths(wb, sheetname, cols = 2, widths = 15)
   setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto")
   saveWorkbook(wb, filename, overwrite = TRUE)
 }
