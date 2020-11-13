@@ -1,3 +1,7 @@
+# About
+
+This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" publication, the accompanying associated and supplementary tables, and the infographic child poverty update.
+
 # Workflow
 
 ### New data arrives
