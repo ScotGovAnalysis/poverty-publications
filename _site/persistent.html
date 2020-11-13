@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Persistent Poverty in Scotland 2010-18</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Poverty and Income Inequality in Scotland</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="persistent.html">Persistent Poverty</a>
+</li>
+<li>
+  <a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf">Child poverty update</a>
+</li>
+<li>
+  <a href="download.html">Downloads</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Reports
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="index.html">Poverty and Income Inequality in Scotland 2016-19</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/">Poverty and Income Inequality in Scotland 2015-18</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/">Poverty and Income Inequality in Scotland 2014-17</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/">Poverty and Income Inequality in Scotland 2015/16</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/">Poverty and Income Inequality in Scotland 2014/15</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/">Poverty and Income Inequality in Scotland 2013/14</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/">Poverty and Income Inequality in Scotland 2012/13</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/">Poverty and Income Inequality in Scotland 2011/12</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/">Poverty and Income Inequality in Scotland 2010/11</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="persistent.html">Persistent poverty in Scotland 2010-2018</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/">Persistent poverty in Scotland 2010-2017</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/">Persistent poverty in Scotland 2010-2016</a>
+    </li>
+    <li>
+      <a href="https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/">Persistent poverty in Scotland 2010-2015</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Persistent Poverty in Scotland 2010-18</h1>
+<h3 class="subtitle"><em>An Official Statistics publication for Scotland</em></h3>
+<h4 class="date"><em>Published on 26 March 2020</em></h4>
+
+</div>
+
+
+<!-- Include logo at the top of the document -->
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+  });
+</script>
+<p>This publication presents estimates of the proportion of people, children, working-age adults and pensioners living in persistent poverty in Scotland and in the other countries in the UK. The estimates are used to monitor progress in reducing poverty.</p>
+<div id="key-points" class="section level1">
+<h1>Key points</h1>
+<p>The statistics in this report provide information on persistent poverty in Scotland. They are taken from the Understanding Society survey and so, as is true for all statistics derived from survey data, the statistics are subject to a degree of error. This means that implied changes over the years and between UK countries may not be significant and instead be within a given error range. More information can be found in the Background Notes and Methodology section.</p>
+<p>Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.</p>
+<div id="all-individuals" class="section level3">
+<h3>All individuals</h3>
+<p>Between 2014 and 2018, 13% of people in Scotland were in persistent poverty after housing costs. This compares to 12% in 2013-2017.</p>
+</div>
+<div id="children" class="section level3">
+<h3>Children</h3>
+<p>Between 2014 and 2018, 17% of children in Scotland were in persistent poverty after housing costs. This compares to 15% in 2013-2017.</p>
+<p>Children have consistently had a higher risk of living in persistent poverty after housing costs than working-age adults and pensioners in Scotland.</p>
+</div>
+<div id="working-age-adults" class="section level3">
+<h3>Working-age adults</h3>
+<p>Between 2014 and 2018, 11% of working-age adults in Scotland were in persistent poverty after housing costs. This compares to 10% in 2013-2017.</p>
+</div>
+<div id="pensioners" class="section level3">
+<h3>Pensioners</h3>
+<p>Between 2014 and 2018, 12% of pensioners in Scotland were in persistent poverty after housing costs. This compares to 11% in 2013-2017.</p>
+</div>
+<div id="scotland-compared-to-other-uk-countries" class="section level3">
+<h3>Scotland compared to other UK countries</h3>
+<p>When looking at the overall population, Scotland had similar levels of persistent poverty after housing costs to England and Wales (all 13%), and slightly higher rates than Northern Ireland (11%).</p>
+<p>The persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). This has been consistent over time.</p>
+<p>Persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%)</p>
+</div>
+</div>
+<div id="what-you-need-to-know" class="section level1">
+<h1>What you need to know</h1>
+<p>This publication presents estimates of the proportion of people, children, working-age adults and pensioners living in persistent poverty in Scotland and in the other countries in the UK. The estimates are used to monitor progress in reducing poverty.</p>
+<p>Poverty can be measured in a number of different ways, each of which can tell us something different about poverty. One of the most common measures is relative (income) poverty which identifies people living in households with an equivalised income below 60% of the UK median household income. It therefore measures whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole. Statistics on relative poverty in Scotland can be found on the Scottish Government website: www.gov.scot/collections/poverty-and-income-inequality-statistics/</p>
+<p><strong>Persistent poverty identifies individuals who live in relative poverty for three or more of the last four years.</strong> It therefore identifies people who have been living in poverty for a significant period of time, which is more damaging than brief periods spent with a low income. The impacts can affect an individual throughout their lifetime.</p>
+<p>This publication presents persistent poverty estimates for five overlapping periods from 2010-14 to 2014-2018. More information can be found in Annex 2.</p>
+<div id="official-statistics-status" class="section level3">
+<h3>Official Statistics status</h3>
+<p>Previous releases of this publication series had the label “Experimental Official Statistics to signal that the methodology was still under development. As this has now been largely concluded, the “experimental” label is no longer required, and the current release is published as an “Official Statistics” publication.</p>
+</div>
+<div id="background-notes-and-methodology" class="section level3">
+<h3>Background Notes and Methodology</h3>
+<p>The estimates in this report come from the Understanding Society survey, a longitudinal survey with longitudinal information about just over 2,500 individuals in Scotland in 2017-2018. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Information on the method used to calculate persistent poverty estimates can be found in Annex 2, and in more detail here: <a href="https://www.gov.uk/government/collections/income-dynamics-statistics" class="uri">https://www.gov.uk/government/collections/income-dynamics-statistics</a></p>
+<p>Surveys gather information from a sample rather than from the whole population. Results from sample surveys are always estimates, not precise figures. This means that they are subject to a margin of error which can affect how changes in the numbers should be interpreted, especially in the short-term. Year-on-year movements should be treated with caution. We are unable to calculate sampling uncertainties for these statistics, but please note that small changes are unlikely to be statistically significant.</p>
+</div>
+<div id="revisions-to-the-statistics" class="section level3">
+<h3>Revisions to the Statistics</h3>
+<p>Work is ongoing to improve the income estimates and impute missing data, and therefore the estimates presented here will continue to be subject to routine revisions, as with figures based on longitudinal data in general.</p>
+<p><strong>The statistics presented below are subject to a degree of error. This means that implied changes over the years and between countries may not be significant and instead be within a given error range. More information can be found in the Background Notes and Methodology section.</strong></p>
+</div>
+</div>
+<div id="persistent-poverty" class="section level1">
+<h1>Persistent poverty</h1>
+<p>Someone is in persistent poverty if they have been in poverty for three or more of the last four years. This measure is important because the longer someone is in poverty, the more it impacts on their health, well-being, and overall life chances.</p>
+<p>Poverty estimates in this publication are derived by looking at household income before housing costs are paid for (BHC) and after housing costs are paid for (AHC).</p>
+<div id="chart-1-proportion-of-people-in-persistent-poverty-in-scotland-ahc-by-age-group" class="section level5">
+<h5>Chart 1: Proportion of people in persistent poverty in Scotland AHC by age group</h5>
+</div>
+<div id="chart-2-proportion-of-people-in-persistent-poverty-in-scotland-bhc-by-age-group" class="section level5">
+<h5>Chart 2: Proportion of people in persistent poverty in Scotland BHC by age group</h5>
+</div>
+<div id="all-individuals-1" class="section level2">
+<h2>All individuals</h2>
+<p>Between 2014 and 2018, 13% of people in Scotland were in persistent poverty after housing costs, compared to 12% in the previous period.</p>
+<p>Before housing costs, 9% of all people in Scotland were in persistent poverty, unchanged from the previous period.</p>
+</div>
+<div id="children-1" class="section level2">
+<h2>Children</h2>
+<p>Persistent poverty rates were higher for children.</p>
+<p>Children have consistently had the highest risk of living in persistent poverty after housing costs (17% in 2014-2018) when comparing with working-age adults (11%) and pensioners (12%). In the previous period, 15% of children were in persistent poverty after housing costs.</p>
+<p>Before housing costs, 10% of children were in persistent poverty, unchanged compared to the previous period.</p>
+</div>
+<div id="working-age-adults-1" class="section level2">
+<h2>Working-age adults</h2>
+<p>Between 2014 and 2018, 11% of working-age adults were in persistent poverty after housing costs, compared to 10% in the previous period.</p>
+<p>Before housing costs, 8% of working-age adults were in persistent poverty, compared to 7% in the previous period.</p>
+</div>
+<div id="pensioners-1" class="section level2">
+<h2>Pensioners</h2>
+<p>Between 2014 and 2018, 12% of pensioners were in persistent poverty after housing costs, compared to 11% in the previous period.</p>
+<p>Before housing costs, the proportion of pensioners in persistent poverty was 13%, compared to 11% in the previous period.</p>
+<p>For most groups of the population, the persistent poverty rate after housing costs is greater or the same than that before housing costs. Often, the opposite is true, or the rates are very similar, for pensioners. The majority of pensioners own their own home and so have lower housing costs. Examining pensioners’ incomes after deducting housing costs allows for more meaningful comparisons of income between working-age people and pensioners, and of the pensioner population over time.</p>
+</div>
+</div>
+<div id="other-uk-countries" class="section level1">
+<h1>Other UK countries</h1>
+<div id="all-individuals-2" class="section level2">
+<h2>All individuals</h2>
+<p>When looking at the overall population, Scotland had levels of persistent poverty after housing costs that were similar to England and Wales and slightly higher than in Northern Ireland.</p>
+<p>Between 2014 and 2018, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%.</p>
+<p>Before housing costs information is available in Annex 1.</p>
+<div id="chart-3-proportion-of-people-in-persistent-poverty-ahc-by-uk-country" class="section level5">
+<h5>Chart 3: Proportion of people in persistent poverty AHC by UK country</h5>
+</div>
+</div>
+<div id="children-2" class="section level2">
+<h2>Children</h2>
+<p>Between 2014 and 2018, the persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%).</p>
+<p>In previous periods, persistent child poverty levels in Scotland and Northern Ireland had been similar, and consistently below the English and Welsh rates.</p>
+<p>Before housing costs information is available in Annex 1.</p>
+<div id="chart-4-proportion-of-children-in-persistent-poverty-ahc-by-uk-country" class="section level5">
+<h5>Chart 4: Proportion of children in persistent poverty AHC by UK country</h5>
+</div>
+</div>
+<div id="working-age-adults-2" class="section level2">
+<h2>Working-age adults</h2>
+<p>Between 2014 and 2018, persistent poverty rates after housing costs for working-age adults in Scotland were the same as those in Northern Ireland (11%) and slightly below those in England and Wales (both 12%).</p>
+<p>Before housing costs information is available in Annex 1.</p>
+<div id="chart-5-proportion-of-working-age-adults-in-persistent-poverty-ahc-by-uk-country" class="section level5">
+<h5>Chart 5: Proportion of working-age adults in persistent poverty AHC by UK country</h5>
+</div>
+</div>
+<div id="pensioners-2" class="section level2">
+<h2>Pensioners</h2>
+<p>Between 2014 and 2018, persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).</p>
+<p>Before housing costs information is available in Annex 1.</p>
+<div id="chart-6-proportion-of-pensioners-in-persistent-poverty-ahc-by-uk-country" class="section level6">
+<h6>Chart 6: Proportion of pensioners in persistent poverty AHC by UK country</h6>
+</div>
+</div>
+</div>
+<div id="tables" class="section level1">
+<h1>Tables</h1>
+<div id="table-1-proportion-of-people-in-persistent-poverty-in-scotland-by-age-group" class="section level5">
+<h5>Table 1: Proportion of people in persistent poverty in Scotland by age group</h5>
+<pre><code>% of people (BHC = before housing costs, AHC = after housing costs)</code></pre>
+<p>All individuals Children Working-age adults Pensioners BHC AHC BHC AHC BHC AHC BHC AHC 2010-2014 8 11 11 15 6 9 10 9 2011-2015 8 10 10 15 6 9 10 9 2012-2016 8 11 10 14 7 9 10 11 2013-2017 9 12 10 15 7 10 11 11 2014-2018 9 13 10 17 8 11 13 12 Source: Understanding Society, 2010-2011 to 2017-2018</p>
+</div>
+<div id="table-2-proportion-of-people-in-persistent-poverty-by-country" class="section level5">
+<h5>Table 2: Proportion of people in persistent poverty by country</h5>
+<pre><code>    % of people (BHC = before housing costs, AHC = after housing costs)</code></pre>
+<p>BHC AHC Scotland England Northern Ireland Wales UK Scotland England Northern Ireland Wales UK 2010-2014 8 9 9 10 9 11 14 11 13 13 2011-2015 8 9 9 10 9 10 13 11 13 13 2012-2016 8 9 9 10 9 11 13 11 13 13 2013-2017 9 9 9 11 9 12 14 10 13 13 2014-2018 9 9 10 10 9 13 13 11 13 13 Source: Understanding Society, 2010-2011 to 2017-2018</p>
+</div>
+<div id="table-3-proportion-of-children-in-persistent-poverty-by-country" class="section level5">
+<h5>Table 3: Proportion of children in persistent poverty by country</h5>
+<pre><code>    % of people (BHC = before housing costs, AHC = after housing costs)</code></pre>
+<p>BHC AHC Scotland England Northern Ireland Wales UK Scotland England Northern Ireland Wales UK 2010-2014 11 11 11 13 11 15 19 15 21 19 2011-2015 10 11 11 14 11 15 19 16 21 19 2012-2016 10 11 11 13 11 14 19 16 21 19 2013-2017 10 12 10 16 12 15 20 14 21 20 2014-2018 10 12 12 14 12 17 20 17 19 20 Source: Understanding Society, 2010-2011 to 2017-2018</p>
+</div>
+<div id="table-4-proportion-of-working-age-adults-in-persistent-poverty-by-country" class="section level5">
+<h5>Table 4: Proportion of working-age adults in persistent poverty by country</h5>
+<pre><code>    % of people (BHC = before housing costs, AHC = after housing costs)</code></pre>
+<p>BHC AHC Scotland England Northern Ireland Wales UK Scotland England Northern Ireland Wales UK 2010-2014 6 7 7 9 7 9 12 10 12 12 2011-2015 6 7 8 9 7 9 12 10 12 11 2012-2016 7 7 7 8 7 9 12 9 12 12 2013-2017 7 7 8 8 7 10 12 10 11 12 2014-2018 8 7 9 8 7 11 11 11 12 11 Source: Understanding Society, 2010-2011 to 2017-2018</p>
+</div>
+<div id="table-5-proportion-of-pensioners-in-persistent-poverty-by-country" class="section level5">
+<h5>Table 5: Proportion of pensioners in persistent poverty by country</h5>
+<pre><code>    % of people (BHC = before housing costs, AHC = after housing costs)</code></pre>
+<p>BHC AHC Scotland England Northern Ireland Wales UK Scotland England Northern Ireland Wales UK 2010-2014 10 12 13 10 12 9 11 9 8 10 2011-2015 10 12 12 10 12 9 11 8 9 11 2012-2016 10 11 10 11 11 11 10 8 9 10 2013-2017 11 12 9 12 11 11 11 6 10 11 2014-2018 13 11 9 12 11 12 11 5 11 11 Source: Understanding Society, 2010-2011 to 2017-2018</p>
+</div>
+</div>
+<div id="methodology" class="section level1">
+<h1>Methodology</h1>
+<p>This section provides key information on the methodology used to produce persistent poverty statistics. A more detailed methodological paper is available from the Department for Work and Pensions’ (DWP) website: www.gov.uk/government/collections/income-dynamics-statistics</p>
+<div id="data-sources" class="section level2">
+<h2>Data sources</h2>
+<p>The figures in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.</p>
+</div>
+<div id="comparison-with-other-sources" class="section level2">
+<h2>Comparison with other sources</h2>
+<p>Poverty estimates presented in the National Statistics Poverty and Income Inequality in Scotland publication come from a different source –DWP’s Households Below Average Income dataset which is produced from the Family Resource Survey (FRS). This is the best source of household income data available in the UK. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.</p>
+<p>The FRS and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.</p>
+</div>
+<div id="housing-costs" class="section level2">
+<h2>Housing costs</h2>
+<p>This publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is principally to take into account variations in housing costs that themselves do not correspond to comparable variations in the quality of housing.</p>
+</div>
+<div id="time-periods" class="section level2">
+<h2>Time periods</h2>
+<p>This publication presents persistent poverty rates for four overlapping periods:</p>
+<p>2010-2011 to 2013-2014 (referred to as 2010-2014) 2011-2012 to 2014-2015 (referred to as 2011-2015) 2012-2013 to 2015-2016 (referred to as 2012-2016) 2013-2014 to 2016-2017 (referred to as 2013-2017) 2014-2015 to 2017-2018 (referred to as 2014-2017)</p>
+<p>Persistent poverty statistics are based on tracking an individual over a four-year period. Each set of results are therefore based on four waves of the Understanding Society survey. This publication presents persistent poverty statistics based on waves 2-5, waves 3-6, waves 4-7, waves 5-8, and waves 6-9. Each wave of interviews is conducted over a two-year period as shown in the table below.</p>
+<p>An individual is in persistent poverty if they are in relative poverty for at least three years in any four-year period. This means that the same individual can be in persistent poverty in all, any or none of the time periods covered in this publication.</p>
+<p>Table</p>
+<p>There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.</p>
+</div>
+<div id="population-coverage" class="section level2">
+<h2>Population coverage</h2>
+<p>Understanding Society is a survey of private households (although it does collect information from households about their children if a child has moved into an institution). This means that people who were in residential institutions, such as nursing homes, barracks, prisons or university halls of residence at the start of the survey are excluded from the scope of the analysis presented here.</p>
+</div>
+<div id="reliability-of-estimates" class="section level2">
+<h2>Reliability of estimates</h2>
+<p>The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations.</p>
+<p>As with most longitudinal surveys, attrition reduces the Understanding Society sample size over time. As well as attrition reducing the sample size, we have missing data for many of the variables we are using in the analysis. We exclude individuals with missing data from relevant analysis, but include individuals whenever we can. Weights have been applied which adjust for unequal selection probabilities, differential non-response, and potential sampling error.</p>
+<p>Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.</p>
+</div>
+<div id="age-groups" class="section level2">
+<h2>Age groups</h2>
+<p>Whether an individual is counted as a child, working-age adult or pensioner is determined by their age during the first survey period. So, for example, an individual aged 15 in 2011 and aged 19 in 2015 will be counted as a child for the 2011-15 period.</p>
+</div>
+</div>
+<div id="definitions" class="section level1">
+<h1>Definitions</h1>
+<div id="measures-of-income" class="section level2">
+<h2>Measures of income</h2>
+<p>The income used to determine persistent poverty in this publication includes:</p>
+<ul>
+<li>Labour income – usual pay and self-employment earnings. Includes income from second jobs.</li>
+<li>Miscellaneous income – educational grants, payments from family members and any other regular payment</li>
+<li>Private benefit income – includes trade union/friendly society payments, maintenance or alimony and sickness or accident insurance</li>
+<li>Investment income – private pensions/annuities, rents received, income from savings and investments</li>
+<li>Pension income – occupational pensions income</li>
+<li>State support – tax credits and all state benefits including State Pension</li>
+</ul>
+<p>Income is net of the following items:</p>
+<ul>
+<li>income tax payments;</li>
+<li>National Insurance contributions;</li>
+<li>domestic rates / council tax;</li>
+</ul>
+<p>Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation).</p>
+<p>Income after housing costs (AHC) is derived by deducting a measure of housing costs derived from mortgage and rents from the above income measure.</p>
+</div>
+<div id="equivalisation" class="section level2">
+<h2>Equivalisation</h2>
+<p>Equivalisation is the process by which household income is adjusted to make it comparable across households of different size and composition. This reflects the fact that a bigger household requires more money than a smaller one to achieve the same standard of living. Further information on equivalisation can be found on the Scottish Government website: www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/</p>
+</div>
+</div>
+<div id="find-more-information" class="section level1">
+<h1>Find more information</h1>
+<div id="further-analysis" class="section level3">
+<h3>Further analysis</h3>
+<p>The headline poverty and income inequality statistics can be found in the latest Poverty and Income Inequality in Scotland publication. The link to this and further analysis published throughout the year are available at: www.gov.scot/collections/poverty-and-income-inequality-statistics/</p>
+<p>Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please email <a href="mailto:social-justice-analysis@gov.scot">social-justice-analysis@gov.scot</a>.</p>
+</div>
+<div id="other-scottish-government-websites" class="section level3">
+<h3>Other Scottish Government websites</h3>
+<p>For further information on all Scottish Government statistics: www.gov.scot/topics/statistics/</p>
+</div>
+<div id="scottish-government-approach-to-tackling-poverty-and-income-inequality" class="section level3">
+<h3>Scottish Government approach to tackling poverty and income inequality</h3>
+<p>www.gov.scot/policies/poverty-and-social-justice/</p>
+</div>
+<div id="local-authority-level-analysis-and-other-geographies-in-scotland" class="section level3">
+<h3>Local Authority level analysis and other geographies in Scotland</h3>
+<p>The persistent poverty figures presented here are from a sample survey which limits the analysis possible at smaller geographical areas. Similarly, the main poverty statistics for Scotland published in Poverty and Income Inequality in Scotland are only available at Scotland level. A few analyses are published for areas below Scotland level (e.g. poverty in rural and urban areas); however, it is not possible to produce reliable estimates at Local Authority level from this source.</p>
+<p>Information on poverty at Local Authority level is available from alternative sources although none of these include persistent poverty. These can be found at: www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics</p>
+</div>
+<div id="uk-government-websites" class="section level3">
+<h3>UK Government websites</h3>
+<p>Income dynamics publication (contains figures comparable with those found in this publication): www.gov.uk/government/statistics/income-dynamics-experimental</p>
+<p>Households Below Average Income, Department for Work and Pensions (methodology and UK estimates): www.gov.uk/government/collections/households-below-average-income-hbai–2</p>
+</div>
+</div>
+<div id="official-statistics" class="section level1">
+<h1>Official Statistics</h1>
+<p>Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.</p>
+<div id="correspondence-and-enquiries" class="section level3">
+<h3>Correspondence and enquiries</h3>
+<p>For enquiries about this publication please contact:</p>
+<p>Maike Waldmann Communities Analysis Division,</p>
+<p>Telephone: 0131 244 5851 e-mail: <a href="mailto:social-justice-analysis@gov.scot">social-justice-analysis@gov.scot</a></p>
+<p>For general enquiries about Scottish Government statistics please contact:</p>
+<p>Office of the Chief Statistician, Telephone: 0131 244 0442, e-mail: <a href="mailto:statistics.enquiries@gov.scot">statistics.enquiries@gov.scot</a></p>
+</div>
+<div id="how-to-access-background-or-source-data" class="section level3">
+<h3>How to access background or source data</h3>
+<p>The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis as Scottish Government is not the data controller.</p>
+</div>
+<div id="complaints-and-suggestions" class="section level3">
+<h3>Complaints and suggestions</h3>
+<p>If you are not satisfied with our service or have any comments or suggestions, please write to the Chief Statistician, Area GR, St Andrews House, Edinburgh, EH1 3DG, Telephone: (0131) 244 0302, e-mail <a href="mailto:statistics.enquiries@gov.scot">statistics.enquiries@gov.scot</a>.</p>
+<p>If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at www.gov.scot/scotstat.</p>
+<p>Details of forthcoming publications can be found at www.gov.scot/statistics.</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>
