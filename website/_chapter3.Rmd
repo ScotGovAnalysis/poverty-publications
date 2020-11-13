@@ -1,0 +1,175 @@
+# Poverty
+
+## All individuals
+
+#### Relative poverty rate for all individuals no longer rising
+
+##### Figure 1 - Proportion of people in relative poverty, Scotland
+```{r}
+knitr::include_graphics("01_relpovpp.png")
+```
+
+It is estimated that 19% of Scotland's population (1.02 million people each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, 17% of the population (900,000 people) were living in poverty in 2016-19.
+
+Relative poverty is a measure of whether the income of the poorest households are keeping pace with middle income households across the UK.
+
+The proportion of people in relative poverty after housing costs had been falling slightly between the late nineties and the lowest point in this time series in 2009-12. After that, it started to rise again up until now, where the rise appears to have stopped. Before housing costs poverty looks similar, with the all-time low slightly later, in 2011-14.
+
+#### Absolute poverty rate for all individuals stable
+
+##### Figure 2 - Proportion of people in absolute poverty, Scotland
+```{r}
+knitr::include_graphics("02_abspovpp.png")
+```
+
+It is estimated that 17% of Scotland's population (910,000 people each year) were living in absolute poverty after housing costs in 2016-19. After a long decline since the beginning of this time series in the mid-nineties, absolute poverty rates have stagnated since 2006-09.
+
+Before housing costs, 14% of Scotland's population (770,000 people each year) were in absolute poverty. The trend is similar to the after housing costs measure, although the downward trend started to stagnate a few years later.
+
+The gap between the before and after housing costs measure had widened in 2008-11, but has remained steady since.
+
+Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the relative poverty threshold in 2010/11.
+
+## Children
+
+#### Relative poverty rate for children no longer rising
+
+##### Figure 3 - Proportion of children in relative poverty, Scotland
+```{r}
+knitr::include_graphics("03_relpovch.png")
+```
+
+It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
+
+After a long fall between 1999-02 and 2010-13, which halted briefly just before the recession, child poverty rates had been rising again but did not rise in the latest periods.
+
+The Child Poverty (Scotland) Act 2017 requires us to report annually on a number of child poverty measures. The latest single-year estimates can be found in the Child Poverty Update section below.
+
+#### Absolute poverty rate for children stable
+
+##### Figure 4 - Proportion of children in absolute poverty, Scotland
+```{r}
+knitr::include_graphics("04_abspovch.png")
+```
+
+Absolute child poverty after housing costs affected 21% (210,000 children each year). Before housing costs, absolute child poverty was at 17% (160,000 children each year).
+
+Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the recession. The decrease of the after housing costs rate then slowed down. The before housing costs measure continued to decrease until 2013-16 and has been largely flat since. As a result, the gap between absolute child poverty before and after housing costs widened in recent years.
+
+In this publication, 'child' refers to a dependent child. This is explained in Annex B. Definitions.
+
+#### Children in combined material deprivation and low income broadly stable
+
+##### Figure 5 - Proportion of children in combined low income and material deprivation, Scotland
+```{r}
+knitr::include_graphics("05_matdepch.png")
+```
+
+It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in 2016-19. Before housing costs, this was 11% of children (110,000 children).
+
+Combined low income and child material deprivation is an additional way of measuring living standards and refers to the inability of households to afford basic goods and activities that are seen as necessities in society.
+
+More detail on this can be found in the Annex B. Definitions.
+
+Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.
+
+#### In-work poverty for children no longer rising
+
+##### Figure 6 - Proportion of children in relative poverty who live in working households, Scotland
+```{r}
+knitr::include_graphics("06_workpovch.png")
+```
+
+While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
+
+It is estimated that in 2016-19, 65% of children in relative poverty after housing costs (150,000 children each year) were living in working households. Before housing costs, 64% of children in poverty (130,000 children) were living in working households.
+
+This data suggests that after a steady and steep increase of in-work poverty since 2007-10, in-work poverty is now stable at a high level.
+
+The terms 'working' and 'in-work poverty' here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.
+
+## Working-age adults
+
+#### Relative poverty rate for working-age adults stable
+
+##### Figure 7 - Proportion of working-age adults in relative poverty, Scotland
+```{r}
+knitr::include_graphics("07_relpovwa.png")
+```
+
+Relative poverty for working-age adults has been broadly stable since reporting began. Relative poverty in 2016-19 was estimated to be 19% after housing costs, and 16% before housing costs.
+
+In 2016-19, there were 640,000 working-age adults in poverty after housing costs, compared to 530,000 before housing costs.
+
+Working-age adults are defined as all adults up to the state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
+
+#### Absolute poverty rate for working-age adults stable
+
+##### Figure 8 - Proportion of working-age adults in absolute poverty, Scotland
+```{r}
+knitr::include_graphics("08_abspovwa.png")
+```
+
+Absolute poverty amongst working-age adults remained broadly stable during the last fifteen years. In 2016-19, 17% of working-age adults were in absolute poverty after housing costs, and 14% before housing costs.
+
+This means that in 2016-19, there were 580,000 working-age adults each year in absolute poverty after housing costs, compared to 460,000 before housing costs.
+
+Working-age adults are considered to be in poverty when they live in a household which is in poverty.
+
+#### In-work poverty for working-age adults now stable
+
+##### Figure 9 - Proportion of working-age adults in relative poverty who live in a working household, Scotland
+```{r}
+knitr::include_graphics("09_workpovwa.png")
+```
+
+In 2016-19, 60% of working-age adults in relative poverty after housing costs as well as before housing costs were living in working households. This represents 380,000 working-age adults in poverty after housing costs, and 310,000 working-age adults before housing costs.
+
+In-work poverty for working-age adults continuously increased since 2011-14, and in the most recent period, it continued to be at its highest since reporting began.
+
+The terms 'working' and 'in-work poverty' here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.
+
+## Pensioners
+
+#### Relative poverty rate for pensioners stable
+
+##### Figure 10 - Proportion of pensioners in relative poverty, Scotland
+```{r}
+knitr::include_graphics("10_relpovpn.png")
+```
+
+Relative poverty after housing costs for pensioners was 15% in 2016-19 (150,000 pensioners each year). Before housing costs, 18% of pensioners (180,000 pensioners) were in relative poverty.
+
+Relative pensioner poverty showed a long decline until 2008-11, was then largely stable between until 2013-16 before it started to rise again in 2013-16 (before housing costs) and 2014-17 (after housing costs). In the latest period, relative pensioner poverty may have stopped rising.
+
+The majority of pensioners own their home. Examining pensioners' income after deducting housing costs allows for more meaningful comparisons of income between working-age adults and pensioners, or for pensioners over time.
+
+#### Absolute poverty rate for pensioners stable
+
+##### Figure 11 - Proportion of pensioners in absolute poverty, Scotland
+```{r}
+knitr::include_graphics("11_abspovpn.png")
+```
+
+Absolute poverty after housing costs for pensioners was 12% (130,000 pensioners each year) in 2016-19. Before housing costs, it was 14% (150,000 pensioners).
+
+Absolute poverty has remained broadly stable since 2008-11 following a continuous decrease since reporting began.
+
+Pensioners are defined as all those adults above state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
+
+#### Pensioners in material deprivation broadly stable
+
+##### Figure 12 - Proportion of pensioners in material deprivation
+```{r}
+knitr::include_graphics("12_matdeppn.png")
+```
+
+In 2016-19, 5% of pensioners (50,000 pensioners each year) were in material deprivation.
+
+This data has been collected since 2009.
+
+Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure, in that is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation prevent access to goods and services, rather than solely low income.
+
+More information about pensioner material deprivation can be found in the Annex B. Definitions.
+
+Pensioner material deprivation is included for pensioners aged 65 or over.

@@ -1,0 +1,55 @@
+---
+title: "Persistent Poverty in Scotland 2010-18"
+subtitle: "An Official Statistics publication for Scotland"
+date: "Published on 26 March 2020"
+
+output:
+  html_document:
+    self_contained: yes
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+---
+  
+<!-- Include logo at the top of the document -->
+  
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+  });
+</script>
+  
+  
+  ```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = TRUE)
+```
+
+```{r child = "_pers1.Rmd"}
+```
+
+```{r child = "_pers2.Rmd"}
+```
+
+```{r child = "_pers3.Rmd"}
+```
+
+```{r child = "_pers4.Rmd"}
+```
+
+```{r child = "_pers5.Rmd"}
+```
+
+```{r child = "_pers6.Rmd"}
+```
+
+```{r child = "_pers7.Rmd"}
+```
+
+```{r child = "_pers8.Rmd"}
+```
+
+```{r child = "_pers9.Rmd"}
+```

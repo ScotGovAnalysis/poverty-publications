@@ -1,0 +1,56 @@
+---
+title: "Poverty and Income Inequality in Scotland 2016-19"
+subtitle: "A National Statistics publication for Scotland"
+date: "Published on 26 March 2020"
+
+output:
+  html_document:
+    self_contained: yes
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+---
+  
+<!-- Include logo at the top of the document -->
+  
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+  });
+</script>
+  
+  
+  ```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = TRUE)
+```
+
+```{r child = "_chapter1.Rmd"}
+```
+
+```{r child = "_chapter2.Rmd"}
+```
+
+```{r child = "_chapter3.Rmd"}
+```
+
+```{r child = "_chapter4.Rmd"}
+```
+
+```{r child = "_chapter5.Rmd"}
+```
+
+```{r child = "_chapter6.Rmd"}
+```
+
+```{r child = "_chapter7.Rmd"}
+```
+
+```{r child = "_chapter8.Rmd"}
+```
+
+```{r child = "_chapter9.Rmd"}
+```
+

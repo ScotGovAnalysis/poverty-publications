@@ -1,0 +1,49 @@
+---
+title: "Official and National Statistics"
+---
+
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+  });
+</script>
+
+
+Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
+
+Statistics assessed, or subject to assessment, by the UK Statistics Authority carry the National Statistics label, a stamp of assurance that the statistics have been produced and explained to high standards and that they serve the public good.
+
+The designation of these statistics as National Statistics was confirmed in May 2012 following a compliance check by the Office for Statistics Regulation.
+
+### Correspondence and enquiries
+
+For enquiries about this publication please contact:
+
+Maike Waldmann
+Communities Analysis Division
+Telephone: 0131 244 5851
+e-mail: social-justice-analysis@gov.scot
+
+For general enquiries about Scottish Government statistics please contact:
+
+Office of the Chief Statistician
+Telephone: 0131 244 0442
+e-mail: statistics.enquiries@gov.scot
+
+### How to access background or source data
+
+The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the UK Department for Work and Pensions) are making the data available through the UK Data Service: www.ukdataservice.ac.uk/
+
+### Complaints and suggestions
+
+If you are not satisfied with our service or have any comments or suggestions, please write to the Chief Statistician, 2W, St Andrews House, Edinburgh, EH1 3DG, Telephone: (0131) 244 0302, e-mail statistics.enquiries@gov.scot.
+
+If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at www.gov.scot/scotstat
+
+Details of forthcoming publications can be found at www.gov.scot/publications/official-statistics-forthcoming-publications/
+
+### Crown Copyright
+
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the Open Government Licence. See: www.nationalarchives.gov.uk/doc/open-government-licence/
+

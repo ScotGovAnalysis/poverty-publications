@@ -1,0 +1,94 @@
+# Income
+
+## Household income trends
+
+#### Median weekly household income growing
+
+##### Figure 20 - Median weekly household income in 2018/19 prices, Scotland
+```{r}
+knitr::include_graphics("20_medians.png")
+```
+
+In 2016-19, median household income before housing costs was £517 per week. Median income has increased slowly but steadily since the recovery after the last recession, and has reached its highest level since reporting began.
+
+Following the same trend, median income after housing costs was £464 per week in 2016-19, also at its highest level since reporting began.
+
+Median incomes rose for all age groups: children, working-age adults and pensioners, but very little for working-age adults. This data can be found in the associated tables.
+
+All incomes are quoted in 2018/19 prices.
+
+#### Lower incomes increasing more than higher incomes
+
+##### Figure 21 - Weekly household income before housing costs at each decile point in 2018/19 prices, Scotland
+```{r}
+knitr::include_graphics("21_deciles.png")
+```
+
+This chart shows how weekly equivalised incomes before housing costs have changed from 2013-16 to 2016-19 across the different income deciles. The bottom five decile points saw small increases compared to the previous period, whereas the top three decile points saw small decreases.
+
+Over the last four years shown in the chart, middle income households saw the largest relative and absolute increases in their household income.
+
+After housing costs data is available in the associated tables.
+
+Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the income distribution.
+
+## Income distribution and poverty thresholds
+
+#### Distribution of weekly household income
+
+##### Figure 22 - Equivalised weekly household income distribution before housing costs, Scotland 2016-19
+```{r}
+knitr::include_graphics("22_distribution.png")
+```
+
+This chart shows the distribution of weekly income before housing costs across Scotland in 2016-19 with relative poverty threshold, UK median income, and income decile groups. Incomes of £0 and below and those above £1,200 are excluded from this chart.
+
+Many people have household incomes near the poverty threshold. This means that small movements in the overall distribution can sometimes lead to sizeable movements in poverty rates.
+
+Decile groups are groups of the population defined by the decile points. The first decile group is the ten percent of the population with the lowest incomes. The second decile group contains individuals with incomes above the lowest decile point but below the second decile point.
+
+Most of the income estimates in this publication are based on equivalised income. This means that household income is adjusted to reflect different household sizes and compositions. When income is not equivalised, households of different sizes have different poverty thresholds. The table below shows the relative and absolute poverty thresholds, before equivalisation, for households of different sizes.
+
+The incomes presented elsewhere in this report use the value for "Couple with no children" as the standard; incomes of all other household types are adjusted (equivalised) to reflect their different household composition. An after housing costs table is available in the associated tables.
+
+##### Table 1 - Income and poverty thresholds for different household types before housing costs, Scotland 2016-19
+
+Single person with no children	Couple with no children	Single person with children aged 5 and 14	Couple with children aged 5 and 14
+Before housing costs incomes	weekly	Annual	weekly	annual	weekly	annual	weekly	annual
+UK median income	£347	£18,100	£517	£27,000	£621	£32,400	£792	£41,300
+Scottish median income	£346	£18,100	£517	£27,000	£620	£32,400	£791	£41,300
+Relative poverty threshold: 60% of UK median income	£208	£10,800	£310	£16,200	£373	£19,400	£475	£24,800
+Absolute poverty threshold: 60% of inflation-adjusted 2010/11 UK median income	£193	£10,000	£287	£15,000	£345	£18,000	£440	£22,900
+
+## Income sources
+The chart below shows the different sources of gross income by decile, ranking the population by income and dividing it into ten equal-sized groups. Income components are considered before tax; this is therefore a different definition of household income from that used elsewhere in this report.
+
+#### Earnings and social security payments main household income sources
+
+##### Figure 23 - Income sources as a percentage of gross income by income decile, Scotland 2016-19
+```{r}
+knitr::include_graphics("23_sources.png")
+```
+
+Higher income households receive a large proportion of their income from earnings, and lower income households receive more of their income from social security payments. Social security payments include the state pension.
+
+Earnings account for around 45% of gross income for those in the first two deciles compared to over 80% for those in the top three deciles.
+
+The proportion of household income from earnings exceeds that from social security payments for around 80% of the population (those above the 2nd percentile point).
+
+## Income inequality
+
+#### Palma ratio of income inequality fluctuating
+
+##### Figure 24 - Palma ratio of income inequality before housing costs, Scotland
+```{r}
+knitr::include_graphics("24_palma.png")
+```
+
+This chart shows the ratio of total income received by the top ten percent of the population divided by the total income of the bottom forty percent of the population (expressed as a percentage) over time. This measure of how equally income is distributed across the population is known as the "Palma ratio" or "S90/S40 ratio". Palma is used internationally to estimate the extent of inequality between those at the top of the income distribution and those at the bottom. The Palma ratio is usually calculated from income before housing costs.
+
+In 2016-19, the top ten percent of the population had 24% more income than the bottom forty percent combined. This compares to 33% more income of the top ten percent in 2007-10, the period with the highest income inequality in this time series as measured by the Palma ratio.
+
+Income inequality has been fluctuating since the beginning of this data collection in the mid-nineties, and, after the most recent low point in 2012-15 has now ceased to increase.
+
+Additional income inequality data, including the Gini coefficient and income decile shares, is available in the associated tables.

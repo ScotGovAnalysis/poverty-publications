@@ -1,0 +1,20 @@
+---
+title: "Poverty and Income Inequality in Scotland"
+subtitle: "A National Statistics publication for Scotland"
+---
+  
+  <script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+  });
+</script>
+  
+# Downloads
+
+* [Poverty and Income Inequality in Scotland](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/poverty-income-inequality-scotland-2016-19/poverty-income-inequality-scotland-2016-19/govscot%3Adocument/poverty-income-inequality-scotland-2016-19.pdf) (PDF)
+* [Associated tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/associated-tables/associated-tables/govscot%3Adocument/associated-tables.xlsx) (XLSX; estimates used in the report)
+* [Supplementary poverty tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-poverty/supplementary-tables-poverty/govscot%3Adocument/supplementary-tables-poverty.xlsx) (XLSX)
+* [Supplementary child poverty tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-child-poverty/supplementary-tables-child-poverty/govscot%3Adocument/supplementary-tables-child-poverty.xlsx) (XLSX)
+* [Infographic child poverty update](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf) (PDF)
+* [Confidence intervals](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) (DOCX)

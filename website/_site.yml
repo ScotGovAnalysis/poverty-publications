@@ -1,1 +1,59 @@
+name: "Poverty and Income Inequality in Scotland"
 
+#exclude: ["styles.css"]
+
+output:
+  html_document:
+    fig_caption: yes
+    self_contained: yes
+    mathjax: NULL
+    css: styles.css
+    # theme: flatly
+
+navbar:
+  title: "Poverty and Income Inequality in Scotland"
+
+  left: 
+  - text: "Persistent Poverty"
+    href: persistent.html
+    icon: glyphicon-stats
+  - text: "Child poverty update"
+    href: https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf
+    icon: glyphicon-eye-open
+  - text: "Downloads"
+    href: download.html
+    icon: glyphicon-download-alt
+  - text: "Reports"
+    icon: glyphicon-th-list
+    menu:
+    - text: "Poverty and Income Inequality in Scotland 2016-19"
+      href: index.html
+    - text: "Poverty and Income Inequality in Scotland 2015-18"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/
+    - text: "Poverty and Income Inequality in Scotland 2014-17"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/
+    - text: "Poverty and Income Inequality in Scotland 2015/16"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/
+    - text: "Poverty and Income Inequality in Scotland 2014/15"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/
+    - text: "Poverty and Income Inequality in Scotland 2013/14"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/
+    - text: "Poverty and Income Inequality in Scotland 2012/13"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/
+    - text: "Poverty and Income Inequality in Scotland 2011/12"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/
+    - text: "Poverty and Income Inequality in Scotland 2010/11"
+      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/
+    - text: "----------------------------------------"
+    - text: "Persistent poverty in Scotland 2010-2018"
+      href: persistent.html
+    - text: "Persistent poverty in Scotland 2010-2017"
+      href: https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/
+    - text: "Persistent poverty in Scotland 2010-2016"
+      href: https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/
+    - text: "Persistent poverty in Scotland 2010-2015"
+      href: https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/
+    
+  right:  
+  - text: "About"
+    href: about.html
