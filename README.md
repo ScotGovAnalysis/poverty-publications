@@ -49,7 +49,6 @@ Run 05_run_maketables.R to create all spreadsheets.
 * R/04_maketables_income_1yr.R
 * R/04_maketables_income_3yrs.R
 * R/04_maketables_UK_3yrs.R
-
 * R/05_run_maketables.R runs all
 
 ### Create reports
