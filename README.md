@@ -2,7 +2,7 @@
 
 ### New data arrives
 
-Run data prep steps and make sure 02_clean*data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
+Run **Data prep** scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
@@ -50,6 +50,10 @@ Run 05_run_maketables.R to create all spreadsheets.
 * R/04_maketables_income_3yrs.R
 * R/04_maketables_UK_3yrs.R
 * R/05_run_maketables.R runs all
+
+### Create charts
+
+* R/...
 
 ### Create reports
 
