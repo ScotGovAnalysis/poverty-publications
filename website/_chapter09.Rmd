@@ -1,0 +1,27 @@
+# Find more information
+
+## Associated tables and further analysis
+
+This publication contains the headline poverty and income inequality statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts only show after-housing-costs estimates. This publication and the associated tables are available here: www.gov.scot/ISBN/9781839606243
+
+Additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics are published as supplementary tables alongside this publication.
+
+This and further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages.
+
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please email:
+
+social-justice-analysis@gov.scot or phone 0131 244 5851.
+
+## Local poverty analysis
+
+add link to relevant section on website, and add some text as well
+
+## Scottish Government websites
+
+* Poverty and income inequality analysis: www.gov.scot/collections/poverty-and-income-inequality-statistics/
+* Confidence limits surrounding Scotland's key poverty estimates: www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/
+* Child poverty analysis: www.gov.scot/collections/child-poverty-statistics/
+* Wealth analysis: www.gov.scot/collections/wealth-statistics/
+* Scottish Index of Multiple Deprivation: www.gov.scot/simd
+* For further information on all Scottish Government statistics: www.gov.scot/topics/statistics/
+*Scottish Government approach to tackling poverty: www.gov.scot/policies/poverty-and-social-justice/

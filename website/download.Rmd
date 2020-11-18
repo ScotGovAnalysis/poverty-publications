@@ -6,7 +6,7 @@ subtitle: "A National Statistics publication for Scotland"
   <script>
   $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
   });
 </script>
   

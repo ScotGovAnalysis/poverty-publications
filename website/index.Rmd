@@ -4,7 +4,8 @@ subtitle: "A National Statistics publication for Scotland"
 date: "Published on 26 March 2020"
 
 output:
-  html_document:
+  bookdown::html_document2:
+    number_sections: false
     self_contained: yes
     toc: yes
     toc_depth: 2
@@ -18,39 +19,53 @@ output:
 <script>
   $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
   });
 </script>
   
   
   ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = TRUE)
+
+library(htmltools)
+
+create_html <- function(md) {
+  htmltools::HTML(
+    markdown::markdownToHTML(
+      text = md, fragment.only = TRUE
+    )
+  )
+}
+
 ```
 
-```{r child = "_chapter1.Rmd"}
+```{r child = "_chapter01.Rmd"}
 ```
 
-```{r child = "_chapter2.Rmd"}
+```{r child = "_chapter02.Rmd"}
 ```
 
-```{r child = "_chapter3.Rmd"}
+```{r child = "_chapter03.Rmd"}
 ```
 
-```{r child = "_chapter4.Rmd"}
+```{r child = "_chapter04.Rmd"}
 ```
 
-```{r child = "_chapter5.Rmd"}
+```{r child = "_chapter05.Rmd"}
 ```
 
-```{r child = "_chapter6.Rmd"}
+```{r child = "_chapter06.Rmd"}
 ```
 
-```{r child = "_chapter7.Rmd"}
+```{r child = "_chapter07.Rmd"}
 ```
 
-```{r child = "_chapter8.Rmd"}
+```{r child = "_chapter08.Rmd"}
 ```
 
-```{r child = "_chapter9.Rmd"}
+```{r child = "_chapter09.Rmd"}
+```
+
+```{r child = "_chapter10.Rmd"}
 ```
 

@@ -4,7 +4,8 @@ subtitle: "An Official Statistics publication for Scotland"
 date: "Published on 26 March 2020"
 
 output:
-  html_document:
+  bookdown::html_document2:
+    number_sections: false
     self_contained: yes
     toc: yes
     toc_depth: 2
@@ -18,7 +19,7 @@ output:
 <script>
   $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.png\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
   });
 </script>
   
@@ -27,29 +28,29 @@ output:
 knitr::opts_chunk$set(echo = FALSE, message = TRUE)
 ```
 
-```{r child = "_pers1.Rmd"}
+```{r child = "_pers01.Rmd"}
 ```
 
-```{r child = "_pers2.Rmd"}
+```{r child = "_pers02.Rmd"}
 ```
 
-```{r child = "_pers3.Rmd"}
+```{r child = "_pers03.Rmd"}
 ```
 
-```{r child = "_pers4.Rmd"}
+```{r child = "_pers04.Rmd"}
 ```
 
-```{r child = "_pers5.Rmd"}
+```{r child = "_pers05.Rmd"}
 ```
 
-```{r child = "_pers6.Rmd"}
+```{r child = "_pers06.Rmd"}
 ```
 
-```{r child = "_pers7.Rmd"}
+```{r child = "_pers07.Rmd"}
 ```
 
-```{r child = "_pers8.Rmd"}
+```{r child = "_pers08.Rmd"}
 ```
 
-```{r child = "_pers9.Rmd"}
+```{r child = "_pers09.Rmd"}
 ```
