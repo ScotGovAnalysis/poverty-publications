@@ -21,6 +21,6 @@ p,
 .list-group-item.active, 
 .list-group-item.active:focus, 
 .list-group-item.active:hover {
-    background-color: #002d54;
-    border-color: #002d54;
+    background-color: #0065bd;
+    border-color: #0065bd;
 }
