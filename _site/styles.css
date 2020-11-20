@@ -12,7 +12,8 @@ p,
 .dropdown-menu,
 #TOC,
 #navbar,
-.panel-title {
+.panel-title,
+.ds_inset-text {
   font-size: large; /*Larger font for accessibility*/
   line-height: 1.8;
 }
@@ -23,4 +24,16 @@ p,
 .list-group-item.active:hover {
     background-color: #0065bd;
     border-color: #0065bd;
+}
+
+/* Info "box" */
+
+
+.ds_inset-text {
+    padding-left: 32px;
+    padding-right: 64px;
+    border-left: 8px solid #b3b3b3;
+    padding: 16px;
+    margin-top: 32px;
+    margin-bottom: 32px;
 }
