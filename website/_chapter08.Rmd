@@ -52,7 +52,7 @@ This is made up of 0.67 for the first adult, 0.33 for their spouse, the other ad
 
 Further information on equivalisation can be found in the methodology report on the Scottish Government website.
 
-## Dependent children
+## Dependent children {#child}
 
 In this publication, 'child' refers to a dependent child. A dependent child is a person either aged 0-15, or aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
 
@@ -73,7 +73,7 @@ Consequently, the 60 percent poverty threshold, which is used to derive the low 
 * Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
 * Relative poverty - individuals living in households whose equivalised income is below 60 percent of median income in the same year. This is a measure of whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole.
 
-## Material deprivation for children
+## Material deprivation for children {#matdep}
 
 A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by independent academic analysis. See McKay, S. and Collard, S. (2004). Together, these questions form the best discriminator between those households that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
 
@@ -89,7 +89,7 @@ In the 2010/11 FRS, both the new and the old questions were asked. As such, esti
 
 For further information about material deprivation see the DWP Households Below Average Income publication.
 
-## Material deprivation for pensioners
+## Material deprivation for pensioners {#penmatdep}
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 

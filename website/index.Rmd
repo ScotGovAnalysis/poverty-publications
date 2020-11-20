@@ -29,6 +29,12 @@ knitr::opts_chunk$set(echo = FALSE, message = TRUE)
 
 library(htmltools)
 
+infobox <- function(md) {
+  div(class = "ds_inset-text",
+      div(class = "ds_inset-text__text",
+          create_html(md)))
+}
+
 create_html <- function(md) {
   htmltools::HTML(
     markdown::markdownToHTML(
