@@ -18,6 +18,22 @@ p,
   line-height: 1.8;
 }
 
+.dropdown-header {
+    display: block;
+    padding: 3px 20px;
+    font-size: large;
+    line-height: 1.8;
+    color: #777;
+    white-space: nowrap;
+}
+
+/* Navbar colours */
+
+.navbar-default {
+    background-color: #fff;
+    border-color: #e7e7e7;
+}
+
 /* TOC colours */
 .list-group-item.active, 
 .list-group-item.active:focus, 
@@ -27,7 +43,6 @@ p,
 }
 
 /* Info "box" */
-
 
 .ds_inset-text {
     padding-left: 32px;
