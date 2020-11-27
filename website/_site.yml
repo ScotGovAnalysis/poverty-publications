@@ -1,7 +1,5 @@
 name: "Poverty and Income Inequality in Scotland"
 
-#exclude: ["styles.css"]
-
 output:
   bookdown::html_document2:
     number_sections: false
@@ -9,16 +7,15 @@ output:
     self_contained: yes
     mathjax: NULL
     css: styles.css
-    # theme: flatly
 
 navbar:
-  title: "Poverty and Income Inequality in Scotland"
+  title: "Main report"
 
   left: 
-  - text: "Child poverty update"
+  - text: "Child poverty"
     href: "cpupdate.html"
     icon: glyphicon-eye-open
-  - text: "Downloads"
+  - text: "Data"
     href: download.html
     icon: glyphicon-download-alt
   - text: "Persistent Poverty"

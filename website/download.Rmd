@@ -1,6 +1,5 @@
 ---
-title: "Poverty and Income Inequality in Scotland"
-subtitle: "A National Statistics publication for Scotland"
+title: "Download data and printable reports"
 ---
   
   <script>
@@ -10,11 +9,16 @@ subtitle: "A National Statistics publication for Scotland"
   });
 </script>
   
-# Downloads
+### Data
 
-* [Poverty and Income Inequality in Scotland](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/poverty-income-inequality-scotland-2016-19/poverty-income-inequality-scotland-2016-19/govscot%3Adocument/poverty-income-inequality-scotland-2016-19.pdf) (PDF)
-* [Associated tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/associated-tables/associated-tables/govscot%3Adocument/associated-tables.xlsx) (XLSX; estimates used in the report)
+* [Associated tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/associated-tables/associated-tables/govscot%3Adocument/associated-tables.xlsx) (includes all data used in [Poverty and Income Inequality in Scotland 2016-19](index.html); XLSX)
 * [Supplementary poverty tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-poverty/supplementary-tables-poverty/govscot%3Adocument/supplementary-tables-poverty.xlsx) (XLSX)
 * [Supplementary child poverty tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-child-poverty/supplementary-tables-child-poverty/govscot%3Adocument/supplementary-tables-child-poverty.xlsx) (XLSX)
+* [Confidence intervals](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) (DOCX)
+
+### Printable reports
+
+* [Poverty and Income Inequality in Scotland](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/poverty-income-inequality-scotland-2016-19/poverty-income-inequality-scotland-2016-19/govscot%3Adocument/poverty-income-inequality-scotland-2016-19.pdf) (PDF)
+* Persistent Poverty in Scotland (PDF)
 * [Infographic child poverty update](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf) (PDF)
 * [Confidence intervals](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) (DOCX)
