@@ -983,6 +983,17 @@ formatpovby5yraverage <- function(df){
     filter(!is.na(adnum))
 }
 
+formatpersistentpoverty <- function(df) {
+  df %>% filter_at(1, all_vars(. %in% c("Total", "England", "Scotland", "Wales", 
+                                        "Northern Ireland"))) %>%
+    gather(key, value, -Category3) %>%
+    mutate(value = value/100) %>%
+    spread(Category3, value) %>%
+    rename(UK = Total,
+           period = key) %>%
+    select(period, nations)
+}
+
 samplesizecheck <- function(df){
   df %>%
     mutate(ppnum = ifelse(povsample < 100, "..", ppnum),
