@@ -2,7 +2,6 @@
 
 source("R/00_functions.R")
 source("R/00_strings.R")
-source("R/00_colours.R")
 
 hbai <- readRDS("data/tidyhbai.rds")
 adult <- readRDS("data/tidyadult.rds")

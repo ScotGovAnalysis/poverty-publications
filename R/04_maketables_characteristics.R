@@ -234,9 +234,9 @@ sev_numbers <- splitntranspose(sev, "adnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Family type",
-             title_a = "A. Proportion of adults in poverty and severe poverty by family type",
-             title_b = "B. Composition of adults in poverty and severe poverty by family type",
-             title_c = "C. Number of adults in poverty and severe poverty by family type",
+             title_a = "A. Proportion of adults in poverty and severe poverty by family type and gender",
+             title_b = "B. Composition of adults in poverty and severe poverty by family type and gender",
+             title_c = "C. Number of adults in poverty and severe poverty by family type and gender",
              filename = filename,
              df1 = rel_rates,
              df2 = sev_rates,
@@ -274,7 +274,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  adsamplesizecheck
+  samplesizecheck_ad
 
 sev <- do.call(rbind.data.frame, 
                lapply(adult, getpovby_adult, povvar = "low50ahc", groupingvar = "marital")) %>%
@@ -282,7 +282,7 @@ sev <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  adsamplesizecheck
+  samplesizecheck_ad
 
 # split dataset into rates, numbers, compositions and transpose
 
@@ -819,7 +819,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  adsamplesizecheck
+  samplesizecheck_ad
 
 sev <- do.call(rbind.data.frame, 
                lapply(adult, getpovby_adult, povvar = "low50ahc", groupingvar = "religsc")) %>%
@@ -827,7 +827,7 @@ sev <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  adsamplesizecheck
+  samplesizecheck_ad
 
 # split dataset into rates, numbers, compositions and transpose
 

@@ -8,6 +8,9 @@ library(Hmisc)
 library(scales)
 
 
+
+# Data wrangling functions ----
+
 # replace categories with other categories 
 decode <- function(x, search, replace, default = NULL) {
   # build a nested ifelse function by recursion
@@ -904,6 +907,24 @@ getsources <- function(df){
   rbind(bydec, tot)
 }
 
+getdistribution <- function(df) {
+  
+  df %>%
+    filter(gvtregn == "Scotland") %>%
+    mutate(income = s_oe_bhc*infl_bhc) %>%
+    select(gs_newpp, income)
+}
+
+getUKdeciles <- function(df) {
+  
+  df %>%
+    summarise(x = list(enframe(wtd.quantile(s_oe_bhc*infl_bhc, 
+                                          probs = seq(0.1, 0.9, 0.1),
+                                          weights = gs_newpp)))) %>%
+    unnest(x)
+  
+}
+
 fmtweeklyGBP <- function(df){
   
   df %>%
@@ -942,7 +963,8 @@ get5yraverage <- function(x){x = (x + lag(x, 1L) + lag(x, 2L) + lag(x, 3L) + lag
 get3yrtotal <- function(x){x = x + lag(x, 1L) + lag(x, 2L)}
 get5yrtotal <- function(x){x = x + lag(x, 1L) + lag(x, 2L) + lag(x, 3L) + lag(x, 4L)}
 
-formatpov3yraverage <- function(df){
+
+get3yrtable <- function(df) {
   
   df %>%
     mutate_at(vars(c(contains("rate")), contains("num"), contains("comp")), get3yraverage) %>%
@@ -950,7 +972,24 @@ formatpov3yraverage <- function(df){
     tail(-2L) %>%
     mutate(years = factor(years, 
                           levels = labels[["years"]]$years, 
-                          labels = labels[["years"]]$formatted)) %>%
+                          labels = labels[["years"]]$periods))
+}
+
+get5yrtable <- function(df) {
+  
+  df %>%
+    mutate_at(vars(c(contains("rate")), contains("num"), contains("comp")), get5yraverage) %>%
+    mutate_at(vars(contains("sample")), get5yrtotal) %>%
+    tail(-4L) %>%
+    mutate(years = factor(years, 
+                          levels = labels[["years"]]$years, 
+                          labels = labels[["years"]]$period5yr))
+}
+
+formatpov3yraverage <- function(df){
+  
+  df %>%
+    get3yrtable() %>%
     mutate_at(vars(contains("num")), fmtpop) %>%
     mutate_at(vars(contains(c("rate")), contains("comp")), fmtpct)
 }
@@ -1008,6 +1047,20 @@ samplesizecheck <- function(df){
            adrate = ifelse(groupsample_ad < 100, "..", adrate))
 }
 
+samplesizecheck_num <- function(df){
+  df %>%
+    mutate(ppnum = ifelse(povsample < 100, NA, ppnum),
+           pprate = ifelse(groupsample < 100, NA, pprate),
+           chnum = ifelse(povsample_ch < 100, NA, chnum),
+           chrate = ifelse(groupsample_ch < 100, NA, chrate),
+           wanum = ifelse(povsample_wa < 100, NA, wanum),
+           warate = ifelse(groupsample_wa < 100, NA, warate),
+           pnnum = ifelse(povsample_pn < 100, NA, pnnum),
+           pnrate = ifelse(groupsample_pn < 100, NA, pnrate),
+           adnum = ifelse(povsample_ad < 100, NA, adnum),
+           adrate = ifelse(groupsample_ad < 100, NA, adrate))
+}
+
 samplesizecheck_childage <- function(df){
   df %>%
     mutate(num0_4 = ifelse(povsample0_4 < 100, "..", num0_4),
@@ -1018,7 +1071,13 @@ samplesizecheck_childage <- function(df){
            rate13_19 = ifelse(groupsample13_19 < 100, "..", rate13_19))
 }
 
-adsamplesizecheck <- function(df){
+samplesizecheck_ad_num <- function(df){
+  df %>%
+    mutate(adnum = ifelse(povsample_ad < 100, NA, adnum),
+           adrate = ifelse(groupsample_ad < 100, NA, adrate))
+}
+
+samplesizecheck_ad <- function(df){
   df %>%
     mutate(adnum = ifelse(povsample_ad < 100, "..", adnum),
            adrate = ifelse(groupsample_ad < 100, "..", adrate))
@@ -1034,19 +1093,21 @@ splitntranspose <- function(df, measure){
   
 }
 
+# Spreadsheet functions ----
+
 
 # Add header above header with merged cells
 addUberheader <- function(wb = wb, sheet = 1, uberheaders = uberheaders, row = 5){
   
   # Do we have an uberheader?
-  if (is.vector(uberheaders)){
+  if (is.vector(uberheaders)) {
   
   # Merged cells for uberheader
   
   uh <- data.frame("headers" = names(uberheaders), "cells" = uberheaders) %>%
     mutate(cumcells = cumsum(cells),
            startcol = 2, 
-           startcol = ifelse(row_number()==1, 2, lag(startcol + cumcells)),
+           startcol = ifelse(row_number() == 1, 2, lag(startcol + cumcells)),
            endcol = startcol + cells - 1,
            colstring = str_c(startcol, ":", endcol),
            label = strrep(str_c(headers, ","), cells))
@@ -1578,4 +1639,281 @@ createContentSheet <- function(filename){
   
   saveWorkbook(wb, filename, overwrite = TRUE)
   
+}
+
+# Chart functions ----
+
+plotdata <- function(df, up = 0){
+  
+  ggplot(data = df, 
+         aes(x = years, 
+             y = value, 
+             group = key, 
+             colour = key,
+             linetype = key,
+             label = percent(value, 1))) + 
+    
+    addbars(up) +
+    
+    geom_line(lineend = "round",
+              show.legend = FALSE) +
+    
+    geom_point(data = arrange(df, years) %>% 
+                 filter(key == "AHC") %>%
+                 tail(1L), 
+               aes(x = years, y = value),
+               size = 2,
+               show.legend = FALSE) +
+    
+    geom_point(data = arrange(df, years) %>% 
+                 filter(key == "BHC") %>%
+                 tail(1L),
+               aes(x = years, y = value),
+               size = 2,
+               show.legend = FALSE) +
+    
+    geom_point(data = arrange(df, years) %>% 
+                 filter(key == "AHC") %>%
+                 head(1L),
+               aes(x = years, y = value),
+               size = 2,
+               show.legend = FALSE) +
+    
+    geom_point(data = arrange(df, years) %>% 
+                 filter(key == "BHC") %>%
+                 head(1L),
+               aes(x = years, y = value),
+               size = 2,
+               show.legend = FALSE)
+}
+
+# Add annotations for recession and welfare reform
+addbars <- function(up = 0, welfref = FALSE){
+  
+  welf_rect <- geom_vline(aes(xintercept = 18.5),
+                          colour = SGgreys[4])
+  
+  welf_text <- annotate("text",
+                        label = "Welfare Reform \nAct 2012",
+                        size = 3,
+                        colour = SGgreys[2],
+                        hjust = 0,
+                        vjust = 1,
+                        x = 18.7, 
+                        y = 0.45 + up)
+  
+  rec_rect <- annotate("rect",
+                       fill = SGgreys[4],
+                       xmin = 13.16,
+                       xmax = 14.66,
+                       ymin = -Inf,
+                       ymax = Inf)
+  
+  rec_text <- annotate("text",
+                       label = "Recession",
+                       size = 3,
+                       colour = SGgreys[2],
+                       hjust = 1,
+                       vjust = 1,
+                       x = 13, 
+                       y = 0.45 + up)
+  
+  if (welfref) {list(welf_rect, welf_text, rec_rect, rec_text)} 
+  else {list(rec_rect, rec_text)}
+}
+
+addsource <- function(){
+  labs(caption = "Source: Family Resources Survey")
+}
+
+addlabels <- function(df = data, 
+                      uprAHC = 0, uprBHC = 0, 
+                      uplAHC = 0, uplBHC = 0){
+  
+  AHCleft <- geom_text(data = filter(df, key == "AHC") %>% 
+                         arrange(years) %>% 
+                         head(1L), 
+                       mapping = aes(x = years, y = value),
+                       nudge_x = -1.2,
+                       nudge_y = 0.015 + uplAHC,
+                       show.legend = FALSE)
+  
+  AHCright <- geom_text(data = filter(df, key == "AHC") %>% 
+                          arrange(years) %>% 
+                          tail(1L), 
+                        mapping = aes(x = years, y = value),
+                        nudge_x = 1.2,
+                        nudge_y = 0.015 + uprAHC,
+                        show.legend = FALSE)
+  
+  BHCleft <- geom_text(data = filter(df, key == "BHC") %>% 
+                         arrange(years) %>% 
+                         head(1L), 
+                       mapping = aes(x = years, y = value),
+                       nudge_x = -1.2,
+                       nudge_y = -0.015 + uplBHC,
+                       show.legend = FALSE)
+  
+  BHCright <- geom_text(data = filter(df, key == "BHC") %>% 
+                          arrange(years) %>% 
+                          tail(1L), 
+                        mapping = aes(x = years, y = value),
+                        nudge_x = 1.2,
+                        nudge_y = -0.015 + uprBHC,
+                        show.legend = FALSE)
+  
+  list(AHCleft,
+       BHCleft,
+       AHCright,
+       BHCright)
+}
+
+addnames <- function(xpos = 2, AHC_ypos = 0.28, BHC_ypos = 0.16){
+  
+  AHC <- annotate("text", x = xpos, y = AHC_ypos,
+                  label = "After housing costs", 
+                  hjust = 0,
+                  size = 4,
+                  colour = SGmix[1]) 
+  
+  BHC <- annotate("text", x = xpos, y = BHC_ypos,
+                  label = "Before housing costs", 
+                  hjust = 0,
+                  size = 4,
+                  colour = SGmix[2]) 
+  
+  list(AHC, BHC)
+}
+
+addxlabels <- function(){
+  
+  scale_x_discrete(drop = FALSE,
+                   breaks = c("1994-97", "", "", "", 
+                              "", "", "", "", 
+                              "", "", "", "", 
+                              "", "2007-10", "", "", 
+                              "", "2011-14", "", "",
+                              "", "", "2016-19"),
+                   expand = c(0.1, 0.1))
+}
+
+addscales <- function(){
+  
+  list(scale_color_manual(values = SGmix), 
+       scale_size_manual(values = c(1.2, 1)))
+}
+
+
+saveplot <- function(){
+  
+  ggsave(file, width = 12, height = 6.5, units = "cm", dpi = 300)
+}
+
+addinterimtarget <- function(y){
+  
+  a <- geom_point(aes(x = "2324", y = y), 
+                  shape = 21, size = 5, 
+                  fill = SGgreys[1], 
+                  alpha = 0.4)
+  
+  b <- geom_point(aes(x = "2324", y = y), 
+                  shape = 21, size = 4, 
+                  fill = "white", 
+                  alpha = 0.4) 
+  
+  c <- geom_point(aes(x = "2324", y = y), 
+                  shape = 21, size = 2.5, 
+                  fill = SGgreys[1], 
+                  alpha = 0.4)
+  
+  d <- geom_point(aes(x = "2324", y = y), 
+                  shape = 21, size = 1.5, 
+                  fill = SGmix[1], 
+                  alpha = 0.4) 
+  
+  e <-   geom_text(data = tail(data, 1L),
+                   aes(x = 30.2, y = interimtarget + 0.05, 
+                       label = percent(interimtarget, 1)),
+                   size = 3,
+                   fontface = "bold",
+                   colour = SGgreys[1]) 
+  
+  list(a,b,c,d, e)
+}
+
+addfinaltarget <- function(y){
+  
+  a <- geom_point(aes(x = "3031", y = y), 
+                  shape = 21, size = 5, 
+                  fill = SGgreys[1], 
+                  alpha = 0.4) 
+  
+  b <- geom_point(aes(x = "3031", y = y), 
+                  shape = 21, size = 4, 
+                  fill = "white") 
+  
+  c <- geom_point(aes(x = "3031", y = y), 
+                  shape = 21, size = 2.5, 
+                  fill = SGgreys[1], 
+                  alpha = 0.4)
+  
+  d <- geom_point(aes(x = "3031", y = y), 
+                  shape = 21, size = 1.5, 
+                  fill = SGmix[1], 
+                  alpha = 0.4) 
+  
+  e <-   geom_text(data = tail(data, 1L),
+                   aes(x = 37.2, y = finaltarget + 0.05, 
+                       label = percent(finaltarget, 1)),
+                   size = 3,
+                   fontface = "bold",
+                   colour = SGgreys[1])
+  
+  list(a,b,c,d,e)
+}
+
+addtargetbars <- function(){
+  
+  a <- geom_vline(aes(xintercept = 24.36),
+                  colour = SGgreys[4],
+                  alpha = 0.9) 
+  
+  b <-  annotate("rect", 
+                 xmin = 29, xmax = 31, 
+                 ymin = -Inf, ymax = Inf,
+                 fill = SGgreys[4],
+                 alpha = 0.9)
+  
+  c <- annotate("rect", 
+                xmin = 36, xmax = 38, 
+                ymin = -Inf, ymax = Inf,
+                fill = SGgreys[4],
+                alpha = 0.9) 
+  
+  list(a,b,c)
+}
+
+addyaxis <- function(){
+  
+  scale_y_continuous(limits = c(0, 0.53), labels = percent_format(1)) 
+
+}
+
+adddatalabels <- function(){
+  
+  a <- geom_text(data = head(data, 1L),
+                 aes(x = year, y = single + 0.04, 
+                     label = percent(single, 1)),
+                 size = 3,
+                 nudge_x = -0.4,
+                 colour = SGgreys[1]) 
+  
+  b <-  geom_text(data = tail(data, 1L),
+                  aes(x = year, y = single + 0.04, 
+                      label = percent(single, 1)),
+                  size = 3,
+                  hjust = 0,
+                  colour = SGgreys[1]) 
+  
+  list(a,b)
 }

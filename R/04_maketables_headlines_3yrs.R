@@ -5,10 +5,9 @@ source("R/00_functions.R")
 source("R/00_strings.R")
 source("R/00_colours.R")
 
-
 filename <- "Poverty three-year average.xlsx"
 
-years <- labels[["years"]]$years
+years <- labels[["years"]]$periods
 hbai <- readRDS("data/tidyhbai.rds")
 
 
