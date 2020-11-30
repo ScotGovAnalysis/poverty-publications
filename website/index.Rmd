@@ -1,6 +1,6 @@
 ---
 title: "Poverty and Income Inequality in Scotland 2016-19"
-subtitle: "A National Statistics publication for Scotland"
+subtitle: "A National Statistics publication"
 date: "Published on 26 March 2020"
 
 output:
@@ -12,6 +12,8 @@ output:
     toc_float:
       collapsed: yes
       smooth_scroll: no
+    fig_width: 7
+    fig_height: 3
 ---
   
 <!-- Include logo at the top of the document -->
@@ -24,9 +26,16 @@ output:
 </script>
   
   
-  ```{r setup, include = FALSE}
-knitr::opts_chunk$set(echo = FALSE, message = TRUE)
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
+
+```{r}
 
 library(htmltools)
 
@@ -44,7 +53,9 @@ create_html <- function(md) {
   )
 }
 
+source("R/05_makecharts_poverty.R", encoding = "UTF-8")
 ```
+
 
 ```{r child = "_chapter01.Rmd"}
 ```

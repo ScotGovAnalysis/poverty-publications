@@ -1,6 +1,6 @@
 ---
 title: "Persistent Poverty in Scotland 2010-18"
-subtitle: "An Official Statistics publication for Scotland"
+subtitle: "An Official Statistics publication"
 date: "Published on 26 March 2020"
 
 output:
@@ -12,6 +12,8 @@ output:
     toc_float:
       collapsed: yes
       smooth_scroll: no
+    fig_width: 7
+    fig_height: 3
 ---
   
 <!-- Include logo at the top of the document -->
@@ -38,7 +40,7 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 ```{r}
 library(kableExtra)
 source("R/04_maketables_persistentpoverty.R")
-source("R/04_makecharts_persistentpoverty.R")
+source("R/05_makecharts_persistentpoverty.R")
 ```
 
 ```{r child = "_pers01.Rmd"}
