@@ -32,12 +32,12 @@ knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE
 )
+
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-```
 
-```{r}
-
+library(tidyverse)
 library(htmltools)
+library(plotly)
 
 infobox <- function(md) {
   div(class = "ds_inset-text",
@@ -53,6 +53,13 @@ create_html <- function(md) {
   )
 }
 
+interactive <- function(chart) {
+  ggiraph(ggobj = chart, width = 1, height_svg = 3, width_svg = 7)
+}
+
+```
+
+```{r}
 source("R/05_makecharts_poverty.R", encoding = "UTF-8")
 ```
 

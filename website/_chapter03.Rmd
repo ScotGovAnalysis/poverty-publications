@@ -10,9 +10,9 @@ Relative poverty is a measure of whether the income of the poorest households ar
 
 The proportion of people in relative poverty after housing costs had been falling slightly between the late nineties and the lowest point in this time series in 2009-12. After that, it started to rise again up until now, where the rise appears to have stopped. Before housing costs poverty looks similar, with the all-time low slightly later, in 2011-14.
 
-##### Figure 1 - Proportion of people in relative poverty, Scotland
+#### Figure 1 - Proportion of people in relative poverty, Scotland
 ```{r chart01}
-chart01
+interactive(chart01)
 ```
 
 ### Absolute poverty rate for all individuals stable
@@ -25,9 +25,9 @@ The gap between the before and after housing costs measure had widened in 2008-1
 
 Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the relative poverty threshold in 2010/11.
 
-##### Figure 2 - Proportion of people in absolute poverty, Scotland
+#### Figure 2 - Proportion of people in absolute poverty, Scotland
 ```{r chart02}
-chart02
+interactive(chart02)
 ```
 
 ## Working-age adults
@@ -40,9 +40,9 @@ In 2016-19, there were 640,000 working-age adults in poverty after housing costs
 
 Working-age adults are defined as all adults up to the state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
 
-##### Figure 3 - Proportion of working-age adults in relative poverty, Scotland
+#### Figure 3 - Proportion of working-age adults in relative poverty, Scotland
 ```{r chart03}
-chart03
+interactive(chart03)
 ```
 
 ### Absolute poverty rate for working-age adults stable
@@ -53,9 +53,9 @@ This means that in 2016-19, there were 580,000 working-age adults each year in a
 
 Working-age adults are considered to be in poverty when they live in a household which is in poverty.
 
-##### Figure 4 - Proportion of working-age adults in absolute poverty, Scotland
+#### Figure 4 - Proportion of working-age adults in absolute poverty, Scotland
 ```{r chart04}
-chart04
+interactive(chart04)
 ```
 
 ### In-work poverty for working-age adults now stable
@@ -66,9 +66,9 @@ In-work poverty for working-age adults continuously increased since 2011-14, and
 
 `r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
 
-##### Figure 5 - Proportion of working-age adults in relative poverty who live in a working household, Scotland
+#### Figure 5 - Proportion of working-age adults in relative poverty who live in a working household, Scotland
 ```{r chart05}
-chart05
+interactive(chart05)
 ```
 
 ## Pensioners
@@ -81,9 +81,9 @@ Relative pensioner poverty showed a long decline until 2008-11, was then largely
 
 The majority of pensioners own their home. Examining pensioners' income after deducting housing costs allows for more meaningful comparisons of income between working-age adults and pensioners, or for pensioners over time.
 
-##### Figure 6 - Proportion of pensioners in relative poverty, Scotland
+#### Figure 6 - Proportion of pensioners in relative poverty, Scotland
 ```{r chart06}
-chart06
+interactive(chart06)
 ```
 
 ### Absolute poverty rate for pensioners stable
@@ -94,9 +94,9 @@ Absolute poverty has remained broadly stable since 2008-11 following a continuou
 
 Pensioners are defined as all those adults above state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
 
-##### Figure 7 - Proportion of pensioners in absolute poverty, Scotland
+#### Figure 7 - Proportion of pensioners in absolute poverty, Scotland
 ```{r chart07}
-chart07
+interactive(chart07)
 ```
 
 ### Pensioners in material deprivation broadly stable
@@ -111,7 +111,7 @@ More information about pensioner material deprivation can be found in the [Defin
 
 Pensioner material deprivation is included for pensioners aged 65 or over.
 
-##### Figure 8 - Proportion of pensioners in material deprivation
+#### Figure 8 - Proportion of pensioners in material deprivation
 ```{r chart08}
-chart08
+interactive(chart08)
 ```

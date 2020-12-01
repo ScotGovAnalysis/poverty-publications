@@ -1,28 +1,28 @@
 # Other UK countries
 
-### All individuals {.tabset}
+## All individuals {.tabset}
 
 When looking at the overall population, Scotland had levels of persistent poverty after housing costs that were similar to England and Wales and slightly higher than in Northern Ireland.
 
 Between 2014 and 2018, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%. 
 
-#### After housing costs
+### After housing costs
 
-##### Chart 3: Proportion of people in persistent poverty by UK country
+#### Chart 3: Proportion of people in persistent poverty by UK country
 ```{r chart03}
 pers_chart03
 ```
 
-#### Before housing costs
+### Before housing costs
 
-##### Chart 4: Proportion of people in persistent poverty by UK country
+#### Chart 4: Proportion of people in persistent poverty by UK country
 ```{r chart04}
 pers_chart04
 ```
 
-#### Table
+### Table
 
-##### Table 2: Proportion of people in persistent poverty by country
+#### Table 2: Proportion of people in persistent poverty by country
 ```{r table2}
 kableExtra::kable(pers_table2, 
       col.names = c("Period", "Scotland", "England", "Wales", 
@@ -44,21 +44,21 @@ In previous periods, persistent child poverty levels in Scotland and Northern Ir
 
 ### After housing costs
 
-##### Chart 5: Proportion of children in persistent poverty by UK country
+#### Chart 5: Proportion of children in persistent poverty by UK country
 ```{r chart05}
 pers_chart05
 ```
 
 ### Before housing costs
 
-##### Chart 6: Proportion of children in persistent poverty by UK country
+#### Chart 6: Proportion of children in persistent poverty by UK country
 ```{r chart06}
 pers_chart06
 ```
 
 ### Table
 
-##### Table 3: Proportion of children in persistent poverty by country
+#### Table 3: Proportion of children in persistent poverty by country
 ```{r table3}
 kableExtra::kable(pers_table3, 
       col.names = c("Period", "Scotland", "England", "Wales", 
@@ -78,21 +78,21 @@ Between 2014 and 2018, persistent poverty rates after housing costs for working-
 
 ### After housing costs
 
-##### Chart 7: Proportion of working-age adults in persistent poverty by UK country
+#### Chart 7: Proportion of working-age adults in persistent poverty by UK country
 ```{r chart07}
 pers_chart07
 ```
 
 ### Before housing costs
 
-##### Chart 8: Proportion of working-age adults in persistent poverty by UK country
+#### Chart 8: Proportion of working-age adults in persistent poverty by UK country
 ```{r chart08}
 pers_chart08
 ```
 
 ### Table
 
-##### Table 4: Proportion of working-age adults in persistent poverty by country
+#### Table 4: Proportion of working-age adults in persistent poverty by country
 ```{r table4}
 kableExtra::kable(pers_table4, 
       col.names = c("Period", "Scotland", "England", "Wales", 
@@ -112,21 +112,21 @@ Between 2014 and 2018, persistent pensioner poverty after housing costs in Scotl
 
 ### After housing costs
 
-###### Chart 9: Proportion of pensioners in persistent poverty by UK country
+#### Chart 9: Proportion of pensioners in persistent poverty by UK country
 ```{r chart09}
 pers_chart09
 ```
 
 ### Before housing costs
 
-###### Chart 10: Proportion of pensioners in persistent poverty by UK country
+#### Chart 10: Proportion of pensioners in persistent poverty by UK country
 ```{r chart10}
 pers_chart10
 ```
 
 ### Table
 
-##### Table 5: Proportion of pensioners in persistent poverty by country
+#### Table 5: Proportion of pensioners in persistent poverty by country
 ```{r table5}
 kableExtra::kable(pers_table5, 
       col.names = c("Period", "Scotland", "England", "Wales", 

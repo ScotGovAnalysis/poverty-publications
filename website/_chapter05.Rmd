@@ -1,63 +1,138 @@
-# Child poverty
+# Equality analysis
 
-The Child Poverty (Scotland) Act 2017 requires us to report annually on a number of child poverty measures. The latest single-year estimates can be found in the [Child Poverty Update](cpupdate.html). The analysis in this report however includes three-year averaged estimates only, which are more suitable for showing trends.
+## Gender
 
-`r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](index.html#child).")`
+Income is measured at a household level, which makes it difficult to measure the poverty rate for individual adults living with a partner. For those women and men who live in households with other adults, all adults will either be above or below the poverty threshold. In the analysis below, we therefore only include single adult households (with or without dependent children).
 
-## Key trends
+### Relative poverty rates highest for single women with children but gap is smaller than it used to be
 
-### Relative poverty rate for children no longer rising
+In 2016-19, the relative poverty rate after housing costs for single working-age adults was 32%, higher than for the total working-age adult population (19%).
 
-It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
+The poverty rate was highest for single women with children (39%). The poverty rate for single women without children was 28%, and for single men (with or without children) was 34%.
 
-After a long fall between 1999-02 and 2010-13, which halted briefly just before the recession, child poverty rates had been rising again but did not rise in the latest periods.
+Until 2010-13, the gap in poverty rates between these groups had narrowed, but in recent years it widened again.
 
-##### Figure 3 - Proportion of children in relative poverty, Scotland
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](index.html#child).")`
+
+#### Figure 13 - Proportion of single working-age adults in relative poverty after housing costs, Scotland
 ```{r}
-knitr::include_graphics("03_relpovch.png")
+knitr::include_graphics("13_genderwa.png")
 ```
 
-### Absolute poverty rate for children stable
+### Relative poverty rates higher for single female pensioners than male
 
-Absolute child poverty after housing costs affected 21% (210,000 children each year). Before housing costs, absolute child poverty was at 17% (160,000 children each year).
+In 2016-19, 18% of single female pensioners and 15% of single male pensioners were in relative poverty after housing costs. In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
 
-Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the recession. The decrease of the after housing costs rate then slowed down. The before housing costs measure continued to decrease until 2013-16 and has been largely flat since. As a result, the gap between absolute child poverty before and after housing costs widened in recent years.
+Some of the difference in pensioner poverty between genders may be due to different age profiles. For example, in 2016-19, 40% of female single pensioners were aged over 80 compared with 31% of male single pensioners. Older pensioners may have different sources of income which may result in them having lower incomes.
 
-##### Figure 4 - Proportion of children in absolute poverty, Scotland
+#### Figure 14 - Proportion of single pensioners in relative poverty after housing costs, Scotland
 ```{r}
-knitr::include_graphics("04_abspovch.png")
+knitr::include_graphics("14_genderpn.png")
 ```
 
-### Children in combined material deprivation and low income broadly stable
+Before housing costs data is available in the associated tables.
 
-It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in 2016-19. Before housing costs, this was 11% of children (110,000 children).
+## Marital status
 
-Combined low income and child material deprivation is an additional way of measuring living standards and refers to the inability of households to afford basic goods and activities that are seen as necessities in society.
+### Relative poverty rates highest for singles, divorced & separated, and lowest for married adults
 
-More detail on this can be found in the [Definitions section](index.html#matdep).
+In 2016-19, the relative poverty rate after housing costs was highest for single adults (27%, 260,000 adults each year) and divorced (or separated) adults (26%, 90,000). Married adults were the least likely to be in poverty (13%, 270,000), and widowed and cohabiting adults were in the middle (17% and 20%; 50,000 and 120,000).
 
-`r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.")`
+Poverty among widowed and divorced/separated adults largely decreased over the long term, whereas the trend for singles, cohabiting and married adults was broadly flat over time.
 
-##### Figure 5 - Proportion of children in combined low income and material deprivation, Scotland
+`r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner. The 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart. The 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
+
+#### Figure 15 - Proportion of adults in relative poverty after housing costs, Scotland
 ```{r}
-knitr::include_graphics("05_matdepch.png")
+knitr::include_graphics("15_marital.png")
 ```
 
-### In-work poverty for children no longer rising
+## Ethnicity
 
-While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
+Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.
 
-It is estimated that in 2016-19, 65% of children in relative poverty after housing costs (150,000 children each year) were living in working households. Before housing costs, 64% of children in poverty (130,000 children) were living in working households.
+### Relative poverty rates higher for ethnic minorities
 
-This data suggests that after a steady and steep increase of in-work poverty since 2007-10, in-work poverty is now stable at a high level.
+In 2014-19, people from non-white minority ethnic groups were more likely to be in relative poverty after housing costs compared to those from the 'White - British' and 'White - Other' groups.
 
-`r infobox("The terms 'working' and 'in-work poverty' here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
+The poverty rate was 39% for the 'Asian or Asian British' ethnic groups, and 38% for 'Mixed, Black or Black British and Other' ethnic groups.
 
-##### Figure 6 - Proportion of children in relative poverty who live in working households, Scotland
+The poverty rate amongst the 'White - Other' group was 25% (80,000 people) and that of the 'White - British' group was 18% (860,000 people).
+
+`r infobox("This analysis doesn't take into account differences in the age profiles of the ethnic groups. For the 'White - British' ethnic group the median average age of the highest income earner was 50 compared with a median age of 36 for the 'White - Other' ethnic group, 39 for 'Asian or Asian British' and and 40 for 'Mixed, Black, Black British or Other' ethnic groups. <br>Older people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups.")`
+
+#### Figure 16 - Proportion of people in relative poverty after housing costs, Scotland 2014-2019
 ```{r}
-knitr::include_graphics("06_workpovch.png")
+knitr::include_graphics("16_ethnic.png")
 ```
 
-## Priority groups
+Before housing costs data is available in the associated tables.
 
+### More information on ethnicity data
 
+The above chart shows an ethnicity breakdown based on an average of data from the past five financial years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more detailed ethnicity breakdown using ten years of data was previously published: www.gov.scot/publications/additional-poverty-statistics-2018/
+
+Due to the small sample sizes for some of the ethnic groups, the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by ethnicity as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of people in poverty is not available for some ethnic groups due to small sample sizes.
+
+## Religion
+
+Data on religion is available for adults only, so this analysis doesn't include children in a household.
+
+### Relative poverty rates higher for Muslims
+
+In 2014-19, Muslim adults were more likely to be in relative poverty (49%) than adults overall (18%), after housing costs were taken into account.
+
+Of adults belonging to the Church of Scotland, 15% were in relative poverty after housing costs (180,000 adults each year), compared to 19% of Roman Catholic adults (120,000 adults) and adults of other Christian denominations (also 19%; 70,000 adults).
+
+`r infobox("This analysis doesn't take into account differences in the age profiles of the religions. For adults belonging to the Church of Scotland, the median average age was 61. In contrast, the median age was 35 for Muslim adults, and 40 for adults belonging to no religion.<br>Older people have a lower poverty rate, so age profile partly explains the lower poverty rate for people belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups.")`
+
+#### Figure 17 - Proportion of adults in relative poverty after housing costs, Scotland 2014-19
+```{r}
+knitr::include_graphics("17_religion.png")
+```
+
+Before housing costs data is available in the associated tables.
+
+### More information on religion data
+
+The above chart shows an average for data from the past five financial years.
+
+Due to the small sample sizes for some of the religious groups, the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by religion, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of adults in poverty is not available for some religious groups due to small sample sizes.
+
+## Disability
+
+### Relative poverty rates higher where a household member is disabled
+
+Poverty rates remain higher for households in which somebody is disabled compared to those where no-one is disabled. The gap between the two groups has remained fairly steady over the last few years.
+
+In 2016-19, the poverty rate after housing costs for people in households with a disabled person was 23% (490,000 people each year). This compares with 17% (530,000 people) in a household without disabled household members.
+
+`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13. Since 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.<br>More detail can be found on pages 34-36 in the 2015/16 HBAI technical report.")`
+
+#### Figure 18 - Proportion of people in relative poverty after housing costs, Scotland
+```{r}
+knitr::include_graphics("18_disability1.png")
+```
+
+Before housing costs data is available in the associated tables.
+
+### Additional living costs of disabled people
+
+The relative poverty measure doesn't take into account the fact that additional living costs may be incurred due to the illness or disability in question. The analysis on the following page attempts to make an adjustment to the poverty rates to partly account for additional living costs for those households where someone is in receipt of disability benefits.
+
+### Relative poverty rates, with disability benefits removed from household income, higher where a household member is disabled
+
+Whilst it is recognised that there are additional costs associated with disability, research shows that these vary greatly in level and nature, and there is no general agreement on how to measure these costs.
+
+Analysis on this page excludes Disability Living Allowance, Attendance Allowance and Personal Independence Payments from total household income. These benefits are paid as a contribution towards the additional living costs for disabled people. If this income is excluded from total household income, then we are able to compare households with and without a disabled household member on a more like for like basis.
+
+In 2016-19, as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability related benefits are not included in the household income. After housing costs, the poverty rate was 29% (620,000 people each year) for people living with a disabled household member, and 16% (500,000 people) for those without.
+
+`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now move down the income distribution, which lowers the median income and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold. As a result, the poverty rate for households without a disabled person is slightly lower.")`
+
+#### Figure 19 - Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland
+```{r}
+knitr::include_graphics("19_disability2.png")
+```
+
+Before housing costs data is available in the associated tables.
