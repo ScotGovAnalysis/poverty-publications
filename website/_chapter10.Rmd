@@ -1,38 +1,27 @@
-# National Statistics
+# Find more information
 
-Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
+## Associated tables and further analysis
 
-Statistics assessed, or subject to assessment, by the UK Statistics Authority carry the National Statistics label, a stamp of assurance that the statistics have been produced and explained to high standards and that they serve the public good.
+This publication contains the headline poverty and income inequality statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts only show after-housing-costs estimates. This publication and the associated tables are available here: www.gov.scot/ISBN/9781839606243
 
-The designation of these statistics as National Statistics was confirmed in May 2012 following a compliance check by the Office for Statistics Regulation.
+Additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics are published as supplementary tables alongside this publication.
 
-### Correspondence and enquiries
+This and further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages.
 
-For enquiries about this publication please contact:
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please email:
 
-Maike Waldmann
-Communities Analysis Division
-Telephone: 0131 244 5851
-e-mail: social-justice-analysis@gov.scot
+social-justice-analysis@gov.scot or phone 0131 244 5851.
 
-For general enquiries about Scottish Government statistics please contact:
+## Local poverty analysis
 
-Office of the Chief Statistician
-Telephone: 0131 244 0442
-e-mail: statistics.enquiries@gov.scot
+add link to relevant section on website, and add some text as well
 
-### How to access background or source data
+## Scottish Government websites
 
-The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the UK Department for Work and Pensions) are making the data available through the UK Data Service: www.ukdataservice.ac.uk/
-
-### Complaints and suggestions
-
-If you are not satisfied with our service or have any comments or suggestions, please write to the Chief Statistician, 2W, St Andrews House, Edinburgh, EH1 3DG, Telephone: (0131) 244 0302, e-mail statistics.enquiries@gov.scot.
-
-If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at www.gov.scot/scotstat
-
-Details of forthcoming publications can be found at www.gov.scot/publications/official-statistics-forthcoming-publications/
-
-### Crown Copyright
-
-You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the Open Government Licence. See: www.nationalarchives.gov.uk/doc/open-government-licence/
+* Poverty and income inequality analysis: www.gov.scot/collections/poverty-and-income-inequality-statistics/
+* Confidence limits surrounding Scotland's key poverty estimates: www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/
+* Child poverty analysis: www.gov.scot/collections/child-poverty-statistics/
+* Wealth analysis: www.gov.scot/collections/wealth-statistics/
+* Scottish Index of Multiple Deprivation: www.gov.scot/simd
+* For further information on all Scottish Government statistics: www.gov.scot/topics/statistics/
+*Scottish Government approach to tackling poverty: www.gov.scot/policies/poverty-and-social-justice/

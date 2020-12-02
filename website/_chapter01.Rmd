@@ -17,7 +17,7 @@ div(class = "row fluid-row",
                      "Relative poverty no longer rising")),
               div(class = "panel-body",
                   a(href = "index.html#relpov",
-                    img(src = "0a_relpovpp.png")),
+                    img(src = "chart0a.png")),
                   create_html("19% of people were living in relative poverty after housing costs in 2016-19. Overall, the poverty rate appears to have stopped rising.")))),
      
      div(class = "col-md-4", 

@@ -4,31 +4,37 @@ The Child Poverty (Scotland) Act 2017 requires us to report annually on a number
 
 `r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](index.html#child).")`
 
-## Key trends
+## Key trends {.tabset}
 
-### Relative poverty rate for children no longer rising
+### Relative poverty
+
+**Relative poverty rate for children no longer rising**
 
 It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
 
 After a long fall between 1999-02 and 2010-13, which halted briefly just before the recession, child poverty rates had been rising again but did not rise in the latest periods.
 
-#### Figure 3 - Proportion of children in relative poverty, Scotland
-```{r}
-knitr::include_graphics("03_relpovch.png")
+#### Figure 10 - Proportion of children in relative poverty, Scotland
+```{r chart10}
+interactive(povertycharts[["chart10"]])
 ```
 
-### Absolute poverty rate for children stable
+### Absolute poverty
+
+**Absolute poverty rate for children stable**
 
 Absolute child poverty after housing costs affected 21% (210,000 children each year). Before housing costs, absolute child poverty was at 17% (160,000 children each year).
 
 Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the recession. The decrease of the after housing costs rate then slowed down. The before housing costs measure continued to decrease until 2013-16 and has been largely flat since. As a result, the gap between absolute child poverty before and after housing costs widened in recent years.
 
-#### Figure 4 - Proportion of children in absolute poverty, Scotland
-```{r}
-knitr::include_graphics("04_abspovch.png")
+#### Figure 11 - Proportion of children in absolute poverty, Scotland
+```{r chart11}
+interactive(povertycharts[["chart11"]])
 ```
 
-### Children in combined material deprivation and low income broadly stable
+### Material deprivation
+
+**Children in combined material deprivation and low income broadly stable**
 
 It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in 2016-19. Before housing costs, this was 11% of children (110,000 children).
 
@@ -36,14 +42,16 @@ Combined low income and child material deprivation is an additional way of measu
 
 More detail on this can be found in the [Definitions section](index.html#matdep).
 
-`r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.")`
-
-#### Figure 5 - Proportion of children in combined low income and material deprivation, Scotland
-```{r}
-knitr::include_graphics("05_matdepch.png")
+#### Figure 12 - Proportion of children in combined low income and material deprivation, Scotland
+```{r chart12}
+interactive(povertycharts[["chart12"]])
 ```
 
-### In-work poverty for children no longer rising
+`r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.")`
+
+### In-work poverty
+
+**In-work poverty for children no longer rising**
 
 While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
 
@@ -53,11 +61,29 @@ This data suggests that after a steady and steep increase of in-work poverty sin
 
 `r infobox("The terms 'working' and 'in-work poverty' here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
 
-#### Figure 6 - Proportion of children in relative poverty who live in working households, Scotland
-```{r}
-knitr::include_graphics("06_workpovch.png")
+#### Figure 13 - Proportion of children in relative poverty who live in working households, Scotland
+```{r chart13}
+interactive(povertycharts[["chart13"]])
 ```
 
+### Food poverty
+
+#### Figure 14 - Proportion of children in food poverty, Scotland
+
+add chart here
+
+add commentary here
+
 ## Priority groups
+
+add bar chart showing relative child poverty rates for the priority groups
+
+#### Figure 15 - Proportion of children in food poverty, Scotland
+
+add chart here
+
+add commentary here
+
+
 
 
