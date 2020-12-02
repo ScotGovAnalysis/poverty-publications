@@ -1,3 +1,8 @@
+
+body {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 #navbar a {
   color: #333333 !important; /*Greater contrast for accessibility*/
   }
@@ -10,12 +15,16 @@ p,
 .container-fluid > ul,
 .section > ul,
 .dropdown-menu,
-#TOC,
-#navbar,
 .panel-title,
-.ds_inset-text {
+.ds_inset-text,
+#TOC,
+#navbar {
   font-size: large; /*Larger font for accessibility*/
   line-height: 1.8;
+}
+
+table {
+  font-size: 15px;
 }
 
 .dropdown-header {
@@ -27,6 +36,11 @@ p,
     white-space: nowrap;
 }
 
+h4 {
+  font-weight: 900;
+  color: #727272;
+}
+
 /* Navbar colours */
 
 .navbar-default {
@@ -36,8 +50,8 @@ p,
 
 /* TOC colours */
 .list-group-item.active, 
-.list-group-item.active:focus, 
-.list-group-item.active:hover {
+.list-group-item.active: focus, 
+.list-group-item.active: hover {
     background-color: #0065bd;
     border-color: #0065bd;
 }
@@ -48,7 +62,9 @@ p,
     padding-left: 32px;
     padding-right: 64px;
     border-left: 8px solid #b3b3b3;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #f8f8f8;
     padding: 16px;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 16px;
+    margin-bottom: 16px;
 }
