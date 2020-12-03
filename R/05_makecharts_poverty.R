@@ -3,142 +3,545 @@
 
 library(tidyverse)
 library(labelled)
-library(plotly)
+library(ggrepel)
+library(ggiraph)
 
 source("R/00_functions.R")
 source("R/00_colours.R")
 source("R/05_prepcharts_poverty.R")
 
+povertycharts <- list()
+
 # Theme ----
 
-mytheme <- theme_grey() + 
-  theme(text = element_text(colour = SGgreys[1], size = 14), 
-        
-        line = element_line(colour = SGgreys[1], 
-                            linetype = 1, 
-                            lineend = 2, 
-                            size = 0.5), 
-        
-        plot.title = element_text(hjust = 0, colour = SGgreys[1]), 
-        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]), 
-        plot.caption = element_text(hjust = 1), 
-        
-        legend.position = "top", 
-        legend.title = element_blank(), 
-        
-        panel.background = element_blank(), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), 
-        
-        axis.line.x = element_line(), 
+mytheme <- theme_grey() +
+  theme(text = element_text(colour = SGgreys[1], size = 14),
+
+        line = element_line(colour = SGgreys[1],
+                            linetype = 1,
+                            lineend = 2,
+                            size = 0.5),
+
+        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.caption = element_text(hjust = 1),
+
+        legend.position = "top",
+        legend.title = element_blank(),
+
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+
+        axis.line.x = element_line(),
         axis.ticks.length = unit(2, "pt"),
         axis.ticks.y = element_blank(),
-        
+
         axis.title = element_blank(),
-        axis.text.y = element_blank()) 
+        axis.text.y = element_blank())
 
 theme_set(mytheme)
 
 # Key trends ----
 
-# chart0a
+# chart0a ----
 
-# chart0b
+data <- mutate(povertychartdata[["relpov"]], value = pprate) %>%
+  filter(key == "After housing costs")
 
-# chart0c
+povertycharts[["chart0a"]] <- linechart_small(data) +
+  addscales()
+
+saveplot("website/chart0a.png")
+
+# chart0b ----
+
+# chart0c ----
 
 # Poverty ----
 
-data <- mutate(relpov, value = pprate)
+## chart01 rel pov pp ----
+data <- mutate(povertychartdata[["relpov"]], value = pprate)
 
-chart01 <- plotdata(data) +
-  addxlabels() +
+povertycharts[["chart01"]] <- linechart(data) +
   scale_y_continuous(limits = c(0, 0.45)) +
-  addnames(AHC_ypos = 0.28, BHC_ypos = 0.16) +
+  addscales() +
+  addsource() +
+  addlabels() +
+  addnames(up = c(-0.04, +0.05))
+
+## chart02 abs pov pp ----
+data <- mutate(povertychartdata[["abspov"]], value = pprate)
+
+povertycharts[["chart02"]] <- linechart(data) +
+  scale_y_continuous(limits = c(0, 0.45)) +
+  addnames(up = c(-0.15, +0.05)) +
   addscales() +
   addsource() +
   addlabels()
 
-data <- mutate(abspov, value = pprate)
+## chart03 food poverty pp ----
 
-chart02 <- plotdata(data) +
-  addxlabels() +
+## chart04 rel pov wa ----
+data <- mutate(povertychartdata[["relpov"]], value = warate)
+
+povertycharts[["chart04"]] <- linechart(data) +
   scale_y_continuous(limits = c(0, 0.45)) +
-  addnames(AHC_ypos = 0.41, BHC_ypos = 0.18) +
+  addnames(up = c(-0.04, 0.05)) +
   addscales() +
   addsource() +
   addlabels()
 
-data <- mutate(relpov, value = warate)
+## chart05 abs pov wa ----
+data <- mutate(povertychartdata[["abspov"]], value = warate)
 
-chart03 <- plotdata(data) +
-  addxlabels() +
+povertycharts[["chart05"]] <- linechart(data) +
   scale_y_continuous(limits = c(0, 0.45)) +
-  addnames(AHC_ypos = 0.24, BHC_ypos = 0.13) +
+  addnames(up = c(-0.12, +0.05)) +
   addscales() +
   addsource() +
   addlabels()
 
-data <- mutate(abspov, value = warate)
-
-chart04 <- plotdata(data) +
-  addxlabels() +
-  scale_y_continuous(limits = c(0, 0.45)) +
-  addnames(AHC_ypos = 0.33, BHC_ypos = 0.15) +
-  addscales() +
-  addsource() +
-  addlabels()
-
-data <- mutate(workpov, value = wacomp) %>%
+## chart06 work pov wa ----
+data <- mutate(povertychartdata[["workpov"]], value = wacomp) %>%
   filter(groupingvar == "Someone in paid work")
 
-chart05 <- plotdata(data, up = 0.3) +
-  addxlabels() +
+povertycharts[["chart06"]] <- linechart(data, up = 0.3) +
   scale_y_continuous(limits = c(0.3, 0.75)) +
-  addnames(AHC_ypos = 0.56, BHC_ypos = 0.39) +
+  addnames() +
   addscales() +
   addsource() +
   addlabels()
 
-data <- mutate(relpov, value = pnrate)
+## chart07 rel pov pn ----
+data <- mutate(povertychartdata[["relpov"]], value = pnrate)
 
-chart06 <- plotdata(data) +
-  addxlabels() +
+povertycharts[["chart07"]] <- linechart(data) +
   scale_y_continuous(limits = c(0, 0.45)) +
-  addnames(AHC_ypos = 0.34, BHC_ypos = 0.17) +
+  addnames(up = c(-0.07, 0.04)) +
   addscales() +
   addsource() +
   addlabels()
 
-data <- mutate(abspov, value = pnrate)
+## chart08 abs pov pn ----
+data <- mutate(povertychartdata[["abspov"]], value = pnrate)
 
-chart07 <- plotdata(data, up = 0.11) +
-  addxlabels() +
-  scale_y_continuous(limits = c(0.11, 0.56)) +
-  addnames(AHC_ypos = 0.18, BHC_ypos = 0.55) +
+povertycharts[["chart08"]] <- linechart(data, up = 0.11) +
+  scale_y_continuous(limits = c(0.11, 0.58)) +
+  addnames(up = c(0.03, -0.28)) +
   addscales() +
   addsource() +
   addlabels()
 
-data <- mutate(pndep, value = pnrate, key = "AHC")
+## chart09 dep pn ----
+data <- mutate(povertychartdata[["pndep"]],
+               value = pnrate, key = "After housing costs")
 
-chart08 <- plotdata(data) +
-  addxlabels() +
+povertycharts[["chart09"]] <- linechart(data) +
   scale_y_continuous(limits = c(0, 0.45)) +
   addscales() +
   addsource() +
-  addlabels(uprAHC = -0.015, uprBHC = 0.03,
-            uplAHC = -0.015, uplBHC = 0.03)
-
-# Equality ----
+  addlabels()
 
 # Child poverty ----
 
+# chart10 rel pov ch ----
+data <- mutate(povertychartdata[["relpov"]], value = chrate)
+
+povertycharts[["chart10"]] <- linechart(data) +
+  scale_y_continuous(limits = c(0, 0.45)) +
+  addscales() +
+  addsource() +
+  addlabels() +
+  addnames(up = c(-0.05, +0.05))
+
+# chart11 abs pov ch ----
+data <- mutate(povertychartdata[["abspov"]], value = chrate)
+
+povertycharts[["chart11"]] <- linechart(data) +
+  scale_y_continuous(limits = c(0.1, 0.55)) +
+  addnames(up = c(-0.2, 0.04)) +
+  addscales() +
+  addsource() +
+  addlabels()
+
+# chart12 mat dep ch ----
+data <- mutate(povertychartdata[["cmd"]], value = chrate)
+
+povertycharts[["chart12"]] <- linechart(data, recession = FALSE) +
+  scale_y_continuous(limits = c(0, 0.45)) +
+  addscales() +
+  addlabels() +
+  geom_vline(aes(xintercept = 18),
+             colour = SGgreys[3],
+             alpha = 0.9) +
+  annotate("text",
+           label = "Methodology \nchange",
+           size = 3,
+           colour = SGgreys[2],
+           x = 18.2,
+           y = 0.45,
+           hjust = 0,
+           vjust = 1) +
+  addnames(up = c(0.06, -0.07)) +
+  addsource()
+
+# chart13 work pov ch ----
+data <- mutate(povertychartdata[["workpov"]], value = chcomp) %>%
+  filter(groupingvar == "Someone in paid work")
+
+povertycharts[["chart13"]] <- linechart(data, up = 0.3) +
+  scale_y_continuous(limits = c(0.3, 0.75)) +
+  addnames(up = c(-0.06, 0.07)) +
+  addscales() +
+  addsource() +
+  addlabels()
+
+# chart14 food pov ch ----
+
+# chart15 priority ch ----
+
+# Equality -----
+
+## chart16 age ----
+
+## chart17 gender wa ----
+data <- povertychartdata[["gender"]] %>%
+  ungroup() %>%
+  filter(groupingvar %in% c("Working-age single with dependent children",
+                            "Working-age single without dependent children - male",
+                            "Working-age single without dependent children - female")) %>%
+  mutate(value = pprate,
+         key = factor(groupingvar,
+                      levels = c("Working-age single with dependent children",
+                                 "Working-age single without dependent children - male",
+                                 "Working-age single without dependent children - female")),
+         key = case_when(key == "Working-age single with dependent children" ~ "Single parent",
+                         key == "Working-age single without dependent children - male" ~ "Single man, no children",
+                         key == "Working-age single without dependent children - female" ~ "Single woman, no children",
+                         TRUE ~ as.character(key)))
+
+povertycharts[["chart17"]] <- linechart(data, recession = FALSE) +
+  scale_y_continuous(limits = c(0.13, 0.68)) +
+  addscales() +
+  addsource() +
+  addlabels() +
+  addnames(up = c(0.04, 0.1, -0.05))
+
+## chart18 gender pn ----
+data <- povertychartdata[["gender"]] %>%
+  ungroup() %>%
+  filter(groupingvar %in% c("Single pensioner - male",
+                            "Single pensioner - female")) %>%
+  mutate(value = pprate,
+         key = factor(groupingvar,
+                      levels = c("Single pensioner - male",
+                                 "Single pensioner - female")))
+
+povertycharts[["chart18"]] <- linechart(data, recession = FALSE) +
+  scale_y_continuous(limits = c(0.05, 0.50)) +
+  addscales() +
+  addsource() +
+  addlabels() +
+  addnames(up = c(-0.14, 0.05))
+
+## chart19 marital ----
+data <- povertychartdata[["marital"]] %>%
+  ungroup() %>%
+  filter(groupingvar != "All") %>%
+  mutate(value = adrate,
+         key = groupingvar,
+         key = case_when(key == "Divorced / Civil Partnership dissolved / separated" ~ "Divorced",
+                         key == "Married / Civil Partnership" ~ "Married",
+                         TRUE ~ as.character(key)))
+
+povertycharts[["chart19"]] <- linechart(data, recession = FALSE) +
+  scale_x_discrete(drop = FALSE,
+                   breaks = c("1994-97", "", "", "",
+                              "", "", "2000-03", "",
+                              "", "", "", "",
+                              "2006-09", "", "", "",
+                              "", "", "2012-15", "",
+                              "", "", "2016-19"),
+                   expand = c(0.3, 0)) +
+  scale_y_continuous(limits = c(0.05, 0.5)) +
+  addscales() +
+  addsource() +
+  geom_text_repel(data = filter(data, min(data$years) == as.character(data$years)),
+                  mapping = aes(label = str_c(key, " ", percent(value, 1))),
+                  direction = "y",
+                  nudge_x = -1,
+                  hjust = 1,
+                  show.legend = FALSE,
+                  segment.colour = NA) +
+  geom_text_repel(data = filter(data, years == levels(periods)[length(periods) - 2]),
+                  mapping = aes(label = percent(value, 1)),
+                  direction = "y",
+                  nudge_x = 1,
+                  hjust = 0,
+                  show.legend = FALSE,
+                  segment.colour = NA)
+
+## chart20 ethnic ----
+
+data <- povertychartdata[["ethnic"]] %>%
+  mutate(value = pprate,
+         key = groupingvar)
+
+povertycharts[["chart20"]] <- barchart(data)
+
+## chart21 religion ----
+
+data <- povertychartdata[["religion"]] %>%
+  mutate(value = adrate,
+         key = groupingvar)
+
+povertycharts[["chart21"]] <- barchart(data)
+
+## chart22 disability ----
+data <- povertychartdata[["disability"]] %>%
+  ungroup() %>%
+  filter(groupingvar != "All") %>%
+  mutate(value = adrate,
+         key = groupingvar)
+
+povertycharts[["chart22"]] <- linechart(data, recession = FALSE) +
+  disabilitybreaks() +
+  scale_y_continuous(limits = c(0.05, 0.5)) +
+  addscales() +
+  addsource() +
+  addlabels() +
+  addnames(up = c(-0.08, 0.1))
+
+## chart23 disability2 ----
+data <- povertychartdata[["disability2"]] %>%
+  ungroup() %>%
+  filter(groupingvar != "All") %>%
+  mutate(value = adrate,
+         key = groupingvar)
+
+povertycharts[["chart23"]] <- linechart(data, recession = FALSE) +
+  scale_y_continuous(limits = c(0.05, 0.5)) +
+  addscales() +
+  disabilitybreaks() +
+  addsource() +
+  addlabels() +
+  addnames(up = c(-0.07, 0.1))
+
+# Income inequality ----
+
+## chart24 palma ----
+data <- mutate(povertychartdata[["palma"]], value = Palma,
+               key = "Before housing costs")
+
+povertycharts[["chart24"]] <- linechart(data, up = 1.15) +
+  scale_y_continuous(limits = c(0.9, 1.6)) +
+  addscales() +
+  addsource() +
+  addlabels()
+
+## chart25 gini ----
+data <- mutate(povertychartdata[["gini"]], value = Gini,
+               key = "Before housing costs")
+
+povertycharts[["chart25"]] <- linechart(data, up = -0.07) +
+  scale_y_continuous(limits = c(0.27, 0.38)) +
+  addscales() +
+  addsource() +
+  addlabels()
+
 # Income ----
+
+## chart26 medians ----
+data <- mutate(povertychartdata[["medians"]],
+               value = pp,
+               text = stringi::stri_enc_toutf8(comma(value, 1, prefix = "£")))
+
+povertycharts[["chart26"]] <- linechart(data, up = 599.55, GBP = TRUE) +
+  scale_y_continuous(limits = c(250, 600)) +
+  addscales() +
+  addsource() +
+  addlabels(GBP = TRUE) +
+  addnames(up = c(110, -30))
+
+## chart27 deciles ----
+data <- povertychartdata[["deciles"]] %>%
+  tail(4L) %>%
+  gather(key, value, -years) %>%
+  filter(key != "100%") %>%
+  mutate(text = stringi::stri_escape_unicode(str_c(comma(value, prefix = "£"), " (", years, ")")))
+
+povertycharts[["chart27"]] <- ggplot(data,
+                                     aes(x = key,
+                                         y = value,
+                                         fill = years)) +
+
+  geom_bar_interactive(aes(tooltip = text,
+                           data_id = key),
+           position = 'dodge',
+           colour = "white",
+           stat = "identity") +
+
+  scale_fill_manual(values = rev(SGblues)) +
+
+  scale_x_discrete(labels = c("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th"),
+                   expand = c(0.1, 0.1)) +
+
+  scale_y_continuous(labels = comma_format(prefix = "£")) +
+
+  theme(axis.line.y = element_line(),
+        axis.text.y = element_text(hjust = 1,
+                                   margin = margin(0, 3, 0, 0, "pt")),
+        axis.ticks.length = unit(2, "pt"),
+        axis.ticks.y = element_line(),
+        axis.title = element_blank()) +
+
+  addsource()
+
+## chart28 distribution ----
+decilepoints <- povertychartdata[["deciles"]] %>%
+  filter(years == max(levels(periods))) %>%
+  select(-years) %>%
+  gather(key, value) %>%
+  mutate(xpos = lag(value) + 1/2*(value - lag(value)),
+         xpos = ifelse(is.na(xpos), value/2, xpos),
+         xpos = ifelse(key == "100%", (lag(value) + 100), xpos))
+
+data <- mutate(povertychartdata[["distribution"]],
+               value = gs_newpp,
+               Scotmedian = decilepoints$value[5],
+               UKmedian = povertychartdata[["UKdeciles"]]$value[5],
+               povthresh = 0.6*UKmedian) %>%
+  filter(income > 0,
+         income < 1200)
+
+povertycharts[["chart28"]] <- ggplot(data,
+       aes(x = income, weight = value)) +
+
+  geom_density(colour = NA,
+               fill = SGmix[1],
+               adjust = 1/2) +
+
+  scale_x_continuous(labels = comma_format(prefix = "£"),
+                     breaks = c(seq(0, 1200, 200)),
+                     expand = c(0.1, 0.1),
+                     limits = c(0,1200)) +
+
+  annotate("rect", fill = "white", alpha = 0.4,
+           xmin = 0,
+           xmax = decilepoints$value[1],
+           ymin = -Inf,
+           ymax = +Inf) +
+
+  annotate("rect", fill = "white", alpha = 0.4,
+           xmin = decilepoints$value[2],
+           xmax = decilepoints$value[3],
+           ymin = -Inf, ymax = +Inf) +
+
+  annotate("rect", fill = "white", alpha = 0.4,
+           xmin = decilepoints$value[4],
+           xmax = decilepoints$value[5],
+           ymin = -Inf, ymax = +Inf) +
+
+  annotate("rect", fill = "white", alpha = 0.4,
+           xmin = decilepoints$value[6],
+           xmax = decilepoints$value[7],
+           ymin = -Inf, ymax = +Inf) +
+
+  annotate("rect", fill = "white", alpha = 0.4,
+           xmin = decilepoints$value[8],
+           xmax = decilepoints$value[9],
+           ymin = -Inf, ymax = +Inf) +
+
+  geom_text(data = decilepoints,
+            aes(x = xpos, y = 1700, label = c(seq("1", "10"))),
+            colour = SGgreys[5],
+            fontface = "bold") +
+
+  geom_vline(aes(xintercept = povthresh),
+             colour = SGgreys[4],
+             linetype = "dashed") +
+
+  geom_vline(aes(xintercept = UKmedian),
+             colour = SGgreys[4],
+             linetype = "dashed") +
+
+  annotate("text", x = 280, y = 2.5E4,
+           label = str_c("Poverty threshold: ",
+                         comma(data$povthresh[1],
+                               prefix = "£",
+                               accuracy = 1)),
+           colour = SGgreys[2],
+           size = 3,
+           hjust = 1) +
+
+  annotate("text", x = 570, y = 2.5E4,
+           label = str_c("Median income: ",
+                         comma(data$UKmedian[1],
+                               prefix = "£",
+                               accuracy = 1)),
+           colour = SGgreys[2],
+           size = 3,
+           hjust = 0) +
+
+  addsource()
+
+
+## chart29 sources ----
+data <- povertychartdata[["sources"]] %>%
+  gather(key, value, -decbhc) %>%
+  filter(decbhc != "All") %>%
+  mutate(key = case_when(key == "earnings" ~ "Earnings",
+                         key == "benefits" ~ "Social security",
+                         key == "occpens" ~ "Occupational pensions",
+                         key == "investments" ~ "Investments",
+                         key == "other" ~ "Other"),
+         key = factor(key, levels = c("Earnings",
+                                      "Investments",
+                                      "Occupational pensions",
+                                      "Other",
+                                      "Social security")),
+         text = str_c(key, ": ",
+                      percent(value,1)))
+
+povertycharts[["chart29"]] <- ggplot(data, aes(x = decbhc,
+                 y = value,
+                 fill = key,
+                 width = 1)) +
+
+  geom_bar_interactive(aes(tooltip = text,
+                           data_id = key),
+                       position = "fill",
+                       stat = "identity",
+                       colour = "white") +
+
+  scale_fill_manual(values = SGmix) +
+
+  scale_y_continuous(labels = percent_format(1)) +
+  scale_x_discrete(breaks = c(seq(1, 10, 1)),
+                     labels = c("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
+                     expand = c(0.05, 0.05)) +
+
+  theme(axis.line = element_line(),
+        axis.text.y = element_text(hjust = 1,
+                                   margin = margin(0, 3, 0, 0, "pt")),
+        axis.title.y = element_text(hjust = 0.5),
+        axis.ticks.length = unit(2, "pt"),
+        axis.ticks.y = element_line(),
+        legend.position = c(0.75, 0.72)) +
+
+  ylab("Proportion of income") +
+  addsource()
+
 
 # Child poverty update ----
 
-remove(abspov, cmd, data, deciles, disability, disability2, distribution, 
-       ethnic, gender, gini, labels, marital, medians, mytheme, palma, periods, 
-       pndep, religion, relpov, SGblue, SGblue2, SGblues, SGgreys, SGmix, 
-       SGoranges, sources, UKdeciles, workpov, yearsno)
+## chartcp1 ----
+
+## chartcp2 ----
+
+## chartcp3 ----
+
+## chartcp4 ----
+
+# remove(periods, SGblue, SGblue2, SGblues, SGgreys, SGmix, SGoranges, yearsno)
