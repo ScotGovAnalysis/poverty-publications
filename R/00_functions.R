@@ -232,22 +232,43 @@ getpov <- function(df, povvar){
     mutate(chn = sum(gs_newch),
            wan = sum(gs_newwa),
            pnn = sum(gs_newpn),
-           ppn = sum(gs_newpp)) %>%
+           ppn = sum(gs_newpp),
+           adn = sum(gs_newad),
+           groupsample = n(),
+           groupsample_ch = sum(gs_newch > 0, na.rm = TRUE),
+           groupsample_wa = sum(gs_newwa > 0, na.rm = TRUE),
+           groupsample_pn = sum(gs_newpn > 0, na.rm = TRUE),
+           groupsample_ad = sum(gs_newad > 0, na.rm = TRUE)) %>%
     group_by(povvar) %>%
     summarise(chnum = sum(gs_newch),
               wanum = sum(gs_newwa),
               pnnum = sum(gs_newpn),
               ppnum = sum(gs_newpp),
+              adnum = sum(gs_newad),
               chn = max(chn),
               wan = max(wan),
               pnn = max(pnn),
-              ppn = max(ppn)) %>%
+              ppn = max(ppn),
+              adn = max(adn),
+              groupsample = max(groupsample),
+              groupsample_ch = max(groupsample_ch),
+              groupsample_wa = max(groupsample_wa),
+              groupsample_pn = max(groupsample_pn),
+              groupsample_ad = max(groupsample_ad),
+              povsample = n(),
+              povsample_ch = sum(gs_newch > 0, na.rm = TRUE),
+              povsample_wa = sum(gs_newwa > 0, na.rm = TRUE),
+              povsample_pn = sum(gs_newpn > 0, na.rm = TRUE),
+              povsample_ad = sum(gs_newad > 0, na.rm = TRUE)) %>%
     mutate(chrate = chnum/chn,
            warate = wanum/wan,
            pnrate = pnnum/pnn,
-           pprate = ppnum/ppn) %>%
-    select(ppnum, chnum, wanum, pnnum,
-           pprate, chrate, warate, pnrate, povvar) %>%
+           pprate = ppnum/ppn,
+           adrate = adnum/adn) %>%
+    select(ppnum, chnum, wanum, pnnum, adnum,
+           pprate, chrate, warate, pnrate, adrate, povvar,
+           groupsample, groupsample_ch, groupsample_wa, groupsample_pn, groupsample_ad,
+           povsample, povsample_ch, povsample_wa, povsample_pn, povsample_ad) %>%
     filter(povvar == 1) %>%
     ungroup() %>%
     select(-povvar)
@@ -269,10 +290,10 @@ getpovby <- function(df, povvar, groupingvar){
            ppn = sum(gs_newpp),
            adn = sum(gs_newad),
            groupsample = n(),
-           groupsample_ch = sum(gs_newch > 0, na.rm=TRUE),
-           groupsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
-           groupsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
-           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+           groupsample_ch = sum(gs_newch > 0, na.rm = TRUE),
+           groupsample_wa = sum(gs_newwa > 0, na.rm = TRUE),
+           groupsample_pn = sum(gs_newpn > 0, na.rm = TRUE),
+           groupsample_ad = sum(gs_newad > 0, na.rm = TRUE)) %>%
     group_by(povvar, groupingvar) %>%
     summarise(chnum = sum(gs_newch),
               wanum = sum(gs_newwa),
@@ -290,10 +311,10 @@ getpovby <- function(df, povvar, groupingvar){
               groupsample_pn = max(groupsample_pn),
               groupsample_ad = max(groupsample_ad),
               povsample = n(),
-              povsample_ch = sum(gs_newch > 0, na.rm=TRUE),
-              povsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
-              povsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
-              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+              povsample_ch = sum(gs_newch > 0, na.rm = TRUE),
+              povsample_wa = sum(gs_newwa > 0, na.rm = TRUE),
+              povsample_pn = sum(gs_newpn > 0, na.rm = TRUE),
+              povsample_ad = sum(gs_newad > 0, na.rm = TRUE)) %>%
     filter(povvar == 1) %>%
     mutate(chrate = chnum/chn,
            warate = wanum/wan,
@@ -321,10 +342,10 @@ getpovby <- function(df, povvar, groupingvar){
            ppn = sum(gs_newpp),
            adn = sum(gs_newad),
            groupsample = n(),
-           groupsample_ch = sum(gs_newch > 0, na.rm=TRUE),
-           groupsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
-           groupsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
-           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+           groupsample_ch = sum(gs_newch > 0, na.rm = TRUE),
+           groupsample_wa = sum(gs_newwa > 0, na.rm = TRUE),
+           groupsample_pn = sum(gs_newpn > 0, na.rm = TRUE),
+           groupsample_ad = sum(gs_newad > 0, na.rm = TRUE)) %>%
     group_by(povvar) %>%
     summarise(chnum = sum(gs_newch),
               wanum = sum(gs_newwa),
@@ -342,10 +363,10 @@ getpovby <- function(df, povvar, groupingvar){
               groupsample_pn = max(groupsample_pn),
               groupsample_ad = max(groupsample_ad),
               povsample = n(),
-              povsample_ch = sum(gs_newch > 0, na.rm=TRUE),
-              povsample_wa = sum(gs_newwa > 0, na.rm=TRUE),
-              povsample_pn = sum(gs_newpn > 0, na.rm=TRUE),
-              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+              povsample_ch = sum(gs_newch > 0, na.rm = TRUE),
+              povsample_wa = sum(gs_newwa > 0, na.rm = TRUE),
+              povsample_pn = sum(gs_newpn > 0, na.rm = TRUE),
+              povsample_ad = sum(gs_newad > 0, na.rm = TRUE)) %>%
     filter(povvar == 1) %>%
     mutate(chrate = chnum/chn,
            warate = wanum/wan,
@@ -605,6 +626,23 @@ getworkpovbynation <- function(df, povvar){
   rbind(total, grouped) %>%
     mutate(gvtregn = factor(gvtregn, levels = as.character(gvtregn)))
 
+}
+
+getpriority <- function(df = hbai, povvar, groupingvar, group) {
+
+  do.call(rbind.data.frame,
+          lapply(df, getpovby, povvar = povvar,
+                 groupingvar = groupingvar)) %>%
+    addyearvar %>%
+    group_by(groupingvar) %>%
+    get3yrtable() %>%
+    filter(years == max(levels(periods)),
+           groupingvar == group) %>%
+    samplesizecheck_num %>%
+    select(years, groupingvar, chrate, groupsample_ch) %>%
+    ungroup() %>%
+    mutate(povvar = povvar,
+           groupingvar = as.character(groupingvar))
 }
 
 checkandfmtUK <- function(df){
@@ -953,8 +991,7 @@ formatpov <- function(df){
                           levels = labels[["years"]]$years,
                           labels = labels[["years"]]$formatted)) %>%
     mutate_at(vars(ends_with("num")), fmtpop) %>%
-    mutate_at(vars(ends_with("rate")), fmtpct) %>%
-    select(1:9)
+    mutate_at(vars(ends_with("rate")), fmtpct)
 }
 
 get3yraverage <- function(x){x = (x + lag(x, 1L) + lag(x, 2L))/3}
@@ -1692,46 +1729,56 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
                show.legend = FALSE)
 }
 
-linechart_small <- function(df){
+linechart_small <- function(df, yrange = c(0.1, 0.35),
+                            GBP = FALSE, col = SGblue){
+
+  if (!GBP) {
+    df$text <- percent(df$value, 1)
+  }
 
   ggplot(data = df,
          aes(x = years,
              y = value,
              group = key,
-             colour = key,
-             label = percent(value, 1))) +
+             label = text)) +
 
     geom_line(data = df,
               aes(x = years,
                   y = value),
               size = 1.2,
               lineend = "round",
-              show.legend = FALSE) +
-
+              show.legend = FALSE,
+              colour = col) +
 
     geom_point(data = arrange(df, years) %>% tail(1L),
                size = 3,
-               show.legend = FALSE) +
+               show.legend = FALSE,
+               colour = col) +
 
     geom_point(data = arrange(df, years) %>% head(1L),
                size = 3,
-               show.legend = FALSE) +
+               show.legend = FALSE,
+               colour = col) +
 
     geom_text(data = head(df, 1L),
-              nudge_x = -4,
               show.legend = FALSE,
-              size = 6) +
+              hjust = 1,
+              nudge_x = -1.5,
+              size = 6,
+              colour = col) +
 
     geom_text(data = tail(df, 1L),
-              nudge_x = 4,
               show.legend = FALSE,
-              size = 6) +
+              hjust = 0,
+              nudge_x = 1.5,
+              size = 6,
+              colour = col) +
 
-    scale_y_continuous(limits = c(0.1, 0.35)) +
+    scale_y_continuous(limits = yrange) +
 
     scale_x_discrete(drop = FALSE,
                      breaks = c("1994-97", "2016-19"),
-                     expand = c(0.3, 0.3)) +
+                     expand = c(0.4, 0.45)) +
 
     theme(axis.text = element_text(size = 16))
 
@@ -1758,7 +1805,8 @@ barchart <- function(df) {
     scale_fill_manual(values = SGmix) +
     scale_colour_manual(values = SGmix) +
 
-    scale_x_discrete(labels = str_wrap(df$key, 18)) +
+    scale_x_discrete(labels = str_wrap(df$key, 40)) +
+    scale_y_continuous(limits = c(0, 0.6)) +
 
     coord_flip() +
 
@@ -1767,6 +1815,33 @@ barchart <- function(df) {
           axis.text.y = element_text(hjust = 1)) +
 
     addsource()
+}
+
+persistentchart <- function(df) {
+
+  ggplot(data = df,
+         mapping = aes(x = key,
+                       y = value,
+                       fill = period,
+                       group = period,
+                       label = percent(value, 1))) +
+
+    geom_bar_interactive(aes(tooltip = str_c(percent(value, 1), " (", period, ")"),
+                             data_id = period),
+                         stat = "identity",
+                         position = "dodge",
+                         colour = "white") +
+
+    scale_fill_manual(values = rev(SGblues)) +
+
+    scale_y_continuous(limits = c(0, 0.22)) +
+
+    geom_text(aes(label = ifelse(period == max(period), percent(value, 1), NA)),
+              vjust = -0.5,
+              position = position_dodge(1),
+              colour = SGblues[2]) +
+
+    labs(caption = "Source: Understanding Society Survey")
 }
 
 # Add annotations for recession and welfare reform
@@ -1813,7 +1888,7 @@ disabilitybreaks <- function() {
 
   text <- annotate("text",
              x = 16.3,
-             y = 0.5,
+             y = 0.4,
              hjust = 1,
              vjust = 1,
              size = 3,

@@ -33,26 +33,26 @@ hbai <- lapply(hbai, getpovdisabilityflags)
 # add factor labels -----------------------------------------------------------------------------------
 
 for (year in years){
-  
+
   df <- hbai[[year]]
-  
+
   df <- df %>%
-    mutate(ecobu = factor(ecobu, 
+    mutate(ecobu = factor(ecobu,
                           levels = labels[["economic"]]$codes,
                           labels = labels[["economic"]]$labels),
-           kidecobu = factor(kidecobu, 
+           kidecobu = factor(kidecobu,
                           levels = labels[["kideconomic"]]$codes,
                           labels = labels[["kideconomic"]]$labels),
-           newfambu = factor(newfambu, 
+           newfambu = factor(newfambu,
                           levels = labels[["familytype"]]$codes,
                           labels = labels[["familytype"]]$labels),
-           ptentyp2 = factor(ptentyp2, 
+           ptentyp2 = factor(ptentyp2,
                           levels = labels[["tenure"]]$codes,
                           labels = labels[["tenure"]]$labels),
-           urinds = factor(urinds, 
+           urinds = factor(urinds,
                           levels = labels[["urbrur"]]$codes,
                           labels = labels[["urbrur"]]$labels),
-           workinghh = factor(workinghh, 
+           workinghh = factor(workinghh,
                           levels = labels[["workinghh"]]$codes,
                           labels = labels[["workinghh"]]$labels),
            loneparenthh = factor(loneparenthh,
@@ -64,23 +64,23 @@ for (year in years){
            youngmumhh = factor(youngmumhh,
                            levels = labels[["youngmum"]]$codes,
                            labels = labels[["youngmum"]]$labels),
-           disch_hh = factor(disch_hh, 
+           disch_hh = factor(disch_hh,
                           levels = labels[["disch"]]$codes,
                           labels = labels[["disch"]]$labels),
-           disad_hh = factor(disad_hh, 
+           disad_hh = factor(disad_hh,
                           levels = labels[["disad"]]$codes,
                           labels = labels[["disad"]]$labels),
-           dispp_hh = factor(dispp_hh, 
+           dispp_hh = factor(dispp_hh,
                           levels = labels[["dispp"]]$codes,
                           labels = labels[["dispp"]]$labels),
            depchldh_ch = depchldh,
-           depchldh = factor(depchldh, 
+           depchldh = factor(depchldh,
                              levels = labels[["childno"]]$codes,
                              labels = labels[["childno"]]$labels),
-           depchldh_ch = factor(depchldh_ch, 
+           depchldh_ch = factor(depchldh_ch,
                              levels = labels[["childno_ch"]]$codes,
                              labels = labels[["childno_ch"]]$labels),
-           gvtregn = factor(gvtregn, 
+           gvtregn = factor(gvtregn,
                              levels = labels[["regions"]]$codes,
                              labels = labels[["regions"]]$labels),
            ethgrphh_2f = ethgrphh,
@@ -92,12 +92,12 @@ for (year in years){
                              labels = labels[["ethnic_2f"]]$labels))  %>%
   mutate_at(vars(c("ecobu", "kidecobu", "newfambu", "ptentyp2", "urinds",
                    "workinghh", "disch_hh", "disad_hh", "dispp_hh", "depchldh",
-                   "depchldh_ch", "gvtregn", "ethgrphh", "ethgrphh_2f", 
-                   "loneparenthh", "babyhh", "youngmumhh")), 
+                   "depchldh_ch", "gvtregn", "ethgrphh", "ethgrphh_2f",
+                   "loneparenthh", "babyhh", "youngmumhh")),
             fct_explicit_na)
-  
+
   hbai[[year]] <- df
-  
+
 }
 
 # create tidy hbai dataset for linking with adult dataset
@@ -113,22 +113,36 @@ names(adult) <- years
 # add adult weights and poverty flags -----------------------------------------------------------------
 adult <- lapply(adult, addpovflagsnadultwgt)
 
-# add factor labels ----------------------------------------------------------------------------------- 
-for (year in years){
-  
+# add factor labels -----------------------------------------------------------------------------------
+for (year in years) {
+
   df <- adult[[year]]
-  
+
   df <- df %>%
-    mutate(marital = factor(marital, 
+    mutate(marital = factor(marital,
                           levels = labels[["marital"]]$codes,
                           labels = labels[["marital"]]$labels),
            religsc = factor(religsc,
                             levels = labels[["religion"]]$codes,
-                            labels = labels[["religion"]]$labels))  %>%
-    mutate_at(vars(c("marital", "religsc")), fct_explicit_na)
-  
+                            labels = labels[["religion"]]$labels),
+           ageband = case_when(age <= 24 ~ "16-24",
+                               age >= 25 & age <= 34 ~ "25-34",
+                               age >= 35 & age <= 44 ~ "35-44",
+                               age >= 45 & age <= 54 ~ "45-54",
+                               age >= 55 & age <= 64 ~ "55-64",
+                               age >= 65 ~ "65+"),
+           hdage = case_when(hdage == 1 ~ "16-24",
+                             hdage == 2 ~ "25-34",
+                             hdage == 3 ~ "35-44",
+                             hdage == 4 ~ "45-54",
+                             hdage == 5 ~ "55-64",
+                             hdage == 6 ~ "65+"),
+           ageband = ifelse(is.na(ageband), hdage, ageband),
+           ageband = factor(ageband))  %>%
+    mutate_at(vars(c("marital", "religsc", "ageband")), fct_explicit_na)
+
   adult[[year]] <- df
-  
+
 }
 
 

@@ -2,13 +2,13 @@
 
 # Create list for factor levels and labels
 
-
+library(tidyverse)
 labels <- list()
 
 # Regions -----------------------------------------------------------------------------------------
 labels[["regions"]] <- data.frame(codes = c(1:13),
                                   labels = c("England", "England", "England", "England", "England",
-                                             "England", "England", "England", "England", "England", 
+                                             "England", "England", "England", "England", "England",
                                              "Wales", "Scotland", "Northern Ireland"))
 
 labels[["regions"]] <- labels[["regions"]] %>%
@@ -25,11 +25,11 @@ labels[["years"]] <- data.frame(years = c("9495", "9596", "9697", "9798", "9899"
                                               "2004-05", "2005-06", "2006-07", "2007-08", "2008-09",
                                               "2009-10", "2010-11", "2011-12", "2012-13", "2013-14",
                                               "2014-15", "2015-16", "2016-17", "2017-18", "2018-19"),
-                                periods = c(NA, NA, "1994-97", "1995-98", "1996-99", 
-                                            "1997-00", "1998-01", "1999-02", "2000-03", 
-                                            "2001-04", "2002-05", "2003-06", "2004-07", 
-                                            "2005-08", "2006-09", "2007-10", "2008-11", 
-                                            "2009-12", "2010-13", "2011-14", "2012-15", 
+                                periods = c(NA, NA, "1994-97", "1995-98", "1996-99",
+                                            "1997-00", "1998-01", "1999-02", "2000-03",
+                                            "2001-04", "2002-05", "2003-06", "2004-07",
+                                            "2005-08", "2006-09", "2007-10", "2008-11",
+                                            "2009-12", "2010-13", "2011-14", "2012-15",
                                             "2013-16", "2014-17", "2015-18", "2016-19"),
                                 period5yr = c(NA, NA, NA, NA, "1994-99",
                                                "1995-00", "1996-01", "1997-02", "1998-03", "1999-04",
@@ -53,12 +53,12 @@ labels[["inctypes"]] <- c("total", "earn", "ben", "occ", "inv", "oth", "privben"
 
 # Urban/rural ---------------------------------------------------------------------------------------
 labels[["urbrur"]] <- data.frame(codes = c(1:8),
-                                 labels = c("Urban", 
-                                            "Urban",
-                                            "Urban", 
+                                 labels = c("Urban",
                                             "Urban",
                                             "Urban",
-                                            "Rural", 
+                                            "Urban",
+                                            "Urban",
+                                            "Rural",
                                             "Rural",
                                             "Rural"))
 
@@ -75,7 +75,7 @@ labels[["tenure"]] <- labels[["tenure"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
 # Economic status -----------------------------------------------------------------------------------
-labels[["economic"]] <- data.frame(codes = c(1:8), 
+labels[["economic"]] <- data.frame(codes = c(1:8),
                                    labels = c("Self-employed (at least one FT)",
                                               "All in full-time work",
                                               "Couple: one FT, one PT",
@@ -88,7 +88,7 @@ labels[["economic"]] <- data.frame(codes = c(1:8),
 labels[["economic"]] <- labels[["economic"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-labels[["workinghh"]] <- data.frame(codes = c(0, 1), 
+labels[["workinghh"]] <- data.frame(codes = c(0, 1),
                                    labels = c("No one in paid work",
                                               "Someone in paid work"))
 
@@ -241,26 +241,26 @@ labels[["ethnic_2f"]] <- data.frame(codes = c(1:24),
                                             "White",
                                             "White",
                                             "White",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic",
-                                            "Minority ethnic"))
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic",
+                                            "(Non-white) minority ethnic"))
 
 labels[["ethnic_2f"]] <- labels[["ethnic_2f"]] %>%
   mutate(labels = fct_reorder(labels, codes))

@@ -1,7 +1,7 @@
 
 # Prep datasets for poverty charts
 
-# TO DO: child poverty priority analysis; age group equality breakdown; food poverty
+# TO DO: child poverty priority analysis; food poverty
 
 source("R/00_functions.R")
 source("R/00_strings.R")
@@ -69,6 +69,18 @@ remove(workbhc, workahc)
 
 # Equality groups ----
 
+## age ----
+povertychartdata[["age"]] <- do.call(rbind.data.frame,
+                                     lapply(adult,
+                                            getpovby_adult,
+                                            povvar = "low60ahc",
+                                            groupingvar = "ageband")) %>%
+  addyearvar %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  tail(-12L) %>%
+  samplesizecheck_ad_num()
+
 ## gender ----
 povertychartdata[["gender"]] <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc",
@@ -76,7 +88,7 @@ povertychartdata[["gender"]] <- do.call(rbind.data.frame,
   addyearvar %>%
   group_by(groupingvar) %>%
   get3yrtable() %>%
-  tail(-16) %>%
+  tail(-16L) %>%
   samplesizecheck_num()
 
 ## marital status ----
@@ -185,6 +197,78 @@ povertychartdata[["pndep"]] <- do.call(rbind.data.frame,
   get3yrtable()
 
 # Priority groups ----
+rel <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60ahc")) %>%
+  addyearvar %>%
+  get3yrtable() %>%
+  samplesizecheck() %>%
+  filter(years == max(levels(periods))) %>%
+  mutate(povvar = "low60ahc",
+         groupingvar = "All children") %>%
+  select(years, groupingvar, chrate, groupsample_ch, povvar)
+
+abs <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovahc")) %>%
+  addyearvar %>%
+  get3yrtable() %>%
+  samplesizecheck() %>%
+  filter(years == max(levels(periods))) %>%
+  mutate(povvar = "abspovahc",
+         groupingvar = "All children") %>%
+  select(years, groupingvar, chrate, groupsample_ch, povvar)
+
+cmd <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
+  addyearvar %>%
+  get3yrtable() %>%
+  samplesizecheck() %>%
+  filter(years == max(levels(periods))) %>%
+  mutate(povvar = "cmdahc",
+         groupingvar = "All children") %>%
+  select(years, groupingvar, chrate, groupsample_ch, povvar)
+
+
+rel1 <- getpriority(hbai, povvar = "low60ahc",
+                    groupingvar = "depchldh_ch", "3 or more children")
+abs1 <- getpriority(hbai, povvar = "abspovahc",
+                    groupingvar = "depchldh_ch", "3 or more children")
+cmd1 <- getpriority(hbai, povvar = "cmdahc",
+                    groupingvar = "depchldh_ch", "3 or more children")
+rel2 <- getpriority(hbai, povvar = "low60ahc",
+                    groupingvar = "babyhh", "Youngest child is younger than 1")
+abs2 <- getpriority(hbai, povvar = "abspovahc",
+                    groupingvar = "babyhh", "Youngest child is younger than 1")
+cmd2 <- getpriority(hbai, povvar = "cmdahc",
+                    groupingvar = "babyhh", "Youngest child is younger than 1")
+rel3 <- getpriority(hbai, povvar = "low60ahc",
+                    groupingvar = "youngmumhh", "Mother under 25 in household")
+abs3 <- getpriority(hbai, povvar = "abspovahc",
+                    groupingvar = "youngmumhh", "Mother under 25 in household")
+cmd3 <- getpriority(hbai, povvar = "cmdahc",
+                    groupingvar = "youngmumhh", "Mother under 25 in household")
+rel4 <- getpriority(hbai, povvar = "low60ahc",
+                    groupingvar = "loneparenthh", "Single parent in household")
+abs4 <- getpriority(hbai, povvar = "abspovahc",
+                    groupingvar = "loneparenthh", "Single parent in household")
+cmd4 <- getpriority(hbai, povvar = "cmdahc",
+                    groupingvar = "loneparenthh", "Single parent in household")
+rel5 <- getpriority(hbai, povvar = "low60ahc",
+                    groupingvar = "dispp_hh", "In household with disabled person(s)")
+abs5 <- getpriority(hbai, povvar = "abspovahc",
+                    groupingvar = "dispp_hh", "In household with disabled person(s)")
+cmd5 <- getpriority(hbai, povvar = "cmdahc",
+                    groupingvar = "dispp_hh", "In household with disabled person(s)")
+rel6 <- getpriority(hbai, povvar = "low60ahc",
+                    groupingvar = "ethgrphh_2f", "(Non-white) minority ethnic")
+abs6 <- getpriority(hbai, povvar = "abspovahc",
+                    groupingvar = "ethgrphh_2f", "(Non-white) minority ethnic")
+cmd6 <- getpriority(hbai, povvar = "cmdahc",
+                    groupingvar = "ethgrphh_2f", "(Non-white) minority ethnic")
+
+povertychartdata[["priority"]] <- rbind(rel, rel1, rel2, rel3, rel4, rel5, rel6,
+                                        abs, abs1, abs2, abs3, abs4, abs5, abs6,
+                                        cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6)
+
+remove(rel, rel1, rel2, rel3, rel4, rel5, rel6,
+       abs, abs1, abs2, abs3, abs4, abs5, abs6,
+       cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6)
 
 # Income ----
 

@@ -16,7 +16,8 @@ hbai <- readRDS("data/tidyhbai.rds")
 # Create time series dataset
 
 relpovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60bhc")) %>% addyearvar() %>%
-  formatpov3yraverage()
+  formatpov3yraverage() %>%
+  select(years, ppnum, chnum, wanum, pnnum, pprate, chrate, warate, pnrate)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = relpovbhc,
@@ -24,7 +25,7 @@ data <- list(df = relpovbhc,
              sheetname = "Relative BHC",
              title = "Relative poverty before housing costs",
              subtitle = "Number and proportion of people with household incomes below 60% of the UK median, Scotland",
-             headers = c("Years", "People", "Children", "Working-age adults", "Pensioners", 
+             headers = c("Years", "People", "Children", "Working-age adults", "Pensioners",
                          "People", "Children", "Working-age adults", "Pensioners"),
              uberheaders = c(" " = 1, "Number" = 4, "Proportion" = 4),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
@@ -34,14 +35,22 @@ data <- list(df = relpovbhc,
 createSpreadsheet(data)
 
 # Relative poverty AHC ----
-relpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60ahc")) %>% addyearvar() %>% formatpov3yraverage()
+relpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60ahc")) %>%
+  addyearvar() %>%
+  formatpov3yraverage() %>%
+  select(years, ppnum, chnum, wanum, pnnum, pprate, chrate, warate, pnrate)
+
 data[["df"]] <- relpovahc
 data[["sheetname"]] <- "Relative AHC"
 data[["title"]] <- "Relative poverty after housing costs"
 createSpreadsheet(data)
 
 # Absolute poverty BHC ----
-abspovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovbhc")) %>% addyearvar() %>% formatpov3yraverage()
+abspovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovbhc")) %>%
+  addyearvar() %>%
+  formatpov3yraverage() %>%
+  select(years, ppnum, chnum, wanum, pnnum, pprate, chrate, warate, pnrate)
+
 data[["df"]] <- abspovbhc
 data[["sheetname"]] <- "Absolute BHC"
 data[["title"]] <- "Absolute poverty before housing costs"
@@ -49,14 +58,22 @@ data[["subtitle"]] <- "Number and proportion of people with household incomes be
 createSpreadsheet(data)
 
 # Absolute poverty AHC ----
-abspovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovahc")) %>% addyearvar() %>% formatpov3yraverage()
+abspovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovahc")) %>%
+  addyearvar() %>%
+  formatpov3yraverage() %>%
+  select(years, ppnum, chnum, wanum, pnnum, pprate, chrate, warate, pnrate)
+
 data[["df"]] <- abspovahc
 data[["sheetname"]] <- "Absolute AHC"
 data[["title"]] <- "Absolute poverty after housing costs"
 createSpreadsheet(data)
 
 # Severe poverty BHC ----
-sevpovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low50bhc")) %>% addyearvar() %>% formatpov3yraverage()
+sevpovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low50bhc")) %>%
+  addyearvar() %>%
+  formatpov3yraverage() %>%
+  select(years, ppnum, chnum, wanum, pnnum, pprate, chrate, warate, pnrate)
+
 data[["df"]] <- sevpovbhc
 data[["sheetname"]] <- "Severe BHC"
 data[["title"]] <- "Severe poverty before housing costs"
@@ -64,7 +81,11 @@ data[["subtitle"]] <- "Number and proportion of people with household incomes be
 createSpreadsheet(data)
 
 # Severe poverty AHC ----
-sevpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low50ahc")) %>% addyearvar() %>% formatpov3yraverage()
+sevpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low50ahc")) %>%
+  addyearvar() %>%
+  formatpov3yraverage() %>%
+  select(years, ppnum, chnum, wanum, pnnum, pprate, chrate, warate, pnrate)
+
 data[["df"]] <- sevpovahc
 data[["sheetname"]] <- "Severe AHC"
 data[["title"]] <- "Severe poverty after housing costs"
@@ -92,7 +113,7 @@ cmdbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc")) %>%
   select(1:3) %>%
   replace(., is.na(.), "-") %>%
   mutate(years = factor(years, labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]))
-  
+
 remove(cmdbhc_new)
 
 data[["df"]] <- cmdbhc
@@ -139,7 +160,7 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "mdpn"))%>% add
   select(years, pnnum, pnrate) %>%
   mutate(pnnum = get3yraverage(pnnum),
          pnrate = get3yraverage(pnrate),
-         years = factor(years, 
+         years = factor(years,
                         labels = labels[["years"]]$periods[16:length(labels[["years"]]$periods)])) %>%
   mutate_at(vars(contains("num")), fmtpop) %>%
   mutate_at(vars(contains("rate")), fmtpct) %>%
