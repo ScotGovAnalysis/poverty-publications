@@ -41,6 +41,11 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 library(kableExtra)
 source("R/04_maketables_persistentpoverty.R")
 source("R/05_makecharts_persistentpoverty.R")
+
+interactive <- function(chart, height = 3) {
+  ggiraph(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
+}
+
 ```
 
 ```{r child = "_pers01.Rmd"}

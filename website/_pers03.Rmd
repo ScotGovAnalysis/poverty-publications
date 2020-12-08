@@ -1,26 +1,52 @@
-# Persistent poverty
+# In Scotland {.tabset}
 
 Someone is in persistent poverty if they have been in poverty for three or more of the last four years. This measure is important because the longer someone is in poverty, the more it impacts on their health, well-being, and overall life chances.
 
 Poverty estimates in this publication are derived by looking at household income before housing costs are paid for (BHC) and after housing costs are paid for (AHC). 
 
-## Scotland {.tabset}
+**All individuals**
 
-### After housing costs
+Between 2014 and 2018, 13% of people in Scotland were in persistent poverty after housing costs, compared to 12% in the previous period. 
+
+Before housing costs, 9% of all people in Scotland were in persistent poverty, unchanged from the previous period.
+
+**Children**
+
+Persistent poverty rates were higher for children.
+
+Children have consistently had the highest risk of living in persistent poverty after housing costs (17% in 2014-2018) when comparing with working-age adults (11%) and pensioners (12%). In the previous period, 15% of children were in persistent poverty after housing costs.
+
+Before housing costs, 10% of children were in persistent poverty, unchanged compared to the previous period.
+
+**Working-age adults**
+
+Between 2014 and 2018, 11% of working-age adults were in persistent poverty after housing costs, compared to 10% in the previous period.
+
+Before housing costs, 8% of working-age adults were in persistent poverty, compared to 7% in the previous period.
+
+**Pensioners**
+
+Between 2014 and 2018, 12% of pensioners were in persistent poverty after housing costs, compared to 11% in the previous period.
+
+Before housing costs, the proportion of pensioners in persistent poverty was 13%, compared to 11% in the previous period.
+
+For most groups of the population, the persistent poverty rate after housing costs is greater or the same than that before housing costs. Often, the opposite is true, or the rates are very similar, for pensioners. The majority of pensioners own their own home and so have lower housing costs. Examining pensioners’ incomes after deducting housing costs allows for more meaningful comparisons of income between working-age people and pensioners, and of the pensioner population over time.
+
+## After housing costs
 
 #### Chart 1: Proportion of people in persistent poverty in Scotland AHC by age group
 ```{r chart01}
-pers_chart01
+interactive(persistentcharts[["chart01"]])
 ```
 
-### Before housing costs
+## Before housing costs
 
 #### Chart 2: Proportion of people in persistent poverty in Scotland BHC by age group
 ```{r chart02}
-pers_chart02
+interactive(persistentcharts[["chart02"]])
 ```
 
-### Table
+## Table
 
 #### Table 1: Proportion of people in persistent poverty in Scotland by age group
 ```{r table1}
@@ -37,30 +63,3 @@ kableExtra::kable(pers_table1,
   
 ```
 
-## All individuals
-
-Between 2014 and 2018, 13% of people in Scotland were in persistent poverty after housing costs, compared to 12% in the previous period. 
-
-Before housing costs, 9% of all people in Scotland were in persistent poverty, unchanged from the previous period.
-
-## Children
-
-Persistent poverty rates were higher for children.
-
-Children have consistently had the highest risk of living in persistent poverty after housing costs (17% in 2014-2018) when comparing with working-age adults (11%) and pensioners (12%). In the previous period, 15% of children were in persistent poverty after housing costs.
-
-Before housing costs, 10% of children were in persistent poverty, unchanged compared to the previous period.
-
-## Working-age adults
-
-Between 2014 and 2018, 11% of working-age adults were in persistent poverty after housing costs, compared to 10% in the previous period.
-
-Before housing costs, 8% of working-age adults were in persistent poverty, compared to 7% in the previous period.
-
-## Pensioners
-
-Between 2014 and 2018, 12% of pensioners were in persistent poverty after housing costs, compared to 11% in the previous period.
-
-Before housing costs, the proportion of pensioners in persistent poverty was 13%, compared to 11% in the previous period.
-
-For most groups of the population, the persistent poverty rate after housing costs is greater or the same than that before housing costs. Often, the opposite is true, or the rates are very similar, for pensioners. The majority of pensioners own their own home and so have lower housing costs. Examining pensioners’ incomes after deducting housing costs allows for more meaningful comparisons of income between working-age people and pensioners, and of the pensioner population over time.

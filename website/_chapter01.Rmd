@@ -27,7 +27,7 @@ div(class = "row fluid-row",
                      "Income inequality continues to fluctuate")),
               div(class = "panel-body",
                   a(href = "index.html#palma",
-                    img(src = "0b_palma.png")),
+                    img(src = "chart0b.png")),
                   create_html("The top 10% of the population had 24% more income in 2016-19 than the bottom 40% combined.")))),
      
      div(class = "col-md-4",
@@ -37,7 +37,7 @@ div(class = "row fluid-row",
                     "Household incomes continue to rise")),
              div(class = "panel-body",
                  a(href = "index.html#incometrends",
-                   img(src = "0c_medians.png")),
+                   img(src = "chart0c.png")),
                  create_html("Median income before housing costs in Scotland in 2016-19 was £517 a week, continuing the rising trend."))))
      
  )

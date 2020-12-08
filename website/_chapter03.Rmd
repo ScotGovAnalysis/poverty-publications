@@ -31,16 +31,19 @@ Absolute poverty is a measure of whether the incomes of the poorest households a
 
 #### Figure 2 - Proportion of people in absolute poverty, Scotland
 ```{r chart02}
-interactive(povertycharts[["chart02"]])
+interactive(povertycharts[["chart02"]], height = 4)
 ```
 
-### Food poverty
+### Food insecurity
 
-#### Figure 3 - Proportion of children in food poverty, Scotland
+add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
-add chart here
+#### Figure 3 - Proportion of people with food insecurity, Scotland 2018/19
+```{r chart03}
+#interactive(povertycharts[["chart03"]])
+```
 
-add commentary here
+Bar chart showing the proportion of people who've expericenced food insecurity, broken down by poverty status (all people, people in relative poverty AHC, people in absolute poverty AHC)
 
 ## Working-age adults {.tabset}
 
@@ -71,7 +74,7 @@ Working-age adults are considered to be in poverty when they live in a household
 
 #### Figure 5 - Proportion of working-age adults in absolute poverty, Scotland
 ```{r chart05}
-interactive(povertycharts[["chart05"]])
+interactive(povertycharts[["chart05"]], height = 4)
 ```
 
 ### In-work poverty
@@ -118,7 +121,7 @@ Pensioners are defined as all those adults above state pension age. State pensio
 
 #### Figure 8 - Proportion of pensioners in absolute poverty, Scotland
 ```{r chart08}
-interactive(povertycharts[["chart08"]])
+interactive(povertycharts[["chart08"]], height = 4)
 ```
 
 ### Material deprivation

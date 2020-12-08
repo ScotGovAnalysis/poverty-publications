@@ -2,9 +2,13 @@
 
 ## Age
 
+**Relative poverty rates higher for the youngest adults**
+
+- note re hhld level analysis
+
 #### Figure 16 - Proportion of adults in relative poverty after housing costs, Scotland
 ```{r chart16}
-#interactive(povertycharts[["chart16"]])
+interactive(povertycharts[["chart16"]])
 ```
 
 ## Gender {.tabset}
@@ -25,7 +29,7 @@ Until 2010-13, the gap in poverty rates between these groups had narrowed, but i
 
 #### Figure 17 - Proportion of single working-age adults in relative poverty after housing costs, Scotland
 ```{r chart17}
-interactive(povertycharts[["chart17"]])
+interactive(povertycharts[["chart17"]], height = 4)
 ```
 
 ### Pensioners

@@ -29,7 +29,7 @@ Absolute child poverty before housing costs steadily decreased between the mid-n
 
 #### Figure 11 - Proportion of children in absolute poverty, Scotland
 ```{r chart11}
-interactive(povertycharts[["chart11"]])
+interactive(povertycharts[["chart11"]], height = 4)
 ```
 
 ### Material deprivation
@@ -66,24 +66,39 @@ This data suggests that after a steady and steep increase of in-work poverty sin
 interactive(povertycharts[["chart13"]])
 ```
 
-### Food poverty
+### Food insecurity
 
-#### Figure 14 - Proportion of children in food poverty, Scotland
+Add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
-add chart here
+#### Figure 14 - Proportion of children with food insecurity, Scotland 2018/19
+```{r chart14}
+#interactive(povertycharts[["chart14"]])
+```
 
-add commentary here
+Bar chart showing the proportion of children who've expericenced food insecurity, broken down by poverty status (all children, childrenin relative poverty AHC, children in combined low income and material deprivation)
 
-## Priority groups
+## Priority groups {.tabset}
 
-add bar chart showing relative child poverty rates for the priority groups
+add commentary here explaining where the groups are coming from, links with TCPDP, etc.
 
-#### Figure 15 - Proportion of children in food poverty, Scotland
+### Relative poverty
 
-add chart here
+#### Figure 15 - Proportion of children in relative poverty after housing cost, Scotland
+```{r chart15}
+interactive(povertycharts[["chart15"]])
+```
 
-add commentary here
+### Absolute poverty
 
+#### Figure 15b - Proportion of children in absolute poverty after housing costs, Scotland
+```{r chart15b}
+interactive(povertycharts[["chart15b"]])
+```
 
+### Material deprivation
 
+#### Figure 15c - Proportion of children in combined low income and material deprivation, Scotland
+```{r chart15c}
+interactive(povertycharts[["chart15c"]])
+```
 

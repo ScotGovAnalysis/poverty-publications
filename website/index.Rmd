@@ -21,10 +21,12 @@ output:
 <script>
   $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
+    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>');
+    <!-- $head.prepend('<img src=\"badge.png\" style=\"float: right; height: 50px;\"  alt=\"National Statistics logo\"/></a>') -->
   });
 </script>
   
+
   
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
