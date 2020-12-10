@@ -11,7 +11,7 @@
 
 
 
-<title>Download data and printable reports</title>
+<title>Download data and reports</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -275,11 +275,18 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Main report</a>
+      <a class="navbar-brand" href="index.html"><img id="logo" src="img/sglogo.svg" alt="Scottish Government logo"/></a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
+  <a href="index.html">
+    <span class="glyphicon glyphicon-stats"></span>
+     
+    Main report
+  </a>
+</li>
+<li>
   <a href="cpupdate.html">
     <span class="glyphicon glyphicon-eye-open"></span>
      
@@ -368,25 +375,30 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Download data and printable reports</h1>
+<h1 class="title toc-ignore">Download data and reports</h1>
 
 </div>
 
 
-<script>
-  $(document).ready(function(){
-    $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
-  });
-</script>
-<div id="data" class="section level3">
-<h3>Data</h3>
+<div id="data-poverty-and-child-poverty-estimates" class="section level3">
+<h3>Data: Poverty and child poverty estimates</h3>
+<p>All in Excel / XLSX format</p>
+<div id="three-year-estimates-as-used-in-the-report" class="section level4">
+<h4>Three-year estimates as used in the report</h4>
 <ul>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/associated-tables/associated-tables/govscot%3Adocument/associated-tables.xlsx">Associated tables</a> (includes all data used in <a href="index.html">Poverty and Income Inequality in Scotland 2016-19</a>; XLSX)</li>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-poverty/supplementary-tables-poverty/govscot%3Adocument/supplementary-tables-poverty.xlsx">Supplementary poverty tables</a> (XLSX)</li>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-child-poverty/supplementary-tables-child-poverty/govscot%3Adocument/supplementary-tables-child-poverty.xlsx">Supplementary child poverty tables</a> (XLSX)</li>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx">Confidence intervals</a> (DOCX)</li>
+<li><a href="xls/Poverty%20three-year%20average.xlsx">Headline poverty estimates</a></li>
+<li><a href="xls/Poverty%20characteristics.xlsx">Poverty characteristics</a></li>
+<li><a href="xls/Child%20poverty%20characteristics.xlsx">Child poverty characteristics</a></li>
+<li><a href="xls/Income%20three-year%20average.xlsx">Income analysis</a></li>
 </ul>
+</div>
+<div id="single-year-estimates" class="section level4">
+<h4>Single-year estimates</h4>
+<ul>
+<li><a href="xls/Poverty%20single%20year.xlsx">Poverty estimates (1-yr)</a></li>
+<li><a href="xls/Income%20single%20year.xlsx">Income analysis (1-yr)</a></li>
+</ul>
+</div>
 </div>
 <div id="printable-reports" class="section level3">
 <h3>Printable reports</h3>
