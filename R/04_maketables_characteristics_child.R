@@ -17,14 +17,14 @@ hbai <- readRDS("data/tidyhbai.rds")
 
 # Child age ------------------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovbychildage, povvar = "low60ahc")) %>%
   addyearvar %>%
   formatpov3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   samplesizecheck_childage
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovbychildage, povvar = "low50ahc")) %>%
   addyearvar %>%
   formatpov3yraverage %>%
@@ -73,7 +73,7 @@ data <- list(sheetname = "Child age",
              title_a = "A. Proportion of children in poverty and severe poverty by age of child",
              title_b = "B. Composition of children in poverty and severe poverty by age of child",
              title_c = "C. Number of children in poverty and severe poverty by age of child",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -96,13 +96,13 @@ data <- list(sheetname = "Child age",
 # Create spreadsheet and first worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 # Tenure ---------------------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ptentyp2")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -111,7 +111,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ptentyp2")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -123,18 +123,18 @@ sev <- do.call(rbind.data.frame,
 # split dataset into rates, numbers, compositions and transpose
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Tenure",
              title_a = "A. Proportion of children in poverty and severe poverty by housing tenure",
              title_b = "B. Composition of children in poverty and severe poverty by housing tenure",
              title_c = "C. Number of children in poverty and severe poverty by housing tenure",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -160,12 +160,12 @@ data <- list(sheetname = "Tenure",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 # Urban/rural class ----------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "urinds"))%>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -174,7 +174,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "urinds")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -187,18 +187,18 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Urban rural",
              title_a = "A. Proportion of children in poverty and severe poverty by urban/rural class",
              title_b = "B. Composition of children in poverty and severe poverty by urban/rural class",
              title_c = "C. Number of children in poverty and severe poverty by urban/rural class",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -222,13 +222,13 @@ data <- list(sheetname = "Urban rural",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 # Number of children in household --------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "depchldh_ch")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -236,7 +236,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "depchldh_ch")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -248,18 +248,18 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Number of children",
              title_a = "A. Proportion of children in poverty and severe poverty by the number of children in the household",
              title_b = "B. Composition of children in poverty and severe poverty by the number of children in the household",
              title_c = "C. Number of children in poverty and severe poverty by the number of children in the household",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -284,12 +284,12 @@ data <- list(sheetname = "Number of children",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 # Age of youngest child in household --------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "babyhh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -297,7 +297,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "babyhh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -309,11 +309,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # remove estimates where age not available
 rel_rates[2:3, 8:13] <- "--"
@@ -328,7 +328,7 @@ data <- list(sheetname = "Age of youngest child",
              title_a = "A. Proportion of children in poverty and severe poverty by age of the youngest child in the household",
              title_b = "B. Composition of children in poverty and severe poverty by age of the youngest child in the household",
              title_c = "C. Number of children in poverty and severe poverty by age of the youngest child in the household",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -355,12 +355,12 @@ data <- list(sheetname = "Age of youngest child",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 # Age of mother --------------------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "youngmumhh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -369,7 +369,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "youngmumhh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -382,11 +382,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # remove estimates where age not available
 rel_rates[2:3, 5:10] <- "--"
@@ -401,7 +401,7 @@ data <- list(sheetname = "Age of mother",
              title_a = "A. Proportion of children in poverty and severe poverty by age of mother",
              title_b = "B. Composition of children in poverty and severe poverty by age of mother",
              title_c = "C. Number of children in poverty and severe poverty by age of mother",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -428,13 +428,13 @@ data <- list(sheetname = "Age of mother",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 # Family type (children) -------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "loneparenthh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -442,7 +442,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "loneparenthh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -454,11 +454,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Family type",
@@ -490,13 +490,13 @@ data <- list(sheetname = "Family type",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 # Family economic status (children) -------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ecobu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -505,7 +505,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ecobu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -518,11 +518,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Family economic status",
@@ -555,13 +555,13 @@ data <- list(sheetname = "Family economic status",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 # Household work status (children) ---------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "workinghh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -570,7 +570,7 @@ rel <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "workinghh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -583,11 +583,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Household work status",
@@ -619,13 +619,13 @@ data <- list(sheetname = "Household work status",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 # Disability -----------------------------------------------------------------------------------
 
-rel_pp <- do.call(rbind.data.frame, 
+rel_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -634,7 +634,7 @@ rel_pp <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-rel_ch <- do.call(rbind.data.frame, 
+rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -643,7 +643,7 @@ rel_ch <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-rel_ad <- do.call(rbind.data.frame, 
+rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -652,7 +652,7 @@ rel_ad <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev_pp <- do.call(rbind.data.frame, 
+sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -661,7 +661,7 @@ sev_pp <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev_ch <- do.call(rbind.data.frame, 
+sev_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -670,7 +670,7 @@ sev_ch <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev_ad <- do.call(rbind.data.frame, 
+sev_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -683,11 +683,11 @@ sev_ad <- do.call(rbind.data.frame,
 
 rel_rates1 <- splitntranspose(rel_pp, "chrate")
 rel_comps1 <- splitntranspose(rel_pp, "chcomp")
-rel_numbers1 <- splitntranspose(rel_pp, "chnum") 
+rel_numbers1 <- splitntranspose(rel_pp, "chnum")
 
 sev_rates1 <- splitntranspose(sev_pp, "chrate")
 sev_comps1 <- splitntranspose(sev_pp, "chcomp")
-sev_numbers1 <- splitntranspose(sev_pp, "chnum") 
+sev_numbers1 <- splitntranspose(sev_pp, "chnum")
 
 rel_rates2 <- splitntranspose(rel_ch, "chrate") %>% filter(groupingvar != "All")
 rel_comps2 <- splitntranspose(rel_ch, "chcomp") %>% filter(groupingvar != "All")
@@ -707,11 +707,11 @@ sev_numbers3 <- splitntranspose(sev_ad, "chnum")  %>% filter(groupingvar != "All
 
 rel_rates <- rbind(rel_rates1, rel_rates2, rel_rates3)
 rel_comps <- rbind(rel_comps1, rel_comps2, rel_comps3)
-rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3) 
+rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3)
 
 sev_rates <- rbind(sev_rates1, sev_rates2, sev_rates3)
 sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
-sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3) 
+sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
 # mark time series break
 rel_numbers[, 12] <- "--"
@@ -725,7 +725,7 @@ data <- list(sheetname = "Disability",
              title_a = "A. Proportion of children in poverty and severe poverty by whether there is a disabled person in the household",
              title_b = "B. Composition of children in poverty and severe poverty by whether there is a disabled person in the household",
              title_c = "C. Number of children in poverty and severe poverty by whether there is a disabled person in the household",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -757,17 +757,17 @@ data <- list(sheetname = "Disability",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3, 
-       rel_comps, rel_comps1, rel_comps2, rel_comps3, 
-       rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3, 
-       sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3, 
-       sev_comps, sev_comps1, sev_comps2, sev_comps3, 
+remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
+       rel_comps, rel_comps1, rel_comps2, rel_comps3,
+       rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3,
+       sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3,
+       sev_comps, sev_comps1, sev_comps2, sev_comps3,
        sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
 
 
 # Disability with benefits removed from income -------------------------------------------------
 
-rel_pp <- do.call(rbind.data.frame, 
+rel_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -776,7 +776,7 @@ rel_pp <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-rel_ch <- do.call(rbind.data.frame, 
+rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -785,7 +785,7 @@ rel_ch <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-rel_ad <- do.call(rbind.data.frame, 
+rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -794,7 +794,7 @@ rel_ad <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev_pp <- do.call(rbind.data.frame, 
+sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -803,7 +803,7 @@ sev_pp <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev_ch <- do.call(rbind.data.frame, 
+sev_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -812,7 +812,7 @@ sev_ch <- do.call(rbind.data.frame,
   arrange(years) %>%
   samplesizecheck
 
-sev_ad <- do.call(rbind.data.frame, 
+sev_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -825,11 +825,11 @@ sev_ad <- do.call(rbind.data.frame,
 
 rel_rates1 <- splitntranspose(rel_pp, "chrate")
 rel_comps1 <- splitntranspose(rel_pp, "chcomp")
-rel_numbers1 <- splitntranspose(rel_pp, "chnum") 
+rel_numbers1 <- splitntranspose(rel_pp, "chnum")
 
 sev_rates1 <- splitntranspose(sev_pp, "chrate")
 sev_comps1 <- splitntranspose(sev_pp, "chcomp")
-sev_numbers1 <- splitntranspose(sev_pp, "chnum") 
+sev_numbers1 <- splitntranspose(sev_pp, "chnum")
 
 rel_rates2 <- splitntranspose(rel_ch, "chrate") %>% filter(groupingvar != "All")
 rel_comps2 <- splitntranspose(rel_ch, "chcomp") %>% filter(groupingvar != "All")
@@ -849,11 +849,11 @@ sev_numbers3 <- splitntranspose(sev_ad, "chnum")  %>% filter(groupingvar != "All
 
 rel_rates <- rbind(rel_rates1, rel_rates2, rel_rates3)
 rel_comps <- rbind(rel_comps1, rel_comps2, rel_comps3)
-rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3) 
+rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3)
 
 sev_rates <- rbind(sev_rates1, sev_rates2, sev_rates3)
 sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
-sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3) 
+sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
 # mark time series break
 rel_numbers[, 12] <- "--"
@@ -867,7 +867,7 @@ data <- list(sheetname = "DisabilityBenefitsRemoved",
              title_a = "A. Proportion of children in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
              title_b = "B. Composition of children in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
              title_c = "C. Number of children in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -901,16 +901,16 @@ data <- list(sheetname = "DisabilityBenefitsRemoved",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3, 
-       rel_comps, rel_comps1, rel_comps2, rel_comps3, 
-       rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3, 
-       sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3, 
-       sev_comps, sev_comps1, sev_comps2, sev_comps3, 
+remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
+       rel_comps, rel_comps1, rel_comps2, rel_comps3,
+       rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3,
+       sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3,
+       sev_comps, sev_comps1, sev_comps2, sev_comps3,
        sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
 
 # Ethnicity (5-year average) ------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ethgrphh")) %>%
   addyearvar %>%
   formatpovby5yraverage %>%
@@ -918,7 +918,7 @@ rel <- do.call(rbind.data.frame,
   mutate(years = period5yr) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ethgrphh")) %>%
   addyearvar %>%
   formatpovby5yraverage %>%
@@ -930,11 +930,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # remove composition data - not reliable for ethnicity
 rel_comps[, 2] <- "--"
@@ -945,7 +945,7 @@ data <- list(sheetname = "Ethnicity 5-year average",
              title_a = "A. Proportion of children in poverty and severe poverty by ethnic group (five-year averages)",
              title_b = "B. Composition of children in poverty and severe poverty by ethnic group (five-year averages)",
              title_c = "C. Number of children in poverty and severe poverty by ethnic group (five-year averages)",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
@@ -973,14 +973,14 @@ data <- list(sheetname = "Ethnicity 5-year average",
 # Create new worksheet
 createWideSpreadsheet(data)
 
-remove(rel, rel_rates, rel_comps, rel_numbers, 
+remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
 
 # Ethnicity (3-year average) ------------------------------------------------------------------------
 
-rel <- do.call(rbind.data.frame, 
+rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ethgrphh_2f")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -988,7 +988,7 @@ rel <- do.call(rbind.data.frame,
   mutate(years = periods[length(periods)]) %>%
   samplesizecheck
 
-sev <- do.call(rbind.data.frame, 
+sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ethgrphh_2f")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
@@ -1000,11 +1000,11 @@ sev <- do.call(rbind.data.frame,
 
 rel_rates <- splitntranspose(rel, "chrate")
 rel_comps <- splitntranspose(rel, "chcomp")
-rel_numbers <- splitntranspose(rel, "chnum") 
+rel_numbers <- splitntranspose(rel, "chnum")
 
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
-sev_numbers <- splitntranspose(sev, "chnum") 
+sev_numbers <- splitntranspose(sev, "chnum")
 
 # remove composition data - not reliable for ethnicity
 rel_comps[, 2] <- "--"
@@ -1015,7 +1015,7 @@ data <- list(sheetname = "Ethnicity 3-year average",
              title_a = "A. Proportion of children in poverty and severe poverty by ethnic group",
              title_b = "B. Composition of children in poverty and severe poverty by ethnic group",
              title_c = "C. Number of children in poverty and severe poverty by ethnic group",
-             
+
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,

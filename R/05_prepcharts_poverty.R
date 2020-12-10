@@ -1,7 +1,7 @@
 
 # Prep datasets for poverty charts
 
-# TO DO: child poverty priority analysis; food poverty
+# TO DO: food poverty
 
 source("R/00_functions.R")
 source("R/00_strings.R")

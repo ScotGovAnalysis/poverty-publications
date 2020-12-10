@@ -452,13 +452,13 @@ getpovby_adult <- function(df, povvar, groupingvar){
   grouped <- df %>%
     filter(gvtregn == "Scotland") %>%
     group_by(groupingvar) %>%
-    mutate(adn = sum(gs_newad),
-           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    mutate(adn = sum(adultwgt),
+           groupsample_ad = sum(adultwgt > 0, na.rm = TRUE)) %>%
     group_by(povvar, groupingvar) %>%
-    summarise(adnum = sum(gs_newad),
+    summarise(adnum = sum(adultwgt),
               adn = max(adn),
               groupsample_ad = max(groupsample_ad),
-              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+              povsample_ad = sum(adultwgt > 0, na.rm = TRUE)) %>%
     filter(povvar == 1) %>%
     mutate(adrate = adnum/adn,
            adcomp = adnum/sum(adnum)) %>%
@@ -469,13 +469,13 @@ getpovby_adult <- function(df, povvar, groupingvar){
 
   total <- df %>%
     filter(gvtregn == "Scotland") %>%
-    mutate(adn = sum(gs_newad),
-           groupsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+    mutate(adn = sum(adultwgt),
+           groupsample_ad = sum(adultwgt > 0, na.rm = TRUE)) %>%
     group_by(povvar) %>%
-    summarise(adnum = sum(gs_newad),
+    summarise(adnum = sum(adultwgt),
               adn = max(adn),
               groupsample_ad = max(groupsample_ad),
-              povsample_ad = sum(gs_newad > 0, na.rm=TRUE)) %>%
+              povsample_ad = sum(adultwgt > 0, na.rm = TRUE)) %>%
     filter(povvar == 1) %>%
     mutate(adrate = adnum/adn,
            adcomp = adnum/sum(adnum),
@@ -815,7 +815,8 @@ getpovertythresholdsbhc <- function(df){
 
   df1 <- df %>%
     mutate(UKmedian = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newpp),
-           relpovbhc_threshold = 0.6*UKmedian) %>%
+           relpovbhc_threshold = 0.6*UKmedian,
+           abspovbhc_threshold = abspovbhc_threshold*inflbhc_1011/infl_bhc) %>%
     filter(gvtregn == "Scotland") %>%
     summarise(UKmedian = max(UKmedian),
               Scotmedian = wtd.quantile(s_oe_bhc*infl_bhc, probs = 0.5, weights = gs_newpp),
@@ -858,7 +859,8 @@ getpovertythresholdsahc <- function(df){
 
   df1 <- df %>%
     mutate(UKmedian = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newpp),
-           relpovahc_threshold = 0.6*UKmedian) %>%
+           relpovahc_threshold = 0.6*UKmedian,
+           abspovahc_threshold = abspovahc_threshold*inflahc_1011/infl_ahc) %>%
     filter(gvtregn == "Scotland") %>%
     summarise(UKmedian = max(UKmedian),
               Scotmedian = wtd.quantile(s_oe_ahc*infl_ahc, probs = 0.5, weights = gs_newpp),

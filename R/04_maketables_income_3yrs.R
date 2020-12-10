@@ -8,19 +8,19 @@ adult <- readRDS("data/tidyadult.rds")
 
 filename <- "Income three-year average.xlsx"
 
-latestyear <- as.character(labels[["years"]]$formatted[length(labels[["years"]]$formatted)])
+latestyear <- max(levels(labels[["years"]]$formatted))
 
 
 # Median BHC household income by age group ---------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>%
   addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
-                        labels = labels[["years"]]$formatted)) %>% 
-  fmtweeklyGBP 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = labels[["years"]]$formatted)) %>%
+  fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -38,14 +38,14 @@ createSpreadsheet(data)
 
 # Median AHC household income by age group ---------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
-                        labels = labels[["years"]]$formatted)) %>% 
-  fmtweeklyGBP 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = labels[["years"]]$formatted)) %>%
+  fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -63,14 +63,14 @@ createSpreadsheet(data)
 
 # BHC income decile points --------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
-                        labels = labels[["years"]]$formatted)) %>% 
-  fmtweeklyGBP 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = labels[["years"]]$formatted)) %>%
+  fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -88,14 +88,14 @@ createSpreadsheet(data)
 
 # AHC income decile points --------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getdecptsahc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getdecptsahc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
-                        labels = labels[["years"]]$formatted)) %>% 
-  fmtweeklyGBP 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = labels[["years"]]$formatted)) %>%
+  fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -113,13 +113,13 @@ createSpreadsheet(data)
 
 # BHC income decile shares -------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesbhc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesbhc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate_if(is.numeric, comma_format(scale = 1E-6)) %>% 
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
+  mutate_if(is.numeric, comma_format(scale = 1E-6)) %>%
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
                         labels = labels[["years"]]$formatted))
 
 # Put all input for the spreadsheet into a list
@@ -138,13 +138,13 @@ createSpreadsheet(data)
 
 # AHC income decile shares -------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesahc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesahc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate_if(is.numeric, comma_format(scale = 1E-6)) %>% 
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
+  mutate_if(is.numeric, comma_format(scale = 1E-6)) %>%
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
                         labels = labels[["years"]]$formatted))
 
 # Put all input for the spreadsheet into a list
@@ -163,12 +163,12 @@ createSpreadsheet(data)
 
 # BHC Palma -----------------------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
                         labels = labels[["years"]]$formatted),
          Palma = percent(Palma, 1))
 
@@ -188,12 +188,12 @@ createSpreadsheet(data)
 
 # AHC Palma -----------------------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
                         labels = labels[["years"]]$formatted),
          Palma = percent(Palma, 1))
 
@@ -213,12 +213,12 @@ createSpreadsheet(data)
 
 # BHC Gini -------------------------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
                         labels = labels[["years"]]$formatted),
          Gini = percent(Gini, 1))
 
@@ -238,12 +238,12 @@ createSpreadsheet(data)
 
 # AHC Gini -------------------------------------------------------------------------
 
-df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>% 
-  addyearvar() %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
+  addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
                         labels = labels[["years"]]$formatted),
          Gini = percent(Gini, 1))
 
