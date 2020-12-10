@@ -1,0 +1,19 @@
+# What you need to know
+
+Statistics in this report are based on data from the Family Resources Survey. This survey has been the main source of information on household income and poverty in Scotland since 1994/95.
+
+## Income and poverty measures
+
+The Scottish Government uses a range of indicators to measure different aspects of poverty. The most commonly used poverty indicator in Scotland is relative poverty after housing costs. It is complemented in this publication by measures of absolute poverty and material deprivation.
+
+Unless otherwise stated, these statistics are based on net income (adjusted for household size). Net income is income after taxes and includes social security payments. All incomes are in 2018/19 prices (real prices). Figures in this publication are rounded to the nearest pound (weekly incomes), a hundred pound (annual incomes), percentage point or 10,000 people. Poverty is measured at the household level. If the household income is below the poverty threshold, all people within the household are considered to be in poverty.
+
+## Survey data
+
+The estimates presented in this publication are based on a sample survey and are therefore subject to sampling error. None of the latest changes in the estimated numbers and percentages of people presented in the body of this report are statistically significant. In time series, looking at longer term trends offers a better indication of significant change.
+
+## Three-year averages
+
+Data is presented as three-year rolling (overlapping) averages of each estimate. For example, the latest estimates (2016-19) are an average of the single-year estimates in the financial years 2016/17, 2017/18 and 2018/19, and the previous estimates are an average of the single-year estimates in the financial years 2015/16, 2016/17 and 2017/18.
+
+Using three-year averages ensures the statistics are usable and understandable, and that they are comparable with poverty and income statistics reported by the Department for Work and Pensions. Three-year averages are best used when focusing on trends over time, as in this publication. Single-year estimates are also available in the associated tables.

@@ -1,0 +1,25 @@
+# What you need to know
+
+This publication presents estimates of the proportion of people, children, working-age adults and pensioners living in persistent poverty in Scotland and in the other countries in the UK. The estimates are used to monitor progress in reducing poverty.
+
+Poverty can be measured in a number of different ways, each of which can tell us something different about poverty. One of the most common measures is relative (income) poverty which identifies people living in households with an equivalised income below 60% of the UK median household income. It therefore measures whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole. Statistics on relative poverty in Scotland can be found on the Scottish Government website: www.gov.scot/collections/poverty-and-income-inequality-statistics/
+
+**Persistent poverty identifies individuals who live in relative poverty for three or more of the last four years.** It therefore identifies people who have been living in poverty for a significant period of time, which is more damaging than brief periods spent with a low income. The impacts can affect an individual throughout their lifetime.
+
+This publication presents persistent poverty estimates for five overlapping periods from 2010-14 to 2014-2018. More information can be found in Annex 2.
+
+### Official Statistics status
+
+Previous releases of this publication series had the label “Experimental Official Statistics to signal that the methodology was still under development. As this has now been largely concluded, the “experimental” label is no longer required, and the current release is published as an “Official Statistics” publication.
+
+### Background Notes and Methodology
+
+The estimates in this report come from the Understanding Society survey, a longitudinal survey with longitudinal information about just over 2,500 individuals in Scotland in 2017-2018. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Information on the method used to calculate persistent poverty estimates can be found in Annex 2, and in more detail here: https://www.gov.uk/government/collections/income-dynamics-statistics
+
+Surveys gather information from a sample rather than from the whole population. Results from sample surveys are always estimates, not precise figures. This means that they are subject to a margin of error which can affect how changes in the numbers should be interpreted, especially in the short-term. Year-on-year movements should be treated with caution. We are unable to calculate sampling uncertainties for these statistics, but please note that small changes are unlikely to be statistically significant.
+
+### Revisions to the Statistics
+
+Work is ongoing to improve the income estimates and impute missing data, and therefore the estimates presented here will continue to be subject to routine revisions, as with figures based on longitudinal data in general.
+
+**The statistics presented below are subject to a degree of error. This means that implied changes over the years and between countries may not be significant and instead be within a given error range. More information can be found in the Background Notes and Methodology section.**

@@ -1,0 +1,47 @@
+This publication presents three-year averaged estimates of the percentage of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
+
+# Key trends
+
+* Poverty may have stopped rising, although further years are required to confirm this.
+* Income inequality continues to fluctuate.
+* Median household incomes continue to rise.
+
+```{r}
+
+div(class = "row fluid-row",
+     
+      div(class = "col-md-4", 
+          div(class = "panel panel-default",
+              div(class = "panel-heading",
+                  h5(class = "panel-title",
+                     "Relative poverty no longer rising")),
+              div(class = "panel-body",
+                  a(href = "index.html#relpov",
+                    img(src = "img/chart0a.png")),
+                  create_html("19% of people were living in relative poverty after housing costs in 2016-19. Overall, the poverty rate appears to have stopped rising.")))),
+     
+     div(class = "col-md-4", 
+          div(class = "panel panel-default",
+              div(class = "panel-heading",
+                  h5(class = "panel-title",
+                     "Income inequality continues to fluctuate")),
+              div(class = "panel-body",
+                  a(href = "index.html#palma",
+                    img(src = "img/chart0b.png")),
+                  create_html("The top 10% of the population had 24% more income in 2016-19 than the bottom 40% combined.")))),
+     
+     div(class = "col-md-4",
+         div(class = "panel panel-default",
+             div(class = "panel-heading",
+                 h5(class = "panel-title",
+                    "Household incomes continue to rise")),
+             div(class = "panel-body",
+                 a(href = "index.html#incometrends",
+                   img(src = "img/chart0c.png")),
+                 create_html("Median income before housing costs in Scotland in 2016-19 was £517 a week, continuing the rising trend."))))
+     
+ )
+ 
+
+```
+
