@@ -1,0 +1,95 @@
+
+body {
+    font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h4 {
+  font-weight: 900;
+  color: #727272;
+}
+
+p,
+.container-fluid > ul,
+.section > ul,
+.dropdown-menu,
+.panel-title,
+.ds_inset-text,
+#TOC,
+#navbar {
+  font-size: large; /*Larger font for accessibility*/
+  line-height: 1.8;
+}
+
+table {
+  font-size: 15px;
+}
+
+#navbar a {
+  color: #333333 !important; /*Greater contrast for accessibility*/
+  }
+
+.navbar-header a {
+  color: #333333 !important;
+}
+
+
+.dropdown-header {
+    display: block;
+    padding: 3px 20px;
+    font-size: large;
+    line-height: 1.8;
+    color: #777;
+    white-space: nowrap;
+}
+
+
+/* Navbar colours */
+
+.navbar-default {
+    background-color: #fff;
+    border-color: #e7e7e7;
+}
+
+/* TOC colours */
+
+.list-group-item.active {
+    background-color: #002d54;
+    border-color: #002d54;
+}
+
+.list-group-item.active:focus,
+.list-group-item.active:hover {
+    background-color: #0065bd;
+    border-color: #0065bd;
+}
+
+/* Info "box" */
+
+.ds_inset-text {
+    padding-left: 32px;
+    padding-right: 64px;
+    border-left: 8px solid #b3b3b3;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #f8f8f8;
+    padding: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+/* SG logo */
+#logo {
+  height: 48px;
+  padding: 8px;
+  position: relative;
+}
+
+.navbar-brand {
+  padding: 2px;
+}
+
+/* National Statistics badge */
+#badge {
+  height: 70px;
+  margin: 0 10px;
+  float: right;
+}
