@@ -28,11 +28,11 @@ table {
   font-size: 15px;
 }
 
-#navbar a {
+#navbar, a {
   color: #333333 !important; /*Greater contrast for accessibility*/
   }
 
-.navbar-header a {
+.navbar-header, a {
   color: #333333 !important;
 }
 
@@ -78,6 +78,20 @@ table {
     padding: 16px;
     margin-top: 16px;
     margin-bottom: 16px;
+}
+
+/* Key message "box" */
+
+.message-text {
+    padding-left: 32px;
+    padding-right: 64px;
+    border-left: 8px solid #0065bd;
+    border-bottom: 1px solid #7fb2de;
+    background-color: #d9effc;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    color: #002d54;
 }
 
 /* SG logo */
