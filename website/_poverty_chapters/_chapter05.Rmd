@@ -2,7 +2,7 @@
 
 ## Age
 
-**Relative poverty rates higher for the youngest adults**
+`r message("Relative poverty rates higher for the youngest adults")`
 
 - note re hhld level analysis
 
@@ -17,7 +17,7 @@ Income is measured at a household level, which makes it difficult to measure the
 
 ### Working age
 
-**Relative poverty rates highest for single women with children but gap is smaller than it used to be**
+`r message("Relative poverty rates highest for single women with children but gap is smaller than it used to be")`
 
 In 2016-19, the relative poverty rate after housing costs for single working-age adults was 32%, higher than for the total working-age adult population (19%).
 
@@ -25,7 +25,7 @@ The poverty rate was highest for single women with children (39%). The poverty r
 
 Until 2010-13, the gap in poverty rates between these groups had narrowed, but in recent years it widened again.
 
-`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](index.html#child).")`
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](index.html#child). <br>Estimates for single fathers are not available due to small sample sizes.")`
 
 #### Figure 17 - Proportion of single working-age adults in relative poverty after housing costs, Scotland
 ```{r chart17}
@@ -34,7 +34,7 @@ interactive(povertycharts[["chart17"]], height = 4)
 
 ### Pensioners
 
-**Relative poverty rates higher for single female pensioners than male**
+`r message("Relative poverty rates higher for single female pensioners than male")`
 
 In 2016-19, 18% of single female pensioners and 15% of single male pensioners were in relative poverty after housing costs. In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
 
@@ -42,14 +42,14 @@ Some of the difference in pensioner poverty between genders may be due to differ
 
 #### Figure 18 - Proportion of single pensioners in relative poverty after housing costs, Scotland
 ```{r chart18}
-interactive(povertycharts[["chart18"]])
+interactive(povertycharts[["chart18"]], height = 4)
 ```
 
 Before housing costs data is available in the associated tables.
 
 ## Marital status
 
-### Relative poverty rates highest for singles, divorced & separated, and lowest for married adults
+`r message("Relative poverty rates highest for singles, divorced & separated, and lowest for married adults")`
 
 In 2016-19, the relative poverty rate after housing costs was highest for single adults (27%, 260,000 adults each year) and divorced (or separated) adults (26%, 90,000). Married adults were the least likely to be in poverty (13%, 270,000), and widowed and cohabiting adults were in the middle (17% and 20%; 50,000 and 120,000).
 
@@ -66,7 +66,7 @@ interactive(povertycharts[["chart19"]], height = 4)
 
 Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.
 
-### Relative poverty rates higher for ethnic minorities
+`r message("Relative poverty rates higher for ethnic minorities")`
 
 In 2014-19, people from non-white minority ethnic groups were more likely to be in relative poverty after housing costs compared to those from the 'White - British' and 'White - Other' groups.
 
@@ -93,7 +93,7 @@ Due to the small sample sizes for some of the ethnic groups, the measurement unc
 
 Data on religion is available for adults only, so this analysis doesn't include children in a household.
 
-### Relative poverty rates higher for Muslims
+`r message("Relative poverty rates higher for Muslims")`
 
 In 2014-19, Muslim adults were more likely to be in relative poverty (49%) than adults overall (18%), after housing costs were taken into account.
 
@@ -118,7 +118,7 @@ Due to the small sample sizes for some of the religious groups, the measurement 
 
 ### Disability
 
-**Relative poverty rates higher where a household member is disabled**
+`r message("Relative poverty rates higher where a household member is disabled")`
 
 Poverty rates remain higher for households in which somebody is disabled compared to those where no-one is disabled. The gap between the two groups has remained fairly steady over the last few years.
 
@@ -139,7 +139,7 @@ The relative poverty measure doesn't take into account the fact that additional 
 
 ### Adjusted household income
 
-**Relative poverty rates, with disability benefits removed from household income, higher where a household member is disabled**
+`r message("Relative poverty rates, with disability benefits removed from household income, higher where a household member is disabled")`
 
 Whilst it is recognised that there are additional costs associated with disability, research shows that these vary greatly in level and nature, and there is no general agreement on how to measure these costs.
 

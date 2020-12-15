@@ -8,7 +8,7 @@ The Child Poverty (Scotland) Act 2017 requires us to report annually on a number
 
 ### Relative poverty
 
-**Relative poverty rate for children no longer rising**
+`r message("Relative poverty rate for children no longer rising")`
 
 It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
 
@@ -21,7 +21,7 @@ interactive(povertycharts[["chart10"]])
 
 ### Absolute poverty
 
-**Absolute poverty rate for children stable**
+`r message("Absolute poverty rate for children stable")`
 
 Absolute child poverty after housing costs affected 21% (210,000 children each year). Before housing costs, absolute child poverty was at 17% (160,000 children each year).
 
@@ -34,7 +34,7 @@ interactive(povertycharts[["chart11"]], height = 4)
 
 ### Material deprivation
 
-**Children in combined material deprivation and low income broadly stable**
+`r message("Children in combined material deprivation and low income broadly stable")`
 
 It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in 2016-19. Before housing costs, this was 11% of children (110,000 children).
 
@@ -51,7 +51,7 @@ interactive(povertycharts[["chart12"]])
 
 ### In-work poverty
 
-**In-work poverty for children no longer rising**
+`r message("In-work poverty for children no longer rising")`
 
 While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
 

@@ -21,9 +21,8 @@ output:
 <script>
   $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>');
-    <!-- $head.prepend('<img src=\"badge.png\" style=\"float: right; height: 50px;\"  alt=\"National Statistics logo\"/></a>') -->
-  });
+    $head.prepend('<img src=\"img/badge.png\" alt=\"National Statistics logo\" id=\"badge\"/></a>')
+    });
 </script>
   
 
@@ -37,12 +36,17 @@ knitr::opts_chunk$set(
 
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 
-library(tidyverse)
 library(htmltools)
 
 infobox <- function(md) {
   div(class = "ds_inset-text",
       div(class = "ds_inset-text__text",
+          create_html(md)))
+}
+
+message <- function(md) {
+  div(class = "message-text",
+      div(class = "message-text__text",
           create_html(md)))
 }
 
@@ -62,39 +66,40 @@ interactive <- function(chart, height = 3) {
 
 ```{r}
 source("R/05_makecharts_poverty.R", encoding = "UTF-8")
+source("R/05_maketables_poverty.R", encoding = "UTF-8")
 ```
 
 
-```{r child = "_chapter01.Rmd"}
+```{r child = "_poverty_chapters/_chapter01.Rmd"}
 ```
 
-```{r child = "_chapter02.Rmd"}
+```{r child = "_poverty_chapters/_chapter02.Rmd"}
 ```
 
-```{r child = "_chapter03.Rmd"}
+```{r child = "_poverty_chapters/_chapter03.Rmd"}
 ```
 
-```{r child = "_chapter04.Rmd"}
+```{r child = "_poverty_chapters/_chapter04.Rmd"}
 ```
 
-```{r child = "_chapter05.Rmd"}
+```{r child = "_poverty_chapters/_chapter05.Rmd"}
 ```
 
-```{r child = "_chapter06.Rmd"}
+```{r child = "_poverty_chapters/_chapter06.Rmd"}
 ```
 
-```{r child = "_chapter07.Rmd"}
+```{r child = "_poverty_chapters/_chapter07.Rmd"}
 ```
 
-```{r child = "_chapter08.Rmd"}
+```{r child = "_poverty_chapters/_chapter08.Rmd"}
 ```
 
-```{r child = "_chapter09.Rmd"}
+```{r child = "_poverty_chapters/_chapter09.Rmd"}
 ```
 
-```{r child = "_chapter10.Rmd"}
+```{r child = "_poverty_chapters/_chapter10.Rmd"}
 ```
 
-```{r child = "_chapter11.Rmd"}
+```{r child = "_poverty_chapters/_chapter11.Rmd"}
 ```
 

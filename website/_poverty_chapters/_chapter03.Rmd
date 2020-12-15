@@ -2,9 +2,11 @@
 
 ## All individuals {.tabset}
 
+The most commonly used poverty indicator in Scotland is relative poverty after housing costs. It is complemented in this report by other poverty measures, which are shown in the additional tabs below.
+
 ### Relative poverty {#relpov}
 
-**Relative poverty rate for all individuals no longer rising**
+`r message("Relative poverty rate for all individuals no longer rising")`
 
 It is estimated that 19% of Scotland's population (1.02 million people each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, 17% of the population (900,000 people) were living in poverty in 2016-19.
 
@@ -19,7 +21,7 @@ interactive(povertycharts[["chart01"]])
 
 ### Absolute poverty 
 
-**Absolute poverty rate for all individuals stable**
+`r message("Absolute poverty rate for all individuals stable")`
 
 It is estimated that 17% of Scotland's population (910,000 people each year) were living in absolute poverty after housing costs in 2016-19. After a long decline since the beginning of this time series in the mid-nineties, absolute poverty rates have stagnated since 2006-09.
 
@@ -36,6 +38,8 @@ interactive(povertycharts[["chart02"]], height = 4)
 
 ### Food insecurity
 
+`r message("Key message on food insecurity")`
+
 add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
 #### Figure 3 - Proportion of people with food insecurity, Scotland 2018/19
@@ -49,7 +53,7 @@ Bar chart showing the proportion of people who've expericenced food insecurity, 
 
 ### Relative poverty 
 
-**Relative poverty rate for working-age adults stable**
+`r message("Relative poverty rate for working-age adults stable")`
 
 Relative poverty for working-age adults has been broadly stable since reporting began. Relative poverty in 2016-19 was estimated to be 19% after housing costs, and 16% before housing costs.
 
@@ -64,7 +68,7 @@ interactive(povertycharts[["chart04"]])
 
 ### Absolute poverty 
 
-**Absolute poverty rate for working-age adults stable**
+`r message("Absolute poverty rate for working-age adults stable")`
 
 Absolute poverty amongst working-age adults remained broadly stable during the last fifteen years. In 2016-19, 17% of working-age adults were in absolute poverty after housing costs, and 14% before housing costs.
 
@@ -79,7 +83,7 @@ interactive(povertycharts[["chart05"]], height = 4)
 
 ### In-work poverty
 
-**In-work poverty for working-age adults now stable**
+`r message("In-work poverty for working-age adults now stable")`
 
 In 2016-19, 60% of working-age adults in relative poverty after housing costs as well as before housing costs were living in working households. This represents 380,000 working-age adults in poverty after housing costs, and 310,000 working-age adults before housing costs.
 
@@ -96,7 +100,7 @@ interactive(povertycharts[["chart06"]])
 
 ### Relative poverty
 
-**Relative poverty rate for pensioners stable**
+`r message("Relative poverty rate for pensioners stable")`
 
 Relative poverty after housing costs for pensioners was 15% in 2016-19 (150,000 pensioners each year). Before housing costs, 18% of pensioners (180,000 pensioners) were in relative poverty.
 
@@ -111,7 +115,7 @@ interactive(povertycharts[["chart07"]])
 
 ### Absolute poverty
 
-**Absolute povertyrate for pensioners stable**
+`r message("Absolute povertyrate for pensioners stable")`
 
 Absolute poverty after housing costs for pensioners was 12% (130,000 pensioners each year) in 2016-19. Before housing costs, it was 14% (150,000 pensioners).
 
@@ -126,7 +130,7 @@ interactive(povertycharts[["chart08"]], height = 4)
 
 ### Material deprivation
 
-**Pensioners in material deprivation broadly stable**
+`r message("Pensioners in material deprivation broadly stable")`
 
 In 2016-19, 5% of pensioners (50,000 pensioners each year) were in material deprivation.
 

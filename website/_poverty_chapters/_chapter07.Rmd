@@ -2,7 +2,7 @@
 
 ## Household income trends {#incometrends}
 
-**Median weekly household income growing**
+`r message("Median weekly household income growing")`
 
 In 2016-19, median household income before housing costs was £517 per week. Median income has increased slowly but steadily since the recovery after the last recession, and has reached its highest level since reporting began.
 
@@ -15,7 +15,7 @@ Median incomes rose for all age groups: children, working-age adults and pension
 interactive(povertycharts[["chart26"]])
 ```
 
-**Lower incomes increasing more than higher incomes**
+`r message("Lower incomes increasing more than higher incomes")`
 
 The next chart shows how weekly equivalised incomes before housing costs have changed from 2013-16 to 2016-19 across the different income deciles. The bottom five decile points saw small increases compared to the previous period, whereas the top three decile points saw small decreases.
 
@@ -57,7 +57,7 @@ table1
 
 The chart below shows the different sources of gross income by decile, ranking the population by income and dividing it into ten equal-sized groups. Income components are considered before tax; this is therefore a different definition of household income from that used elsewhere in this report.
 
-**Earnings and social security payments main household income sources**
+`r message("Earnings and social security payments main household income sources")`
 
 Higher income households receive a large proportion of their income from earnings, and lower income households receive more of their income from social security payments. Social security payments include the state pension.
 

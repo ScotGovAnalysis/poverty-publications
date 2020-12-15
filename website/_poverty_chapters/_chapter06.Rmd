@@ -2,28 +2,28 @@
 
 ## Palma {#palma}
 
-**Palma ratio of income inequality fluctuating**
+`r message("Palma ratio of income inequality fluctuating")`
 
-This chart shows the ratio of total income received by the top ten percent of the population divided by the total income of the bottom forty percent of the population (expressed as a percentage) over time. This measure of how equally income is distributed across the population is known as the "Palma ratio" or "S90/S40 ratio". Palma is used internationally to estimate the extent of inequality between those at the top of the income distribution and those at the bottom. The Palma ratio is usually calculated from income before housing costs.
+This chart shows the ratio of total income received by the top ten percent of the population divided by the total income of the bottom forty percent of the population (expressed as a percentage) over time. This measure of how equally income is distributed across the population is known as the "Palma ratio" or "S90/S40 ratio". Palma is used internationally to estimate the extent of inequality between those at the top of the income distribution and those at the bottom. The Palma ratio is usually calculated from income before housing costs, but we have included it for after housing costs income as well.
 
-In 2016-19, the top ten percent of the population had 24% more income than the bottom forty percent combined. This compares to 33% more income of the top ten percent in 2007-10, the period with the highest income inequality in this time series as measured by the Palma ratio.
+In 2016-19, the top ten percent of the population had 24% more income (before housing costs) than the bottom forty percent combined. This compares to 33% more income of the top ten percent in 2007-10, the period with the highest income inequality in this time series as measured by the Palma ratio.
 
 Income inequality has been fluctuating since the beginning of this data collection in the mid-nineties, and, after the most recent low point in 2012-15 has now ceased to increase.
 
 Income decile shares are available in the associated tables.
 
-#### Figure 24 - Palma ratio of income inequality before housing costs, Scotland
+#### Figure 24 - Palma ratio of income inequality, Scotland
 ```{r chart24}
 interactive(povertycharts[["chart24"]])
 ```
 
 ## Gini
 
-**key result here**
+`r message("key result here")`
 
 commentary
 
-#### Figure 25 - Gini coefficient of income inequality before housing costs, Scotland
+#### Figure 25 - Gini coefficient of income inequality, Scotland
 ```{r chart25}
 interactive(povertycharts[["chart25"]])
 ```
