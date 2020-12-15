@@ -84,12 +84,13 @@ povertychartdata[["age"]] <- do.call(rbind.data.frame,
 ## gender ----
 povertychartdata[["gender"]] <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc",
-                      groupingvar = "newfambu")) %>%
+                      groupingvar = "singlehh")) %>%
   addyearvar %>%
   group_by(groupingvar) %>%
   get3yrtable() %>%
-  tail(-16L) %>%
+  tail(-13L) %>%
   samplesizecheck_num()
+
 
 ## marital status ----
 povertychartdata[["marital"]] <- do.call(rbind.data.frame,
@@ -335,23 +336,49 @@ remove(sources1, sources2, sources3, sources)
 
 
 ## palma ----
-povertychartdata[["palma"]] <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
+palmabhc <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods))
+                        labels = labels[["years"]]$periods),
+         key = "Before housing costs")
+
+palmaahc <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
+  addyearvar() %>%
+  mutate_if(is.numeric, get3yraverage) %>%
+  tail(-2L) %>%
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = labels[["years"]]$periods),
+         key = "After housing costs")
+
+povertychartdata[["palma"]] <- rbind(palmabhc, palmaahc)
+
+remove(palmabhc, palmaahc)
 
 ## gini ----
-povertychartdata[["gini"]] <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
+ginibhc <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
   addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods))
+                        labels = labels[["years"]]$periods),
+         key = "Before housing costs")
 
-remove(hbai, adult, labels)
+giniahc <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
+  addyearvar() %>%
+  mutate_if(is.numeric, get3yraverage) %>%
+  tail(-2L) %>%
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = labels[["years"]]$periods),
+         key = "After housing costs")
+
+povertychartdata[["gini"]] <- rbind(ginibhc, giniahc)
+
+remove(ginibhc, giniahc, hbai, adult, labels)
 
 

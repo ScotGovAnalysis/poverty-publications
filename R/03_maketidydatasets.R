@@ -28,11 +28,12 @@ hbai <- lapply(hbai, gethhloneparentstatus)
 hbai <- lapply(hbai, getchildweights)
 hbai <- lapply(hbai, getpovertyflags)
 hbai <- lapply(hbai, getpovdisabilityflags)
+hbai <- lapply(hbai, gethhsinglegender)
 
 
 # add factor labels -----------------------------------------------------------------------------------
 
-for (year in years){
+for (year in years) {
 
   df <- hbai[[year]]
 
@@ -89,11 +90,14 @@ for (year in years){
                              labels = labels[["ethnic"]]$labels),
            ethgrphh_2f = factor(ethgrphh_2f,
                              levels = labels[["ethnic_2f"]]$codes,
-                             labels = labels[["ethnic_2f"]]$labels))  %>%
+                             labels = labels[["ethnic_2f"]]$labels),
+           singlehh = factor(singlehh,
+                             levels = labels[["gender"]]$codes,
+                             labels = labels[["gender"]]$labels))  %>%
   mutate_at(vars(c("ecobu", "kidecobu", "newfambu", "ptentyp2", "urinds",
                    "workinghh", "disch_hh", "disad_hh", "dispp_hh", "depchldh",
                    "depchldh_ch", "gvtregn", "ethgrphh", "ethgrphh_2f",
-                   "loneparenthh", "babyhh", "youngmumhh")),
+                   "loneparenthh", "babyhh", "youngmumhh", "singlehh")),
             fct_explicit_na)
 
   hbai[[year]] <- df

@@ -280,42 +280,43 @@ povertycharts[["chart16"]] <- linechart(data, recession = FALSE) +
 ## chart17 gender wa ----
 data <- povertychartdata[["gender"]] %>%
   ungroup() %>%
-  filter(groupingvar %in% c("Working-age single with dependent children",
-                            "Working-age single without dependent children - male",
-                            "Working-age single without dependent children - female")) %>%
+  filter(groupingvar %in% c("Female working-age adult, no dependent children",
+                            "Male working-age adult, no dependent children",
+                            "Female working-age adult with dependent children")) %>%
   mutate(value = adrate,
          key = factor(groupingvar,
-                      levels = c("Working-age single with dependent children",
-                                 "Working-age single without dependent children - male",
-                                 "Working-age single without dependent children - female")),
-         key = case_when(key == "Working-age single with dependent children" ~ "Single parent",
-                         key == "Working-age single without dependent children - male" ~ "Single man, no children",
-                         key == "Working-age single without dependent children - female" ~ "Single woman, no children",
-                         TRUE ~ as.character(key)))
+                      levels = c("Female working-age adult, no dependent children",
+                                 "Male working-age adult, no dependent children",
+                                 "Female working-age adult with dependent children"),
+                      labels = c("Single woman, no children",
+                                 "Single man, no children",
+                                 "Single mother")) )
 
 povertycharts[["chart17"]] <- linechart(data, recession = FALSE) +
-  scale_y_continuous(limits = c(0.13, 0.63)) +
+  scale_y_continuous(limits = c(0.18, 0.68)) +
   addscales() +
   addsource() +
   addlabels() +
-  addnames(up = c(0.04, 0.1, -0.05))
+  addnames(up = c(0.05, -0.05, 0.03))
 
 ## chart18 gender pn ----
 data <- povertychartdata[["gender"]] %>%
   ungroup() %>%
-  filter(groupingvar %in% c("Single pensioner - male",
-                            "Single pensioner - female")) %>%
+  filter(groupingvar %in% c("Male pensioner",
+                            "Female pensioner")) %>%
   mutate(value = adrate,
          key = factor(groupingvar,
-                      levels = c("Single pensioner - male",
-                                 "Single pensioner - female")))
+                      levels = c("Male pensioner",
+                                 "Female pensioner"),
+                      labels = c("Single male pensioner",
+                                 "Single female pensioner")))
 
 povertycharts[["chart18"]] <- linechart(data, recession = FALSE) +
-  scale_y_continuous(limits = c(0.12, 0.42)) +
+  scale_y_continuous(limits = c(0.1, 0.6)) +
   addscales() +
   addsource() +
   addlabels() +
-  addnames(up = c(-0.14, 0.03))
+  addnames(up = c(-0.14, 0.04))
 
 ## chart19 marital ----
 data <- povertychartdata[["marital"]] %>%
@@ -403,24 +404,24 @@ povertycharts[["chart23"]] <- linechart(data, recession = FALSE) +
 # Income inequality ----
 
 ## chart24 palma ----
-data <- mutate(povertychartdata[["palma"]], value = Palma,
-               key = "Before housing costs")
+data <- mutate(povertychartdata[["palma"]], value = Palma)
 
 povertycharts[["chart24"]] <- linechart(data, up = 1.15) +
   scale_y_continuous(limits = c(0.9, 1.6)) +
   addscales() +
   addsource() +
-  addlabels()
+  addlabels() +
+  addnames(up = c(-0.06, 0.26))
 
 ## chart25 gini ----
-data <- mutate(povertychartdata[["gini"]], value = Gini,
-               key = "Before housing costs")
+data <- mutate(povertychartdata[["gini"]], value = Gini)
 
 povertycharts[["chart25"]] <- linechart(data, up = -0.07) +
   scale_y_continuous(limits = c(0.27, 0.38)) +
   addscales() +
   addsource() +
-  addlabels()
+  addlabels() +
+  addnames(up = c(-0.01, 0.035))
 
 # Income ----
 

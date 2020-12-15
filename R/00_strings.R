@@ -125,6 +125,19 @@ labels[["familytype"]] <- data.frame(codes = c(1:8),
 labels[["familytype"]] <- labels[["familytype"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
+# Gender (single adult hhlds) --------------------------------------------------
+
+labels[["gender"]] <- data.frame(codes = c(1:6),
+                                 labels = c("Male pensioner",
+                                            "Female pensioner",
+                                            "Male working-age adult, no dependent children",
+                                            "Female working-age adult, no dependent children",
+                                            "Male working-age adult with dependent children",
+                                            "Female working-age adult with dependent children"))
+
+labels[["gender"]] <- labels[["gender"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
+
 # Lone parent (household) ----------------------------------------------------------------------------
 labels[["loneparent"]] <- data.frame(codes = c(0, 1),
                                      labels = c("No single parent in household",

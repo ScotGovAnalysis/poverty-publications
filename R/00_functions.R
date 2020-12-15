@@ -65,6 +65,22 @@ gethhloneparentstatus <- function(df){
     left_join(loneparenthh, by = "sernum")
 }
 
+gethhsinglegender <- function(df) {
+
+  singlehhgender <- df %>%
+    filter(adulth == 1) %>%
+    mutate(singlehh = case_when(gs_newpn > 0 & sexhd == 1 ~ 1,
+                                gs_newpn > 0 & sexhd == 2 ~ 2,
+                                gs_newpn == 0 & sexhd == 1 & depchldh == 0 ~ 3,
+                                gs_newpn == 0 & sexhd == 2 & depchldh == 0 ~ 4,
+                                sexhd == 1 & depchldh > 0 ~ 5,
+                                sexhd == 2 & depchldh > 0 ~ 6)) %>%
+    select(sernum, benunit, singlehh)
+
+  df %>%
+    left_join(singlehhgender, by = c("sernum", "benunit"))
+}
+
 getdisabilitybenefits <- function(df){
 
   # get the correct FRS househol dataset (current year is stored in "comment" attribute)

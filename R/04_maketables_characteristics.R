@@ -15,10 +15,11 @@ adult <- readRDS("data/tidyadult.rds")
 
 filename <- "Poverty characteristics.xlsx"
 
-# Tenure ---------------------------------------------------------------------------------------
+# Tenure -----------------------------------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-                      lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ptentyp2")) %>%
+                      lapply(hbai, getpovby, povvar = "low60ahc",
+                             groupingvar = "ptentyp2")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0506" ) %>%
@@ -27,7 +28,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-                      lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ptentyp2")) %>%
+                      lapply(hbai, getpovby, povvar = "low50ahc",
+                             groupingvar = "ptentyp2")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0506" ) %>%
@@ -79,10 +81,11 @@ createWideSpreadsheet(data)
 remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
-# Urban/rural class ----------------------------------------------------------------------------
+# Urban/rural class ------------------------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "urinds"))%>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "urinds"))%>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0809" ) %>%
@@ -91,7 +94,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "urinds")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "urinds")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0809" ) %>%
@@ -142,10 +146,11 @@ remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
-# Number of children in household --------------------------------------------------------------
+# Number of children in household ----------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "depchldh")) %>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "depchldh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
@@ -153,7 +158,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "depchldh")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "depchldh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
@@ -262,10 +268,14 @@ data <- list(sheetname = "Age band",
 # Create spreadsheet and first worksheet
 createWideSpreadsheet(data)
 
-# Family type (adults) -------------------------------------------------------------------------
+# Gender (adults) --------------------------------------------------------------
 
+# filter out non-single BUs to get the totals right
 rel <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "newfambu")) %>%
+               lapply(hbai, function(x) {
+                 y <- filter(x, singlehh != "(Missing)")
+                 getpovby(df = y, povvar = "low60ahc", groupingvar = "singlehh")
+                 } )) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
@@ -273,7 +283,74 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "newfambu")) %>%
+               lapply(hbai, function(x) {
+                 y <- filter(x, singlehh != "(Missing)")
+                 getpovby(df = y, povvar = "low50ahc", groupingvar = "singlehh")
+               } )) %>%
+  addyearvar %>%
+  formatpovby3yraverage %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
+  arrange(years) %>%
+  samplesizecheck
+
+# split dataset into rates, numbers, compositions and transpose
+
+rel_rates <- splitntranspose(rel, "adrate")
+rel_comps <- splitntranspose(rel, "adcomp")
+rel_numbers <- splitntranspose(rel, "adnum")
+
+sev_rates <- splitntranspose(sev, "adrate")
+sev_comps <- splitntranspose(sev, "adcomp")
+sev_numbers <- splitntranspose(sev, "adnum")
+
+# put all input for the spreadsheet into a list
+data <- list(sheetname = "Gender",
+             title_a = "A. Proportion of single adults in poverty and severe poverty by gender",
+             title_b = "B. Composition of single adults in poverty and severe poverty by gender",
+             title_c = "C. Number of single adults in poverty and severe poverty by gender",
+             filename = filename,
+             df1 = rel_rates,
+             df2 = sev_rates,
+             df3 = rel_comps,
+             df4 = sev_comps,
+             df5 = rel_numbers,
+             df6 = sev_numbers,
+             subtitle_a = "Proportion of single adults in each category who are in poverty, Scotland",
+             subtitle_b = "Proportion of single adults in poverty who are in each category, Scotland",
+             subtitle_c = "Number of single adults in each category who are in poverty, Scotland",
+             subsubtitle_rel = "Single adults in relative poverty (below 60% of UK median income after housing costs)",
+             subsubtitle_sev = "Single adults in severe poverty (below 50% of UK median income after housing costs)",
+             headers = c(" ", levels(periods)[3:yearsno - 2]),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
+             footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
+                           "Longer term trends may offer a better indication of a real change over time.",
+                           "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
+                           "2. In the tables, the following conventions have been used where figures are unavailable:",
+                           "'..'   not available due to small sample size (fewer than 100)",
+                           "3. The term 'single' here refers to adults who are sharing a household with no other adults.",
+                           "This differs from the analysis in the 'Family type' worksheet, where single adults may share the household with other families.")
+)
+
+# Create new worksheet
+createWideSpreadsheet(data)
+
+remove(rel, rel_rates, rel_comps, rel_numbers,
+       sev, sev_rates, sev_comps, sev_numbers)
+
+# Family type (adults) ---------------------------------------------------------
+
+rel <- do.call(rbind.data.frame,
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "newfambu")) %>%
+  addyearvar %>%
+  formatpovby3yraverage %>%
+  mutate(years = factor(years, labels = periods[3:yearsno])) %>%
+  arrange(years) %>%
+  samplesizecheck
+
+sev <- do.call(rbind.data.frame,
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "newfambu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
@@ -292,9 +369,9 @@ sev_numbers <- splitntranspose(sev, "adnum")
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Family type",
-             title_a = "A. Proportion of adults in poverty and severe poverty by family type and gender",
-             title_b = "B. Composition of adults in poverty and severe poverty by family type and gender",
-             title_c = "C. Number of adults in poverty and severe poverty by family type and gender",
+             title_a = "A. Proportion of adults in poverty and severe poverty by family type",
+             title_b = "B. Composition of adults in poverty and severe poverty by family type",
+             title_c = "C. Number of adults in poverty and severe poverty by family type",
              filename = filename,
              df1 = rel_rates,
              df2 = sev_rates,
@@ -307,7 +384,7 @@ data <- list(sheetname = "Family type",
              subtitle_c = "Number of adults in each category who are in poverty, Scotland",
              subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[3:yearsno-2]),
+             headers = c(" ", levels(periods)[3:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -315,7 +392,10 @@ data <- list(sheetname = "Family type",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
                            "'..'   not available due to small sample size (fewer than 100)",
                            "3. 'Pensioner couples' include working-age adults who are in a couple with a pensioner.",
-                           "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.")
+                           "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.",
+                           "A household may contain more than one family.",
+                           "5. 'Single' adults in this analysis refer to single-adult families, not single-adult households. In some cases, single adult families may share a household with other families.",
+                           "This differs from the analysis in the 'Gender' worksheet, where single adults are those who share the household with no other adults.")
 )
 
 # Create new worksheet
@@ -324,10 +404,11 @@ createWideSpreadsheet(data)
 remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
-# Marital status (adults) ----------------------------------------------------------------------
+# Marital status (adults) ------------------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(adult, getpovby_adult, povvar = "low60ahc", groupingvar = "marital")) %>%
+               lapply(adult, getpovby_adult, povvar = "low60ahc",
+                      groupingvar = "marital")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
@@ -335,7 +416,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck_ad
 
 sev <- do.call(rbind.data.frame,
-               lapply(adult, getpovby_adult, povvar = "low50ahc", groupingvar = "marital")) %>%
+               lapply(adult, getpovby_adult, povvar = "low50ahc",
+                      groupingvar = "marital")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
@@ -388,10 +470,11 @@ createWideSpreadsheet(data)
 remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
-# Family economic status (working-age adults) -------------------------------------------------
+# Family economic status (working-age adults) ----------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ecobu")) %>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "ecobu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
@@ -400,7 +483,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ecobu")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "ecobu")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
@@ -453,10 +537,11 @@ remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
-# Household work status (working-age adults) ---------------------------------------------------
+# Household work status (working-age adults) -----------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "workinghh")) %>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "workinghh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
@@ -465,7 +550,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "workinghh")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "workinghh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9899" ) %>%
@@ -517,10 +603,11 @@ remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
 
-# Disability -----------------------------------------------------------------------------------
+# Disability -------------------------------------------------------------------
 
 rel_pp <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "dispp_hh")) %>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -529,7 +616,8 @@ rel_pp <- do.call(rbind.data.frame,
   samplesizecheck
 
 rel_ch <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "disch_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low60ahc",
+                         groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -538,7 +626,8 @@ rel_ch <- do.call(rbind.data.frame,
   samplesizecheck
 
 rel_ad <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "disad_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low60ahc",
+                         groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -547,7 +636,8 @@ rel_ad <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev_pp <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "dispp_hh")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -556,7 +646,8 @@ sev_pp <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev_ch <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "disch_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low50ahc",
+                         groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -565,7 +656,8 @@ sev_ch <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev_ad <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "disad_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low50ahc",
+                         groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -659,10 +751,11 @@ remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
        sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
 
 
-# Disability with benefits removed from income -------------------------------------------------
+# Disability with benefits removed from income ---------------------------------
 
 rel_pp <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "dispp_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low60ahc_dis",
+                         groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -671,7 +764,8 @@ rel_pp <- do.call(rbind.data.frame,
   samplesizecheck
 
 rel_ch <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "disch_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low60ahc_dis",
+                         groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -680,7 +774,8 @@ rel_ch <- do.call(rbind.data.frame,
   samplesizecheck
 
 rel_ad <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "disad_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low60ahc_dis",
+                         groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -689,7 +784,8 @@ rel_ad <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev_pp <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "dispp_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low50ahc_dis",
+                         groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -698,7 +794,8 @@ sev_pp <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev_ch <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "disch_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low50ahc_dis",
+                         groupingvar = "disch_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -707,7 +804,8 @@ sev_ch <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev_ad <- do.call(rbind.data.frame,
-                  lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "disad_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low50ahc_dis",
+                         groupingvar = "disad_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -802,10 +900,11 @@ remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
        sev_comps, sev_comps1, sev_comps2, sev_comps3,
        sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
 
-# Ethnicity ------------------------------------------------------------------------------------
+# Ethnicity --------------------------------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "ethgrphh")) %>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "ethgrphh")) %>%
   addyearvar %>%
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
@@ -813,7 +912,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck
 
 sev <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ethgrphh")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "ethgrphh")) %>%
   addyearvar %>%
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
@@ -869,10 +969,11 @@ createWideSpreadsheet(data)
 remove(rel, rel_rates, rel_comps, rel_numbers,
        sev, sev_rates, sev_comps, sev_numbers)
 
-# Religion (adults) ----------------------------------------------------------------------------
+# Religion (adults) ------------------------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-               lapply(adult, getpovby_adult, povvar = "low60ahc", groupingvar = "religsc")) %>%
+               lapply(adult, getpovby_adult, povvar = "low60ahc",
+                      groupingvar = "religsc")) %>%
   addyearvar %>%
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
@@ -880,7 +981,8 @@ rel <- do.call(rbind.data.frame,
   samplesizecheck_ad
 
 sev <- do.call(rbind.data.frame,
-               lapply(adult, getpovby_adult, povvar = "low50ahc", groupingvar = "religsc")) %>%
+               lapply(adult, getpovby_adult, povvar = "low50ahc",
+                      groupingvar = "religsc")) %>%
   addyearvar %>%
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
@@ -933,7 +1035,7 @@ data <- list(sheetname = "Religion",
 # Create spreadsheet and first worksheet
 createWideSpreadsheet(data)
 
-# TOC --------------------------------------------------------------------
+# TOC --------------------------------------------------------------------------
 
 createContentSheet(paste0("output/", filename))
 
