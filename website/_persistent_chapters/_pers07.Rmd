@@ -1,26 +1,51 @@
-# Definitions
+# Find more information
 
-## Measures of income 
+## Further analysis
 
-The income used to determine persistent poverty in this publication includes:
+The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](index.html). Further analysis published throughout the year are available on the [Scottish Government website](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
 
-* Labour income – usual pay and self-employment earnings. Includes income from second jobs.
-* Miscellaneous income – educational grants, payments from family members and any other regular payment
-* Private benefit income – includes trade union/friendly society payments, maintenance or alimony and sickness or accident insurance
-* Investment income – private pensions/annuities, rents received, income from savings and investments
-* Pension income – occupational pensions income
-* State support – tax credits and all state benefits including State Pension
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](persistent.html#contact).
 
-Income is net of the following items:
+## Scottish Government websites
 
-* income tax payments;
-* National Insurance contributions;
-* domestic rates / council tax;
+Further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
 
-Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation). 
+- [Poverty and income inequality analysis](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+- [Child poverty analysis](www.gov.scot/collections/child-poverty-statistics/)
+- [Wealth analysis](www.gov.scot/collections/wealth-statistics/)
+- [Scottish Index of Multiple Deprivation](www.gov.scot/simd)
+- [Other Scottish Government statistics collections](www.gov.scot/collections/scottish-government-statistics/)
+- [Further information on all Scottish Government statistics](www.gov.scot/topics/statistics/)
+- [Scottish Government approach to tackling poverty](www.gov.scot/policies/poverty-and-social-justice/)
 
-Income after housing costs (AHC) is derived by deducting a measure of housing costs derived from mortgage and rents from the above income measure. 
+## Local poverty analysis
 
-## Equivalisation 
+The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
 
-Equivalisation is the process by which household income is adjusted to make it comparable across households of different size and composition. This reflects the fact that a bigger household requires more money than a smaller one to achieve the same standard of living. Further information on equivalisation can be found on the Scottish Government website: www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/
+[More information](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) on local poverty and income analysis from alternative data sources is available.
+
+## Previous reports
+
+### Persistent Poverty in Scotland
+
+- [Latest report](persistent.html)
+- [2010-2017 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
+- [2010-2016 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
+- [2010-2015 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+
+### Poverty and Income Inequality in Scotland
+
+- [Latest report](index.html)
+- [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
+- [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
+- [2015/16 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)
+- [2014/15 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/)
+- [2013/14 report](www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/)
+- [2012/13 report](www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/)
+- [2011/12 report](www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
+- [2010/11 report](www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
+
+## UK Government websites
+
+- [Income dynamics publication](www.gov.uk/government/statistics/income-dynamics-experimental) (contains figures comparable with those found in this publication)
+- [Households Below Average Income](www.gov.uk/government/collections/households-below-average-income-hbai--2), Department for Work and Pensions (methodology and UK estimates)

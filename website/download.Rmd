@@ -8,19 +8,19 @@ All in Excel / XLSX format
 
 #### Three-year estimates as used in the report
 
-* [Headline poverty estimates](xls/Poverty three-year average.xlsx)
-* [Poverty characteristics](xls/Poverty characteristics.xlsx) 
-* [Child poverty characteristics](xls/Child poverty characteristics.xlsx)
-* [Income analysis](xls/Income three-year average.xlsx)
+- [Headline poverty estimates](xls/Poverty three-year average.xlsx) - data used for poverty and child poverty chapters
+- [Poverty characteristics](xls/Poverty characteristics.xlsx) - data used for equality analysis chapter and more
+- [Child poverty characteristics](xls/Child poverty characteristics.xlsx) - data used for child poverty priority group analysis and more
+- [Income analysis](xls/Income three-year average.xlsx) - data used for income and income inequality chapters
 
 #### Single-year estimates
 
-* [Poverty estimates (1-yr)](xls/Poverty single year.xlsx)
-* [Income analysis (1-yr)](xls/Income single year.xlsx)
+- [Poverty estimates (1-yr)](xls/Poverty single year.xlsx) - single-year estimates for the headline estimates including the child poverty update
+- [Income analysis (1-yr)](xls/Income single year.xlsx) - single-year estimates for the income analysis
 
 ### Printable reports
 
-* [Poverty and Income Inequality in Scotland](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/poverty-income-inequality-scotland-2016-19/poverty-income-inequality-scotland-2016-19/govscot%3Adocument/poverty-income-inequality-scotland-2016-19.pdf) (PDF)
-* Persistent Poverty in Scotland (PDF)
-* [Infographic child poverty update](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf) (PDF)
-* [Confidence intervals](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) (DOCX)
+- [Poverty and Income Inequality in Scotland](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/poverty-income-inequality-scotland-2016-19/poverty-income-inequality-scotland-2016-19/govscot%3Adocument/poverty-income-inequality-scotland-2016-19.pdf) (PDF)
+- Persistent Poverty in Scotland (PDF)
+- [Infographic child poverty update](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf) (PDF)
+- [Confidence intervals](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) (DOCX)

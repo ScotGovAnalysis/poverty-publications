@@ -1,27 +1,59 @@
-# Find more information
+# Official Statistics
 
-### Further analysis
+Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
 
-The headline poverty and income inequality statistics can be found in the latest Poverty and Income Inequality in Scotland publication. The link to this and further analysis published throughout the year are available at: www.gov.scot/collections/poverty-and-income-inequality-statistics/
+### How to access background or source data
 
-Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please email social-justice-analysis@gov.scot.
+The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller.
 
-### Other Scottish Government websites
+### Correspondence and enquiries {#contact}
 
-For further information on all Scottish Government statistics: www.gov.scot/topics/statistics/
+For enquiries about this publication please contact the lead statistician.
 
-### Scottish Government approach to tackling poverty and income inequality 
+Maike Waldmann<br>
+Communities Analysis Division
 
-www.gov.scot/policies/poverty-and-social-justice/
+#### Email
 
-### Local Authority level analysis and other geographies in Scotland
+social-justice-analysis@gov.scot
 
-The persistent poverty figures presented here are from a sample survey which limits the analysis possible at smaller geographical areas. Similarly, the main poverty statistics for Scotland published in Poverty and Income Inequality in Scotland are only available at Scotland level. A few analyses are published for areas below Scotland level (e.g. poverty in rural and urban areas); however, it is not possible to produce reliable estimates at Local Authority level from this source. 
+#### Phone
 
-Information on poverty at Local Authority level is available from alternative sources although none of these include persistent poverty. These can be found at: www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics
+0131 244 5851<br>
 
-### UK Government websites
+For general enquiries about Scottish Government statistics please contact the 
+Office of the Chief Statistician.
 
-Income dynamics publication (contains figures comparable with those found in this publication): www.gov.uk/government/statistics/income-dynamics-experimental
+#### Email
 
-Households Below Average Income, Department for Work and Pensions (methodology and UK estimates): www.gov.uk/government/collections/households-below-average-income-hbai--2
+statistics.enquiries@gov.scot
+
+#### Phone
+
+0131 244 0442
+
+### Complaints and suggestions
+
+If you are not satisfied with our service or have any comments or suggestions, please write to the Chief Statistician.
+
+#### Address
+
+Scottish Government<br>
+2W St Andrews House<br>
+Edinburgh, EH1 3DG
+
+#### Phone
+
+0131 244 0302
+
+#### Email
+
+statistics.enquiries@gov.scot
+
+If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at [ScotStat](www.gov.scot/scotstat).
+
+Details of [forthcoming publications](www.gov.scot/publications/official-statistics-forthcoming-publications/) are regularly published.
+
+### Crown Copyright
+
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](www.nationalarchives.gov.uk/doc/open-government-licence/).

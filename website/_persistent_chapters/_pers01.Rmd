@@ -2,7 +2,7 @@ This publication presents estimates of the proportion of people, children, worki
 
 # Key points
 
-The statistics in this report provide information on persistent poverty in Scotland. They are taken from the Understanding Society survey and so, as is true for all statistics derived from survey data, the statistics are subject to a degree of error. This means that implied changes over the years and between UK countries may not be significant and instead be within a given error range. More information can be found in the Background Notes and Methodology section.
+The statistics in this report provide information on persistent poverty in Scotland. They are taken from the Understanding Society survey and so, as is true for all statistics derived from survey data, the statistics are subject to a degree of error. This means that implied changes over the years and between UK countries may not be significant and instead be within a given error range. More information can be found in the [Methodology][Methodology] section.
 
 Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.
 

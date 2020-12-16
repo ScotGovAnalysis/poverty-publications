@@ -12,9 +12,9 @@ Income inequality has been fluctuating since the beginning of this data collecti
 
 Income decile shares are available in the associated tables.
 
-#### Figure 24 - Palma ratio of income inequality, Scotland
-```{r chart24}
-interactive(povertycharts[["chart24"]])
+#### Figure 26 - Palma ratio of income inequality, Scotland
+```{r chart26}
+interactive(povertycharts[["chart26"]])
 ```
 
 ## Gini
@@ -23,7 +23,7 @@ interactive(povertycharts[["chart24"]])
 
 commentary
 
-#### Figure 25 - Gini coefficient of income inequality, Scotland
-```{r chart25}
-interactive(povertycharts[["chart25"]])
+#### Figure 27 - Gini coefficient of income inequality, Scotland
+```{r chart27}
+interactive(povertycharts[["chart27"]])
 ```

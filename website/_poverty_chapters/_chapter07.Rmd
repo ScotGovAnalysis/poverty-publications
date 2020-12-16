@@ -10,9 +10,9 @@ Following the same trend, median income after housing costs was £464 per week i
 
 Median incomes rose for all age groups: children, working-age adults and pensioners, but very little for working-age adults. This data can be found in the associated tables.
 
-#### Figure 26 - Median weekly household income in 2018/19 prices, Scotland
-```{r}
-interactive(povertycharts[["chart26"]])
+#### Figure 28 - Median weekly household income in 2018/19 prices, Scotland
+```{r chart28}
+interactive(povertycharts[["chart28"]])
 ```
 
 `r message("Lower incomes increasing more than higher incomes")`
@@ -23,9 +23,9 @@ Over the last four years shown in the chart, middle income households saw the la
 
 `r infobox("Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the income distribution.")`
 
-#### Figure 27 - Weekly household income before housing costs at each decile point in 2018/19 prices, Scotland
-```{r}
-interactive(povertycharts[["chart27"]])
+#### Figure 29 - Weekly household income before housing costs at each decile point in 2018/19 prices, Scotland
+```{r chart29}
+interactive(povertycharts[["chart29"]])
 ```
 
 After housing costs data is available in the associated tables.
@@ -38,9 +38,9 @@ Many people have household incomes near the poverty threshold. This means that s
 
 Decile groups are groups of the population defined by the decile points. The first decile group is the ten percent of the population with the lowest incomes. The second decile group contains individuals with incomes above the lowest decile point but below the second decile point.
 
-#### Figure 28 - Equivalised weekly household income distribution before housing costs, Scotland 2016-19
-```{r}
-interactive(povertycharts[["chart28"]])
+#### Figure 30 - Equivalised weekly household income distribution before housing costs, Scotland 2016-19
+```{r chart30}
+interactive(povertycharts[["chart30"]])
 ```
 
 Most of the income estimates in this publication are based on equivalised income. This means that household income is adjusted to reflect different household sizes and compositions. When income is not equivalised, households of different sizes have different poverty thresholds. The table below shows the relative and absolute poverty thresholds, before equivalisation, for households of different sizes.
@@ -65,7 +65,7 @@ Earnings account for around 45% of gross income for those in the first two decil
 
 The proportion of household income from earnings exceeds that from social security payments for around 80% of the population (those above the 2nd percentile point).
 
-#### Figure 29 - Income sources as a percentage of gross income by income decile, Scotland 2016-19
-```{r}
-interactive(povertycharts[["chart29"]], height = 5)
+#### Figure 31 - Income sources as a percentage of gross income by income decile, Scotland 2016-19
+```{r chart31}
+interactive(povertycharts[["chart31"]], height = 5)
 ```

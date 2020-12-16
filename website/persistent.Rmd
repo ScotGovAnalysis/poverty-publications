@@ -63,5 +63,3 @@ interactive <- function(chart, height = 3) {
 ```{r child = "_persistent_chapters/_pers08.Rmd"}
 ```
 
-```{r child = "_persistent_chapters/_pers09.Rmd"}
-```

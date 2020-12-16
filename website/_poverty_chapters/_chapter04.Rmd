@@ -81,6 +81,8 @@ Bar chart showing the proportion of children who've expericenced food insecurity
 
 add commentary here explaining where the groups are coming from, links with TCPDP, etc.
 
+note re minority ethnic group includes white minorities such as white people who are not British 
+
 ### Relative poverty
 
 #### Figure 15 - Proportion of children in relative poverty after housing cost, Scotland
@@ -90,15 +92,15 @@ interactive(povertycharts[["chart15"]])
 
 ### Absolute poverty
 
-#### Figure 15b - Proportion of children in absolute poverty after housing costs, Scotland
-```{r chart15b}
-interactive(povertycharts[["chart15b"]])
+#### Figure 16 - Proportion of children in absolute poverty after housing costs, Scotland
+```{r chart16}
+interactive(povertycharts[["chart16"]])
 ```
 
 ### Material deprivation
 
-#### Figure 15c - Proportion of children in combined low income and material deprivation, Scotland
-```{r chart15c}
-interactive(povertycharts[["chart15c"]])
+#### Figure 17 - Proportion of children in combined low income and material deprivation, Scotland
+```{r chart17}
+interactive(povertycharts[["chart17"]])
 ```
 

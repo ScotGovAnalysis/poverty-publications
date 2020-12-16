@@ -3,12 +3,12 @@ body {
     font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-#navbar a {
-  color: #333333 !important; /*Greater contrast for accessibility*/
-  }
+em {
+  font-style: normal;
+}
 
-.navbar-header a {
-  color: #333333 !important;
+h4 {
+  font-weight: 900;
 }
 
 p,
@@ -27,6 +27,17 @@ table {
   font-size: 15px;
 }
 
+a {
+  color: #0065bd;
+  text-decoration: underline;
+}
+
+.navbar-nav>li>a {
+  color: #333333 !important;
+  text-decoration: none;
+  }
+
+
 .dropdown-header {
     display: block;
     padding: 3px 20px;
@@ -36,10 +47,6 @@ table {
     white-space: nowrap;
 }
 
-h4 {
-  font-weight: 900;
-  color: #727272;
-}
 
 /* Navbar colours */
 
@@ -49,8 +56,13 @@ h4 {
 }
 
 /* TOC colours */
-.list-group-item.active, 
-.list-group-item.active:focus, 
+
+.list-group-item.active {
+    background-color: #002d54;
+    border-color: #002d54;
+}
+
+.list-group-item.active:focus,
 .list-group-item.active:hover {
     background-color: #0065bd;
     border-color: #0065bd;
@@ -62,7 +74,41 @@ h4 {
     padding-left: 32px;
     padding-right: 64px;
     border-left: 8px solid #b3b3b3;
+    border-bottom: 1px solid #ebebeb;
+    background-color: #f8f8f8;
     padding: 16px;
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+/* Key message "box" */
+
+.message-text {
+    padding-left: 32px;
+    padding-right: 64px;
+    border-left: 8px solid #0065bd;
+    border-bottom: 1px solid #7fb2de;
+    background-color: #d9effc;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-weight: bold;
+    color: #002d54;
+}
+
+/* SG logo */
+#logo {
+  height: 48px;
+  padding: 8px;
+  position: relative;
+}
+
+.navbar-brand {
+  padding: 2px;
+}
+
+/* National Statistics badge */
+#badge {
+  height: 70px;
+  margin: 0 10px;
+  float: right;
 }

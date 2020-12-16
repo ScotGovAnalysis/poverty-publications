@@ -52,7 +52,7 @@ Edinburgh, EH1 3DG
 
 #### Email
 
-statistics.enquiries@gov.scot.
+statistics.enquiries@gov.scot
 
 If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at [ScotStat](www.gov.scot/scotstat).
 
@@ -60,4 +60,4 @@ Details of [forthcoming publications](www.gov.scot/publications/official-statist
 
 ### Crown Copyright
 
-You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](www.nationalarchives.gov.uk/doc/open-government-licence/)
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](www.nationalarchives.gov.uk/doc/open-government-licence/).
