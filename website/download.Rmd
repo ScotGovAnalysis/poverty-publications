@@ -1,20 +1,22 @@
 ---
-title: "Download data and printable reports"
+title: "Download data and reports"
 ---
   
-  <script>
-  $(document).ready(function(){
-    $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
-  });
-</script>
-  
-### Data
+### Data: Poverty and child poverty estimates
 
-* [Associated tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/associated-tables/associated-tables/govscot%3Adocument/associated-tables.xlsx) (includes all data used in [Poverty and Income Inequality in Scotland 2016-19](index.html); XLSX)
-* [Supplementary poverty tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-poverty/supplementary-tables-poverty/govscot%3Adocument/supplementary-tables-poverty.xlsx) (XLSX)
-* [Supplementary child poverty tables](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/supplementary-tables-child-poverty/supplementary-tables-child-poverty/govscot%3Adocument/supplementary-tables-child-poverty.xlsx) (XLSX)
-* [Confidence intervals](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) (DOCX)
+All in Excel / XLSX format
+
+#### Three-year estimates as used in the report
+
+* [Headline poverty estimates](xls/Poverty three-year average.xlsx)
+* [Poverty characteristics](xls/Poverty characteristics.xlsx) 
+* [Child poverty characteristics](xls/Child poverty characteristics.xlsx)
+* [Income analysis](xls/Income three-year average.xlsx)
+
+#### Single-year estimates
+
+* [Poverty estimates (1-yr)](xls/Poverty single year.xlsx)
+* [Income analysis (1-yr)](xls/Income single year.xlsx)
 
 ### Printable reports
 

@@ -2,13 +2,6 @@
 title: "Official and National Statistics"
 ---
 
-<script>
-  $(document).ready(function(){
-    $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
-  });
-</script>
-
 
 Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
 

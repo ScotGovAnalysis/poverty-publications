@@ -9,11 +9,14 @@ output:
     css: styles.css
 
 navbar:
-  title: "Main report"
+  title: "<img id=\"logo\" src=\"img/sglogo.svg\" alt=\"Scottish Government logo\"/>"
 
-  left: 
+  left:
+  - text: "Main report"
+    href: index.html
+    icon: glyphicon-stats
   - text: "Child poverty"
-    href: "cpupdate.html"
+    href: cpupdate.html
     icon: glyphicon-eye-open
   - text: "Data"
     href: download.html
@@ -21,37 +24,5 @@ navbar:
   - text: "Persistent Poverty"
     href: persistent.html
     icon: glyphicon-stats
-  - text: "Reports"
-    icon: glyphicon-th-list
-    menu:
-    - text: "Poverty and Income Inequality in Scotland"
-    - text: "2016-19 report"
-      href: index.html
-    - text: "2015-18 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/
-    - text: "2014-17 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/
-    - text: "2015/16 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/
-    - text: "2014/15 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/
-    - text: "2013/14 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/
-    - text: "2012/13 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/
-    - text: "2011/12 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/
-    - text: "2010/11 report"
-      href: https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/
-    - text: "----------------------------------------"
-    - text: "Persistent Poverty in Scotland"
-    - text: "2010-2018 report"
-      href: persistent.html
-    - text: "2010-2017 report"
-      href: https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/
-    - text: "2010-2016 report"
-      href: https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/
-    - text: "2010-2015 report"
-      href: https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/
   - text: "About"
     href: about.html

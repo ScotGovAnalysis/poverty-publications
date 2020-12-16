@@ -6,33 +6,58 @@ Statistics assessed, or subject to assessment, by the UK Statistics Authority ca
 
 The designation of these statistics as National Statistics was confirmed in May 2012 following a compliance check by the Office for Statistics Regulation.
 
-### Correspondence and enquiries
-
-For enquiries about this publication please contact:
-
-Maike Waldmann
-Communities Analysis Division
-Telephone: 0131 244 5851
-e-mail: social-justice-analysis@gov.scot
-
-For general enquiries about Scottish Government statistics please contact:
-
-Office of the Chief Statistician
-Telephone: 0131 244 0442
-e-mail: statistics.enquiries@gov.scot
-
 ### How to access background or source data
 
-The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the UK Department for Work and Pensions) are making the data available through the UK Data Service: www.ukdataservice.ac.uk/
+The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the UK Department for Work and Pensions) are making the data available through the [UK Data Service](www.ukdataservice.ac.uk/)
+
+### Correspondence and enquiries {#contact}
+
+For enquiries about this publication please contact the lead statistician.
+
+Maike Waldmann<br>
+Communities Analysis Division
+
+#### Email
+
+social-justice-analysis@gov.scot
+
+#### Phone
+
+0131 244 5851<br>
+
+For general enquiries about Scottish Government statistics please contact the 
+Office of the Chief Statistician.
+
+#### Email
+
+statistics.enquiries@gov.scot
+
+#### Phone
+
+0131 244 0442
 
 ### Complaints and suggestions
 
-If you are not satisfied with our service or have any comments or suggestions, please write to the Chief Statistician, 2W, St Andrews House, Edinburgh, EH1 3DG, Telephone: (0131) 244 0302, e-mail statistics.enquiries@gov.scot.
+If you are not satisfied with our service or have any comments or suggestions, please write to the Chief Statistician.
 
-If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at www.gov.scot/scotstat
+#### Address
 
-Details of forthcoming publications can be found at www.gov.scot/publications/official-statistics-forthcoming-publications/
+Scottish Government<br>
+2W St Andrews House<br>
+Edinburgh, EH1 3DG
+
+#### Phone
+
+0131 244 0302
+
+#### Email
+
+statistics.enquiries@gov.scot.
+
+If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at [ScotStat](www.gov.scot/scotstat).
+
+Details of [forthcoming publications](www.gov.scot/publications/official-statistics-forthcoming-publications/) are regularly published.
 
 ### Crown Copyright
 
-You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the Open Government Licence. See: www.nationalarchives.gov.uk/doc/open-government-licence/
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](www.nationalarchives.gov.uk/doc/open-government-licence/)

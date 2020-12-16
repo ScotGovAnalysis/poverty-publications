@@ -3,13 +3,6 @@ title: "Child poverty update"
 date: "Published on 26 March 2020, next update March 2021"
 ---
 
-<script>
-  $(document).ready(function(){
-    $head = $('#header');
-    $head.prepend('<a href=\"https://www.gov.scot\"><img src=\"sglogo.svg\" style=\"float: right; height: 38px;\"  alt=\"Scottish Government logo\"/></a>')
-  });
-</script>
-
 The Child Poverty Act 2017 contains four income-based targets to reduce child poverty in Scotland by 2030. The charts show the interim and final targets and the latest poverty estimates. Note that the dots and labels show single-year estimates and the lines show the three-year averages. Single-year estimates can be used to understand the situation at a certain point in time, and three-year averages show trends more accurately.
 
 
@@ -37,7 +30,7 @@ create_html <- function(md) {
                   create_html("Income is low relative to the rest of society")),
               div(class = "panel-body",
                   create_html("Proportion of children living in households with equivalised incomes below 60% of the median (middle) UK income in the current year."),
-                  img(src = "cp1_relpovch_large.png"))),
+                  img(src = "img/cp1_relpovch_large.png"))),
           div(class = "panel panel-default",
               
               div(class = "panel-heading",
@@ -46,7 +39,7 @@ create_html <- function(md) {
                   create_html("Unable to afford basic necessities")),
               div(class = "panel-body",
                   create_html("Proportion of children in households with equivalised incomes below 70% of the median UK income AND going without certain basic goods and services."),
-                  img(src = "cp3_matdepch_large.png")))),
+                  img(src = "img/cp3_matdepch_large.png")))),
      
       div(class = "col-md-6", 
           
@@ -58,7 +51,7 @@ create_html <- function(md) {
                   create_html("Living standards are low relative to 2010/11")),
               div(class = "panel-body",
                   create_html("Proportion of children living in households with equivalised incomes below 60% of the median UK income in a base year (currently 2010/11) adjusted for inflation."),
-                  img(src = "cp2_abspovch_large.png"))),
+                  img(src = "img/cp2_abspovch_large.png"))),
           div(class = "panel panel-default",
               
               div(class = "panel-heading",
@@ -67,7 +60,7 @@ create_html <- function(md) {
                   create_html("Living in poverty for a number of years")),
               div(class = "panel-body",
                   create_html("Proportion of children who have lived in relative poverty in three or more of the last four years."),
-                  img(src = "cp4_perspov_large.png"))))
+                  img(src = "img/cp4_perspov_large.png"))))
  )
  
   
