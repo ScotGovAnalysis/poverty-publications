@@ -1639,7 +1639,8 @@ createUKSpreadsheet <- function(data){
 getSheetTitles <- function(filename = filename, sheetname){
 
   wb <- loadWorkbook(filename)
-  df3 <- read.xlsx(wb, sheet = sheetname, startRow = 2, colNames = FALSE, cols = 2, rows = 2,
+  df3 <- read.xlsx(wb, sheet = sheetname, startRow = 2, colNames = FALSE,
+                   cols = 2, rows = 2,
                    skipEmptyRows = TRUE) %>% pull()
 }
 
@@ -1654,40 +1655,74 @@ createContentSheet <- function(filename){
   titles <- titles[!titles == "Tables"]
 
   # remove "A." from titles
-  titles <- sapply(titles, function(i) ifelse(startsWith(i, "A. "), str_sub(i, 4L), i))
+  titles <- sapply(titles, function(i) ifelse(startsWith(i, "A. "),
+                                              str_sub(i, 4L), i))
 
   # create hyperlinks to sheets
-  sheetlinks <- sapply(seq_along(sheets), function(i) makeHyperlinkString(sheets[[i]], text = titles[[i]], col = 2))
+  sheetlinks <- sapply(seq_along(sheets),
+                       function(i) makeHyperlinkString(sheets[[i]],
+                                                       text = titles[[i]],
+                                                       col = 2))
 
   # create new worksheet
-  if ("Contents" %in% getSheetNames(filename)){removeWorksheet(wb, "Contents")}
+  if ("Contents" %in% getSheetNames(filename)) {removeWorksheet(wb, "Contents")}
   addWorksheet(wb, "Contents", gridLines = FALSE)
 
   # define styles
-  titleStyle <- createStyle(fontName="Segoe UI Semibold", fontSize = 14)
-  tocStyle <- createStyle(fontName="Segoe UI", fontSize = 12, fontColour = "blue", textDecoration = "underline")
-  backButtonStyle <- createStyle(fontName="Segoe UI", fontSize = 9, fontColour = "blue",
-                                 textDecoration = c("underline", "bold"), halign = "center", fgFill = "#D3D3D3",
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
+  noteStyle <- createStyle(fontName = "Segoe UI", fontSize = 12, wrapText = TRUE)
+  tocStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                          fontColour = "blue", textDecoration = "underline")
+  backButtonStyle <- createStyle(fontName = "Segoe UI", fontSize = 9,
+                                 fontColour = "blue",
+                                 textDecoration = c("underline", "bold"),
+                                 halign = "center", fgFill = "#D3D3D3",
                                  border = "TopBottomLeftRight")
 
   # add title
   writeData(wb, "Contents", "Tables", startRow = 2, startCol = 2)
   addStyle(wb, "Contents", rows = 2, cols = 2, style = titleStyle)
 
+  # add note
+  note1 <- "This workbook contains data used in the charts and tables in the Poverty and Income Inequality in Scotland report, and additional analysis."
+  note2 <- "https://data.gov.scot/poverty"
+  names(note2) <- "The report is available here: data.gov.scot/poverty"
+  class(note2) <- "hyperlink"
+
+  writeData(wb, "Contents", note1, startRow = 3, startCol = 2)
+  writeData(wb, "Contents", note2, startRow = 4, startCol = 2)
+  addStyle(wb, "Contents", rows = 3:4, cols = 2, style = noteStyle)
+
   # add list of sheets
-  writeFormula(wb, "Contents", startRow = 3, startCol = 2, x = sheetlinks)
-  addStyle(wb, "Contents", rows = 3:(length(sheets) + 3), cols = 2, style = tocStyle)
+  writeFormula(wb, "Contents", startRow = 6, startCol = 2, x = sheetlinks)
+  addStyle(wb, "Contents", rows = 6:(length(sheets) + 6), cols = 2,
+           style = tocStyle)
+
+  # add contact information
+  email <- "mailto:social-justice-analysis@gov.scot"
+  names(email) <- "social-justice-analysis@gov.scot"
+  class(email) <- "hyperlink"
+
+  writeData(wb, "Contents", "Contact", startRow = length(sheets) + 7, startCol = 2)
+  addStyle(wb, "Contents", rows = length(sheets) + 7, cols = 2, style = titleStyle)
+
+  writeData(wb, "Contents", "Maike Waldmann", startRow = length(sheets) + 8, startCol = 2)
+  writeData(wb, "Contents", "Scottish Government", startRow = length(sheets) + 9, startCol = 2)
+  writeData(wb, "Contents", "Communities Analysis Division", startRow = length(sheets) + 10, startCol = 2)
+  writeData(wb, "Contents", email, startRow = length(sheets) + 11, startCol = 2)
+  addStyle(wb, "Contents", rows = (length(sheets) + 8):(length(sheets) + 11), cols = 2, style = noteStyle)
 
   setColWidths(wb, "Contents", 2, widths = 80)
 
   # move contents sheet to first position
   order <- worksheetOrder(wb)
-  worksheetOrder(wb) <- c(order[length(order)], order[1:(length(order)-1)])
+  worksheetOrder(wb) <- c(order[length(order)], order[1:(length(order) - 1)])
 
   # add back button to each sheet
-  for (sheet in sheets){
+  for (sheet in sheets) {
     writeFormula(wb, sheet, startRow = 1, startCol = 2,
-                 x = makeHyperlinkString("Contents", row = 2, col = 2, text = "BACK"))
+                 x = makeHyperlinkString("Contents", row = 2, col = 2,
+                                         text = "BACK"))
     addStyle(wb, sheet, rows = 1, cols = 2, style = backButtonStyle)
     setRowHeights(wb, sheet, rows = 2, heights = 33)
   }
@@ -1704,7 +1739,8 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
 
   if (length(levels(df$key)) > 1) {
     if (GBP) {
-      df$text <- str_c(df$key, ": ", comma(df$value,1, prefix = "£"), " (", df$years, ")")
+      df$text <- str_c(df$key, ": ", comma(df$value,1, prefix = "£"),
+                       " (", df$years, ")")
     } else {
       df$text <- str_c(df$key, ": ", percent(df$value,1), " (", df$years, ")")
     }
@@ -1844,7 +1880,8 @@ persistentchart <- function(df) {
                        group = period,
                        label = percent(value, 1))) +
 
-    geom_bar_interactive(aes(tooltip = str_c(percent(value, 1), " (", period, ")"),
+    geom_bar_interactive(aes(tooltip = str_c(percent(value, 1), " (",
+                                             period, ")"),
                              data_id = period),
                          stat = "identity",
                          position = "dodge",
@@ -1926,7 +1963,8 @@ if (!GBP) {
   df$text <- percent(df$value, 1)
 }
 
-  left <-  geom_text_repel(data = filter(df, min(df$years) == as.character(df$years)),
+  left <-  geom_text_repel(data = filter(df,
+                                         min(df$years) == as.character(df$years)),
                            mapping = aes(label = text),
                            direction = "y",
                            nudge_x = -1,
@@ -1934,7 +1972,8 @@ if (!GBP) {
                            show.legend = FALSE,
                            segment.colour = NA)
 
-  right <- geom_text_repel(data = filter(df, years == levels(periods)[length(periods) - 2]),
+  right <- geom_text_repel(data = filter(df,
+                                         years == levels(periods)[length(periods) - 2]),
                            mapping = aes(label = text),
                            direction = "y",
                            nudge_x = 1,

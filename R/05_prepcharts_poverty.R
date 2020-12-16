@@ -257,11 +257,11 @@ abs5 <- getpriority(hbai, povvar = "abspovahc",
 cmd5 <- getpriority(hbai, povvar = "cmdahc",
                     groupingvar = "dispp_hh", "In household with disabled person(s)")
 rel6 <- getpriority(hbai, povvar = "low60ahc",
-                    groupingvar = "ethgrphh_2f", "(Non-white) minority ethnic")
+                    groupingvar = "ethgrphh_2f", "Minority ethnic")
 abs6 <- getpriority(hbai, povvar = "abspovahc",
-                    groupingvar = "ethgrphh_2f", "(Non-white) minority ethnic")
+                    groupingvar = "ethgrphh_2f", "Minority ethnic")
 cmd6 <- getpriority(hbai, povvar = "cmdahc",
-                    groupingvar = "ethgrphh_2f", "(Non-white) minority ethnic")
+                    groupingvar = "ethgrphh_2f", "Minority ethnic")
 
 povertychartdata[["priority"]] <- rbind(rel, rel1, rel2, rel3, rel4, rel5, rel6,
                                         abs, abs1, abs2, abs3, abs4, abs5, abs6,
