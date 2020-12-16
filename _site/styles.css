@@ -9,7 +9,6 @@ em {
 
 h4 {
   font-weight: 900;
-  color: #727272;
 }
 
 p,
@@ -28,13 +27,15 @@ table {
   font-size: 15px;
 }
 
-#navbar, a {
-  color: #333333 !important; /*Greater contrast for accessibility*/
-  }
-
-.navbar-header, a {
-  color: #333333 !important;
+a {
+  color: #0065bd;
+  text-decoration: underline;
 }
+
+.navbar-nav>li>a {
+  color: #333333 !important;
+  text-decoration: none;
+  }
 
 
 .dropdown-header {
