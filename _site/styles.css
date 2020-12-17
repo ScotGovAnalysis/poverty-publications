@@ -95,6 +95,16 @@ a {
     color: #002d54;
 }
 
+/* Notes to self */
+
+.devnote-text {
+    padding-left: 32px;
+    padding-right: 64px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    color: red;
+}
+
 /* SG logo */
 #logo {
   height: 48px;
