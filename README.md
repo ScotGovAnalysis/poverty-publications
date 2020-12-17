@@ -6,7 +6,7 @@ This repository contains the code for the annual Scottish Government "Poverty an
 
 ### New data arrives
 
-Run all [Data prep](#markdown-Data-prep) scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
+Run all [Data prep](#markdown-header-data-prep) scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
