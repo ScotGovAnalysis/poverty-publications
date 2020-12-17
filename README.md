@@ -33,7 +33,7 @@ Run 05_run_maketables.R to create all spreadsheets.
 * Run ... to create main report docx .
 
 
-# Scripts
+# List of scripts
 
 ### Helpers
 
