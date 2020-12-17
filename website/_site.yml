@@ -8,6 +8,8 @@ output:
     mathjax: NULL
     css: styles.css
 
+new_session: true
+
 navbar:
   title: "<img id=\"logo\" src=\"img/sglogo.svg\" alt=\"Scottish Government logo\"/>"
 

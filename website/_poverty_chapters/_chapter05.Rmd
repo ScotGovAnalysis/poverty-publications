@@ -19,7 +19,7 @@ Income is measured at a household level, which makes it difficult to measure the
 
 `r message("Relative poverty rates highest for single women with children but gap is smaller than it used to be")`
 
-In 2016-19, the relative poverty rate after housing costs for single working-age adults was 32%, higher than for the total working-age adult population (19%).
+In `r params$data_period`, the relative poverty rate after housing costs for single working-age adults was 32%, higher than for the total working-age adult population (19%).
 
 The poverty rate was highest for single women with children (39%). The poverty rate for single women without children was 28%, and for single men (with or without children) was 34%.
 
@@ -36,9 +36,9 @@ interactive(povertycharts[["chart19"]], height = 4)
 
 `r message("Relative poverty rates higher for single female pensioners than male")`
 
-In 2016-19, 18% of single female pensioners and 15% of single male pensioners were in relative poverty after housing costs. In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
+In `r params$data_period`, 18% of single female pensioners and 15% of single male pensioners were in relative poverty after housing costs. In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
 
-Some of the difference in pensioner poverty between genders may be due to different age profiles. For example, in 2016-19, 40% of female single pensioners were aged over 80 compared with 31% of male single pensioners. Older pensioners may have different sources of income which may result in them having lower incomes.
+Some of the difference in pensioner poverty between genders may be due to different age profiles. For example, in `r params$data_period`, 40% of female single pensioners were aged over 80 compared with 31% of male single pensioners. Older pensioners may have different sources of income which may result in them having lower incomes.
 
 #### Figure 20 - Proportion of single pensioners in relative poverty after housing costs, Scotland
 ```{r chart20}
@@ -51,7 +51,7 @@ Before housing costs data is available in the associated tables.
 
 `r message("Relative poverty rates highest for singles, divorced & separated, and lowest for married adults")`
 
-In 2016-19, the relative poverty rate after housing costs was highest for single adults (27%, 260,000 adults each year) and divorced (or separated) adults (26%, 90,000). Married adults were the least likely to be in poverty (13%, 270,000), and widowed and cohabiting adults were in the middle (17% and 20%; 50,000 and 120,000).
+In `r params$data_period`, the relative poverty rate after housing costs was highest for single adults (27%, 260,000 adults each year) and divorced (or separated) adults (26%, 90,000). Married adults were the least likely to be in poverty (13%, 270,000), and widowed and cohabiting adults were in the middle (17% and 20%; 50,000 and 120,000).
 
 Poverty among widowed and divorced/separated adults largely decreased over the long term, whereas the trend for singles, cohabiting and married adults was broadly flat over time.
 
@@ -122,7 +122,7 @@ Due to the small sample sizes for some of the religious groups, the measurement 
 
 Poverty rates remain higher for households in which somebody is disabled compared to those where no-one is disabled. The gap between the two groups has remained fairly steady over the last few years.
 
-In 2016-19, the poverty rate after housing costs for people in households with a disabled person was 23% (490,000 people each year). This compares with 17% (530,000 people) in a household without disabled household members.
+In `r params$data_period`, the poverty rate after housing costs for people in households with a disabled person was 23% (490,000 people each year). This compares with 17% (530,000 people) in a household without disabled household members.
 
 #### Figure 24 - Proportion of people in relative poverty after housing costs, Scotland
 ```{r chart24}
@@ -145,7 +145,7 @@ Whilst it is recognised that there are additional costs associated with disabili
 
 Analysis on this page excludes Disability Living Allowance, Attendance Allowance and Personal Independence Payments from total household income. These benefits are paid as a contribution towards the additional living costs for disabled people. If this income is excluded from total household income, then we are able to compare households with and without a disabled household member on a more like for like basis.
 
-In 2016-19, as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability related benefits are not included in the household income. After housing costs, the poverty rate was 29% (620,000 people each year) for people living with a disabled household member, and 16% (500,000 people) for those without.
+In `r params$data_period`, as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability related benefits are not included in the household income. After housing costs, the poverty rate was 29% (620,000 people each year) for people living with a disabled household member, and 16% (500,000 people) for those without.
 
 #### Figure 25 - Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland
 ```{r chart25}

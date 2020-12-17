@@ -10,7 +10,7 @@ The Child Poverty (Scotland) Act 2017 requires us to report annually on a number
 
 `r message("Relative poverty rate for children no longer rising")`
 
-It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in 2016-19. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
+It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in `r params$data_period`. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
 
 After a long fall between 1999-02 and 2010-13, which halted briefly just before the recession, child poverty rates had been rising again but did not rise in the latest periods.
 
@@ -36,7 +36,7 @@ interactive(povertycharts[["chart11"]], height = 4)
 
 `r message("Children in combined material deprivation and low income broadly stable")`
 
-It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in 2016-19. Before housing costs, this was 11% of children (110,000 children).
+It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in `r params$data_period`. Before housing costs, this was 11% of children (110,000 children).
 
 Combined low income and child material deprivation is an additional way of measuring living standards and refers to the inability of households to afford basic goods and activities that are seen as necessities in society.
 
@@ -55,7 +55,7 @@ interactive(povertycharts[["chart12"]])
 
 While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
 
-It is estimated that in 2016-19, 65% of children in relative poverty after housing costs (150,000 children each year) were living in working households. Before housing costs, 64% of children in poverty (130,000 children) were living in working households.
+It is estimated that in `r params$data_period`, 65% of children in relative poverty after housing costs (150,000 children each year) were living in working households. Before housing costs, 64% of children in poverty (130,000 children) were living in working households.
 
 This data suggests that after a steady and steep increase of in-work poverty since 2007-10, in-work poverty is now stable at a high level.
 

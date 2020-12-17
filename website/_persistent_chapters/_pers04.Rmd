@@ -1,10 +1,12 @@
 # In the UK
 
+`r devnote("update manually and make sure that wording makes sense")`
+
 ## All individuals {.tabset}
 
 When looking at the overall population, Scotland had levels of persistent poverty after housing costs that were similar to England and Wales and slightly higher than in Northern Ireland.
 
-Between 2014 and 2018, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%. 
+Between `r params$data_period_long`, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%. 
 
 ### After housing costs
 
@@ -24,7 +26,11 @@ interactive(persistentcharts[["chart04"]])
 
 #### Table 2: Proportion of people in persistent poverty by country
 ```{r table2}
-kableExtra::kable(pers_table2, 
+
+data <- persistenttables[["table2"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
       col.names = c("Period", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK"),
@@ -38,7 +44,7 @@ kableExtra::kable(pers_table2,
 
 ## Children {.tabset}
 
-Between 2014 and 2018, the persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). 
+Between `r params$data_period_long`, the persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). 
 
 In previous periods, persistent child poverty levels in Scotland and Northern Ireland had been similar, and consistently below the English and Welsh rates. 
 
@@ -60,7 +66,11 @@ interactive(persistentcharts[["chart06"]])
 
 #### Table 3: Proportion of children in persistent poverty by country
 ```{r table3}
-kableExtra::kable(pers_table3, 
+
+data <- persistenttables[["table3"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
       col.names = c("Period", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK"),
@@ -74,7 +84,7 @@ kableExtra::kable(pers_table3,
 
 ## Working-age adults {.tabset}
 
-Between 2014 and 2018, persistent poverty rates after housing costs for working-age adults in Scotland were the same as those in Northern Ireland (11%) and slightly below those in England and Wales (both 12%). 
+Between `r params$data_period_long`, persistent poverty rates after housing costs for working-age adults in Scotland were the same as those in Northern Ireland (11%) and slightly below those in England and Wales (both 12%). 
 
 ### After housing costs
 
@@ -94,7 +104,11 @@ interactive(persistentcharts[["chart08"]])
 
 #### Table 4: Proportion of working-age adults in persistent poverty by country
 ```{r table4}
-kableExtra::kable(pers_table4, 
+
+data <- persistenttables[["table4"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
       col.names = c("Period", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK"),
@@ -108,7 +122,7 @@ kableExtra::kable(pers_table4,
 
 ## Pensioners {.tabset}
 
-Between 2014 and 2018, persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).
+Between `r params$data_period_long`, persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).
 
 ### After housing costs
 
@@ -128,7 +142,11 @@ interactive(persistentcharts[["chart10"]])
 
 #### Table 5: Proportion of pensioners in persistent poverty by country
 ```{r table5}
-kableExtra::kable(pers_table5, 
+
+data <- persistenttables[["table5"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
       col.names = c("Period", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK"),

@@ -29,6 +29,7 @@ The main poverty data source, the Family Resources Survey, provides information 
 ### Persistent Poverty in Scotland
 
 - [Latest report](persistent.html)
+- [2010-2018 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
 - [2010-2017 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
 - [2010-2016 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
 - [2010-2015 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
@@ -36,6 +37,7 @@ The main poverty data source, the Family Resources Survey, provides information 
 ### Poverty and Income Inequality in Scotland
 
 - [Latest report](index.html)
+- [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
 - [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
 - [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
 - [2015/16 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)

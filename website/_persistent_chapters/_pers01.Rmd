@@ -1,3 +1,5 @@
+`r devnote("This webpage is a development version for the next report. The data is from the last published report.")`
+
 This publication presents estimates of the proportion of people, children, working-age adults and pensioners living in persistent poverty in Scotland and in the other countries in the UK. The estimates are used to monitor progress in reducing poverty.
 
 # Key points
@@ -8,23 +10,25 @@ Some estimates from previous years have been improved and will therefore differ 
 
 ### All individuals
 
-Between 2014 and 2018, 13% of people in Scotland were in persistent poverty after housing costs. This compares to 12% in 2013-2017. 
+Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCpp %>% tail(1L)` of people in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCpp %>% tail(2L) %>% head(1L)` in `r params$prev_period`. 
 
 ### Children
 
-Between 2014 and 2018, 17% of children in Scotland were in persistent poverty after housing costs. This compares to 15% in 2013-2017.
+Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCch %>% tail(1L)` of children in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCch %>% tail(2L) %>% head(1L)` in `r params$prev_period`.
 
 Children have consistently had a higher risk of living in persistent poverty after housing costs than working-age adults and pensioners in Scotland.
 
 ### Working-age adults
 
-Between 2014 and 2018, 11% of working-age adults in Scotland were in persistent poverty after housing costs. This compares to 10% in 2013-2017.
+Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCwa %>% tail(1L)` of working-age adults in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCwa %>% tail(2L) %>% head(1L)` in `r params$prev_period`.
 
 ### Pensioners
 
-Between 2014 and 2018, 12% of pensioners in Scotland were in persistent poverty after housing costs. This compares to 11% in 2013-2017.
+Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCpn %>% tail(1L)` of pensioners in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCpn %>% tail(2L) %>% head(1L)` in `r params$prev_period`.
 
 ### Scotland compared to other UK countries
+
+`r devnote("manually update this section")`
 
 When looking at the overall population, Scotland had similar levels of persistent poverty after housing costs to England and Wales (all 13%), and slightly higher rates than Northern Ireland (11%). 
 

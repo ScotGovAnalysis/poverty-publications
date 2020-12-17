@@ -16,7 +16,7 @@ The analysis on income sources is the only analysis in this report not using net
 
 ## Real prices
 
-Unless otherwise stated, all figures relating to income are in 2018/19 prices. Values from previous years are uprated to account for inflation using a variant of the Consumer Price Index (CPI). This follows a change in methodology for 2014/15. Prior to this the Retail Price Index (RPI) was used.
+Unless otherwise stated, all figures relating to income are in `r params$data_year` prices. Values from previous years are uprated to account for inflation using a variant of the Consumer Price Index (CPI). This follows a change in methodology for 2014/15. Prior to this the Retail Price Index (RPI) was used.
 
 This change followed an announcement by the National Statistician that, in accordance with the Statistics and Registration Service Act 2007, the RPI and its derivatives had been assessed against the Code of Practice for Official Statistics and found not to meet the required standard for designation as National Statistics.
 
@@ -60,7 +60,7 @@ Family types are becoming increasingly complex. In this publication, 'single mot
 
 Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the UK median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
 
-For a couple with no children, the UK median income BHC in 2016-19 was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the UK median increased by £5 to £464 per week compared to 2015-18.
+For a couple with no children, the UK median income BHC in `r params$data_period` was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the UK median increased by £5 to £464 per week compared to 2015-18.
 
 Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
 

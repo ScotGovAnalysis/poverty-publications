@@ -1,7 +1,7 @@
 ---
-title: "Poverty and Income Inequality in Scotland 2016-19"
+title: "Poverty and Income Inequality in Scotland `r params$data_period`"
 subtitle: "A National Statistics publication"
-date: "Published on 26 March 2020"
+date: "Published on `r params$pub_day`"
 
 output:
   bookdown::html_document2:
@@ -14,6 +14,11 @@ output:
       smooth_scroll: no
     fig_width: 7
     fig_height: 3
+
+params:
+  pub_day: "26 March 2020"
+  data_period: "2016-19"
+  data_year: "2018/19"
 ---
   
 <!-- Include logo at the top of the document -->
@@ -50,6 +55,12 @@ message <- function(md) {
           create_html(md)))
 }
 
+devnote <- function(md) {
+  div(class = "devnote-text",
+      div(class = "devnote-text__text",
+          create_html(md)))  
+}
+
 create_html <- function(md) {
   htmltools::HTML(
     markdown::markdownToHTML(
@@ -65,8 +76,8 @@ interactive <- function(chart, height = 3) {
 ```
 
 ```{r}
-source("R/05_makecharts_poverty.R", encoding = "UTF-8")
-source("R/05_maketables_poverty.R", encoding = "UTF-8")
+source("R/07_makecharts_poverty.R", encoding = "UTF-8")
+source("R/06_maketables_poverty.R", encoding = "UTF-8")
 ```
 
 

@@ -1,3 +1,5 @@
+`r devnote("This webpage is a development version for the next report. The data is from the last published report.")`
+
 This publication presents three-year averaged estimates of the percentage of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
 
 # Key trends
@@ -18,7 +20,7 @@ div(class = "row fluid-row",
               div(class = "panel-body",
                   a(href = "index.html#relpov",
                     img(src = "img/chart0a.png")),
-                  create_html("19% of people were living in relative poverty after housing costs in 2016-19. Overall, the poverty rate appears to have stopped rising.")))),
+                  create_html(paste0("19% of people were living in relative poverty after housing costs in ", params$data_period, ". Overall, the poverty rate appears to have stopped rising."))))),
      
      div(class = "col-md-4", 
           div(class = "panel panel-default",
@@ -28,7 +30,7 @@ div(class = "row fluid-row",
               div(class = "panel-body",
                   a(href = "index.html#palma",
                     img(src = "img/chart0b.png")),
-                  create_html("The top 10% of the population had 24% more income in 2016-19 than the bottom 40% combined.")))),
+                  create_html(paste0("The top 10% of the population had 24% more income in ", params$data_period, " than the bottom 40% combined."))))),
      
      div(class = "col-md-4",
          div(class = "panel panel-default",
@@ -38,7 +40,7 @@ div(class = "row fluid-row",
              div(class = "panel-body",
                  a(href = "index.html#incometrends",
                    img(src = "img/chart0c.png")),
-                 create_html("Median income before housing costs in Scotland in 2016-19 was £517 a week, continuing the rising trend."))))
+                 create_html(paste0("Median income before housing costs in Scotland in ", params$data_period, " was £517 a week, continuing the rising trend.")))))
      
  )
  

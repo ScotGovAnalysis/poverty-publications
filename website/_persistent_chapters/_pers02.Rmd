@@ -6,7 +6,7 @@ Poverty can be measured in a number of different ways, each of which can tell us
 
 **Persistent poverty identifies individuals who live in relative poverty for three or more of the last four years.** It therefore identifies people who have been living in poverty for a significant period of time, which is more damaging than brief periods spent with a low income. The impacts can affect an individual throughout their lifetime.
 
-This publication presents persistent poverty estimates for five overlapping periods from 2010-14 to 2014-2018. More information can be found in the [Methodology section](persistent.html#periods).
+This publication presents persistent poverty estimates for five overlapping periods from 2010-2014 to `r params$data_period`. More information can be found in the [Methodology section](persistent.html#periods).
 
 ## Official Statistics status
 
@@ -14,7 +14,7 @@ Previous releases of this publication series had the label “Experimental Offic
 
 ## Data source and methodology
 
-The estimates in this report come from the Understanding Society survey, a longitudinal survey with longitudinal information about just over 2,500 individuals in Scotland in 2017-2018. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Information on the method used to calculate persistent poverty estimates can be found in the [Methodology][Methodology] section, and in more detail on the [UK government webpages](www.gov.uk/government/collections/income-dynamics-statistics).
+The estimates in this report come from the Understanding Society survey, a longitudinal survey with longitudinal information about just over 2,500 individuals in Scotland in `r params$data_year`. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Information on the method used to calculate persistent poverty estimates can be found in the [Methodology][Methodology] section, and in more detail on the [UK government webpages](www.gov.uk/government/collections/income-dynamics-statistics).
 
 Surveys gather information from a sample rather than from the whole population. Results from sample surveys are always estimates, not precise figures. This means that they are subject to a margin of error which can affect how changes in the numbers should be interpreted, especially in the short-term. Year-on-year movements should be treated with caution. We are unable to calculate sampling uncertainties for these statistics, but please note that small changes are unlikely to be statistically significant.
 

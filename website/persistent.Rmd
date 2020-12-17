@@ -1,7 +1,7 @@
 ---
-title: "Persistent Poverty in Scotland 2010-18"
+title: "Persistent Poverty in Scotland `r params$pub_period`"
 subtitle: "An Official Statistics publication"
-date: "Published on 26 March 2020"
+date: "Published on `r params$pub_day`"
 
 output:
   bookdown::html_document2:
@@ -14,6 +14,15 @@ output:
       smooth_scroll: no
     fig_width: 7
     fig_height: 3
+    
+params:
+  pub_day: "26 March 2020"
+  pub_period: "2010-2018"
+  data_period_long: "2014 and 2018"
+  data_period: "2014-2018"
+  prev_period: "2013-2017"
+  data_year: "2017-2018"
+
 ---
   
 
@@ -30,11 +39,27 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 
 ```{r}
 library(kableExtra)
-source("R/04_maketables_persistentpoverty.R")
-source("R/05_makecharts_persistentpoverty.R")
+library(htmltools)
+
+source("R/06_maketables_persistentpoverty.R")
+source("R/06_makecharts_persistentpoverty.R")
 
 interactive <- function(chart, height = 3) {
   ggiraph(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
+}
+
+devnote <- function(md) {
+  div(class = "devnote-text",
+      div(class = "devnote-text__text",
+          create_html(md)))  
+}
+
+create_html <- function(md) {
+  htmltools::HTML(
+    markdown::markdownToHTML(
+      text = md, fragment.only = TRUE
+    )
+  )
 }
 
 ```
