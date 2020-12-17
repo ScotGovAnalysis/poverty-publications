@@ -6,7 +6,7 @@ This repository contains the code for the annual Scottish Government "Poverty an
 
 ### New data arrives
 
-Run all [Data prep](#markdown-header-data-prep) scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
+Run all [Data prep](#dataprep) scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
@@ -41,7 +41,7 @@ Run 05_run_maketables.R to create all spreadsheets.
 * R/00_functions.R
 * R/00_strings.R
 
-### Data prep
+### Data prep<a name="dataprep"></a>
 
 * R/01_importSASfiles.R - takes hours to run, maybe do at night; script not included on GitHub
 * R/01_importpersistentpovertydata.R - depends on persistent poverty data being supplied in a certain format; script not included on GitHub
