@@ -1,29 +1,36 @@
 # About
 
-This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" publication, the accompanying associated and supplementary tables, and the infographic child poverty update.
+This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent POverty in Scotland" report, the accompanying associated and supplementary tables, and the infographic child poverty update. It produces the folder website/\_site which contains all files for a website, including downloadable spreadsheets, to be hosted on data.gov.scot/poverty.
 
 # Workflow
 
 ### New data arrives
 
-Run **Data prep** scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
+Run all **Data prep** scripts (see below) and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
 Run 05_run_maketables.R to create all spreadsheets.
 
-### Create charts
-
-* Run ... to create charts for report.
-* Run ... to create charts for child poverty update
-
-### Create doc reports for briefing and download purposes
-
-* Run ... to create main report docx .
-* Run ... to create Child poverty update docx (ensure template has correct publication date).
-
 ### Create website
 
+* Run R/08_create_website.R
+* Look at website: website/\_site/index.html
+* Check and update all commentary in:
+
+  * website/index.Rmd
+  * website/\_poverty_chapters/...
+  * website/cpupdate.Rmd
+  * website/download.Rmd
+  * website/about.Rmd
+  * website/persistent.Rmd
+  * website/\_persistent_chapters/...
+
+* Run R/08_create_website.R again and repeat until happy
+
+### Create doc reports for briefing and download purposes - to do
+
+* Run ... to create main report docx .
 
 
 # Scripts
@@ -36,7 +43,8 @@ Run 05_run_maketables.R to create all spreadsheets.
 
 ### Data prep
 
-* R/01_importSASfiles.R (not included in Git)
+* R/01_importSASfiles.R (takes very long to run; script not included on GitHub)
+* R/01_importpersistentpovertydata.R (depends on persistent poverty data being supplied in a certain format; script not included on GitHub)
 * R/02_cleanadultdata.R
 * R/02_cleanbenefitsdata.R
 * R/02_cleanchilddata.R
@@ -53,12 +61,16 @@ Run 05_run_maketables.R to create all spreadsheets.
 * R/04_maketables_income_1yr.R
 * R/04_maketables_income_3yrs.R
 * R/04_maketables_UK_3yrs.R
-* R/05_run_maketables.R runs all
+* R/05_run_maketables.R (runs all maketables scripts and copies spreadsheets into website folder)
 
-### Create charts
+### Create charts and tables included in reports
 
-* R/...
+* R/06_maketables_persistentpoverty.R
+* R/06_makecharts_persistentpoverty.R
+* R/06_maketables_poverty.R
+* R/06_prepcharts_poverty.R
+* R/07_makecharts_poverty.R
 
-### Create reports
+### Create website
 
-* Rmd/...
+* R/08_create_website.R
