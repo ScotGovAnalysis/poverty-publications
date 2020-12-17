@@ -43,8 +43,8 @@ Run 05_run_maketables.R to create all spreadsheets.
 
 ### Data prep
 
-* R/01_importSASfiles.R (takes very long to run; script not included on GitHub)
-* R/01_importpersistentpovertydata.R (depends on persistent poverty data being supplied in a certain format; script not included on GitHub)
+* R/01_importSASfiles.R - takes hours to run, maybe do at night; script not included on GitHub
+* R/01_importpersistentpovertydata.R - depends on persistent poverty data being supplied in a certain format; script not included on GitHub
 * R/02_cleanadultdata.R
 * R/02_cleanbenefitsdata.R
 * R/02_cleanchilddata.R
@@ -61,7 +61,7 @@ Run 05_run_maketables.R to create all spreadsheets.
 * R/04_maketables_income_1yr.R
 * R/04_maketables_income_3yrs.R
 * R/04_maketables_UK_3yrs.R
-* R/05_run_maketables.R (runs all maketables scripts and copies spreadsheets into website folder)
+* R/05_run_maketables.R - runs all maketables scripts and copies spreadsheets into website folder
 
 ### Create charts and tables included in reports
 
@@ -73,4 +73,4 @@ Run 05_run_maketables.R to create all spreadsheets.
 
 ### Create website
 
-* R/08_create_website.R
+* R/08_create_website.R - creates complete website in website/\_site
