@@ -4,9 +4,11 @@ This repository contains the code for the annual Scottish Government "Poverty an
 
 # Workflow
 
-### New data arrives
+### New data arrives in the SOCJUST SAS library
 
-Run all [Data prep](#dataprep) scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
+* Ensure the inflation_index file in the SOCJUST SAS library is up to date
+* In R/00_strings.R, uncomment code under '# Add latest year'
+* Run all [Data prep](#dataprep) scripts and make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
