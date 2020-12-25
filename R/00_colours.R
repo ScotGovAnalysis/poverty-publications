@@ -12,7 +12,7 @@ SGoranges <- c("#541f00", "#bd4500", "#f47738")
 
 SGmix <- c(SGblues[3], SGblues[1], SGoranges[3], 
            SGoranges[2], SGoranges[1], SGblues[4], 
-           SGgreys[2])
+           SGblues[2])
 
 # scales::show_col(SGblues)
 # scales::show_col(SGgreys)
