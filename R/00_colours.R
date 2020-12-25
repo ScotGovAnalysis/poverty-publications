@@ -4,12 +4,15 @@
 SGblue <- "#0065bd"
 SGblue2 <- "#002d54"
 
-SGblues <- c("#002d54", "#00437e", "#0065bd", "#4c93d0", "#7fb2de", "#d9effc")
-SGgreys <- c("#333333", "#727272", "#b3b3b3", "#ebebeb", "#f8f8f8")
-SGoranges <- c("#aa5327", "#f47738", "#f79f73", "#fac8af")
+SGblues <- c("#002d54", "#004988", "#0065bd", 
+             "#38b5f4", "#87d1f8", "#d9effc")
+SGgreys <- c("#333333", "#727272", "#b3b3b3", 
+             "#ebebeb", "#f8f8f8")
+SGoranges <- c("#541f00", "#bd4500", "#f47738")
 
-SGmix <- c(SGblues[3], SGblues[1], SGgreys[2], SGoranges[1],
-           SGoranges[2], SGblues[5], SGgreys[3])
+SGmix <- c(SGblues[3], SGblues[1], SGoranges[3], 
+           SGoranges[2], SGoranges[1], SGblues[4], 
+           SGgreys[2])
 
 # scales::show_col(SGblues)
 # scales::show_col(SGgreys)
