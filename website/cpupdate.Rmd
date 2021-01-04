@@ -67,4 +67,4 @@ create_html <- function(md) {
 ```
 
 
-More information and further analysis available here: www.gov.scot/collections/child-poverty-statistics/
+[More information and further child poverty analysis](https://www.gov.scot/collections/child-poverty-statistics/) is available.

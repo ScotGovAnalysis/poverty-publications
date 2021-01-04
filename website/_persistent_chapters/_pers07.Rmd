@@ -2,9 +2,9 @@
 
 ## Further analysis
 
-The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](index.html). Further analysis published throughout the year are available on the [Scottish Government website](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](./). Further analysis published throughout the year are available on the [Scottish Government website](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
 
-Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](persistent.html#contact).
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
 
 ## Scottish Government websites
 
@@ -36,7 +36,7 @@ The main poverty data source, the Family Resources Survey, provides information 
 
 ### Poverty and Income Inequality in Scotland
 
-- [Latest report](index.html)
+- [Latest report](./)
 - [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
 - [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
 - [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)

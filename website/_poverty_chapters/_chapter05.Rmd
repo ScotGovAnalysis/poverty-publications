@@ -25,7 +25,7 @@ The poverty rate was highest for single women with children (39%). The poverty r
 
 Until 2010-13, the gap in poverty rates between these groups had narrowed, but in recent years it widened again.
 
-`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](index.html#child). <br>Estimates for single fathers are not available due to small sample sizes.")`
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#child). <br>Estimates for single fathers are not available due to small sample sizes.")`
 
 #### Figure 19 - Proportion of single working-age adults in relative poverty after housing costs, Scotland
 ```{r chart19}

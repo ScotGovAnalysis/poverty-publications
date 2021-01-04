@@ -15,7 +15,7 @@ navbar:
 
   left:
   - text: "Main report"
-    href: index.html
+    href: ./
     icon: glyphicon-stats
   - text: "Child poverty"
     href: cpupdate.html

@@ -2,7 +2,7 @@
 
 # Data sources
 
-All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset which is produced from the Family Resources Survey. UK figures are published by DWP in [Households Below Average Income](www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](index.html). For the UK figures, as well as more detail about the way these figures are collected and calculated, see the DWP website.
+All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset which is produced from the Family Resources Survey. UK figures are published by DWP in [Households Below Average Income](www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](./). For the UK figures, as well as more detail about the way these figures are collected and calculated, see the DWP website.
 
 ## What does HBAI measure?
 
@@ -30,7 +30,7 @@ More detailed information on definitions and methodology can be found on the Sco
 
 ## Persistent poverty
 
-New figures on persistent poverty were [published](persistent.html) on 26 March 2020.
+[New figures on persistent poverty](persistent.html) were published on 26 March 2020.
 
 Persistent poverty identifies the number of individuals living in relative poverty for 3 or more of the last 4 years. It therefore identifies people who have been living in poverty for a significant period of time, the rationale being that this is more damaging than brief periods spent with a low income, with the impacts affecting an individual through their lifetime.
 

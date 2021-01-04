@@ -6,7 +6,7 @@ This publication contains the headline poverty and household income statistics. 
 
 Additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics are also available.
 
-Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](index.html#contact).
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
 
 ## Scottish Government websites
 
@@ -31,7 +31,7 @@ The main poverty data source, the Family Resources Survey, provides information 
 
 ### Poverty and Income Inequality in Scotland
 
-- [Latest report](index.html)
+- [Latest report](./)
 - [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
 - [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
 - [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)

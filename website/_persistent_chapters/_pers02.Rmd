@@ -6,7 +6,7 @@ Poverty can be measured in a number of different ways, each of which can tell us
 
 **Persistent poverty identifies individuals who live in relative poverty for three or more of the last four years.** It therefore identifies people who have been living in poverty for a significant period of time, which is more damaging than brief periods spent with a low income. The impacts can affect an individual throughout their lifetime.
 
-This publication presents persistent poverty estimates for five overlapping periods from 2010-2014 to `r params$data_period`. More information can be found in the [Methodology section](persistent.html#periods).
+This publication presents persistent poverty estimates for five overlapping periods from 2010-2014 to `r params$data_period`. More information can be found in the [Methodology section](#periods).
 
 ## Official Statistics status
 
