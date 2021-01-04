@@ -28,8 +28,13 @@ table {
 }
 
 a {
-  color: #0065bd;
+  color: #0065bd !important;
   text-decoration: underline;
+  outline: 2px solid transparent;
+  outline-color: transparent;
+  outline-style: solid;
+  outline-width: 2px;
+  transition: color 0.2s, background-color 0.2s, outline 0.2s;
 }
 
 .navbar-nav>li>a {
@@ -121,4 +126,14 @@ a {
   height: 70px;
   margin: 0 10px;
   float: right;
+}
+
+a:focus {
+    background-color: #fdd522 !important;
+    box-shadow: -2px 5px #333333, 2px 5px #333333;
+    color: #333333 !important;
+    outline-offset: 0;
+    outline: 2px solid #fdd522;
+    text-decoration: none;
+    transition-duration: 0s;
 }
