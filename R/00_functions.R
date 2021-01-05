@@ -155,8 +155,8 @@ gethhyoungmum <- function(df){
 getpovertyflags <- function(df){
 
   df %>%
-    mutate(abspovahc = ifelse(s_oe_ahc*infl_ahc < abspovahc_threshold, 1, 0),
-           abspovbhc = ifelse(s_oe_bhc*infl_bhc < abspovbhc_threshold, 1, 0),
+    mutate(abspovahc = ifelse(s_oe_ahc < abspovahc_threshold*inflahc_1011/infl_ahc, 1, 0),
+           abspovbhc = ifelse(s_oe_bhc < abspovbhc_threshold*inflbhc_1011/infl_bhc, 1, 0),
            workpovahc = ifelse(low60ahc == 1 & workinghh == 1, 1, 0),
            workpovbhc = ifelse(low60bhc == 1 & workinghh == 1, 1, 0),
            cmdahc = ifelse(low70ahc == 1 & mdch == 1, 1, 0),
@@ -1771,7 +1771,7 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
 
     addrecessionbar(up = up, ...) +
 
-    geom_line_interactive(lineend = "round",
+    geom_line(lineend = "round",
                           show.legend = FALSE) +
 
     geom_point(data = filter(df, min(df$years) == as.character(df$years)),
