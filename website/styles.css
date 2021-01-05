@@ -28,13 +28,19 @@ table {
 }
 
 a {
-  color: #0065bd;
+  color: #0065bd !important;
   text-decoration: underline;
+  outline: 2px solid transparent;
+  outline-color: transparent;
+  outline-style: solid;
+  outline-width: 2px;
+  transition: color 0.2s, background-color 0.2s, outline 0.2s;
 }
 
 .navbar-nav>li>a {
   color: #333333 !important;
   text-decoration: none;
+  line-height: 1.8;
   }
 
 
@@ -107,13 +113,13 @@ a {
 
 /* SG logo */
 #logo {
-  height: 48px;
+  height: 50px;
   padding: 8px;
   position: relative;
 }
 
 .navbar-brand {
-  padding: 2px;
+  padding: 8px;
 }
 
 /* National Statistics badge */
@@ -121,4 +127,31 @@ a {
   height: 70px;
   margin: 0 10px;
   float: right;
+}
+
+a:focus {
+    background-color: #fdd522 !important;
+    box-shadow: -2px 5px #333333, 2px 5px #333333;
+    color: #333333 !important;
+    outline-offset: 0;
+    outline: 2px solid #fdd522;
+    text-decoration: none;
+    transition-duration: 0s;
+}
+
+#skiplink-container {
+   text-align: center;
+}
+
+.skiplink {
+     position: absolute;
+     left: -9999em;
+}
+
+.skiplink:focus {
+     left: 20px;
+     z-index: 1;
+     font-size: large;
+     line-height: 1.8;
+     padding: 15px;
 }

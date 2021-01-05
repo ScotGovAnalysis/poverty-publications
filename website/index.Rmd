@@ -1,19 +1,18 @@
 ---
-title: "Poverty and Income Inequality in Scotland `r params$data_period`"
+title: "Poverty and Income Inequality in Scotland `r params$data_period`" 
 subtitle: "A National Statistics publication"
 date: "Published on `r params$pub_day`"
 
 output:
   bookdown::html_document2:
     number_sections: false
-    self_contained: yes
+    fig_width: 7
+    fig_height: 3
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: yes
       smooth_scroll: no
-    fig_width: 7
-    fig_height: 3
 
 params:
   pub_day: "26 March 2020"
@@ -40,6 +39,7 @@ knitr::opts_chunk$set(
 )
 
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
 
 library(htmltools)
 

@@ -6,15 +6,14 @@ date: "Published on `r params$pub_day`"
 output:
   bookdown::html_document2:
     number_sections: false
-    self_contained: yes
+    fig_width: 7
+    fig_height: 3
     toc: yes
     toc_depth: 2
     toc_float:
       collapsed: yes
       smooth_scroll: no
-    fig_width: 7
-    fig_height: 3
-    
+      
 params:
   pub_day: "26 March 2020"
   pub_period: "2010-2018"
