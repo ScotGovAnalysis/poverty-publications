@@ -113,13 +113,13 @@ a {
 
 /* SG logo */
 #logo {
-  height: 48px;
+  height: 50px;
   padding: 8px;
   position: relative;
 }
 
 .navbar-brand {
-  padding: 2px;
+  padding: 8px;
 }
 
 /* National Statistics badge */
