@@ -40,6 +40,7 @@ a {
 .navbar-nav>li>a {
   color: #333333 !important;
   text-decoration: none;
+  line-height: 1.8;
   }
 
 
@@ -136,4 +137,21 @@ a:focus {
     outline: 2px solid #fdd522;
     text-decoration: none;
     transition-duration: 0s;
+}
+
+#skiplink-container {
+   text-align: center;
+}
+
+.skiplink {
+     position: absolute;
+     left: -9999em;
+}
+
+.skiplink:focus {
+     left: 20px;
+     z-index: 1;
+     font-size: large;
+     line-height: 1.8;
+     padding: 15px;
 }
