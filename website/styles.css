@@ -41,8 +41,7 @@ a {
   color: #333333 !important;
   text-decoration: none;
   line-height: 1.8;
-  }
-
+}
 
 .dropdown-header {
     display: block;
@@ -52,7 +51,6 @@ a {
     color: #777;
     white-space: nowrap;
 }
-
 
 /* Navbar colours */
 
@@ -111,15 +109,9 @@ a {
     color: red;
 }
 
-/* SG logo */
-#logo {
-  height: 50px;
-  padding: 8px;
-  position: relative;
-}
-
-.navbar-brand {
-  padding: 8px;
+#sglogo {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 /* National Statistics badge */
@@ -139,9 +131,6 @@ a:focus {
     transition-duration: 0s;
 }
 
-#skiplink-container {
-   text-align: center;
-}
 
 .skiplink {
      position: absolute;
@@ -149,9 +138,7 @@ a:focus {
 }
 
 .skiplink:focus {
-     left: 20px;
+     left: auto;
      z-index: 1;
-     font-size: large;
-     line-height: 1.8;
      padding: 15px;
 }

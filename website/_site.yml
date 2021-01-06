@@ -5,22 +5,6 @@ output:
     number_sections: false
     mathjax: NULL
     css: styles.css
+    includes:
+      in_header: _header.html
 
-navbar:
-  title: "<img id=\"logo\" src=\"img/sglogo.svg\" alt=\"Scottish Government logo\"/>"
-
-  left:
-  - text: "Main report"
-    href: ./
-    icon: glyphicon-stats
-  - text: "Child poverty"
-    href: cpupdate.html
-    icon: glyphicon-eye-open
-  - text: "Data"
-    href: download.html
-    icon: glyphicon-download-alt
-  - text: "Persistent Poverty"
-    href: persistent.html
-    icon: glyphicon-stats
-  - text: "About"
-    href: about.html
