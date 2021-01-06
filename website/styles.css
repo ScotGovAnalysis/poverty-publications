@@ -114,6 +114,10 @@ a {
   padding-bottom: 10px;
 }
 
+#sglogo:focus {
+  padding-bottom: 8px;
+}
+
 /* National Statistics badge */
 #badge {
   height: 70px;
@@ -131,14 +135,14 @@ a:focus {
     transition-duration: 0s;
 }
 
-
 .skiplink {
-     position: absolute;
-     left: -9999em;
+    position: absolute;
+    left: -9999em;
 }
 
 .skiplink:focus {
-     left: auto;
-     z-index: 1;
-     padding: 15px;
+    left: auto;
+    z-index: 1;
+    padding: 15px;
+    width: 197px;
 }
