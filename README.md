@@ -2,12 +2,16 @@
 
 This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent POverty in Scotland" report, the accompanying associated and supplementary tables, and the infographic child poverty update. It produces the folder website/\_site which contains all files for a website, including downloadable spreadsheets, to be hosted on data.gov.scot/poverty.
 
+# Folder structure
+
+
+
 # Workflow
 
 ### 1. New data arrives in the SOCJUST SAS library
 
 * Ensure the inflation_index file in the SOCJUST SAS library is up to date
-* In R/00_strings.R, uncomment code under '# Add latest year'
+* In R/00_strings.R, add latest year and period values to labels\[\["years"]].
 * Run all [Data prep](#dataprep) scripts except for R/01_importSASfiles.R (this imports the previous years' datasets)
 * Make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. 
 
