@@ -1,6 +1,6 @@
 library(tidyverse)
 library(scales)
-library(ggiraph)
+library(ggiraph) # note I'm using version 0.4.2
 
 source("R/00_functions.R")
 source("R/00_colours.R")

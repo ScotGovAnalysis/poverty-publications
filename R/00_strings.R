@@ -5,15 +5,6 @@
 library(tidyverse)
 labels <- list()
 
-# Regions -----------------------------------------------------------------------------------------
-labels[["regions"]] <- data.frame(codes = c(1:13),
-                                  labels = c("England", "England", "England", "England", "England",
-                                             "England", "England", "England", "England", "England",
-                                             "Wales", "Scotland", "Northern Ireland"))
-
-labels[["regions"]] <- labels[["regions"]] %>%
-  mutate(labels = fct_reorder(labels, codes))
-
 # Years -------------------------------------------------------------------------------------------
 labels[["years"]] <- data.frame(years = c("9495", "9596", "9697", "9798", "9899",
                                           "9900", "0001", "0102", "0203", "0304",
@@ -37,13 +28,14 @@ labels[["years"]] <- data.frame(years = c("9495", "9596", "9697", "9798", "9899"
                                                "2005-10", "2006-11", "2007-12", "2008-13", "2009-14",
                                                "2010-15", "2011-16", "2012-17", "2013-18", "2014-19"))
 
+# Regions -----------------------------------------------------------------------------------------
+labels[["regions"]] <- data.frame(codes = c(1:13),
+                                  labels = c("England", "England", "England", "England", "England",
+                                             "England", "England", "England", "England", "England",
+                                             "Wales", "Scotland", "Northern Ireland"))
 
-# Add latest year
-
-# labels[["years"]]$years <- c(labels[["years"]]$years, "1920")
-# labels[["years"]]$formatted <- c(labels[["years"]]$formatted, "2019-20")
-# labels[["years"]]$periods <- c(labels[["years"]]$periods, "2017-20")
-# labels[["years"]]$period5yr <- c(labels[["years"]]$period5yr, "2015-20")
+labels[["regions"]] <- labels[["regions"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
 
 # People --------------------------------------------------------------------------------------------
 labels[["people"]] <- c("people", "children", "adults", "pensioners")

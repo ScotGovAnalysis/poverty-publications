@@ -4,7 +4,7 @@
 library(tidyverse)
 library(labelled)
 library(ggrepel)
-library(ggiraph)
+library(ggiraph) # note I'm using version 0.4.2
 
 source("R/00_functions.R")
 source("R/00_colours.R")
@@ -102,6 +102,50 @@ povertycharts[["chart02"]] <- linechart(data, up = 0.15) +
   addlabels()
 
 ## chart03 food poverty pp ----
+data <- povertychartdata[["sources"]] %>%
+  gather(key, value, -decbhc) %>%
+  filter(decbhc %in% c("All", "1", "2"),
+         key != "other")  %>%
+  mutate(group = case_when(decbhc == "All" ~ "All people",
+                           decbhc == 1 ~ "People in relative poverty",
+                           decbhc == 2 ~ "People in absolute poverty"),
+         group = factor(group, ordered = TRUE),
+         group = fct_rev(group),
+         key = case_when(key == "earnings" ~ "High",
+                         key == "benefits" ~ "Marginal",
+                         key == "occpens" ~ "Low",
+                         key == "investments" ~ "Very low"),
+         key = factor(key, levels = c("High",
+                                      "Marginal",
+                                      "Low",
+                                      "Very low")),
+         text = str_c(key, ": ",
+                      percent(value,1)))
+
+povertycharts[["chart03"]] <- ggplot(data, aes(x = group,
+                                               y = value,
+                                               group = key,
+                                               fill = key,
+                                               width = 0.8)) +
+
+  geom_bar_interactive(aes(tooltip = text,
+                           data_id = key),
+                       position = 'fill',
+                       stat = "identity",
+                       colour = "white") +
+  coord_flip() +
+  scale_fill_manual(values = SGmix2,
+                    guide = guide_legend(reverse = TRUE)) +
+
+  scale_y_continuous(labels = percent_format(1)) +
+  scale_x_discrete(labels = str_wrap(data$group, 32)) +
+
+  theme(axis.line.y = element_blank(),
+        axis.text.y = element_text(hjust = 1),
+        axis.ticks.length = unit(2, "pt"),
+        legend.position = "top") +
+
+  addsource()
 
 ## chart04 rel pov wa ----
 data <- mutate(povertychartdata[["relpov"]], value = warate)
@@ -219,6 +263,56 @@ povertycharts[["chart13"]] <- linechart(data, up = 0.3) +
   addlabels()
 
 # chart14 food pov ch ----
+data <- povertychartdata[["sources"]] %>%
+  gather(key, value, -decbhc) %>%
+  filter(decbhc %in% c("All", "1", "2", "3") )  %>%
+  mutate(group = case_when(decbhc == "All" ~ "All children",
+                           decbhc == 1 ~ "Children in relative poverty",
+                           decbhc == 2 ~ "Children in absolute poverty",
+                           decbhc == 3 ~ "Children in combined low income and material deprivation"),
+         group = factor(group,
+                        levels = c("All children",
+                                   "Children in relative poverty",
+                                   "Children in absolute poverty",
+                                   "Children in combined low income and material deprivation")),
+         group = fct_rev(group),
+         key = case_when(key == "earnings" ~ "High",
+                         key == "benefits" ~ "Marginal",
+                         key == "occpens" ~ "Low",
+                         key == "investments" ~ "Very low",
+                         key == "other" ~ "Very low"),
+         key = factor(key, levels = c("High",
+                                      "Marginal",
+                                      "Low",
+                                      "Very low")),
+         text = str_c(key, ": ",
+                      percent(value,1)))
+
+povertycharts[["chart14"]] <- ggplot(data, aes(x = group,
+                                               y = value,
+                                               group = key,
+                                               fill = key,
+                                               width = 0.8)) +
+
+  geom_bar_interactive(aes(tooltip = text,
+                           data_id = key),
+                       position = 'fill',
+                       stat = "identity",
+                       colour = "white") +
+  coord_flip() +
+  scale_fill_manual(values = SGmix2,
+                    guide = guide_legend(reverse = TRUE)) +
+
+  scale_y_continuous(labels = percent_format(1)) +
+  scale_x_discrete(labels = str_wrap(data$group, 32)) +
+
+  theme(axis.line.y = element_blank(),
+        axis.text.y = element_text(hjust = 1),
+        axis.ticks.length = unit(2, "pt"),
+        legend.position = "top") +
+
+  addsource()
+
 
 # chart15 priority ch ----
 data <- povertychartdata[["priority"]] %>%
