@@ -146,3 +146,13 @@ a:focus {
     padding: 15px;
     width: 197px;
 }
+
+.panel-body > p {
+  line-height: normal;
+}
+
+.panel-heading > p {
+  margin-bottom: 0;
+}
+
+
