@@ -76,7 +76,9 @@ Run 05_run_maketables.R to create all spreadsheets.
 * R/06_maketables_persistentpoverty.R
 * R/06_makecharts_persistentpoverty.R
 * R/06_maketables_poverty.R
+* R/06_prepcharts_cpupdate.R
 * R/06_prepcharts_poverty.R
+* R/07_makecharts_cpupdate.R
 * R/07_makecharts_poverty.R
 
 ### Create website
@@ -128,10 +130,6 @@ These will be compiled into html pages.
 * img/chart0a.png
 * img/chart0b.png
 * img/chart0c.png
-* img/cp1_relpovch_large.png
-* img/cp2_abspovch_large.png
-* img/cp3_matdepch_large.png
-* img/cp4_perspov_large.png
 
 Note that the spreadsheets are created in step 2.
 
