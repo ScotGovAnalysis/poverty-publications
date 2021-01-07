@@ -1012,6 +1012,7 @@ formatpov <- function(df){
     mutate_at(vars(ends_with("rate")), fmtpct)
 }
 
+get3yrcentavg <- function(x){x = (x + lag(x) + lead(x))/3}
 get3yraverage <- function(x){x = (x + lag(x, 1L) + lag(x, 2L))/3}
 get5yraverage <- function(x){x = (x + lag(x, 1L) + lag(x, 2L) + lag(x, 3L) + lag(x, 4L))/5}
 
@@ -1957,7 +1958,7 @@ addsource <- function(){
   labs(caption = "Source: Family Resources Survey")
 }
 
-addlabels <- function(df = data, GBP = FALSE){
+addlabels <- function(df = data, GBP = FALSE, size = 4){
 
 if (!GBP) {
   df$text <- percent(df$value, 1)
@@ -1969,19 +1970,22 @@ if (!GBP) {
                            direction = "y",
                            nudge_x = -1,
                            hjust = 1,
+                           size = size,
+                           colour = SGgreys[1],
                            show.legend = FALSE,
                            segment.colour = NA)
 
   right <- geom_text_repel(data = filter(df,
-                                         years == levels(periods)[length(periods) - 2]),
+                                         max(df$years) == as.character(df$years)),
                            mapping = aes(label = text),
                            direction = "y",
                            nudge_x = 1,
                            hjust = 0,
+                           size = size,
+                           colour = SGgreys[1],
                            show.legend = FALSE,
                            segment.colour = NA)
-  list(left,
-       right)
+  list(left, right)
 }
 
 addnames <- function(df = data, up = 0) {
@@ -2019,65 +2023,73 @@ saveplot <- function(file){
 
 addinterimtarget <- function(y){
 
-  a <- geom_point(aes(x = "2324", y = y),
-                  shape = 21, size = 5,
-                  fill = SGgreys[1],
-                  alpha = 0.4)
+  a <- geom_point(aes(x = "2324",
+                      y = y),
+                  shape = 21,
+                  size = 5,
+                  colour = SGgreys[1],
+                  stroke = 1,
+                  fill = "white")
 
-  b <- geom_point(aes(x = "2324", y = y),
-                  shape = 21, size = 4,
-                  fill = "white",
-                  alpha = 0.4)
+  b <- geom_point(aes(x = "2324",
+                      y = y),
+                  shape = 21,
+                  size = 2.5,
+                  colour = SGgreys[1],
+                  stroke = 1,
+                  fill = SGoranges[2])
 
-  c <- geom_point(aes(x = "2324", y = y),
-                  shape = 21, size = 2.5,
-                  fill = SGgreys[1],
-                  alpha = 0.4)
-
-  d <- geom_point(aes(x = "2324", y = y),
-                  shape = 21, size = 1.5,
-                  fill = SGmix[1],
-                  alpha = 0.4)
-
-  e <-   geom_text(data = tail(data, 1L),
-                   aes(x = 30.2, y = interimtarget + 0.05,
+  c <- geom_text(data = tail(data, 1L),
+                 aes(x = 30.2, y = interimtarget + 0.05,
                        label = percent(interimtarget, 1)),
-                   size = 3,
-                   fontface = "bold",
-                   colour = SGgreys[1])
+                 colour = SGgreys[1],
+                 size = 5)
 
-  list(a,b,c,d, e)
+  d <- geom_point_interactive(aes(x = "2324",
+                                  y = y,
+                                  tooltip = str_c("Interim target (2023/24): ",
+                                                  percent(y, 1)),
+                                  data_id = y),
+                              size = 8,
+                              colour = "white",
+                              alpha = 0.01,
+                              show.legend = FALSE)
+
+  list(a, b, c, d)
 }
 
 addfinaltarget <- function(y){
 
   a <- geom_point(aes(x = "3031", y = y),
-                  shape = 21, size = 5,
-                  fill = SGgreys[1],
-                  alpha = 0.4)
-
-  b <- geom_point(aes(x = "3031", y = y),
-                  shape = 21, size = 4,
+                  shape = 21,
+                  size = 5,
+                  colour = SGgreys[1],
+                  stroke = 1,
                   fill = "white")
 
-  c <- geom_point(aes(x = "3031", y = y),
-                  shape = 21, size = 2.5,
-                  fill = SGgreys[1],
-                  alpha = 0.4)
+  b <- geom_point(aes(x = "3031", y = y),
+                  shape = 21,
+                  size = 2.5,
+                  colour = SGgreys[1],
+                  stroke = 1,
+                  fill = SGoranges[2])
 
-  d <- geom_point(aes(x = "3031", y = y),
-                  shape = 21, size = 1.5,
-                  fill = SGmix[1],
-                  alpha = 0.4)
-
-  e <-   geom_text(data = tail(data, 1L),
+  c <- geom_text(data = tail(data, 1L),
                    aes(x = 37.2, y = finaltarget + 0.05,
                        label = percent(finaltarget, 1)),
-                   size = 3,
-                   fontface = "bold",
-                   colour = SGgreys[1])
+                   colour = SGgreys[1],
+                 size = 5)
 
-  list(a,b,c,d,e)
+  d <- geom_point_interactive(aes(x = "3031",
+                                  y = y,
+                                  tooltip = str_c("Final target (2030/31): ",
+                                                  percent(y, 1)),
+                                  data_id = y),
+                              size = 8,
+                              colour = "white",
+                              alpha = 0.01,
+                              show.legend = FALSE)
+  list(a,b,c,d)
 }
 
 addtargetbars <- function(){
@@ -2089,14 +2101,12 @@ addtargetbars <- function(){
   b <-  annotate("rect",
                  xmin = 29, xmax = 31,
                  ymin = -Inf, ymax = Inf,
-                 fill = SGgreys[4],
-                 alpha = 0.9)
+                 fill = SGgreys[4])
 
   c <- annotate("rect",
                 xmin = 36, xmax = 38,
                 ymin = -Inf, ymax = Inf,
-                fill = SGgreys[4],
-                alpha = 0.9)
+                fill = SGgreys[4])
 
   list(a,b,c)
 }
