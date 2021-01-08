@@ -25,7 +25,8 @@ cp_data[["rel"]] <- do.call(rbind.data.frame,
          years_formatted = factor(years, levels = yearlevels,
                                   labels = labels[["years_exp"]]$formatted),
          text = str_c(years_formatted, ": ", percent(chrate, 1)),
-         value = chrate)
+         value = round(chrate, 3),
+         chrate3 = round(chrate3, 3))
 
 # Abs pov ----
 cp_data[["abs"]] <- do.call(rbind.data.frame,
@@ -37,7 +38,8 @@ cp_data[["abs"]] <- do.call(rbind.data.frame,
          years_formatted = factor(years, levels = yearlevels,
                                   labels = labels[["years_exp"]]$formatted),
          text = str_c(years_formatted, ": ", percent(chrate, 1)),
-         value = chrate)
+         value = round(chrate, 3),
+         chrate3 = round(chrate3, 3))
 
 # Mat dep ----
 cmdahc_new <- do.call(rbind.data.frame,
@@ -62,7 +64,8 @@ cp_data[["md"]] <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmda
                                                 years_formatted,
                                                 ": ",
                                                 percent(chrate_new,1)), NA),
-         value = chrate)
+         value = round(chrate, 3),
+         chrate3 = round(chrate3, 3))
 
 # Pers pov ----
 
@@ -77,7 +80,8 @@ cp_data[["pers"]] <- persistent %>%
          years = factor(years, levels = yearlevels, ordered = TRUE),
          text = str_c(period, ": ", percent(chrate, 1)),
          chrate3 = get3yrcentavg(chrate),
-         value = chrate)
+         value = round(chrate, 3),
+         chrate3 = round(chrate3, 3))
 
 
 remove(hbai, cmdahc_new, persistent)

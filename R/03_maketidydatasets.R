@@ -1,7 +1,4 @@
 
-# Prepare minimal tidy datasets
-
-
 # Load helpers and clean datasets
 source("R/00_functions.R")
 source("R/00_strings.R")
@@ -18,10 +15,10 @@ benefits <- readRDS("data/benefits_clean.rds")
 
 
 # get flags for poverty outcomes and hhld characteristics ---------------------------------------------
-hbai <- lapply(hbai, getdisabilitybenefits)
-hbai <- lapply(hbai, gethhbaby)
-hbai <- lapply(hbai, gethhyoungmum)
-hbai <- lapply(hbai, geturbanrural)
+hbai <- lapply(hbai, getdisabilitybenefits, benefits_datasets = benefits)
+hbai <- lapply(hbai, gethhbaby, child_datasets = child)
+hbai <- lapply(hbai, gethhyoungmum, adult_datasets = adult)
+hbai <- lapply(hbai, geturbanrural, househol_datasets = househol)
 hbai <- lapply(hbai, gethhworkstatus)
 hbai <- lapply(hbai, gethhdisabledstatus)
 hbai <- lapply(hbai, gethhloneparentstatus)
@@ -115,7 +112,7 @@ saveRDS(tidyhbai, "data/tidyhbai.rds")
 names(adult) <- years
 
 # add adult weights and poverty flags -----------------------------------------------------------------
-adult <- lapply(adult, addpovflagsnadultwgt)
+adult <- lapply(adult, addpovflagsnadultwgt, hbai_datasets = tidyhbai)
 
 # add factor labels -----------------------------------------------------------------------------------
 for (year in years) {

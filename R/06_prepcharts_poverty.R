@@ -26,7 +26,9 @@ relpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60ahc")
   get3yrtable() %>%
   mutate(key = "After housing costs")
 
-povertychartdata[["relpov"]] <- rbind(relpovbhc, relpovahc)
+povertychartdata[["relpov"]] <- rbind(relpovbhc, relpovahc) %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
+
 
 remove(relpovahc, relpovbhc)
 
@@ -41,7 +43,8 @@ abspovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovahc"
   get3yrtable() %>%
   mutate(key = "After housing costs")
 
-povertychartdata[["abspov"]] <- rbind(abspovbhc, abspovahc)
+povertychartdata[["abspov"]] <- rbind(abspovbhc, abspovahc) %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 remove(abspovbhc, abspovahc)
 
 # In-work poverty ----
@@ -63,7 +66,8 @@ workahc <- do.call(rbind.data.frame,
   tail(-8L) %>%
   mutate(key = "After housing costs")
 
-povertychartdata[["workpov"]] <- rbind(workbhc, workahc)
+povertychartdata[["workpov"]] <- rbind(workbhc, workahc) %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 remove(workbhc, workahc)
 
@@ -79,7 +83,8 @@ povertychartdata[["age"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get3yrtable() %>%
   tail(-12L) %>%
-  samplesizecheck_ad_num()
+  samplesizecheck_ad_num() %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 ## gender ----
 povertychartdata[["gender"]] <- do.call(rbind.data.frame,
@@ -89,7 +94,8 @@ povertychartdata[["gender"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get3yrtable() %>%
   tail(-13L) %>%
-  samplesizecheck_num()
+  samplesizecheck_num() %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 
 ## marital status ----
@@ -100,7 +106,8 @@ povertychartdata[["marital"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get3yrtable() %>%
   tail(-10) %>%
-  samplesizecheck_ad_num()
+  samplesizecheck_ad_num() %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 ## ethnic group ----
 povertychartdata[["ethnic"]] <- do.call(rbind.data.frame,
@@ -110,7 +117,8 @@ povertychartdata[["ethnic"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get5yrtable() %>%
   tail(5L)  %>%
-  samplesizecheck_num()
+  samplesizecheck_num() %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 ## religion ----
 povertychartdata[["religion"]] <- do.call(rbind.data.frame,
@@ -120,7 +128,8 @@ povertychartdata[["religion"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get5yrtable() %>%
   tail(7L)  %>%
-  samplesizecheck_ad_num()
+  samplesizecheck_ad_num() %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 ## disability ----
 povertychartdata[["disability"]] <- do.call(rbind.data.frame,
@@ -130,7 +139,8 @@ povertychartdata[["disability"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get3yrtable() %>%
   tail(-4L) %>%
-  samplesizecheck_num
+  samplesizecheck_num %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 povertychartdata[["disability2"]] <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis",
@@ -139,7 +149,8 @@ povertychartdata[["disability2"]] <- do.call(rbind.data.frame,
   group_by(groupingvar) %>%
   get3yrtable %>%
   tail(-4L) %>%
-  samplesizecheck_num
+  samplesizecheck_num %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 # Material deprivation ----
 
@@ -187,7 +198,8 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
                         labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]),
          key = "After housing costs")
 
-povertychartdata[["cmd"]] <- rbind(cmdahc, cmdbhc)
+povertychartdata[["cmd"]] <- rbind(cmdahc, cmdbhc) %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 remove(cmdahc_new, cmdbhc_new, cmdahc, cmdbhc)
 
@@ -195,7 +207,8 @@ remove(cmdahc_new, cmdbhc_new, cmdahc, cmdbhc)
 povertychartdata[["pndep"]] <- do.call(rbind.data.frame,
                                        lapply(hbai, getpov, povvar = "mdpn")) %>%
   addyearvar() %>%
-  get3yrtable()
+  get3yrtable() %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 # Priority groups ----
 rel <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60ahc")) %>%
@@ -265,7 +278,8 @@ cmd6 <- getpriority(hbai, povvar = "cmdahc",
 
 povertychartdata[["priority"]] <- rbind(rel, rel1, rel2, rel3, rel4, rel5, rel6,
                                         abs, abs1, abs2, abs3, abs4, abs5, abs6,
-                                        cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6)
+                                        cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6) %>%
+  mutate_at(vars(contains("rate")), list(~round(., 3)))
 
 remove(rel, rel1, rel2, rel3, rel4, rel5, rel6,
        abs, abs1, abs2, abs3, abs4, abs5, abs6,
@@ -292,7 +306,8 @@ medianahc <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
                         labels = labels[["years"]]$periods),
          key = "After housing costs")
 
-povertychartdata[["medians"]] <- rbind(medianbhc, medianahc)
+povertychartdata[["medians"]] <- rbind(medianbhc, medianahc) %>%
+  mutate_at(vars(c("ch", "wa", "pn", "pp")), list(~round(., 1)))
 
 remove(medianbhc, medianahc)
 
@@ -304,7 +319,8 @@ povertychartdata[["deciles"]] <- do.call(rbind.data.frame, lapply(hbai, getdecpt
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods))
+                        labels = labels[["years"]]$periods)) %>%
+  mutate_if(is.numeric, list(~round(., 1)))
 
 ## distribution ----
 povertychartdata[["distribution"]] <- getdistribution(hbai[[length(labels$years[[1]])]]) %>%
@@ -330,7 +346,8 @@ sources[5] <- (sources1[5] + sources2[5] + sources3[5])/3
 sources[6] <- (sources1[6] + sources2[6] + sources3[6])/3
 
 povertychartdata[["sources"]] <- sources %>%
-  mutate(decbhc = factor(decbhc))
+  mutate(decbhc = factor(decbhc)) %>%
+  mutate_if(is.numeric, list(~round(., 2)))
 
 remove(sources1, sources2, sources3, sources)
 
@@ -354,7 +371,8 @@ palmaahc <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
                         labels = labels[["years"]]$periods),
          key = "After housing costs")
 
-povertychartdata[["palma"]] <- rbind(palmabhc, palmaahc)
+povertychartdata[["palma"]] <- rbind(palmabhc, palmaahc) %>%
+  mutate(Palma = round(Palma, 3))
 
 remove(palmabhc, palmaahc)
 
@@ -377,7 +395,9 @@ giniahc <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
                         labels = labels[["years"]]$periods),
          key = "After housing costs")
 
-povertychartdata[["gini"]] <- rbind(ginibhc, giniahc)
+povertychartdata[["gini"]] <- rbind(ginibhc, giniahc) %>%
+  mutate(Gini = round(Gini, 3))
+
 
 remove(ginibhc, giniahc, hbai, adult, labels)
 
