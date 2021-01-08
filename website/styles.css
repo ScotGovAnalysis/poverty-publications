@@ -37,6 +37,8 @@ a {
   transition: color 0.2s, background-color 0.2s, outline 0.2s;
 }
 
+/* Navigation bar */
+
 .navbar-nav>li>a {
   color: #333333 !important;
   text-decoration: none;
@@ -52,14 +54,20 @@ a {
     white-space: nowrap;
 }
 
-/* Navbar colours */
-
 .navbar-default {
     background-color: #fff;
     border-color: #e7e7e7;
 }
 
-/* TOC colours */
+#navbar > ul > li:hover {
+  background-color: #e7e7e7;
+  box-shadow: -2px 5px #333333, 2px 5px #333333;
+  outline-offset: 0;
+  outline: 2px solid #e7e7e7;
+  transition-duration: 0s;
+}
+
+/* TOC */
 
 .list-group-item.active {
     background-color: #002d54;
