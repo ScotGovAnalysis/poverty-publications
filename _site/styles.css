@@ -162,11 +162,11 @@ a:focus {
   float: right;
 }
 
-.panel-body > p {
+.col-md-6 > .panel > .panel-body > p {
   line-height: normal;
 }
 
-.col-md-6 > .panel > .panel-heading > p {
+.panel-heading > p {
   margin-bottom: 0;
 }
 
