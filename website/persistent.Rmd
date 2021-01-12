@@ -23,7 +23,15 @@ params:
   data_year: "2017-2018"
 
 ---
-  
+
+<!-- Include skip target at the top of the document -->
+
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    });
+</script>
 
 ```{r setup, include = FALSE}
 

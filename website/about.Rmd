@@ -2,6 +2,15 @@
 title: "About these reports"
 ---
 
+<!-- Include skip target at the top of the document -->
+
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    });
+</script>
+
 Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
 
 ### Contact

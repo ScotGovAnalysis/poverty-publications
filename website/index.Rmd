@@ -20,17 +20,16 @@ params:
   data_year: "2018/19"
 ---
   
-<!-- Include logo at the top of the document -->
+<!-- Include logo and skip target at the top of the document -->
   
 <script>
   $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<img src=\"img/badge.png\" alt=\"National Statistics logo\" id=\"badge\"/></a>')
+    $head.prepend('<img src=\"img/badge.png\" alt=\"National Statistics logo\" id=\"badge\"/></a><div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
     });
 </script>
   
 
-  
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
 	echo = FALSE,
