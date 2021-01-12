@@ -567,13 +567,10 @@ povertycharts[["chart29"]] <- ggplot(data,
   addsource()
 
 ## chart30 distribution ----
-decilepoints <- povertychartdata[["deciles"]] %>%
-  filter(years == max(levels(periods))) %>%
-  select(-years) %>%
-  gather(key, value) %>%
+decilepoints <- povertychartdata[["UKdeciles"]] %>%
   mutate(xpos = lag(value) + 1/2*(value - lag(value)),
          xpos = ifelse(is.na(xpos), value/2, xpos),
-         xpos = ifelse(key == "100%", (lag(value) + 100), xpos))
+         xpos = ifelse(name == "100%", (lag(value) + 100), xpos))
 
 data <- mutate(povertychartdata[["distribution"]],
                value = gs_newpp,
