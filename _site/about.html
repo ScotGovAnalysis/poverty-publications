@@ -286,7 +286,7 @@ $(document).ready(function () {
         </li>
         <li>
           <div>
-            <a href="#header" class="skiplink govuk-link">
+            <a href="#maincontent" class="skiplink govuk-link">
               Skip to main content
             </a>
           </div>
@@ -332,6 +332,13 @@ $(document).ready(function () {
 </div>
 
 
+<!-- Include skip target at the top of the document -->
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    });
+</script>
 <p>Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.</p>
 <div id="contact" class="section level3">
 <h3>Contact</h3>

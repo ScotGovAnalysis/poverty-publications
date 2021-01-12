@@ -286,7 +286,7 @@ $(document).ready(function () {
         </li>
         <li>
           <div>
-            <a href="#header" class="skiplink govuk-link">
+            <a href="#maincontent" class="skiplink govuk-link">
               Skip to main content
             </a>
           </div>
@@ -332,34 +332,33 @@ $(document).ready(function () {
 </div>
 
 
-<div id="data-poverty-and-child-poverty-estimates" class="section level3">
-<h3>Data: Poverty and child poverty estimates</h3>
-<p>All in Excel / XLSX format</p>
-<div id="three-year-estimates-as-used-in-the-report" class="section level4">
-<h4>Three-year estimates as used in the report</h4>
+<!-- Include skip target at the top of the document -->
+<script>
+  $(document).ready(function(){
+    $head = $('#header');
+    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    });
+</script>
+<p>The data used to produce the charts of the main report and the Child Poverty update is available for download below. The files also contain further poverty and child poverty analysis which is not included in the main report.</p>
+<div id="poverty-and-child-poverty-data" class="section level2">
+<h2>Poverty and child poverty data</h2>
+<p>Estimates are averages of three years’ worth of data in order to reduce data volatility and show trends more accurately.</p>
 <ul>
-<li><a href="xls/Poverty%20three-year%20average.xlsx">Headline poverty estimates</a> - data used for poverty and child poverty chapters</li>
-<li><a href="xls/Poverty%20characteristics.xlsx">Poverty characteristics</a> - data used for equality analysis chapter and more</li>
-<li><a href="xls/Child%20poverty%20characteristics.xlsx">Child poverty characteristics</a> - data used for child poverty priority group analysis and more</li>
-<li><a href="xls/Income%20three-year%20average.xlsx">Income analysis</a> - data used for income and income inequality chapters</li>
+<li><a href="xls/Poverty%20three-year%20average.xlsx">Headline poverty estimates (xlsx, 32 KB)</a> - data used for poverty and child poverty chapters</li>
+<li><a href="xls/Poverty%20characteristics.xlsx">Poverty characteristics (xlsx, 125 KB)</a> - data used for equality analysis chapter and more</li>
+<li><a href="xls/Child%20poverty%20characteristics.xlsx">Child poverty characteristic (xlsx, 106 KB)</a> - data used for child poverty priority group analysis and more</li>
+<li><a href="xls/Income%20three-year%20average.xlsx">Income analysis (xslx, 44 KB)</a> - data used for income and income inequality chapters</li>
+<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx">Confidence intervals (docx, 26 KB)</a> - measurement uncertainty information for the headline estimates</li>
+</ul>
+<p>In addition, estimates based on single years of data are also available. These are used in the <a href="cpupdate.html">infographic Child poverty update</a> alongside the trend data, but otherwise not used in the charts.</p>
+<ul>
+<li><a href="xls/Poverty%20single%20year.xlsx">Poverty estimates single-year (xlsx, 32 KB)</a></li>
+<li><a href="xls/Income%20single%20year.xlsx">Income analysis single-year (xlsx, 42 KB)</a></li>
 </ul>
 </div>
-<div id="single-year-estimates" class="section level4">
-<h4>Single-year estimates</h4>
-<ul>
-<li><a href="xls/Poverty%20single%20year.xlsx">Poverty estimates (1-yr)</a> - single-year estimates for the headline estimates including the child poverty update</li>
-<li><a href="xls/Income%20single%20year.xlsx">Income analysis (1-yr)</a> - single-year estimates for the income analysis</li>
-</ul>
-</div>
-</div>
-<div id="printable-reports" class="section level3">
-<h3>Printable reports</h3>
-<ul>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/poverty-income-inequality-scotland-2016-19/poverty-income-inequality-scotland-2016-19/govscot%3Adocument/poverty-income-inequality-scotland-2016-19.pdf">Poverty and Income Inequality in Scotland</a> (PDF)</li>
-<li>Persistent Poverty in Scotland (PDF)</li>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/infographic-summary/infographic-summary/govscot%3Adocument/infographic-summary.pdf">Infographic child poverty update</a> (PDF)</li>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx">Confidence intervals</a> (DOCX)</li>
-</ul>
+<div id="persistent-poverty-data" class="section level2">
+<h2>Persistent poverty data</h2>
+<p>Tables of the persistent poverty estimates are included in the <a href="persistent.html">Persistent Poverty report</a>.</p>
 </div>
 
 

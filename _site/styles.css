@@ -155,6 +155,13 @@ a:focus {
     width: 197px;
 }
 
+.skiptarget {
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  float: right;
+}
+
 .panel-body > p {
   line-height: normal;
 }
