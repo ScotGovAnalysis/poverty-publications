@@ -1016,7 +1016,7 @@ getUKdeciles <- function(df) {
 
   df %>%
     summarise(x = list(enframe(wtd.quantile(s_oe_bhc * infl_bhc,
-                                          probs = seq(0.1, 0.9, 0.1),
+                                          probs = seq(0.1, 1, 0.1),
                                           weights = gs_newpp)))) %>%
     unnest(x)
 
