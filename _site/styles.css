@@ -166,7 +166,7 @@ a:focus {
   line-height: normal;
 }
 
-.panel > .panel-heading > p {
+.col-md-6 > .panel > .panel-heading > p {
   margin-bottom: 0;
 }
 
