@@ -740,7 +740,7 @@ getdecptsbhc <- function(df){
     filter(gvtregn == "Scotland")
 
   as.data.frame(wtd.quantile(df$s_oe_bhc * df$infl_bhc,
-                             probs = seq(0.1, 1, 0.1),
+                             probs = seq(0.1, 0.9, 0.1),
                              weights = df$gs_newpp) ) %>% t()
 
 }
@@ -751,7 +751,7 @@ getdecptsahc <- function(df){
     filter(gvtregn == "Scotland")
 
   as.data.frame(wtd.quantile(df$s_oe_ahc * df$infl_ahc,
-                             probs = seq(0.1, 1, 0.1),
+                             probs = seq(0.1, 0.9, 0.1),
                              weights = df$gs_newpp) ) %>% t()
 
 }
