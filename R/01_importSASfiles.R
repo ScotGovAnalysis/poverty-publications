@@ -1,9 +1,15 @@
 
 # Careful - this code takes very long to run, only run once to import data to local machine
 
-source("R/00_strings.R")
+library(haven)
 
-# Import datasets from SAS libraries
+years <- c("9495", "9596", "9697", "9798", "9899",
+           "9900", "0001", "0102", "0203", "0304",
+           "0405", "0506", "0607", "0708", "0809",
+           "0910", "1011", "1112", "1213", "1314",
+           "1415", "1516", "1617", "1718", "1819")
+
+# Filenames and paths to SAS libraries
 
 path_hbamast <- "//s0177a/sasdata1/hbai/hbai"
 path_adult <- "//s0177a/sasdata2/frs/adult_"
@@ -16,6 +22,8 @@ filenames_adult <- str_c(path_adult, years, ".sas7bdat")
 filenames_child <- str_c(path_child, years, ".sas7bdat")
 filenames_househol <- str_c(path_househol, years, ".sas7bdat")
 filenames_benefits <- str_c(path_benefits, years, ".sas7bdat")
+
+# Import SAS datasets (takes very long)
 
 files_hbai <- lapply(filenames_hbai, read_sas)
 files_adult <- lapply(filenames_adult, read_sas)
@@ -33,15 +41,6 @@ inflationindex <- inflationindex %>%
          infl_bhc = now_bhc/inflation_bhc,
          infl_ahc = now_ahc/inflation_ahc) %>%
   select(years, infl_bhc, infl_ahc)
-
-# Add latest dataset (might be restricted though)
-
-# files_hbai <- c(files_hbai, read_sas("//s0177a/sasdata2/soc_just/private/hbai1920.sas7bdat"))
-# files_adult <- c(files_adult, read_sas("//s0177a/sasdata2/soc_just/private/frs_adult_1920.sas7bdat"))
-# files_child <- c(files_child, read_sas("//s0177a/sasdata2/soc_just/private/frs_child_1920.sas7bdat"))
-# files_househol <- c(files_househol, read_sas("//s0177a/sasdata2/soc_just/private/frs_househol_1920.sas7bdat"))
-# files_benefits <- c(files_benefits, read_sas("//s0177a/sasdata2/soc_just/private/frs_benefits_1920.sas7bdat"))
-
 
 # Name list items
 

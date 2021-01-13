@@ -406,7 +406,7 @@ data <- povertychartdata[["gender"]] %>%
                                  "Single female pensioner")))
 
 povertycharts[["chart20"]] <- linechart(data, recession = FALSE) +
-  scale_y_continuous(limits = c(0.1, 0.6)) +
+  scale_y_continuous(limits = c(0.05, 0.55)) +
   addscales() +
   addsource() +
   addlabels() +
@@ -455,13 +455,17 @@ data <- povertychartdata[["ethnic"]] %>%
   mutate(value = pprate,
          key = groupingvar)
 
-povertycharts[["chart22"]] <- barchart(data)
+povertycharts[["chart22"]] <- barchart(data) +
+  scale_x_discrete(labels = str_wrap(data$key, 40))
 
 ## chart23 religion ----
 
 data <- povertychartdata[["religion"]] %>%
   mutate(value = adrate,
-         key = groupingvar)
+         key = factor(groupingvar,
+                      levels = c("All", "No religion", "Other religion",
+                                "Muslim","Other Christian", "Roman Catholic",
+                                "Church of Scotland")))
 
 povertycharts[["chart23"]] <- barchart(data)
 
@@ -469,7 +473,7 @@ povertycharts[["chart23"]] <- barchart(data)
 data <- povertychartdata[["disability"]] %>%
   ungroup() %>%
   filter(groupingvar != "All") %>%
-  mutate(value = adrate,
+  mutate(value = pprate,
          key = groupingvar)
 
 povertycharts[["chart24"]] <- linechart(data, recession = FALSE) +
@@ -484,7 +488,7 @@ povertycharts[["chart24"]] <- linechart(data, recession = FALSE) +
 data <- povertychartdata[["disability2"]] %>%
   ungroup() %>%
   filter(groupingvar != "All") %>%
-  mutate(value = adrate,
+  mutate(value = pprate,
          key = groupingvar)
 
 povertycharts[["chart25"]] <- linechart(data, recession = FALSE) +
@@ -569,8 +573,8 @@ povertycharts[["chart29"]] <- ggplot(data,
 ## chart30 distribution ----
 decilepoints <- povertychartdata[["UKdeciles"]] %>%
   mutate(xpos = lag(value) + 1/2*(value - lag(value)),
-         xpos = ifelse(is.na(xpos), value/2, xpos),
-         xpos = ifelse(name == "100%", (lag(value) + 100), xpos))
+         xpos = ifelse(is.na(xpos), value/2 + 50, xpos),
+         xpos = ifelse(name == "100%", (lag(value) + 50), xpos))
 
 data <- mutate(povertychartdata[["distribution"]],
                value = gs_newpp,
@@ -699,14 +703,5 @@ povertycharts[["chart31"]] <- ggplot(data, aes(x = decbhc,
   addsource()
 
 
-# Child poverty update ----
-
-## chartcp1 ----
-
-## chartcp2 ----
-
-## chartcp3 ----
-
-## chartcp4 ----
-
-# remove(periods, SGblue, SGblue2, SGblues, SGgreys, SGmix, SGoranges, yearsno)
+remove(periods, SGblue, SGblue2, SGblues, SGgreys, SGmix, SGoranges, yearsno,
+       data, decilepoints, mytheme, povertychartdata, SGmix2)

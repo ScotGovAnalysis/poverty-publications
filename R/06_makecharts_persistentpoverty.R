@@ -139,4 +139,5 @@ persistentcharts[["chart10"]] <- data %>%
          key = nation) %>%
   persistentchart()
 
-remove(data)
+remove(data, mytheme, SGblue, SGblue2, SGblues, SGgreys, SGmix, SGmix2,
+       SGoranges, source)

@@ -218,6 +218,14 @@ getchildweights <- function(df){
            wgt13_19 = ifelse(kid13_19 > 0, gs_newch * kid13_19 / depchldb, 0))
 }
 
+getpmdweights <- function(df) {
+
+  df %>%
+    mutate(wgt65 = case_when(agehd >= 65 & agesp >= 65 ~ 2 * gs_newbu,
+                             agehd >= 65 | agesp >= 65 ~ gs_newbu,
+                             TRUE ~ 0))
+}
+
 # get poverty flags and adult weight from tidy hbai dataset
 addpovflagsnadultwgt <- function(df, hbai_datasets){
 
@@ -292,6 +300,28 @@ getpov <- function(df, povvar){
            groupsample, groupsample_ch, groupsample_wa, groupsample_pn,
            groupsample_ad, povsample, povsample_ch, povsample_wa, povsample_pn,
            povsample_ad) %>%
+    filter(povvar == 1) %>%
+    ungroup() %>%
+    select(-povvar)
+
+}
+
+# get pensioner (over-65s) material deprivation
+getpmd <- function(df){
+
+  df$povvar <- df[["mdpn"]]
+
+  df %>%
+    filter(gvtregn == "Scotland") %>%
+    mutate(pnn = sum(wgt65),
+           groupsample_pn = sum(wgt65 > 0, na.rm = TRUE)) %>%
+    group_by(povvar) %>%
+    summarise(pnnum = sum(wgt65),
+              pnn = max(pnn),
+              groupsample_pn = max(groupsample_pn),
+              povsample_pn = sum(wgt65 > 0, na.rm = TRUE)) %>%
+    mutate(pnrate = pnnum / pnn) %>%
+    select(pnnum, pnrate, povvar, groupsample_pn, povsample_pn) %>%
     filter(povvar == 1) %>%
     ungroup() %>%
     select(-povvar)
@@ -1917,14 +1947,14 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
              label = percent(value, 1))) +
 
     addxlabels() +
+    addrecessionbar(up = up, ...) +
 
     geom_point_interactive(aes(tooltip = text,
                                data_id = value),
                            show.legend = FALSE,
                            size = 5,
-                           colour = "white") +
-
-    addrecessionbar(up = up, ...) +
+                           colour = "white",
+                           alpha = 0.01) +
 
     geom_line(lineend = "round",
                           show.legend = FALSE) +
@@ -1998,8 +2028,8 @@ barchart <- function(df) {
   ggplot(data = df,
          aes(x = key,
              y = value,
-             label = percent(value, 1),
-             fill = key)) +
+             fill = key,
+             label = percent(value, 1))) +
 
     geom_bar_interactive(aes(tooltip = str_c(key, ": ", percent(value, 1)),
                              data_id = key),
@@ -2014,7 +2044,6 @@ barchart <- function(df) {
     scale_fill_manual(values = SGmix) +
     scale_colour_manual(values = SGmix) +
 
-    scale_x_discrete(labels = str_wrap(df$key, 40)) +
     scale_y_continuous(limits = c(0, 0.6)) +
 
     coord_flip() +
@@ -2125,7 +2154,6 @@ if (!GBP) {
                            nudge_x = -1,
                            hjust = 1,
                            size = size,
-                           colour = SGgreys[1],
                            show.legend = FALSE,
                            segment.colour = NA)
 
@@ -2136,7 +2164,6 @@ if (!GBP) {
                            nudge_x = 1,
                            hjust = 0,
                            size = size,
-                           colour = SGgreys[1],
                            show.legend = FALSE,
                            segment.colour = NA)
   list(left, right)

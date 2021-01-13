@@ -149,7 +149,7 @@ data[["title"]] <- "Children in combined low income and material deprivation aft
 createSpreadsheet(data)
 
 # Pensioner deprivation ----
-pndep <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "mdpn"))%>% addyearvar() %>%
+pndep <- do.call(rbind.data.frame, lapply(hbai, getpmd))%>% addyearvar() %>%
   select(years, pnnum, pnrate) %>%
   mutate(years = factor(years,
                  levels = years,

@@ -958,7 +958,8 @@ data <- list(sheetname = "Ethnicity",
                            "2. Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.",
                            "3. Different ethnic groups have been combined into one for this analysis, as sample sizes are too small to reliably report on individual groups.",
                            "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
-                           "5. In the tables, the following conventions have been used where figures are unavailable:",
+                           "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
+                           "6. In the tables, the following conventions have been used where figures are unavailable:",
                            "'..' not available due to small sample size (fewer than 100)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
@@ -1027,7 +1028,8 @@ data <- list(sheetname = "Religion",
                            "2. In these tables, 'adults' include working-age adults as well as pensioners.",
                            "3. Different religious groups have been combined into one for this analysis, as sample sizes are too small to reliably report on individual groups.",
                            "4. Table B (composition) is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
-                           "5. In the tables, the following conventions have been used where figures are unavailable:",
+                           "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
+                           "6. In the tables, the following conventions have been used where figures are unavailable:",
                            "'..' not available due to small sample size (fewer than 100)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )

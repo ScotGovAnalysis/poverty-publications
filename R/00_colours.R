@@ -12,7 +12,7 @@ SGmix <- c(SGblues[3], SGblues[1], SGgreys[2], SGoranges[1],
            SGoranges[2], SGblues[5], SGgreys[3])
 
 SGmix2 <- c("Very low" = SGoranges[1], "Low" = SGoranges[2],
-            "Marginal" = SGgreys[4], "High" = SGblues[5])
+            "Marginal" = SGoranges[4], "High" = SGblues[5])
 
 # scales::show_col(SGblues)
 # scales::show_col(SGgreys)

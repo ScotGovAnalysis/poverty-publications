@@ -48,6 +48,7 @@ finaltarget <- 0.10
 
 cp_charts[["rel"]] <- ggplot(data, aes(x = years,
                                        y = value,
+                                       colour = "all",
                                        labels = percent(value, 1),
                                        group = "all")) +
   addtargetbars() +
@@ -65,6 +66,7 @@ cp_charts[["rel"]] <- ggplot(data, aes(x = years,
              fill = SGgreys[1],
              alpha = 0.4) +
   addlabels(size = 5) +
+  scale_colour_manual(values = SGgreys) +
   annotate("text", x = 23.5, y = 0.5,
            label = "Child Poverty (Scotland) Act 2017",
            hjust = 1,
@@ -98,6 +100,7 @@ finaltarget <- 0.05
 
 cp_charts[["abs"]]  <- ggplot(data, aes(x = years,
                                         y = value,
+                                        colour = "all",
                                         labels = percent(value, 1),
                                         group = "all")) +
   addtargetbars() +
@@ -115,6 +118,7 @@ cp_charts[["abs"]]  <- ggplot(data, aes(x = years,
                          fill = SGgreys[1],
                          alpha = 0.4) +
   addlabels(size = 5) +
+  scale_colour_manual(values = SGgreys) +
   scale_x_discrete(drop = FALSE,
                    breaks = c("9495", "0607", "1819", "3031"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
@@ -134,6 +138,7 @@ finaltarget <- 0.05
 
 cp_charts[["md"]] <- ggplot(data, aes(x = years,
                                       y = value,
+                                      colour = "all",
                                       labels = percent(value, 1),
                                       group = "all")) +
 
@@ -171,7 +176,10 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
                          colour = SGgreys[1],
                          fill = SGgreys[1],
                          alpha = 0.4) +
+
   addlabels(size = 5) +
+  scale_colour_manual(values = SGgreys) +
+
   scale_x_discrete(drop = FALSE,
                    breaks = c("9495", "0607", "1819", "3031"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
@@ -191,6 +199,7 @@ finaltarget <- 0.05
 
 cp_charts[["pers"]] <- ggplot(data, aes(x = years,
                                         y = value,
+                                        colour = "all",
                                         labels = percent(value, 1),
                                         group = "all")) +
   addtargetbars() +
@@ -208,6 +217,7 @@ cp_charts[["pers"]] <- ggplot(data, aes(x = years,
                          fill = SGgreys[1],
                          alpha = 0.4) +
   addlabels(size = 5) +
+  scale_colour_manual(values = SGgreys) +
   scale_x_discrete(drop = FALSE,
                    breaks = c("9495", "0607", "1819", "3031"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
@@ -217,6 +227,7 @@ cp_charts[["pers"]] <- ggplot(data, aes(x = years,
   addyaxis() +
   labs(caption = "Source: Understanding Society Survey")
 
-remove(data, cp_data, labels, mytheme)
+remove(data, cp_data, labels, mytheme, SGblue,
+       SGblue2, SGblues, SGgreys, SGmix, SGmix2, SGoranges, yearlevels)
 
 

@@ -22,7 +22,7 @@ names(hbai_clean) <- years
 # discorabflg and discorkid new in 1213; previously, discorabflg = disabflg, discorkid = diskid;
 
 # 9495 to 9596 -----------------------------------------------------------------
-for (year in years[1:2]){
+for (year in years[1:2]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -53,7 +53,7 @@ for (year in years[1:2]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh)
 
@@ -61,7 +61,7 @@ for (year in years[1:2]){
 
 }
 # 9697 to 9900 -----------------------------------------------------------------
-for (year in years[3:6]){
+for (year in years[3:6]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -90,7 +90,7 @@ for (year in years[3:6]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -100,7 +100,7 @@ for (year in years[3:6]){
 
 }
 # 0001 to 0203 -----------------------------------------------------------------
-for (year in years[7:9]){
+for (year in years[7:9]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -128,7 +128,7 @@ for (year in years[7:9]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -138,7 +138,7 @@ for (year in years[7:9]){
 
 }
 # 0304 -------------------------------------------------------------------------
-for (year in years[10]){
+for (year in years[10]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -165,7 +165,7 @@ for (year in years[10]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -174,7 +174,7 @@ for (year in years[10]){
   hbai_clean[[year]] <- nextdataset
 }
 # 0405 to 0506 -----------------------------------------------------------------
-for (year in years[11:12]){
+for (year in years[11:12]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -200,7 +200,7 @@ for (year in years[11:12]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -209,7 +209,7 @@ for (year in years[11:12]){
   hbai_clean[[year]] <- nextdataset
 }
 # 0607 to 0809 -----------------------------------------------------------------
-for (year in years[13:15]){
+for (year in years[13:15]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -234,7 +234,7 @@ for (year in years[13:15]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -243,7 +243,7 @@ for (year in years[13:15]){
   hbai_clean[[year]] <- nextdataset
 }
 # 0910 -------------------------------------------------------------------------
-for (year in years[16]){
+for (year in years[16]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -267,7 +267,7 @@ for (year in years[16]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -276,7 +276,7 @@ for (year in years[16]){
   hbai_clean[[year]] <- nextdataset
 }
 # 1011 -------------------------------------------------------------------------
-for (year in years[17]){
+for (year in years[17]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -299,7 +299,7 @@ for (year in years[17]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -308,7 +308,7 @@ for (year in years[17]){
   hbai_clean[[year]] <- nextdataset
 }
 # 1112 -------------------------------------------------------------------------
-for (year in years[18]){
+for (year in years[18]) {
 
   nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -332,7 +332,7 @@ for (year in years[18]){
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
            ecobu, kidecobu, newfambu, ptentyp2,
-           sexhd, sexsp,
+           sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
            ethgrphh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
@@ -341,7 +341,7 @@ for (year in years[18]){
   hbai_clean[[year]] <- nextdataset
 }
 # 1213 to latest year ----------------------------------------------------------
-for (year in years[19:length(years)]){
+for (year in years[19:length(years)]) {
 
 nextdataset <- readRDS("data/files_hbai.rds")[[year]]
 
@@ -362,7 +362,7 @@ nextdataset <- nextdataset %>%
          esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
          esmischh, espribhh, inchilhh, chbenhh, esginchh,
          ecobu, kidecobu, newfambu, ptentyp2,
-         sexhd, sexsp,
+         sexhd, sexsp, agehd, agesp,
          discorabflg, discorkid,
          ethgrphh,
          esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,

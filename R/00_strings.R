@@ -301,12 +301,12 @@ labels[["religion"]] <- data.frame(codes = c(1:10),
                                             "Church of Scotland",
                                             "Roman Catholic",
                                             "Other Christian",
-                                            "Other Religion",
-                                            "Other Religion",
-                                            "Other Religion",
+                                            "Other religion",
+                                            "Other religion",
+                                            "Other religion",
                                             "Muslim",
-                                            "Other Religion",
-                                            "Other Religion"))
+                                            "Other religion",
+                                            "Other religion"))
 
 labels[["religion"]] <- labels[["religion"]] %>%
   mutate(labels = fct_reorder(labels, codes))

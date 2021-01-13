@@ -19,7 +19,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted)) %>%
+                        labels = labels[["years"]]$periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -44,7 +44,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted)) %>%
+                        labels = labels[["years"]]$periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -69,7 +69,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted)) %>%
+                        labels = labels[["years"]]$periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -94,7 +94,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecptsahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted)) %>%
+                        labels = labels[["years"]]$periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -120,7 +120,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesbhc)) %>%
   mutate_if(is.numeric, comma_format(scale = 1E-6)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted))
+                        labels = labels[["years"]]$periods))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -145,7 +145,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesahc)) %>%
   mutate_if(is.numeric, comma_format(scale = 1E-6)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted))
+                        labels = labels[["years"]]$periods))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -169,7 +169,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted),
+                        labels = labels[["years"]]$periods),
          Palma = percent(Palma, 1))
 
 # Put all input for the spreadsheet into a list
@@ -194,7 +194,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted),
+                        labels = labels[["years"]]$periods),
          Palma = percent(Palma, 1))
 
 # Put all input for the spreadsheet into a list
@@ -219,7 +219,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted),
+                        labels = labels[["years"]]$periods),
          Gini = percent(Gini, 1))
 
 # Put all input for the spreadsheet into a list
@@ -244,7 +244,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$formatted),
+                        labels = labels[["years"]]$periods),
          Gini = percent(Gini, 1))
 
 # Put all input for the spreadsheet into a list
@@ -264,8 +264,8 @@ createSpreadsheet(data)
 # BHC poverty thresholds -----------------------------------------------------------
 
 latesthbai_1 <- hbai[[length(labels$years[[1]])]]
-latesthbai_2 <- hbai[[length(labels$years[[1]])-1]]
-latesthbai_3 <- hbai[[length(labels$years[[1]])-2]]
+latesthbai_2 <- hbai[[length(labels$years[[1]]) - 1]]
+latesthbai_3 <- hbai[[length(labels$years[[1]]) - 2]]
 
 df1 <- getpovertythresholdsbhc(latesthbai_1)
 df2 <- getpovertythresholdsbhc(latesthbai_2)
@@ -290,7 +290,7 @@ data <- list(df = df,
              filename = filename,
              sheetname = "Poverty thresholds BHC",
              title = "Before housing costs income thresholds for different household types",
-             subtitle = "Income in £, after tax and transfers, and in 2018/19 prices, Scotland",
+             subtitle = "Income in £, after tax and transfers, and in 2018/19 prices, Scotland 2016-19",
              headers = c(" ", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual"),
              uberheaders = c(" " = 1, "Single person with no children" = 2, "Couple with no children" = 2,
                              "Single person with children aged 5 and 14" = 2, "Couple with children aged 5 and 14" = 2),
@@ -336,7 +336,7 @@ data <- list(df = df,
              filename = filename,
              sheetname = "Poverty thresholds AHC",
              title = "After housing costs income thresholds for different household types",
-             subtitle = "Income in £, after tax and transfers, and in 2018/19 prices, Scotland",
+             subtitle = "Income in £, after tax and transfers, and in 2018/19 prices, Scotland 2016-19",
              headers = c(" ", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual", "Weekly", "Annual"),
              uberheaders = c(" " = 1, "Single person with no children" = 2, "Couple with no children" = 2,
                              "Single person with children aged 5 and 14" = 2, "Couple with children aged 5 and 14" = 2),
@@ -355,8 +355,8 @@ saveWorkbook(wb, str_c("output/", filename), overwrite = TRUE)
 # Income sources (BHC only) by income decile ---------------------------------------
 
 df1 <- getsources(hbai[[length(labels$years[[1]])]])
-df2 <- getsources(hbai[[length(labels$years[[1]])-1]])
-df3 <- getsources(hbai[[length(labels$years[[1]])-2]])
+df2 <- getsources(hbai[[length(labels$years[[1]]) - 1]])
+df3 <- getsources(hbai[[length(labels$years[[1]]) - 2]])
 
 df <- data.frame(df1[1])
 df[2] <- (df1[2] + df2[2] + df3[2])/3
@@ -374,7 +374,7 @@ data <- list(df = df,
              filename = filename,
              sheetname = "Income sources",
              title = "Income sources by income decile",
-             subtitle = "Gross household income by income type as a share of total income, Scotland",
+             subtitle = "Gross household income by income type as a share of total income, Scotland 2016-19",
              headers = c(" ", "Earnings", "Social security payments", "Occupational pensions", "Investments", "Other sources"),
              uberheaders =  NULL,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
