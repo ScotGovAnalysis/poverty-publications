@@ -69,7 +69,8 @@ create_html <- function(md) {
 }
 
 interactive <- function(chart, height = 3) {
-  ggiraph(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
+  ggiraph(ggobj = chart, width = 1, height_svg = height, width_svg = 7, 
+          hover_css = "fill: #fdd522; stroke: gray; fill-opacity: 1; stroke-opacity: 1")
 }
 
 ```
