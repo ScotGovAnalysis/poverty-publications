@@ -24,7 +24,7 @@ interactive(persistentcharts[["chart04"]])
 
 ### Table
 
-#### Table 2: Proportion of people in persistent poverty by country
+#### Table 2: Proportion of people in persistent poverty by country {#table2}
 ```{r table2}
 
 data <- persistenttables[["table2"]]
@@ -64,7 +64,7 @@ interactive(persistentcharts[["chart06"]])
 
 ### Table
 
-#### Table 3: Proportion of children in persistent poverty by country
+#### Table 3: Proportion of children in persistent poverty by country {#table3}
 ```{r table3}
 
 data <- persistenttables[["table3"]]
@@ -102,7 +102,7 @@ interactive(persistentcharts[["chart08"]])
 
 ### Table
 
-#### Table 4: Proportion of working-age adults in persistent poverty by country
+#### Table 4: Proportion of working-age adults in persistent poverty by country {#table4}
 ```{r table4}
 
 data <- persistenttables[["table4"]]
@@ -140,7 +140,7 @@ interactive(persistentcharts[["chart10"]])
 
 ### Table
 
-#### Table 5: Proportion of pensioners in persistent poverty by country
+#### Table 5: Proportion of pensioners in persistent poverty by country {#table5}
 ```{r table5}
 
 data <- persistenttables[["table5"]]

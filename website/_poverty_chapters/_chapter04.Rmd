@@ -70,9 +70,9 @@ interactive(povertycharts[["chart13"]])
 
 Add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
-#### Figure 14 - Proportion of children with food insecurity, Scotland 2018/19
+#### Figure 14 - Levels of food security of all children and those in poverty, Scotland `r params$data_year` (fake data!)
 ```{r chart14}
-#interactive(povertycharts[["chart14"]])
+interactive(povertycharts[["chart14"]])
 ```
 
 Bar chart showing the proportion of children who've expericenced food insecurity, broken down by poverty status (all children, childrenin relative poverty AHC, children in combined low income and material deprivation)

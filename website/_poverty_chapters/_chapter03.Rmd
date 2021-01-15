@@ -42,9 +42,9 @@ interactive(povertycharts[["chart02"]], height = 4)
 
 add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
-#### Figure 3 - Proportion of people with food insecurity, Scotland 2018/19
+#### Figure 3 - Levels of food security of all people and those in poverty, Scotland `r params$data_year` (fake data!)
 ```{r chart03}
-#interactive(povertycharts[["chart03"]])
+interactive(povertycharts[["chart03"]])
 ```
 
 Bar chart showing the proportion of people who've expericenced food insecurity, broken down by poverty status (all people, people in relative poverty AHC, people in absolute poverty AHC)

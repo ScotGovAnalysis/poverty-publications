@@ -50,7 +50,7 @@ interactive(persistentcharts[["chart02"]])
 
 ## Table
 
-#### Table 1: Proportion of people in persistent poverty in Scotland by age group
+#### Table 1: Proportion of people in persistent poverty in Scotland by age group {#table1}
 ```{r table1}
 data <- persistenttables[["table1"]]
 pers_source <- persistenttables[["source"]]
