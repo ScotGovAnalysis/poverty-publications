@@ -1291,10 +1291,13 @@ createSpreadsheet <- function(data){
   options("openxlsx.borderStyle" = "thin")
   options("openxlsx.borderColour" = "black")
 
-  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
-  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12)
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
+                            wrapText = FALSE, halign = "left")
+  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                               wrapText = FALSE, halign = "left")
   headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
-                             halign = "right", border = "bottom")
+                             halign = "right", border = "bottom",
+                             wrapText = FALSE)
   uberheaderStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
                                  halign = "center",
                                  border = "TopBottomLeftRight",
@@ -1302,10 +1305,13 @@ createSpreadsheet <- function(data){
                                  wrapText = TRUE)
   bodyStyle <- createStyle(halign = "right")
   endrowStyle <- createStyle(border = "bottom", halign = "right")
-  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10)
+  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
+                             wrapText = FALSE, halign = "left")
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
-                                     fontSize = 11, textDecoration = "BOLD")
-  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11)
+                                     fontSize = 11, textDecoration = "BOLD",
+                                     wrapText = FALSE, halign = "left")
+  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11,
+                               wrapText = FALSE, halign = "left")
 
   # Calculate body dimensions
   endcol <- length(df) + 1
@@ -1335,7 +1341,7 @@ createSpreadsheet <- function(data){
 
   # Uber header (above headers)
   addUberheader(wb, sheetname, uberheaders)
-  if (is.vector(uberheaders)){
+  if (is.vector(uberheaders)) {
     addStyle(wb, sheetname, rows = 5, cols = 3:endcol, style = uberheaderStyle)
     setRowHeights(wb, sheetname, rows = 5, heights = 30)
     }
@@ -1355,7 +1361,7 @@ createSpreadsheet <- function(data){
   addStyle(wb, sheetname, rows = endrow + 1, cols = 2, style = sourceStyle)
 
   # Footnotes
-  if (is.vector(footnotes)){
+  if (is.vector(footnotes)) {
   writeData(wb, sheetname, "Notes", startRow = endrow + 3, startCol = 2)
   addStyle(wb, sheetname, rows = endrow + 3, cols = 2,
            style = footnoteHeaderStyle)
@@ -1378,15 +1384,18 @@ createWideSpreadsheet <- function(data){
   df4 <- data[["df4"]]
   df5 <- data[["df5"]]
   df6 <- data[["df6"]]
+  df7 <- data[["df7"]]
 
   filename <- paste0("output/", data[["filename"]])
   sheetname <- data[["sheetname"]]
   title_a <- data[["title_a"]]
   title_b <- data[["title_b"]]
   title_c <- data[["title_c"]]
+  title_d <- data[["title_d"]]
   subtitle_a <- data[["subtitle_a"]]
   subtitle_b <- data[["subtitle_b"]]
   subtitle_c <- data[["subtitle_c"]]
+  subtitle_d <- data[["subtitle_d"]]
   subsubtitle_rel <- data[["subsubtitle_rel"]]
   subsubtitle_sev <- data[["subsubtitle_sev"]]
   headers <- data[["headers"]]
@@ -1398,16 +1407,22 @@ createWideSpreadsheet <- function(data){
   options("openxlsx.borderStyle" = "thin")
   options("openxlsx.borderColour" = "black")
 
-  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
-  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12)
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
+                            wrapText = FALSE, halign = "left")
+  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                               wrapText = FALSE, halign = "left")
   headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
-                             halign = "right", border = "bottom")
+                             halign = "right", border = "bottom",
+                             wrapText = FALSE)
   bodyStyle <- createStyle(halign = "right")
   endrowStyle <- createStyle(border = "bottom", halign = "right")
-  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10)
+  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
+                             wrapText = FALSE)
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
-                                     fontSize = 11, textDecoration = "BOLD")
-  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11)
+                                     fontSize = 11, textDecoration = "BOLD",
+                                     wrapText = FALSE)
+  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11,
+                               wrapText = FALSE)
 
   # Calculate body dimensions
   endcol <- length(df1) + 1
@@ -1417,6 +1432,7 @@ createWideSpreadsheet <- function(data){
   endrow4 <- endrow3 + dim(df4)[1] + 4
   endrow5 <- endrow4 + dim(df5)[1] + 8
   endrow6 <- endrow5 + dim(df6)[1] + 4
+  endrow7 <- endrow6 + dim(df7)[1] + 6
 
   # Transform headers into a data frame so they can be written as data
   headers <- ifelse(is.na(headers), NULL, as.data.frame(t(headers)))
@@ -1425,7 +1441,7 @@ createWideSpreadsheet <- function(data){
   # otherwise create new workbook
   if (file.exists(filename)) {
     wb <- loadWorkbook(filename)
-    if (sheetname %in% getSheetNames(filename)){
+    if (sheetname %in% getSheetNames(filename)) {
       removeWorksheet(wb, sheetname)
       }
     } else {wb <- createWorkbook()}
@@ -1604,14 +1620,43 @@ createWideSpreadsheet <- function(data){
   addStyle(wb, sheetname, rows = endrow6 + 1, cols = 2, style = sourceStyle)
 
 
+  # "D" tables - title row
+  writeData(wb, sheetname, title_d, startRow = endrow6 + 4, startCol = 2)
+  addStyle(wb, sheetname, rows = endrow6 + 4, cols = 2, style = titleStyle)
+
+  # "D" tables - subtitle row
+  writeData(wb, sheetname, subtitle_d, startRow = endrow6 + 5, startCol = 2)
+  addStyle(wb, sheetname, rows = endrow6 + 5, cols = 2, style = subtitleStyle)
+
+  # Header
+  writeData(wb, sheetname, headers, startRow = endrow6 + 6, startCol = 2,
+            colNames = FALSE)
+  addStyle(wb, sheetname, rows = endrow6 + 6, cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 7
+  writeData(wb, sheetname, df7, startRow = endrow6 + 7, startCol = 2,
+            colNames = FALSE)
+  addStyle(wb, sheetname, rows = endrow6 + 7, cols = 2:endcol,
+           style = endrowStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow6 + 8:endrow7, cols = 2:endcol,
+           style = bodyStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow7, cols = 2:endcol, style = endrowStyle,
+           gridExpand = TRUE)
+
+  # Data source
+  writeData(wb, sheetname, source, startRow = endrow7 + 1, startCol = 2)
+  addStyle(wb, sheetname, rows = endrow7 + 1, cols = 2, style = sourceStyle)
+
+
   # Footnotes
-  if (is.vector(footnotes)){
-    writeData(wb, sheetname, "Notes", startRow = endrow6 + 3, startCol = 2)
-    addStyle(wb, sheetname, rows = endrow6 + 3, cols = 2,
+  if (is.vector(footnotes)) {
+    writeData(wb, sheetname, "Notes", startRow = endrow7 + 3, startCol = 2)
+    addStyle(wb, sheetname, rows = endrow7 + 3, cols = 2,
              style = footnoteHeaderStyle)
-    writeData(wb, sheetname, footnotes, startRow = endrow6 + 4, startCol = 2)
+    writeData(wb, sheetname, footnotes, startRow = endrow7 + 4, startCol = 2)
     addStyle(wb, sheetname,
-             rows = (endrow6 + 4):(endrow6 + 4 + length(footnotes)),
+             rows = (endrow7 + 4):(endrow7 + 4 + length(footnotes)),
              cols = 2, style = footnoteStyle)
   }
 
@@ -1647,16 +1692,22 @@ createUKSpreadsheet <- function(data) {
   options("openxlsx.borderStyle" = "thin")
   options("openxlsx.borderColour" = "black")
 
-  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
-  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12)
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
+                            wrapText = FALSE, halign = "left")
+  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                               wrapText = FALSE, halign = "left")
   headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
-                             halign = "right", border = "bottom")
+                             halign = "right", border = "bottom",
+                             wrapText = FALSE)
   bodyStyle <- createStyle(halign = "right")
   endrowStyle <- createStyle(border = "bottom", halign = "right")
-  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10)
+  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
+                             wrapText = FALSE)
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
-                                     fontSize = 11, textDecoration = "BOLD")
-  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11)
+                                     fontSize = 11, textDecoration = "BOLD",
+                                     wrapText = FALSE)
+  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11,
+                               wrapText = FALSE)
 
   # Calculate body dimensions
   endcol <- length(df1) + 1
@@ -1818,9 +1869,28 @@ createUKSpreadsheet <- function(data) {
 getSheetTitles <- function(filename = filename, sheetname){
 
   wb <- loadWorkbook(filename)
-  df3 <- read.xlsx(wb, sheet = sheetname, startRow = 2, colNames = FALSE,
+  read.xlsx(wb, sheet = sheetname, startRow = 2, colNames = FALSE,
                    cols = 2, rows = 2,
                    skipEmptyRows = TRUE) %>% pull()
+}
+
+createSepsheet <- function(filename = filename, sheetname, text) {
+
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
+  filename <- paste0("output/", filename)
+
+  if (file.exists(filename)) {
+    wb <- loadWorkbook(filename)
+    if (sheetname %in% getSheetNames(filename)) {
+      removeWorksheet(wb, sheetname)
+    }
+  } else {wb <- createWorkbook()}
+
+  addWorksheet(wb, sheetname, gridLines = FALSE)
+  writeData(wb, sheetname, text, startRow = 2,
+            startCol = 2)
+  addStyle(wb, "- 1 -", rows = 2, cols = 2, style = titleStyle)
+  saveWorkbook(wb, filename, overwrite = TRUE)
 }
 
 createContentSheet <- function(filename){
@@ -1834,8 +1904,10 @@ createContentSheet <- function(filename){
   titles <- titles[!titles == "Tables"]
 
   # remove "A." from titles
-  titles <- sapply(titles, function(i) ifelse(startsWith(i, "A. "),
-                                              str_sub(i, 4L), i))
+  titles <- sapply(titles, function(i) ifelse(startsWith(i, "A. Proportion"),
+                                              str_c("...by",
+                                                    str_split(i, "by")[[1]][2]),
+                                              i))
 
   # create hyperlinks to sheets
   sheetlinks <- sapply(seq_along(sheets),
@@ -1848,10 +1920,13 @@ createContentSheet <- function(filename){
   addWorksheet(wb, "Contents", gridLines = FALSE)
 
   # define styles
-  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
-  noteStyle <- createStyle(fontName = "Segoe UI", fontSize = 12, wrapText = TRUE)
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
+                            wrapText = FALSE, halign = "left")
+  noteStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                           wrapText = TRUE, halign = "left")
   tocStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
-                          fontColour = "blue", textDecoration = "underline")
+                          fontColour = "blue", textDecoration = "underline",
+                          halign = "left")
   backButtonStyle <- createStyle(fontName = "Segoe UI", fontSize = 9,
                                  fontColour = "blue",
                                  textDecoration = c("underline", "bold"),

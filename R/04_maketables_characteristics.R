@@ -18,18 +18,19 @@ filename <- "Poverty characteristics.xlsx"
 # Tenure -----------------------------------------------------------------------
 
 rel <- do.call(rbind.data.frame,
-                      lapply(hbai, getpovby, povvar = "low60ahc",
-                             groupingvar = "ptentyp2")) %>%
+               lapply(hbai, getpovby, povvar = "low60ahc",
+                      groupingvar = "ptentyp2")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0506" ) %>%
   mutate(years = factor(years, labels = periods[12:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
-                      lapply(hbai, getpovby, povvar = "low50ahc",
-                             groupingvar = "ptentyp2")) %>%
+               lapply(hbai, getpovby, povvar = "low50ahc",
+                      groupingvar = "ptentyp2")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0506" ) %>%
@@ -38,6 +39,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample")
 
 rel_rates <- splitntranspose(rel, "pprate")
 rel_comps <- splitntranspose(rel, "ppcomp")
@@ -52,6 +55,7 @@ data <- list(sheetname = "Tenure",
              title_a = "A. Proportion of people in poverty and severe poverty by housing tenure",
              title_b = "B. Composition of people in poverty and severe poverty by housing tenure",
              title_c = "C. Number of people in poverty and severe poverty by housing tenure",
+             title_d = "D. Sample sizes",
 
              df1 = rel_rates,
              df2 = sev_rates,
@@ -59,13 +63,16 @@ data <- list(sheetname = "Tenure",
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of people in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of people in poverty who are in each category, Scotland",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
+
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[12:yearsno-2]),
+             headers = c(" ", levels(periods)[12:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -85,13 +92,14 @@ remove(rel, rel_rates, rel_comps, rel_numbers,
 
 rel <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low60ahc",
-                      groupingvar = "urinds"))%>%
+                      groupingvar = "urinds")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "0809" ) %>%
   mutate(years = factor(years, labels = periods[15:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -104,6 +112,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample")
 
 rel_rates <- splitntranspose(rel, "pprate")
 rel_comps <- splitntranspose(rel, "ppcomp")
@@ -118,20 +128,22 @@ data <- list(sheetname = "Urban rural",
              title_a = "A. Proportion of people in poverty and severe poverty by urban/rural class",
              title_b = "B. Composition of people in poverty and severe poverty by urban/rural class",
              title_c = "C. Number of people in poverty and severe poverty by urban/rural class",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of people in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of people in poverty who are in each category, Scotland",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[15:yearsno-2]),
+             headers = c(" ", levels(periods)[15:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
@@ -155,7 +167,8 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -167,6 +180,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample")
 
 rel_rates <- splitntranspose(rel, "pprate")
 rel_comps <- splitntranspose(rel, "ppcomp")
@@ -181,26 +196,28 @@ data <- list(sheetname = "Number of children",
              title_a = "A. Proportion of people in poverty and severe poverty by the number of children in the household",
              title_b = "B. Composition of people in poverty and severe poverty by the number of children in the household",
              title_c = "C. Number of people in poverty and severe poverty by the number of children in the household",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of people in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of people in poverty who are in each category, Scotland",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[3:yearsno-2]),
+             headers = c(" ", levels(periods)[3:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)")
+                           "'..'   not available due to small sample size (fewer than 100 in poverty)")
 )
 
 # Create spreadsheet and first worksheet
@@ -218,7 +235,8 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck_ad
+  samplesizecheck_ad %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(adult, getpovby_adult, povvar = "low50ahc",
@@ -230,6 +248,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck_ad
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample_ad")
 
 rel_rates <- splitntranspose(rel, "adrate")
 rel_comps <- splitntranspose(rel, "adcomp")
@@ -244,24 +264,26 @@ data <- list(sheetname = "Age band",
              title_a = "A. Proportion of adults in poverty and severe poverty by age",
              title_b = "B. Composition of adults in poverty and severe poverty by age",
              title_c = "C. Number of adults in poverty and severe poverty by age",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of adults in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
              headers = c(" ", levels(periods)[3:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. In these tables, 'adults' include working-age adults as well as pensioners.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100)",
+                           "'..' not available due to small sample size (fewer than 100 in poverty)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
@@ -275,12 +297,13 @@ rel <- do.call(rbind.data.frame,
                lapply(hbai, function(x) {
                  y <- filter(x, singlehh != "(Missing)")
                  getpovby(df = y, povvar = "low60ahc", groupingvar = "singlehh")
-                 } )) %>%
+               } )) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, function(x) {
@@ -295,6 +318,8 @@ sev <- do.call(rbind.data.frame,
 
 # split dataset into rates, numbers, compositions and transpose
 
+sample <- splitntranspose(rel, "groupsample_ad")
+
 rel_rates <- splitntranspose(rel, "adrate")
 rel_comps <- splitntranspose(rel, "adcomp")
 rel_numbers <- splitntranspose(rel, "adnum")
@@ -308,16 +333,19 @@ data <- list(sheetname = "Gender",
              title_a = "A. Proportion of single adults in poverty and severe poverty by gender",
              title_b = "B. Composition of single adults in poverty and severe poverty by gender",
              title_c = "C. Number of single adults in poverty and severe poverty by gender",
-             filename = filename,
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
+             filename = filename,
              subtitle_a = "Proportion of single adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of single adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of single adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of single adults in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "Single adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Single adults in severe poverty (below 50% of UK median income after housing costs)",
              headers = c(" ", levels(periods)[3:yearsno - 2]),
@@ -326,7 +354,7 @@ data <- list(sheetname = "Gender",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
                            "3. The term 'single' here refers to adults who are sharing a household with no other adults.",
                            "This differs from the analysis in the 'Family type' worksheet, where single adults may share the household with other families.")
 )
@@ -346,7 +374,8 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -358,6 +387,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample_ad")
 
 rel_rates <- splitntranspose(rel, "adrate")
 rel_comps <- splitntranspose(rel, "adcomp")
@@ -372,16 +403,19 @@ data <- list(sheetname = "Family type",
              title_a = "A. Proportion of adults in poverty and severe poverty by family type",
              title_b = "B. Composition of adults in poverty and severe poverty by family type",
              title_c = "C. Number of adults in poverty and severe poverty by family type",
-             filename = filename,
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
+             filename = filename,
              subtitle_a = "Proportion of adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
              headers = c(" ", levels(periods)[3:yearsno - 2]),
@@ -390,7 +424,7 @@ data <- list(sheetname = "Family type",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
                            "3. 'Pensioner couples' include working-age adults who are in a couple with a pensioner.",
                            "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.",
                            "A household may contain more than one family.",
@@ -413,7 +447,8 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck_ad
+  samplesizecheck_ad %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(adult, getpovby_adult, povvar = "low50ahc",
@@ -425,6 +460,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck_ad
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample_ad")
 
 rel_rates <- splitntranspose(rel, "adrate")
 rel_comps <- splitntranspose(rel, "adcomp")
@@ -439,25 +476,28 @@ data <- list(sheetname = "Marital status",
              title_a = "A. Proportion of adults in poverty and severe poverty by marital status",
              title_b = "B. Composition of adults in poverty and severe poverty by marital status",
              title_c = "C. Number of adults in poverty and severe poverty by marital status",
-             filename = filename,
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
+             filename = filename,
              subtitle_a = "Proportion of adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of adults in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[3:yearsno-2]),
+             headers = c(" ", levels(periods)[3:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
                            "3. 'Single' refers to adults who have never been married or in a civil partnership, and are not living with a partner.",
                            "4. 'Separated' refers to adults who are married or in a civil partnership, but are not living together because of estrangement.",
                            "5. 'Married / Civil Partnership' includes couples who are temporarily living apart (e.g. due to serving in the armed forces).",
@@ -480,7 +520,8 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9899" ) %>%
   mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -493,6 +534,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample_wa")
 
 rel_rates <- splitntranspose(rel, "warate")
 rel_comps <- splitntranspose(rel, "wacomp")
@@ -507,26 +550,29 @@ data <- list(sheetname = "Family economic status",
              title_a = "A. Proportion of working-age adults in poverty and severe poverty by family economic status",
              title_b = "B. Composition of working-age adults in poverty and severe poverty by family economic status",
              title_c = "C. Number of working-age adults in poverty and severe poverty by family economic status",
-             filename = filename,
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
+             filename = filename,
              subtitle_a = "Proportion of working-age adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of working-age adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of working-age adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "Working-age adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Working-age adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[5:yearsno-2]),
+             headers = c(" ", levels(periods)[5:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Information on economic status is not available prior to 1996.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
                            "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.")
 )
 
@@ -547,7 +593,8 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9899" ) %>%
   mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -560,6 +607,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample_wa")
 
 rel_rates <- splitntranspose(rel, "warate")
 rel_comps <- splitntranspose(rel, "wacomp")
@@ -574,26 +623,29 @@ data <- list(sheetname = "Household work status",
              title_a = "A. Proportion of working-age adults in poverty and severe poverty by household work status",
              title_b = "B. Composition of working-age adults in poverty and severe poverty by household work status",
              title_c = "C. Number of working-age adults in poverty and severe poverty by household work status",
-             filename = filename,
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
+             filename = filename,
              subtitle_a = "Proportion of working-age adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of working-age adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of working-age adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of working-age families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "Working-age adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Working-age adults in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[5:yearsno-2]),
+             headers = c(" ", levels(periods)[5:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Information on economic status is not available prior to 1996.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)")
+                           "'..'   not available due to small sample size (fewer than 100 in poverty)")
 )
 
 # Create new worksheet
@@ -606,14 +658,15 @@ remove(rel, rel_rates, rel_comps, rel_numbers,
 # Disability -------------------------------------------------------------------
 
 rel_pp <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low60ahc",
-                      groupingvar = "dispp_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low60ahc",
+                         groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc",
@@ -623,7 +676,8 @@ rel_ch <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc",
@@ -633,11 +687,12 @@ rel_ad <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev_pp <- do.call(rbind.data.frame,
-               lapply(hbai, getpovby, povvar = "low50ahc",
-                      groupingvar = "dispp_hh")) %>%
+                  lapply(hbai, getpovby, povvar = "low50ahc",
+                         groupingvar = "dispp_hh")) %>%
   addyearvar %>%
   formatpovby3yraverage %>%
   filter(years >= "9798" ) %>%
@@ -666,6 +721,10 @@ sev_ad <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample1 <- splitntranspose(rel_pp, "groupsample")
+sample2 <- splitntranspose(rel_ch, "groupsample") %>% filter(groupingvar != "All")
+sample3 <- splitntranspose(rel_ad, "groupsample") %>% filter(groupingvar != "All")
 
 rel_rates1 <- splitntranspose(rel_pp, "pprate")
 rel_comps1 <- splitntranspose(rel_pp, "ppcomp")
@@ -699,6 +758,8 @@ sev_rates <- rbind(sev_rates1, sev_rates2, sev_rates3)
 sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
 sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
+sample <- rbind(sample1, sample2, sample3)
+
 # mark time series break
 rel_numbers[, 12] <- "--"
 rel_numbers[, 13] <- "--"
@@ -711,26 +772,28 @@ data <- list(sheetname = "Disability",
              title_a = "A. Proportion of people in poverty and severe poverty by whether there is a disabled person in the household",
              title_b = "B. Composition of people in poverty and severe poverty by whether there is a disabled person in the household",
              title_c = "C. Number of people in poverty and severe poverty by whether there is a disabled person in the household",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of people in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of people in poverty who are in each category, Scotland",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[4:yearsno-2]),
+             headers = c(" ", levels(periods)[4:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Care should be taken when interpreting changes between years. Small sample sizes mean that differences will often not be statistically significant.",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100)",
+                           "'..' not available due to small sample size (fewer than 100 in poverty)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ",
                            "3. The way in which information on disabled people is collected changed several times during this timeseries.",
                            "This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13.",
@@ -761,7 +824,8 @@ rel_pp <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis",
@@ -771,7 +835,8 @@ rel_ch <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis",
@@ -781,7 +846,8 @@ rel_ad <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc_dis",
@@ -815,6 +881,10 @@ sev_ad <- do.call(rbind.data.frame,
 
 # split dataset into rates, numbers, compositions and transpose
 
+sample1 <- splitntranspose(rel_pp, "groupsample")
+sample2 <- splitntranspose(rel_ch, "groupsample") %>% filter(groupingvar != "All")
+sample3 <- splitntranspose(rel_ad, "groupsample") %>% filter(groupingvar != "All")
+
 rel_rates1 <- splitntranspose(rel_pp, "pprate")
 rel_comps1 <- splitntranspose(rel_pp, "ppcomp")
 rel_numbers1 <- splitntranspose(rel_pp, "ppnum")
@@ -847,6 +917,8 @@ sev_rates <- rbind(sev_rates1, sev_rates2, sev_rates3)
 sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
 sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
+sample <- rbind(sample1, sample2, sample3)
+
 # mark time series break
 rel_numbers[, 12] <- "--"
 rel_numbers[, 13] <- "--"
@@ -859,20 +931,22 @@ data <- list(sheetname = "DisabilityBenefitsRemoved",
              title_a = "A. Proportion of people in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
              title_b = "B. Composition of people in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
              title_c = "C. Number of people in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of people in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of people in poverty who are in each category, Scotland",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the three-year survey sample, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
-             headers = c(" ", levels(periods)[4:yearsno-2]),
+             headers = c(" ", levels(periods)[4:yearsno - 2]),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Income from Disability Living Allowance (DLA), Attendance Allowance (AA), and Personal Independence Payments (PIP) have been excluded from income.",
                            "This income is related to additional living costs associated with a disability.",
@@ -880,7 +954,7 @@ data <- list(sheetname = "DisabilityBenefitsRemoved",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100)",
+                           "'..' not available due to small sample size (fewer than 100 in poverty)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ",
                            "4. The way in which information on disabled people is collected changed several times during this timeseries.",
                            "This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13.",
@@ -909,7 +983,8 @@ rel <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -921,6 +996,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample")
 
 rel_rates <- splitntranspose(rel, "pprate")
 rel_comps <- splitntranspose(rel, "ppcomp")
@@ -939,17 +1016,19 @@ data <- list(sheetname = "Ethnicity",
              title_a = "A. Proportion of people in poverty and severe poverty by ethnic group (five-year averages)",
              title_b = "B. Composition of people in poverty and severe poverty by ethnic group (five-year averages)",
              title_c = "C. Number of people in poverty and severe poverty by ethnic group (five-year averages)",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of people in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of people in poverty who are in each category, Scotland",
              subtitle_c = "Number of people in each category who are in poverty, Scotland",
+             subtitle_d = "Number of families in each category in the five-year survey sample, Scotland",
              subsubtitle_rel = "People in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "People in severe poverty (below 50% of UK median income after housing costs)",
              headers = c(" ", period5yr),
@@ -960,7 +1039,7 @@ data <- list(sheetname = "Ethnicity",
                            "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
                            "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100)",
+                           "'..' not available due to small sample size (fewer than 100 in poverty)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
@@ -979,7 +1058,8 @@ rel <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  samplesizecheck_ad
+  samplesizecheck_ad %>%
+  mutate_at(vars(contains("sample")), comma_format(1))
 
 sev <- do.call(rbind.data.frame,
                lapply(adult, getpovby_adult, povvar = "low50ahc",
@@ -991,6 +1071,8 @@ sev <- do.call(rbind.data.frame,
   samplesizecheck_ad
 
 # split dataset into rates, numbers, compositions and transpose
+
+sample <- splitntranspose(rel, "groupsample_ad")
 
 rel_rates <- splitntranspose(rel, "adrate")
 rel_comps <- splitntranspose(rel, "adcomp")
@@ -1009,17 +1091,19 @@ data <- list(sheetname = "Religion",
              title_a = "A. Proportion of adults in poverty and severe poverty by religion (five-year averages)",
              title_b = "B. Composition of adults in poverty and severe poverty by religion (five-year averages)",
              title_c = "C. Number of adults in poverty and severe poverty by religion (five-year averages)",
-
+             title_d = "D. Sample sizes",
              df1 = rel_rates,
              df2 = sev_rates,
              df3 = rel_comps,
              df4 = sev_comps,
              df5 = rel_numbers,
              df6 = sev_numbers,
+             df7 = sample,
              filename = filename,
              subtitle_a = "Proportion of adults in each category who are in poverty, Scotland",
              subtitle_b = "Proportion of adults in poverty who are in each category, Scotland",
              subtitle_c = "Number of adults in each category who are in poverty, Scotland",
+             subtitle_d = "Number of adults in each category in the five-year survey sample, Scotland",
              subsubtitle_rel = "Adults in relative poverty (below 60% of UK median income after housing costs)",
              subsubtitle_sev = "Adults in severe poverty (below 50% of UK median income after housing costs)",
              headers = c(" ", period5yr),
@@ -1030,7 +1114,7 @@ data <- list(sheetname = "Religion",
                            "4. Table B (composition) is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
                            "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100)",
+                           "'..' not available due to small sample size (fewer than 100 in poverty)",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
