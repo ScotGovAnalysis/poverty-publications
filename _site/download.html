@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -22,7 +22,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<html lang = "en"></html>
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
@@ -71,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="styles.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -87,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -192,8 +188,6 @@ $(document).ready(function () {
 });
 </script>
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
 
 <style type="text/css">
@@ -238,6 +232,7 @@ $(document).ready(function () {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -250,20 +245,17 @@ $(document).ready(function () {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -294,7 +286,7 @@ $(document).ready(function () {
         <li>
           <a href="cpupdate.html">
             <span class="glyphicon glyphicon-eye-open"></span>
-            Child poverty
+            Child poverty summary
           </a>
         </li>
         <li>
@@ -344,9 +336,10 @@ $(document).ready(function () {
 <h2>Poverty and child poverty data</h2>
 <p>Estimates are averages of three years’ worth of data in order to reduce data volatility and show trends more accurately.</p>
 <ul>
+<li><a href="xls/All%20three-year%20average.xlsx"><strong>All data (xlsx, 330 KB)</strong></a> - all data from the report, combines the spreadsheets below except for the single-year data</li>
 <li><a href="xls/Poverty%20three-year%20average.xlsx">Headline poverty estimates (xlsx, 32 KB)</a> - data used for poverty and child poverty chapters</li>
-<li><a href="xls/Poverty%20characteristics.xlsx">Poverty characteristics (xlsx, 125 KB)</a> - data used for equality analysis chapter and more</li>
-<li><a href="xls/Child%20poverty%20characteristics.xlsx">Child poverty characteristic (xlsx, 106 KB)</a> - data used for child poverty priority group analysis and more</li>
+<li><a href="xls/Poverty%20characteristics.xlsx">Poverty characteristics (xlsx, 150 KB)</a> - data used for equality analysis chapter and more</li>
+<li><a href="xls/Child%20poverty%20characteristics.xlsx">Child poverty characteristic (xlsx, 125 KB)</a> - data used for child poverty priority group analysis and more</li>
 <li><a href="xls/Income%20three-year%20average.xlsx">Income analysis (xslx, 44 KB)</a> - data used for income and income inequality chapters</li>
 <li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx">Confidence intervals (docx, 26 KB)</a> - measurement uncertainty information for the headline estimates</li>
 </ul>
@@ -378,6 +371,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 
 </body>
