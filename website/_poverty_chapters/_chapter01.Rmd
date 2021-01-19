@@ -20,7 +20,7 @@ div(class = "row fluid-row",
               div(class = "panel-body",
                   a(href = "#relpov",
                     img(src = "img/chart0a.png", 
-                        alt = "Line chart of the relative poverty rate over time, showing that the very slow poverty increase in recent years may have ended.")),
+                        alt = "Relative poverty section")),
                   create_html(paste0("19% of people were living in relative poverty after housing costs in ", params$data_period, ". Overall, the poverty rate appears to have stopped rising."))))),
      
      div(class = "col-md-4", 
@@ -31,7 +31,7 @@ div(class = "row fluid-row",
               div(class = "panel-body",
                   a(href = "#palma",
                     img(src = "img/chart0b.png", 
-                        alt = "Line chart of the Palma ratio over time, showing that income inequality continues to fluctuate.")),
+                        alt = "Income inequality section")),
                   create_html(paste0("The top 10% of the population had 24% more income in ", params$data_period, " than the bottom 40% combined."))))),
      
      div(class = "col-md-4",
@@ -42,7 +42,7 @@ div(class = "row fluid-row",
              div(class = "panel-body",
                  a(href = "#incometrends",
                    img(src = "img/chart0c.png", 
-                        alt = "Line chart of median household incomes over time, showing a steady increase.")),
+                        alt = "Household income section")),
                  create_html(paste0("Median income before housing costs in Scotland in ", params$data_period, " was £517 a week, continuing the rising trend.")))))
      
  )

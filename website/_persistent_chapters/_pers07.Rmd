@@ -22,7 +22,7 @@ Further analysis based on the FRS and HBAI datasets is published by the Scottish
 
 The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
 
-[More information](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) on local poverty and income analysis from alternative data sources is available.
+More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
 
 ## Previous reports
 

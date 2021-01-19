@@ -2,7 +2,7 @@
 
 ## Associated tables and further analysis
 
-This publication contains the headline poverty and household income statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only. The associated tables are [available for download](download.html).
+This publication contains the headline poverty and household income statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only. The [associated tables](download.html) are available for download.
 
 Additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics are also available.
 
@@ -25,7 +25,7 @@ Further analysis based on the FRS and HBAI datasets is published by the Scottish
 
 The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
 
-[More information](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) on local poverty and income analysis from alternative data sources is available.
+More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
 
 ## Previous reports
 

@@ -37,7 +37,13 @@ Consider a single person, a couple with no children, and a couple with two child
 The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and one for income After Housing Costs (AHC). Modified OECD rescaled to a couple without children is as follows:
 
 ```{r table2}
-table2
+kable(povertytables[["table2"]], col.names = c(" ", "BHC", "AHC"),
+                align = "lrr") %>%
+  kable_styling(bootstrap_options = c("striped",
+                                      "hover",
+                                      "responsive",
+                                      "condensed"),
+                full_width = F, position = "left")
 ```
 
 The construction of household equivalence values from these scales is quite straightforward. For example, the BHC equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:

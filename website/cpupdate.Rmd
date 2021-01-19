@@ -12,8 +12,19 @@ knitr::opts_chunk$set(
 
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 
+```
+
+```{r}
+
+library(tidyverse)
+library(scales)
 library(ggiraph)
 library(htmltools)
+
+source("R/00_functions.R")
+source("R/00_colours.R")
+
+cp_charts <- readRDS("data/cp_charts.rds")
 
 create_html <- function(md) {
   htmltools::HTML(
@@ -67,6 +78,36 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
                   chart_br))) )
 }
  
+# Theme ----
+
+mytheme <- theme_grey() +
+  theme(text = element_text(colour = SGgreys[1], size = 20),
+
+        line = element_line(colour = SGgreys[1],
+                            linetype = 1,
+                            lineend = 2,
+                            size = 0.5),
+
+        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.caption = element_text(hjust = 1,
+                                    margin = margin(t = 20)),
+
+        legend.position = "top",
+        legend.title = element_blank(),
+
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+
+        axis.line.x = element_line(),
+        axis.ticks.length = unit(2, "pt"),
+        axis.ticks.y = element_blank(),
+
+        axis.title = element_blank(),
+        axis.text.y = element_blank())
+
+theme_set(mytheme)
 
 ```
 
@@ -85,30 +126,28 @@ The charts show that over the longer term, child poverty is not falling or falli
 
 ```{r panels}
 
-source("R/07_makecharts_cpupdate.R", encoding = "UTF-8")
-
 make4panels(title_tl = "Relative poverty",
             subtitle_tl = "Low income relative to the rest of society", 
             text_tl = "Proportion of children living in households with equivalised incomes below 60% of the median (middle) UK income in the current year.", 
-            chart_tl = ggiraph(ggobj = cp_charts[['rel']], width = 1), 
+            chart_tl = girafe(ggobj = cp_charts[['rel']]), 
             desc_tl = "Line chart of the relative child poverty rate over time and the targets, showing a small increase in recent years that may now have stopped at a level remaining considerably above the targets.",
             
             title_tr = "Absolute poverty", 
             subtitle_tr = "Low living standards relative to 2010/11", 
             text_tr = "Proportion of children living in households with equivalised incomes below 60% of the median UK income in a base year (currently 2010/11) adjusted for inflation.", 
-            chart_tr = ggiraph(ggobj = cp_charts[['abs']], width = 1), 
+            chart_tr = girafe(ggobj = cp_charts[['abs']]), 
             desc_tr = "Line chart of the absolute child poverty rate over time and the targets, showing an initial fall followed by stagnation in recent years at a level considerably higher than the targets.",
             
             title_bl = "Combined low income and material deprivation", 
             subtitle_bl = "Unable to afford basic necessities", 
             text_bl = "Proportion of children in households with equivalised incomes below 70% of the median UK income and going without certain basic goods and services.", 
-            chart_bl = ggiraph(ggobj = cp_charts[['md']], width = 1), 
+            chart_bl = girafe(ggobj = cp_charts[['md']]), 
             desc_bl = "Line chart of the proportion of children in combined low income and material deprivation over time and the targets, showing little change and a level that is considerably higher than the targets.",
             
             title_br = "Persistent poverty", 
             subtitle_br = "In poverty for several years", 
             text_br = "Proportion of children who have lived in relative poverty in three or more of the last four years.", 
-            chart_br = ggiraph(ggobj = cp_charts[['pers']], width = 1), 
+            chart_br = girafe(ggobj = cp_charts[['pers']]), 
             desc_br = "Line chart of the absolute child poverty rate over time and the targets, showing an initial fall followed by stagnation in recent years at a level considerably higher than the targets.")
 
 
