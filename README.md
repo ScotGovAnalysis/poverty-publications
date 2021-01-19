@@ -17,14 +17,13 @@ This repository contains the code for the annual Scottish Government "Poverty an
 
 Tidy datasets are now available to produce reports and spreadsheets.
 
-### 2. Create spreadsheets
+### 2. Create everything
 
-Run 05_run_maketables.R to create all spreadsheets.
+**Run 08_create_website.R to create all spreadsheets and the website.**
 
-### 3. Create website
+(Alternatively, all scripts can also be run individually.)
 
-* Run R/08_create_website.R
-* Look at website: website/\_site/index.html
+* Look at (local version of) website: website/\_site/index.html
 * Check and update all commentary in:
 
   * website/index.Rmd
@@ -35,9 +34,9 @@ Run 05_run_maketables.R to create all spreadsheets.
   * website/persistent.Rmd
   * website/\_persistent_chapters/...
 
-* Run R/08_create_website.R again and repeat until happy
+* Run last line of R/08_create_website.R again and repeat until happy
 
-### 4. Create doc reports for briefing and download purposes - to do
+### 4. Create doc reports for briefing and download purposes - TO DO
 
 * Run ... to create main report docx .
 
@@ -62,28 +61,25 @@ Run 05_run_maketables.R to create all spreadsheets.
 
 ### Create spreadsheets
 
-* R/04_maketables_characteristics.R
-* R/04_maketables_characteristics_child.R
 * R/04_maketables_headlines_1yr.R
-* R/04_maketables_headlines_3yrs.R
 * R/04_maketables_income_1yr.R
-* R/04_maketables_income_3yrs.R
+* R/04_maketables_all_3yr.R
 * R/04_maketables_UK_3yrs.R
 * R/05_run_maketables.R - runs all maketables scripts and copies spreadsheets (for publication) into website folder
 
 ### Create charts and tables included in reports
 
-* R/06_maketables_persistentpoverty.R
-* R/06_makecharts_persistentpoverty.R
-* R/06_maketables_poverty.R
 * R/06_prepcharts_cpupdate.R
 * R/06_prepcharts_poverty.R
+* R/07_maketables_persistentpoverty.R
+* R/07_makecharts_persistentpoverty.R
+* R/07_maketables_poverty.R
 * R/07_makecharts_cpupdate.R
 * R/07_makecharts_poverty.R
 
 ### Create website
 
-* R/08_create_website.R - creates complete website in website/\_site
+* R/08_create_website.R - runs spreadsheets, charts and tables and then creates complete website in website/\_site
 
 # List of files in website folder
 
@@ -133,11 +129,8 @@ These will be compiled into html pages.
 
 Note that the spreadsheets are created in step 2.
 
-* xls/Child poverty characteristics.xlsx
+* xls/All three-year average.xlsx
 * xls/Income single year.xlsx
-* xls/Income three-year average.xlsx
-* xls/Poverty characteristics.xlsx
 * xls/Poverty single year.xlsx
-* xls/Poverty three-year average.xlsx
 
 
