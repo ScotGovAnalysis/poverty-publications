@@ -401,4 +401,5 @@ povertychartdata[["gini"]] <- rbind(ginibhc, giniahc) %>%
 
 remove(ginibhc, giniahc, hbai, adult, labels)
 
-
+saveRDS(povertychartdata, "data/povertychartdata.rds")
+rm(list = ls())

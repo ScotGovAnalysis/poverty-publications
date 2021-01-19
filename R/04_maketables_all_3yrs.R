@@ -407,7 +407,7 @@ data <- list(sheetname = "Number of children",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)")
+                           "'..'   not available due to small sample size")
 )
 
 # Create spreadsheet and first worksheet
@@ -473,7 +473,7 @@ data <- list(sheetname = "Age band",
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. In these tables, 'adults' include working-age adults as well as pensioners.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
@@ -544,7 +544,7 @@ data <- list(sheetname = "Gender",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "3. The term 'single' here refers to adults who are sharing a household with no other adults.",
                            "This differs from the analysis in the 'Family type' worksheet, where single adults may share the household with other families.")
 )
@@ -614,7 +614,7 @@ data <- list(sheetname = "Family type",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "3. 'Pensioner couples' include working-age adults who are in a couple with a pensioner.",
                            "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.",
                            "A household may contain more than one family.",
@@ -687,7 +687,7 @@ data <- list(sheetname = "Marital status",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "3. 'Single' refers to adults who have never been married or in a civil partnership, and are not living with a partner.",
                            "4. 'Separated' refers to adults who are married or in a civil partnership, but are not living together because of estrangement.",
                            "5. 'Married / Civil Partnership' includes couples who are temporarily living apart (e.g. due to serving in the armed forces).",
@@ -762,7 +762,7 @@ data <- list(sheetname = "Family economic status",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Information on economic status is not available prior to 1996.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.")
 )
 
@@ -835,7 +835,7 @@ data <- list(sheetname = "Household work status",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Information on economic status is not available prior to 1996.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)")
+                           "'..'   not available due to small sample size")
 )
 
 # Create new worksheet
@@ -983,7 +983,7 @@ data <- list(sheetname = "Disability",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ",
                            "3. The way in which information on disabled people is collected changed several times during this timeseries.",
                            "This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13.",
@@ -1144,7 +1144,7 @@ data <- list(sheetname = "DisabilityBenefitsRemoved",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ",
                            "4. The way in which information on disabled people is collected changed several times during this timeseries.",
                            "This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13.",
@@ -1229,7 +1229,7 @@ data <- list(sheetname = "Ethnicity",
                            "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
                            "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
@@ -1304,7 +1304,7 @@ data <- list(sheetname = "Religion",
                            "4. Table B (composition) is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
                            "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
@@ -1604,7 +1604,7 @@ data <- list(sheetname = "Number of children ch",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)")
+                           "'..'   not available due to small sample size")
 )
 
 # Create new worksheet
@@ -1681,7 +1681,7 @@ data <- list(sheetname = "Age of youngest child",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Individual child age data is not available between 2003 and 2005.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)")
 )
 
@@ -1760,7 +1760,7 @@ data <- list(sheetname = "Age of mother",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Individual age data is available from 1997, but not between 2003 and 2005.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)")
 )
 
@@ -1829,7 +1829,7 @@ data <- list(sheetname = "Family type ch",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "3. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.")
 )
 
@@ -1900,7 +1900,7 @@ data <- list(sheetname = "Family economic status ch",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Information on economic status is not available prior to 1996.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)",
+                           "'..'   not available due to small sample size",
                            "4. The term 'family' here refers to the core family in a household, consisting of one or two adults and their dependent children if any.")
 )
 
@@ -1971,7 +1971,7 @@ data <- list(sheetname = "Household work status ch",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. Information on economic status is not available prior to 1996.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100 in poverty)")
+                           "'..'   not available due to small sample size")
 )
 
 # Create new worksheet
@@ -2114,7 +2114,7 @@ data <- list(sheetname = "Disability ch",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ",
                            "3. The way in which information on disabled people is collected changed several times during this timeseries.",
                            "This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13.",
@@ -2269,7 +2269,7 @@ data <- list(sheetname = "DisabilityBenefitsRemovedch",
                            "Longer term trends may offer a better indication of a real change over time.",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.",
                            "3. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ",
                            "4. The way in which information on disabled people is collected changed several times during this timeseries.",
                            "This causes breaks in the timeseries between 2001/02 and 2002/03, between 2003/04 and 2004/05, and between 2011/12 and 2012/13.",
@@ -2353,7 +2353,7 @@ data <- list(sheetname = "Ethnicity 5-yr ch",
                            "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
                            "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
@@ -2427,7 +2427,7 @@ data <- list(sheetname = "Ethnicity 3-yr ch",
                            "3. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
                            "4. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "5. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size (fewer than 100 in poverty)",
+                           "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 

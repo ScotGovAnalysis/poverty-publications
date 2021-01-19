@@ -6,6 +6,8 @@ source("R/00_strings.R")
 
 hbai <- readRDS("data/tidyhbai.rds")
 
+povertytables <- list()
+
 # table 1 - BHC poverty thresholds ----
 
 latesthbai_1 <- hbai[[length(labels$years[[1]])]]
@@ -26,35 +28,15 @@ df$annual3 <- (df1$annual3 + df2$annual3 + df3$annual3)/3
 df$weekly4 <- (df1$weekly4 + df2$weekly4 + df3$weekly4)/3
 df$annual4 <- (df1$annual4 + df2$annual4 + df3$annual4)/3
 
-df <- df %>%
+povertytables[["table1"]] <- df %>%
   mutate_at(vars(starts_with("weekly")), comma_format(1, prefix = "£")) %>%
   mutate_at(vars(starts_with("annual")), comma_format(100, prefix = "£")) %>%
   head(4L)
 
-table1 <- kable(df, col.names = c("Before housing costs incomes",
-                              "weekly", "annual",
-                              "weekly", "annual",
-                              "weekly", "annual",
-                              "weekly", "annual"),
-                            align = "lrrrrrrrr") %>%
-  kable_styling(bootstrap_options = c("striped",
-                                      "hover",
-                                      "responsive",
-                                      "condensed"),
-                full_width = F, position = "left")  %>%
-  add_header_above(c(" " = 1,
-                     "Single person with no children" = 2,
-                     "Couple with no children" = 2,
-                     "Single person with children aged 5 and 14" = 2,
-                     "Couple with children aged 5 and 14" = 2)) %>%
-  footnote(general = "Source: Family Resources Survey",
-           general_title = "")
-
-remove(df, df1, df2, df3, hbai, labels, latesthbai_1, latesthbai_2, latesthbai_3)
 
 # table 2 - equivalence scale
 
-df <- data.frame( " " = c("First adult",
+povertytables[["table2"]] <- data.frame( " " = c("First adult",
                           "Spouse",
                           "Subsequent adults",
                           "Children aged under 14 years",
@@ -70,11 +52,6 @@ df <- data.frame( " " = c("First adult",
                           0.20,
                           0.42))
 
-table2 <- kable(df, col.names = c(" ", "BHC", "AHC"),
-                align = "lrr") %>%
-  kable_styling(bootstrap_options = c("striped",
-                                      "hover",
-                                      "responsive",
-                                      "condensed"),
-                full_width = F, position = "left")
+saveRDS(povertytables, "data/povertytables.rds")
+rm(list = ls())
 

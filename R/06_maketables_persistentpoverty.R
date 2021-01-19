@@ -60,4 +60,5 @@ persistenttables[["table5"]] <- data %>%
   select(period, BHCScotland, BHCEngland, BHCWales, "BHCNorthern Ireland", BHCUK,
          AHCScotland, AHCEngland, AHCWales, "AHCNorthern Ireland", AHCUK)
 
-remove(data)
+saveRDS(persistenttables, "data/persistenttables.rds")
+rm(list = ls())

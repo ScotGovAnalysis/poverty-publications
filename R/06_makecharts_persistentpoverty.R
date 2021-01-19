@@ -1,6 +1,6 @@
 library(tidyverse)
 library(scales)
-library(ggiraph) # note I'm using version 0.4.2
+library(ggiraph)
 
 source("R/00_functions.R")
 source("R/00_colours.R")
@@ -10,34 +10,6 @@ persistentcharts <- list()
 data <- readRDS("data/persistentpoverty.rds")
 
 source <- "Source: Understanding Society, 2010-2011 to 2017-2018"
-
-mytheme <- theme_grey() +
-  theme(text = element_text(colour = SGgreys[1], size = 14),
-
-        line = element_line(colour = SGgreys[1],
-                            linetype = 1,
-                            lineend = 2,
-                            size = 0.5),
-
-        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
-        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
-        plot.caption = element_text(hjust = 1),
-
-        legend.position = "top",
-        legend.title = element_blank(),
-
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-
-        axis.line.x = element_line(),
-        axis.ticks.length = unit(2, "pt"),
-        axis.ticks.y = element_blank(),
-
-        axis.title = element_blank(),
-        axis.text.y = element_blank())
-
-theme_set(mytheme)
 
 data <- data %>%
   mutate(group = factor(group,
@@ -139,5 +111,5 @@ persistentcharts[["chart10"]] <- data %>%
          key = nation) %>%
   persistentchart()
 
-remove(data, mytheme, SGblue, SGblue2, SGblues, SGgreys, SGmix, SGmix2,
-       SGoranges, source)
+saveRDS(persistentcharts, "data/persistentcharts.rds")
+rm(list = ls())

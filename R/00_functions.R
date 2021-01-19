@@ -1110,7 +1110,8 @@ get3yrtable <- function(df) {
     tail(-2L) %>%
     mutate(years = factor(years,
                           levels = labels[["years"]]$years,
-                          labels = labels[["years"]]$periods))
+                          labels = labels[["years"]]$periods),
+           years = factor(years))
 }
 
 get5yrtable <- function(df) {
@@ -1999,14 +2000,13 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
 
   if (length(levels(df$key)) > 1) {
     if (GBP) {
-      df$text <- str_c(df$key, ": ", comma(df$value, 1, prefix = "£"),
-                       " (", df$years, ")")
+      df$text <- df$tooltip
     } else {
       df$text <- str_c(df$key, ": ", percent(df$value, 1), " (", df$years, ")")
     }
   } else {
     if (GBP) {
-      df$text <- str_c(comma(df$value, 1, prefix = "£"), " (", df$years, ")")
+      df$text <- str_c(df$text, " (", df$years, ")")
     } else {
       df$text <- str_c(percent(df$value, 1), " (", df$years, ")")
     }
@@ -2019,13 +2019,13 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
              group = key,
              colour = key,
              linetype = key,
-             label = percent(value, 1))) +
+             label = text)) +
 
     addxlabels() +
     addrecessionbar(up = up, ...) +
 
     geom_point_interactive(aes(tooltip = text,
-                               data_id = value),
+                               data_id = paste(text, value)),
                            show.legend = FALSE,
                            size = 5,
                            colour = "white",
@@ -2034,11 +2034,11 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
     geom_line(lineend = "round",
                           show.legend = FALSE) +
 
-    geom_point(data = filter(df, min(df$years) == as.character(df$years)),
+    geom_point(data = filter(df, years == min(years)),
                size = 2,
                show.legend = FALSE) +
 
-    geom_point(data = filter(df, years == levels(periods)[length(periods) - 2]),
+    geom_point(data = filter(df, years == max(years)),
                size = 2,
                show.legend = FALSE)
 }
@@ -2107,7 +2107,7 @@ barchart <- function(df) {
              label = percent(value, 1))) +
 
     geom_bar_interactive(aes(tooltip = str_c(key, ": ", percent(value, 1)),
-                             data_id = key),
+                             data_id = paste(key, value)),
                          show.legend = FALSE,
                          stat = "identity") +
 
@@ -2141,7 +2141,7 @@ persistentchart <- function(df) {
 
     geom_bar_interactive(aes(tooltip = str_c(percent(value, 1), " (",
                                              period, ")"),
-                             data_id = period),
+                             data_id = paste(key, period, value)),
                          stat = "identity",
                          position = "dodge",
                          colour = "white") +
@@ -2219,12 +2219,15 @@ addsource <- function(){
 addlabels <- function(df = data, GBP = FALSE, size = 4){
 
 if (!GBP) {
-  df$text <- percent(df$value, 1)
+  df$labeltext <- percent(df$value, 1)
+} else {
+  df$labeltext <- df$text
 }
 
   left <- geom_text_repel(data = filter(df,
-                                      min(df$years) == as.character(df$years)),
-                           mapping = aes(label = text),
+                                      years == min(years)),
+                           aes(x = years,
+                               label = labeltext),
                            direction = "y",
                            nudge_x = -1,
                            hjust = 1,
@@ -2233,8 +2236,9 @@ if (!GBP) {
                            segment.colour = NA)
 
   right <- geom_text_repel(data = filter(df,
-                                      max(df$years) == as.character(df$years)),
-                           mapping = aes(label = text),
+                                      years == max(years)),
+                           aes(x = years,
+                               label = labeltext),
                            direction = "y",
                            nudge_x = 1,
                            hjust = 0,
@@ -2254,8 +2258,10 @@ addnames <- function(df = data, up = 0) {
 
 addxlabels <- function(){
 
+  periods <- labels[["years"]]$periods
+
   scale_x_discrete(drop = FALSE,
-                   limits = periods,
+                   limits = levels(periods),
                    breaks = c("1994-97", "", "", "",
                               "", "", "2000-03", "",
                               "", "", "", "",
