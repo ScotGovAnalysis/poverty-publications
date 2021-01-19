@@ -45,14 +45,21 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 ```
 
 ```{r}
+library(tidyverse)
+library(scales)
 library(kableExtra)
 library(htmltools)
+library(ggiraph)
 
-source("R/06_maketables_persistentpoverty.R")
-source("R/06_makecharts_persistentpoverty.R")
+source("R/00_colours.R")
+
+persistentcharts <- readRDS("data/persistentcharts.rds")
+persistenttables <- readRDS("data/persistenttables.rds")
 
 interactive <- function(chart, height = 3) {
-  ggiraph(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
+  chart <- girafe(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
+  girafe_options(x = chart, 
+               opts_hover(css = "fill: #fdd522; stroke: gray; fill-opacity: 1; stroke-opacity: 1"))
 }
 
 devnote <- function(md) {
@@ -68,6 +75,34 @@ create_html <- function(md) {
     )
   )
 }
+
+mytheme <- theme_grey() +
+  theme(text = element_text(colour = SGgreys[1], size = 14),
+
+        line = element_line(colour = SGgreys[1],
+                            linetype = 1,
+                            lineend = 2,
+                            size = 0.5),
+
+        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.caption = element_text(hjust = 1),
+
+        legend.position = "top",
+        legend.title = element_blank(),
+
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+
+        axis.line.x = element_line(),
+        axis.ticks.length = unit(2, "pt"),
+        axis.ticks.y = element_blank(),
+
+        axis.title = element_blank(),
+        axis.text.y = element_blank())
+
+theme_set(mytheme)
 
 ```
 
