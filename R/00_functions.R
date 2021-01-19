@@ -1108,6 +1108,7 @@ get3yrtable <- function(df) {
               get3yraverage) %>%
     mutate_at(vars(contains("sample")), get3yrtotal) %>%
     tail(-2L) %>%
+    ungroup() %>%
     mutate(years = factor(years,
                           levels = labels[["years"]]$years,
                           labels = labels[["years"]]$periods),
@@ -1121,6 +1122,7 @@ get5yrtable <- function(df) {
               get5yraverage) %>%
     mutate_at(vars(contains("sample")), get5yrtotal) %>%
     tail(-4L) %>%
+    ungroup() %>%
     mutate(years = factor(years,
                           levels = labels[["years"]]$years,
                           labels = labels[["years"]]$period5yr))
@@ -2283,10 +2285,10 @@ saveplot <- function(file){
   ggsave(file, width = 8.3, height = 5.5, units = "cm", dpi = 500)
 }
 
-addinterimtarget <- function(y){
+addinterimtarget <- function(target){
 
   a <- geom_point(aes(x = "2324",
-                      y = y),
+                      y = target),
                   shape = 21,
                   size = 5,
                   colour = SGgreys[1],
@@ -2294,7 +2296,7 @@ addinterimtarget <- function(y){
                   fill = "white")
 
   b <- geom_point(aes(x = "2324",
-                      y = y),
+                      y = target),
                   shape = 21,
                   size = 2.5,
                   colour = SGgreys[1],
@@ -2302,16 +2304,16 @@ addinterimtarget <- function(y){
                   fill = SGoranges[2])
 
   c <- geom_text(data = tail(data, 1L),
-                 aes(x = 30.2, y = interimtarget + 0.05,
-                       label = percent(interimtarget, 1)),
+                 aes(x = 30.2, y = target + 0.05,
+                       label = percent(target, 1)),
                  colour = SGgreys[1],
                  size = 5)
 
   d <- geom_point_interactive(aes(x = "2324",
-                                  y = y,
+                                  y = target,
                                   tooltip = str_c("Interim target (2023/24): ",
-                                                  percent(y, 1)),
-                                  data_id = y),
+                                                  percent(target, 1)),
+                                  data_id = target),
                               size = 8,
                               colour = "white",
                               alpha = 0.01,
@@ -2320,16 +2322,16 @@ addinterimtarget <- function(y){
   list(a, b, c, d)
 }
 
-addfinaltarget <- function(y){
+addfinaltarget <- function(target){
 
-  a <- geom_point(aes(x = "3031", y = y),
+  a <- geom_point(aes(x = "3031", y = target),
                   shape = 21,
                   size = 5,
                   colour = SGgreys[1],
                   stroke = 1,
                   fill = "white")
 
-  b <- geom_point(aes(x = "3031", y = y),
+  b <- geom_point(aes(x = "3031", y = target),
                   shape = 21,
                   size = 2.5,
                   colour = SGgreys[1],
@@ -2337,16 +2339,16 @@ addfinaltarget <- function(y){
                   fill = SGoranges[2])
 
   c <- geom_text(data = tail(data, 1L),
-                   aes(x = 37.2, y = finaltarget + 0.05,
-                       label = percent(finaltarget, 1)),
+                   aes(x = 37.2, y = target + 0.05,
+                       label = percent(target, 1)),
                    colour = SGgreys[1],
                  size = 5)
 
   d <- geom_point_interactive(aes(x = "3031",
-                                  y = y,
+                                  y = target,
                                   tooltip = str_c("Final target (2030/31): ",
-                                                  percent(y, 1)),
-                                  data_id = y),
+                                                  percent(target, 1)),
+                                  data_id = target),
                               size = 8,
                               colour = "white",
                               alpha = 0.01,

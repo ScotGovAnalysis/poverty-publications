@@ -12,7 +12,7 @@ adult <- readRDS("data/tidyadult.rds")
 # Get formatted periods in vector; get total number of years/periods
 periods <- labels[["years"]]$periods
 yearsno <- length(periods)
-period5yr <- as.character(labels[["years"]]$period5yr[length(periods)])
+period5yr <- levels(labels[["years"]]$period5yr) %>% tail(1L)
 latestyear <- max(levels(labels[["years"]]$formatted))
 
 # 1. Headlines ----
@@ -132,7 +132,7 @@ cmdbhc <- do.call(rbind.data.frame,
   select(1:3) %>%
   replace(., is.na(.), "-") %>%
   mutate(years = factor(years,
-                        labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]))
+                        labels = periods[13:length(periods)]))
 
 remove(cmdbhc_new)
 
@@ -167,7 +167,7 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
   select(1:3) %>%
   replace(., is.na(.), "-") %>%
   mutate(years = factor(years,
-                        labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]))
+                        labels = periods[13:length(periods)]))
 
 remove(cmdahc_new)
 
@@ -183,7 +183,7 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpmd)) %>%
   mutate(pnnum = get3yraverage(pnnum),
          pnrate = get3yraverage(pnrate),
          years = factor(years,
-                        labels = labels[["years"]]$periods[16:length(labels[["years"]]$periods)])) %>%
+                        labels = periods[16:length(periods)])) %>%
   mutate_at(vars(contains("num")), fmtpop) %>%
   mutate_at(vars(contains("rate")), fmtpct) %>%
   tail(-2L)
@@ -2446,7 +2446,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods)) %>%
+                        labels = periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -2471,7 +2471,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods)) %>%
+                        labels = periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -2496,7 +2496,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods)) %>%
+                        labels = periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -2521,7 +2521,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecptsahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods)) %>%
+                        labels = periods)) %>%
   fmtweeklyGBP
 
 # Put all input for the spreadsheet into a list
@@ -2547,7 +2547,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesbhc)) %>%
   mutate_if(is.numeric, comma_format(scale = 1E-6)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods))
+                        labels = periods))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2572,7 +2572,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesahc)) %>%
   mutate_if(is.numeric, comma_format(scale = 1E-6)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods))
+                        labels = periods))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2596,7 +2596,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          Palma = percent(Palma, 1))
 
 # Put all input for the spreadsheet into a list
@@ -2621,7 +2621,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          Palma = percent(Palma, 1))
 
 # Put all input for the spreadsheet into a list
@@ -2646,7 +2646,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          Gini = percent(Gini, 1))
 
 # Put all input for the spreadsheet into a list
@@ -2671,7 +2671,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          Gini = percent(Gini, 1))
 
 # Put all input for the spreadsheet into a list

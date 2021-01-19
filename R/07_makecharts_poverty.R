@@ -14,6 +14,36 @@ povertychartdata <- readRDS("data/povertychartdata.rds")
 
 povertycharts <- list()
 
+# Theme ----
+
+mytheme <- theme_grey() +
+  theme(text = element_text(colour = SGgreys[1], size = 14),
+
+        line = element_line(colour = SGgreys[1],
+                            linetype = 1,
+                            lineend = 2,
+                            size = 0.5),
+
+        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.caption = element_text(hjust = 1),
+
+        legend.position = "top",
+        legend.title = element_blank(),
+
+        panel.background = element_blank(),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+
+        axis.line.x = element_line(),
+        axis.ticks.length = unit(2, "pt"),
+        axis.ticks.y = element_blank(),
+
+        axis.title = element_blank(),
+        axis.text.y = element_blank())
+
+theme_set(mytheme)
+
 # Key trends ----
 
 # chart0a ----

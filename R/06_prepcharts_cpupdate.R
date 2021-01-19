@@ -83,7 +83,6 @@ cp_data[["pers"]] <- persistent %>%
          value = round(chrate, 4),
          chrate3 = round(chrate3, 4))
 
-
-remove(hbai, cmdahc_new, persistent)
-
+saveRDS(cp_data, "data/cp_data.rds")
+rm(list = ls())
 

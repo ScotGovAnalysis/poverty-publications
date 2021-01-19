@@ -14,7 +14,7 @@ hbai <- readRDS("data/tidyhbai.rds")
 # Relative poverty BHC ----------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "low60bhc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "low60bhc")) %>%
   addyearvar() %>%
   checkandfmtUK
 
@@ -70,7 +70,7 @@ createUKSpreadsheet(data)
 # Relative poverty AHC ----------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "low60ahc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "low60ahc")) %>%
   addyearvar() %>%
   checkandfmtUK
 
@@ -94,7 +94,7 @@ pp[is.na(pp)] = "--"
 ch[is.na(ch)] = "--"
 wa[is.na(wa)] = "--"
 pn[is.na(pn)] = "--"
-  
+
 # Put all input for the spreadsheet into a list
 data <- list(df1 = pp,
              df2 = ch,
@@ -128,7 +128,7 @@ createUKSpreadsheet(data)
 # Absolute poverty BHC ----------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "abspovbhc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "abspovbhc")) %>%
   addyearvar() %>%
   checkandfmtUK
 
@@ -184,7 +184,7 @@ createUKSpreadsheet(data)
 # Absolute poverty AHC ----------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "abspovahc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "abspovahc")) %>%
   addyearvar() %>%
   checkandfmtUK
 
@@ -240,7 +240,7 @@ createUKSpreadsheet(data)
 # Child material deprivation BHC ----------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "cmdbhc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getpovbynation, povvar = "cmdbhc")) %>%
   addyearvar() %>%
   checkandfmtUK
 
@@ -279,15 +279,15 @@ createUKSpreadsheet(data)
 # In-work poverty BHC --------------------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getworkpovbynation, povvar = "low60bhc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getworkpovbynation, povvar = "low60bhc")) %>%
   addyearvar() %>%
   group_by(gvtregn) %>%
   arrange(gvtregn, years) %>%
   mutate_at(vars(ends_with("comp")), get3yraverage) %>%
   mutate_at(vars(ends_with("comp")), fmtpct) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
-                        labels = labels[["years"]]$periods)) %>%
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = periods)) %>%
   filter(!is.na(chcomp))
 
 ch <- df %>%
@@ -333,15 +333,15 @@ createUKSpreadsheet(data)
 # In-work poverty AHC --------------------------------------------------------------------------
 
 # Create time series dataset
-df <- do.call(rbind.data.frame, lapply(hbai, getworkpovbynation, povvar = "low60ahc")) %>% 
+df <- do.call(rbind.data.frame, lapply(hbai, getworkpovbynation, povvar = "low60ahc")) %>%
   addyearvar() %>%
   group_by(gvtregn) %>%
   arrange(gvtregn, years) %>%
   mutate_at(vars(ends_with("comp")), get3yraverage) %>%
   mutate_at(vars(ends_with("comp")), fmtpct) %>%
-  mutate(years = factor(years, 
-                        levels = labels[["years"]]$years, 
-                        labels = labels[["years"]]$periods)) %>%
+  mutate(years = factor(years,
+                        levels = labels[["years"]]$years,
+                        labels = periods)) %>%
   filter(!is.na(chcomp))
 
 ch <- df %>%

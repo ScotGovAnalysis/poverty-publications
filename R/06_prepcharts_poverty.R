@@ -29,9 +29,6 @@ relpovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "low60ahc")
 povertychartdata[["relpov"]] <- rbind(relpovbhc, relpovahc) %>%
   mutate_at(vars(contains("rate")), list(~round(., 4)))
 
-
-remove(relpovahc, relpovbhc)
-
 # Absolute poverty ----
 abspovbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovbhc")) %>%
   addyearvar() %>%
@@ -45,7 +42,6 @@ abspovahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "abspovahc"
 
 povertychartdata[["abspov"]] <- rbind(abspovbhc, abspovahc) %>%
   mutate_at(vars(contains("rate")), list(~round(., 4)))
-remove(abspovbhc, abspovahc)
 
 # In-work poverty ----
 workbhc <- do.call(rbind.data.frame,
@@ -68,8 +64,6 @@ workahc <- do.call(rbind.data.frame,
 
 povertychartdata[["workpov"]] <- rbind(workbhc, workahc) %>%
   mutate_at(vars(contains("rate")), list(~round(., 4)))
-
-remove(workbhc, workahc)
 
 # Equality groups ----
 
@@ -173,7 +167,7 @@ cmdbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc")) %>%
                                        get3yraverage(chrate))))) %>%
   tail(-2L) %>%
   select(1:3) %>%
-  mutate(years = factor(years, labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]),
+  mutate(years = factor(years, labels = periods[13:length(periods)]),
          key = "Before housing costs")
 
 cmdahc_new <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc_new")) %>%
@@ -195,13 +189,11 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
   tail(-2L) %>%
   select(1:3) %>%
   mutate(years = factor(years,
-                        labels = labels[["years"]]$periods[13:length(labels[["years"]]$periods)]),
+                        labels = periods[13:length(periods)]),
          key = "After housing costs")
 
 povertychartdata[["cmd"]] <- rbind(cmdahc, cmdbhc) %>%
   mutate_at(vars(contains("rate")), list(~round(., 4)))
-
-remove(cmdahc_new, cmdbhc_new, cmdahc, cmdbhc)
 
 ## pensioners ----
 povertychartdata[["pndep"]] <- do.call(rbind.data.frame,
@@ -281,10 +273,6 @@ povertychartdata[["priority"]] <- rbind(rel, rel1, rel2, rel3, rel4, rel5, rel6,
                                         cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6) %>%
   mutate_at(vars(contains("rate")), list(~round(., 4)))
 
-remove(rel, rel1, rel2, rel3, rel4, rel5, rel6,
-       abs, abs1, abs2, abs3, abs4, abs5, abs6,
-       cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6)
-
 # Income ----
 
 ## medians ----
@@ -294,7 +282,7 @@ medianbhc <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          key = "Before housing costs")
 
 medianahc <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
@@ -303,14 +291,11 @@ medianahc <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          key = "After housing costs")
 
 povertychartdata[["medians"]] <- rbind(medianbhc, medianahc) %>%
   mutate_at(vars(c("ch", "wa", "pn", "pp")), list(~round(., 2)))
-
-remove(medianbhc, medianahc)
-
 
 ## decile points ----
 povertychartdata[["deciles"]] <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
@@ -319,7 +304,7 @@ povertychartdata[["deciles"]] <- do.call(rbind.data.frame, lapply(hbai, getdecpt
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods)) %>%
+                        labels = periods)) %>%
   mutate_if(is.numeric, list(~round(., 2)))
 
 ## distribution ----
@@ -349,9 +334,6 @@ povertychartdata[["sources"]] <- sources %>%
   mutate(decbhc = factor(decbhc)) %>%
   mutate_if(is.numeric, list(~round(., 3)))
 
-remove(sources1, sources2, sources3, sources)
-
-
 ## palma ----
 palmabhc <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   addyearvar() %>%
@@ -359,7 +341,7 @@ palmabhc <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          key = "Before housing costs")
 
 palmaahc <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
@@ -368,13 +350,11 @@ palmaahc <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          key = "After housing costs")
 
 povertychartdata[["palma"]] <- rbind(palmabhc, palmaahc) %>%
   mutate(Palma = round(Palma, 4))
-
-remove(palmabhc, palmaahc)
 
 ## gini ----
 ginibhc <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
@@ -383,7 +363,7 @@ ginibhc <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          key = "Before housing costs")
 
 giniahc <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
@@ -392,14 +372,11 @@ giniahc <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = labels[["years"]]$periods),
+                        labels = periods),
          key = "After housing costs")
 
 povertychartdata[["gini"]] <- rbind(ginibhc, giniahc) %>%
   mutate(Gini = round(Gini, 4))
-
-
-remove(ginibhc, giniahc, hbai, adult, labels)
 
 saveRDS(povertychartdata, "data/povertychartdata.rds")
 rm(list = ls())
