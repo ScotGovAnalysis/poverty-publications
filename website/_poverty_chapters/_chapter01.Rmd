@@ -1,8 +1,12 @@
+**A National Statistics publication**
+
+Published on `r params$pub_day`
+
 `r devnote("This webpage is a development version for the next report. The data is from the last published report.")`
 
 This publication presents three-year averaged estimates of the percentage of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
 
-# Key trends
+## Key trends
 
 * Poverty may have stopped rising, although further years are required to confirm this.
 * Income inequality continues to fluctuate.
@@ -15,7 +19,7 @@ div(class = "row fluid-row",
       div(class = "col-md-4", 
           div(class = "panel panel-default",
               div(class = "panel-heading",
-                  h5(class = "panel-title",
+                  h3(class = "panel-title",
                      "Relative poverty no longer rising")),
               div(class = "panel-body",
                   a(href = "#relpov",
@@ -26,7 +30,7 @@ div(class = "row fluid-row",
      div(class = "col-md-4", 
           div(class = "panel panel-default",
               div(class = "panel-heading",
-                  h5(class = "panel-title",
+                  h3(class = "panel-title",
                      "Income inequality continues to fluctuate")),
               div(class = "panel-body",
                   a(href = "#palma",
@@ -37,7 +41,7 @@ div(class = "row fluid-row",
      div(class = "col-md-4",
          div(class = "panel panel-default",
              div(class = "panel-heading",
-                 h5(class = "panel-title",
+                 h3(class = "panel-title",
                     "Household incomes continue to rise")),
              div(class = "panel-body",
                  a(href = "#incometrends",

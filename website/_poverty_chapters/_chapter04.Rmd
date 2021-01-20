@@ -1,12 +1,12 @@
-# Child poverty
+## Child poverty
 
 The Child Poverty (Scotland) Act 2017 requires us to report annually on a number of child poverty measures. The latest single-year estimates can be found in the [Child Poverty Update](cpupdate.html). The analysis in this report however includes three-year averaged estimates only, which are more suitable for showing trends.
 
 `r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#child).")`
 
-## Key trends {.tabset}
+### Key trends {.tabset}
 
-### Relative poverty
+#### Relative poverty
 
 `r message("Relative poverty rate for children no longer rising")`
 
@@ -14,12 +14,13 @@ It is estimated that 24% of children (230,000 children each year) were living in
 
 After a long fall between 1999-02 and 2010-13, which halted briefly just before the recession, child poverty rates had been rising again but did not rise in the latest periods.
 
-#### Figure 10 - Proportion of children in relative poverty, Scotland
+
 ```{r chart10}
+add_caption("Figure 10 - Proportion of children in relative poverty, Scotland")
 interactive(povertycharts[["chart10"]])
 ```
 
-### Absolute poverty
+#### Absolute poverty
 
 `r message("Absolute poverty rate for children stable")`
 
@@ -27,12 +28,12 @@ Absolute child poverty after housing costs affected 21% (210,000 children each y
 
 Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the recession. The decrease of the after housing costs rate then slowed down. The before housing costs measure continued to decrease until 2013-16 and has been largely flat since. As a result, the gap between absolute child poverty before and after housing costs widened in recent years.
 
-#### Figure 11 - Proportion of children in absolute poverty, Scotland
 ```{r chart11}
+add_caption("Figure 11 - Proportion of children in absolute poverty, Scotland")
 interactive(povertycharts[["chart11"]], height = 4)
 ```
 
-### Material deprivation
+#### Material deprivation
 
 `r message("Children in combined material deprivation and low income broadly stable")`
 
@@ -42,14 +43,15 @@ Combined low income and child material deprivation is an additional way of measu
 
 More detail on this can be found in the [Definitions section](#matdep).
 
-#### Figure 12 - Proportion of children in combined low income and material deprivation, Scotland
+
 ```{r chart12}
+add_caption("Figure 12 - Proportion of children in combined low income and material deprivation, Scotland")
 interactive(povertycharts[["chart12"]])
 ```
 
 `r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.")`
 
-### In-work poverty
+#### In-work poverty
 
 `r message("In-work poverty for children no longer rising")`
 
@@ -61,46 +63,50 @@ This data suggests that after a steady and steep increase of in-work poverty sin
 
 `r infobox("The terms 'working' and 'in-work poverty' here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
 
-#### Figure 13 - Proportion of children in relative poverty who live in working households, Scotland
+
 ```{r chart13}
+add_caption("Figure 13 - Proportion of children in relative poverty who live in working households, Scotland")
 interactive(povertycharts[["chart13"]])
 ```
 
-### Food insecurity
+#### Food insecurity
 
 Add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
-#### Figure 14 - Levels of food security of all children and those in poverty, Scotland `r params$data_year` (fake data!)
 ```{r chart14}
+
+caption <- str_c("Figure 14 - Levels of food security of all children and those in poverty, Scotland ",
+                 params$data_year," (fake data!)")
+add_caption(caption)
 interactive(povertycharts[["chart14"]])
 ```
 
 Bar chart showing the proportion of children who've expericenced food insecurity, broken down by poverty status (all children, childrenin relative poverty AHC, children in combined low income and material deprivation)
 
-## Priority groups {.tabset}
+### Priority groups {.tabset}
 
 add commentary here explaining where the groups are coming from, links with TCPDP, etc.
 
 note re minority ethnic group includes white minorities such as white people who are not British 
 
-### Relative poverty
+#### Relative poverty
 
-#### Figure 15 - Proportion of children in relative poverty after housing cost, Scotland
 ```{r chart15}
+add_caption("Figure 15 - Proportion of children in relative poverty after housing cost, Scotland")
 interactive(povertycharts[["chart15"]])
 ```
 
-### Absolute poverty
+#### Absolute poverty
 
-#### Figure 16 - Proportion of children in absolute poverty after housing costs, Scotland
 ```{r chart16}
+add_caption("Figure 16 - Proportion of children in absolute poverty after housing costs, Scotland")
 interactive(povertycharts[["chart16"]])
 ```
 
-### Material deprivation
+#### Material deprivation
 
-#### Figure 17 - Proportion of children in combined low income and material deprivation, Scotland
 ```{r chart17}
+add_caption("Figure 17 - Proportion of children in combined low income and material deprivation, Scotland")
 interactive(povertycharts[["chart17"]])
 ```
 

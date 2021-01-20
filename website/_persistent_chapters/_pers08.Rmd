@@ -1,4 +1,4 @@
-# Official Statistics
+## Official Statistics
 
 Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
 
@@ -17,27 +17,17 @@ Communities Analysis Division
 
 social-justice-analysis@gov.scot
 
+#### Adress
+
+The Scottish Government<br>
+Communities Analysis Division<br>
+Area 2H North<br>
+Victoria Quay<br>
+Edinburgh EH6 6QQ
+
 #### Phone
 
 0131 244 5851<br>
-
-### Complaints and suggestions
-
-If you are not satisfied with our service or have any comments or suggestions, or for general enquiries about Scottish Government statistics, please write to the Chief Statistician.
-
-#### Address
-
-Scottish Government<br>
-2W St Andrews House<br>
-Edinburgh, EH1 3DG
-
-#### Phone
-
-0131 244 0302
-
-#### Email
-
-statistics.enquiries@gov.scot
 
 If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at [ScotStat](www.gov.scot/scotstat).
 

@@ -1,6 +1,6 @@
-# Find more information
+## Find more information
 
-## Associated tables and further analysis
+### Associated tables and further analysis
 
 This publication contains the headline poverty and household income statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only. The [associated tables](download.html) are available for download.
 
@@ -8,7 +8,7 @@ Additional relative and severe poverty and child poverty estimates including num
 
 Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
 
-## Scottish Government websites
+### Scottish Government websites
 
 Further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
 
@@ -21,15 +21,15 @@ Further analysis based on the FRS and HBAI datasets is published by the Scottish
 - [Further information on all Scottish Government statistics](www.gov.scot/topics/statistics/)
 - [Scottish Government approach to tackling poverty](www.gov.scot/policies/poverty-and-social-justice/)
 
-## Local poverty analysis
+### Local poverty analysis
 
 The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
 
 More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
 
-## Previous reports
+### Previous reports
 
-### Poverty and Income Inequality in Scotland
+#### Poverty and Income Inequality in Scotland
 
 - [Latest report](./)
 - [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
@@ -42,7 +42,7 @@ More information on [local poverty and income analysis from alternative data sou
 - [2011/12 report](www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
 - [2010/11 report](www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
 
-### Persistent Poverty in Scotland
+#### Persistent Poverty in Scotland
 
 - [Latest report](persistent.html)
 - [2010-2018 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)

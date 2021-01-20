@@ -1,30 +1,30 @@
-# In the UK
+## In the UK
 
 `r devnote("update manually and make sure that wording makes sense")`
 
-## All individuals {.tabset}
+### All individuals {.tabset}
 
 When looking at the overall population, Scotland had levels of persistent poverty after housing costs that were similar to England and Wales and slightly higher than in Northern Ireland.
 
 Between `r params$data_period_long`, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%. 
 
-### After housing costs
+#### After housing costs
 
-#### Chart 3: Proportion of people in persistent poverty by UK country
+##### Chart 3: Proportion of people in persistent poverty by UK country
 ```{r chart03}
 interactive(persistentcharts[["chart03"]])
 ```
 
-### Before housing costs
+#### Before housing costs
 
-#### Chart 4: Proportion of people in persistent poverty by UK country
+##### Chart 4: Proportion of people in persistent poverty by UK country
 ```{r chart04}
 interactive(persistentcharts[["chart04"]])
 ```
 
-### Table
+#### Table
 
-#### Table 2: Proportion of people in persistent poverty by country {#table2}
+##### Table 2: Proportion of people in persistent poverty by country {#table2}
 ```{r table2}
 
 data <- persistenttables[["table2"]]
@@ -42,29 +42,29 @@ kableExtra::kable(data,
            general_title = "")
 ```
 
-## Children {.tabset}
+### Children {.tabset}
 
 Between `r params$data_period_long`, the persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). 
 
 In previous periods, persistent child poverty levels in Scotland and Northern Ireland had been similar, and consistently below the English and Welsh rates. 
 
-### After housing costs
+#### After housing costs
 
-#### Chart 5: Proportion of children in persistent poverty by UK country
+##### Chart 5: Proportion of children in persistent poverty by UK country
 ```{r chart05}
 interactive(persistentcharts[["chart05"]])
 ```
 
-### Before housing costs
+#### Before housing costs
 
-#### Chart 6: Proportion of children in persistent poverty by UK country
+##### Chart 6: Proportion of children in persistent poverty by UK country
 ```{r chart06}
 interactive(persistentcharts[["chart06"]])
 ```
 
-### Table
+#### Table
 
-#### Table 3: Proportion of children in persistent poverty by country {#table3}
+##### Table 3: Proportion of children in persistent poverty by country {#table3}
 ```{r table3}
 
 data <- persistenttables[["table3"]]
@@ -82,27 +82,27 @@ kableExtra::kable(data,
            general_title = "")
 ```
 
-## Working-age adults {.tabset}
+### Working-age adults {.tabset}
 
 Between `r params$data_period_long`, persistent poverty rates after housing costs for working-age adults in Scotland were the same as those in Northern Ireland (11%) and slightly below those in England and Wales (both 12%). 
 
-### After housing costs
+#### After housing costs
 
-#### Chart 7: Proportion of working-age adults in persistent poverty by UK country
+##### Chart 7: Proportion of working-age adults in persistent poverty by UK country
 ```{r chart07}
 interactive(persistentcharts[["chart07"]])
 ```
 
-### Before housing costs
+#### Before housing costs
 
-#### Chart 8: Proportion of working-age adults in persistent poverty by UK country
+##### Chart 8: Proportion of working-age adults in persistent poverty by UK country
 ```{r chart08}
 interactive(persistentcharts[["chart08"]])
 ```
 
-### Table
+#### Table
 
-#### Table 4: Proportion of working-age adults in persistent poverty by country {#table4}
+##### Table 4: Proportion of working-age adults in persistent poverty by country {#table4}
 ```{r table4}
 
 data <- persistenttables[["table4"]]
@@ -120,27 +120,27 @@ kableExtra::kable(data,
            general_title = "")
 ```
 
-## Pensioners {.tabset}
+### Pensioners {.tabset}
 
 Between `r params$data_period_long`, persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).
 
-### After housing costs
+#### After housing costs
 
-#### Chart 9: Proportion of pensioners in persistent poverty by UK country
+##### Chart 9: Proportion of pensioners in persistent poverty by UK country
 ```{r chart09}
 interactive(persistentcharts[["chart09"]])
 ```
 
-### Before housing costs
+#### Before housing costs
 
-#### Chart 10: Proportion of pensioners in persistent poverty by UK country
+##### Chart 10: Proportion of pensioners in persistent poverty by UK country
 ```{r chart10}
 interactive(persistentcharts[["chart10"]])
 ```
 
-### Table
+#### Table
 
-#### Table 5: Proportion of pensioners in persistent poverty by country {#table5}
+##### Table 5: Proportion of pensioners in persistent poverty by country {#table5}
 ```{r table5}
 
 data <- persistenttables[["table5"]]

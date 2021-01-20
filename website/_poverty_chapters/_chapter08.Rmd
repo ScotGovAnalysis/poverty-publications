@@ -1,10 +1,10 @@
-# -----------------
+## -----------------
 
-# Data sources
+## Data sources
 
 All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset which is produced from the Family Resources Survey. UK figures are published by DWP in [Households Below Average Income](www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](./). For the UK figures, as well as more detail about the way these figures are collected and calculated, see the DWP website.
 
-## What does HBAI measure?
+### What does HBAI measure?
 
 Households Below Average Income (HBAI) uses household disposable incomes, adjusted for the household size and composition, as a proxy for material living standards. More precisely, it is a proxy for the level of consumption of goods and services that people could attain given the disposable income of the household in which they live.
 
@@ -12,11 +12,11 @@ The unit of analysis is the individual, so the populations and percentages in th
 
 The living standards of an individual depend not only on his or her own income, but also on the income of others in the household. Consequently, the analyses are based on total household income: the equivalised income of a household is taken to represent the income level of every individual in the household. Equivalisation, a technique that allows comparison of incomes between households of different sizes and compositions, is explained in Annex B under Equivalisation. Thus, all members of any one household will appear at the same point in the income distribution.
 
-## Population coverage
+### Population coverage
 
 The Family Resources Survey is a survey of private households. This means that people in residential institutions, such as nursing homes, barracks, prisons or university halls of residence, and also homeless people are excluded from the scope of the analysis presented here. The area of Scotland north of the Caledonian Canal was included in the FRS for the first time in the 2001/02 survey year, and from the 2002/03 survey year, the FRS was extended to include a 100 percent boost of the Scottish sample. This has increased the sample size available for analysis at the Scottish level. In 2002/03, the sample size was around five thousand. However, following cost savings introduced to the FRS in 2010, the sample size in Scotland has reduced. It was just over 2,800 households in `r params$data_year`. For further information see the DWP [Households Below Average Income publication](www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
-## Reliability of estimates
+### Reliability of estimates
 
 The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) presented are available.
 
@@ -24,11 +24,11 @@ The method used to calculate these confidence intervals changed in 2015/16. Info
 
 The [Family Resources Survey publication](www.gov.uk/government/collections/family-resources-survey--2#background-information-and-guidance) contains information on topics such as sample design, non-response biases, weighting; item non-response, imputation and editing; accuracy of income data.
 
-## Detailed methodology
+### Detailed methodology
 
 More detailed information on definitions and methodology can be found on the Scottish Government's [poverty methodology pages](www.gov.scot/publications/poverty-in-scotland-methodology/) and in DWP's [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
-## Persistent poverty
+### Persistent poverty
 
 [New figures on persistent poverty](persistent.html) were published on 26 March 2020.
 
@@ -38,7 +38,7 @@ One of the four statutory child poverty target measures is persistent child pove
 
 These figures come from the Understanding Society survey which tracks individuals over time. The persistent poverty figures are not directly comparable to the figures in this publication as they use different income definitions and cover different time periods, but they provide useful additional information on poverty in Scotland.
 
-## Housing costs
+### Housing costs
 
 It could be argued that the costs of housing faced by different households at a given time do not always match the true value of the housing that they actually enjoy, and that housing costs should therefore be deducted from any definition of disposable income. However, any measure of income defined in this way would understate the relative standard of living of those individuals who were actually benefiting from a better quality of housing by paying more for better accommodation. Income growth over time would also understate improvements in living standards where higher costs reflected improvements in the quality of housing.
 

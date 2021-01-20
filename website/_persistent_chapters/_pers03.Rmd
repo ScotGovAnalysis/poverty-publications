@@ -1,4 +1,4 @@
-# In Scotland {.tabset}
+## In Scotland {.tabset}
 
 `r devnote("Check that wording makes sense")`
 
@@ -34,21 +34,21 @@ Before housing costs, the proportion of pensioners in persistent poverty was `r 
 
 For most groups of the population, the persistent poverty rate after housing costs is greater or the same than that before housing costs. Often, the opposite is true, or the rates are very similar, for pensioners. The majority of pensioners own their own home and so have lower housing costs. Examining pensioners’ incomes after deducting housing costs allows for more meaningful comparisons of income between working-age people and pensioners, and of the pensioner population over time.
 
-## After housing costs
+### After housing costs
 
 #### Chart 1: Proportion of people in persistent poverty in Scotland AHC by age group
 ```{r chart01}
 interactive(persistentcharts[["chart01"]])
 ```
 
-## Before housing costs
+### Before housing costs
 
 #### Chart 2: Proportion of people in persistent poverty in Scotland BHC by age group
 ```{r chart02}
 interactive(persistentcharts[["chart02"]])
 ```
 
-## Table
+### Table
 
 #### Table 1: Proportion of people in persistent poverty in Scotland by age group {#table1}
 ```{r table1}

@@ -1,0 +1,73 @@
+---
+title: "Accessibility"
+---
+
+<!-- Include skip target at the top of the document -->
+
+<script>
+$(document).ready(function(){
+  $head = $('#header');
+  $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+});
+</script>
+
+
+Last updated: 25 June 2020
+
+This website is run by the Scottish Government.
+
+We want it to be accessible and usable for as many people as possible.
+
+## Feedback
+
+Contact us if you:
+
+- Cannot access any part of this site or want to report an accessibility problem.
+- Need information on this website in a different format. Such as accessible PDF, large print, easy read, audio recording or braille. We’ll consider your request and get back to you as soon as we can.
+
+### Enforcement
+
+If you’re not happy with how we respond to your feedback, contact the Equality Advisory and Support Service. They are an independent advice service. They will advise you on what to do next.
+
+## Compliance
+
+Scottish Government is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+
+This accessibility statement applies to the Poverty in Scotland website.
+
+### Compliance status
+
+This website is partially compliant with the regulations, due to the non-compliances listed below.
+
+## Non-accessible content
+
+The content listed below is not-compliant with the regulations:
+
+- Some charts in the detailed analysis contain text that is difficult for people using screen readers to access
+- Some text does not appear in high contrast mode - mostly chart tooltips and annotations within charts
+
+## Preparation of statement
+
+This statement was prepared on 25 June 2020.
+
+These web pages were reviewed by an internal accessibility specialist in June 2020.
+
+## Contact {#contact}
+
+For enquiries about these reports please contact us.
+
+### Email
+
+social-justice-analysis@gov.scot
+
+### Address
+
+The Scottish Government<br>
+Communities Analysis Division<br>
+Area 2H North<br>
+Victoria Quay<br>
+Edinburgh EH6 6QQ
+
+### Phone
+
+0131 244 5851<br>

@@ -1,24 +1,24 @@
-# -----------------
+## -----------------
 
-# Methodology
+## Methodology
 
 This section provides key information on the methodology used to produce persistent poverty statistics. A more detailed methodological paper is available from the Department for Work and Pensions’ (DWP) [website](www.gov.uk/government/collections/income-dynamics-statistics).
 
-## Data sources
+### Data sources
 
 The figures in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.
 
-## Comparison with other sources
+### Comparison with other sources
 
 Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](index.html) come from a different source – DWP’s Households Below Average Income dataset which is produced from the Family Resource Survey (FRS). This is the best source of household income data available in the UK. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
 
 The FRS and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.
 
-## Housing costs
+### Housing costs
 
 This publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is principally to take into account variations in housing costs that themselves do not correspond to comparable variations in the quality of housing. 
 
-## Time periods {#periods}
+### Time periods {#periods}
 
 This publication presents persistent poverty rates for six overlapping periods: 
 
@@ -61,11 +61,11 @@ kable(df, col.names = c("Wave", "Start year", "End year",
 
 There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper [Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)](www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.
 
-## Population coverage 
+### Population coverage 
 
 Understanding Society is a survey of private households (although it does collect information from households about their children if a child has moved into an institution). This means that people who were in residential institutions, such as nursing homes, barracks, prisons or university halls of residence at the start of the survey are excluded from the scope of the analysis presented here.
 
-## Reliability of estimates 
+### Reliability of estimates 
 
 The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations.
 
@@ -73,6 +73,6 @@ As with most longitudinal surveys, attrition reduces the Understanding Society s
 
 Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.
 
-## Age groups
+### Age groups
 
 Whether an individual is counted as a child, working-age adult or pensioner is determined by their age during the first survey period. So, for example, an individual aged 15 in 2011 and aged 19 in 2015 will be counted as a child for the 2011-15 period.

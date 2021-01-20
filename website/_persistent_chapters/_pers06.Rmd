@@ -1,6 +1,6 @@
-# Definitions
+## Definitions
 
-## Measures of income 
+### Measures of income 
 
 The income used to determine persistent poverty in this publication includes:
 
@@ -21,6 +21,6 @@ Income is adjusted for household size and composition by means of equivalence sc
 
 Income after housing costs (AHC) is derived by deducting a measure of housing costs derived from mortgage and rents from the above income measure. 
 
-## Equivalisation 
+### Equivalisation 
 
 Equivalisation is the process by which household income is adjusted to make it comparable across households of different size and composition. This reflects the fact that a bigger household requires more money than a smaller one to achieve the same standard of living. Further information on equivalisation can be found on the [Scottish Government poverty methodology webpages](www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/)

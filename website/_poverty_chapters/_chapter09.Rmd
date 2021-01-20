@@ -1,6 +1,6 @@
-# Definitions
+## Definitions
 
-## Household income
+### Household income
 
 The income measure used in HBAI is weekly net (disposable) equivalised household income. This comprises total income from all sources of all household members including dependants. An adjustment is made to sample cases at the top of the income distribution to correct for volatility in the highest incomes captured in the survey.
 
@@ -10,11 +10,11 @@ Income is adjusted for household size and composition by means of equivalence sc
 * Income after housing costs (AHC) is derived by deducting a measure of housing costs from the above income measure.
 * Housing costs include the following: rent (gross of housing benefit); water rates; mortgage interest payments; structural insurance premiums; ground rent and service charges.
 
-## Income sources
+### Income sources
 
 The analysis on income sources is the only analysis in this report not using net income. This analysis is based on income before taxes from employment or self-employment, social security payments, investment, occupational pensions and other income. In some cases, income from self-employment was negative in a year, for example, when someone in self-employment made a loss. In these cases, total income from earnings was reset to zero.
 
-## Real prices
+### Real prices
 
 Unless otherwise stated, all figures relating to income are in `r params$data_year` prices. Values from previous years are uprated to account for inflation using a variant of the Consumer Price Index (CPI). This follows a change in methodology for 2014/15. Prior to this the Retail Price Index (RPI) was used.
 
@@ -26,7 +26,7 @@ This led to a change in HBAI methodology in 2014/15 and the Scottish Government 
 
 Full details can be found at this link: [Methodological changes to poverty statistics](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
 
-## Equivalisation
+### Equivalisation
 
 Equivalisation is the process by which household income is adjusted to take into account variations in the size and composition of the households in which individuals live. This reflects the common sense notion that, in order to enjoy a comparable standard of living, a household of, for example, three adults will need a higher income than a single person living alone. The process of adjusting income in this way is known as equivalisation and is needed in order to make sensible income comparisons between households.
 
@@ -54,15 +54,15 @@ This is made up of 0.67 for the first adult, 0.33 for their spouse, the other ad
 
 Further information on equivalisation can be found in the [methodology report](www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
 
-## Dependent children {#child}
+### Dependent children {#child}
 
 In this publication, 'child' refers to a dependent child. A dependent child is a person either aged 0-15, or aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
 
-## Single mothers / single women with children
+### Single mothers / single women with children
 
 Family types are becoming increasingly complex. In this publication, 'single mothers' refers to a situation where the primary residence of a dependent child is in a household with one adult, who is female. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Currently, some, but not all income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
 
-## Poverty measurement
+### Poverty measurement
 
 Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the UK median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
 
@@ -70,12 +70,12 @@ For a couple with no children, the UK median income BHC in `r params$data_period
 
 Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
 
-## Relative and absolute poverty
+### Relative and absolute poverty
 
 * Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
 * Relative poverty - individuals living in households whose equivalised income is below 60 percent of median income in the same year. This is a measure of whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole.
 
-## Material deprivation for children {#matdep}
+### Material deprivation for children {#matdep}
 
 A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (McKay, S. and Collard, S. (2004))](www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
 
@@ -83,7 +83,7 @@ These questions are used as an additional way of measuring living standards for 
 
 A prevalence weighted approach has been used, in combination with a relative low income threshold. The income threshold is 70 percent of the median income. Prevalence weighting is a technique of scoring deprivation in which more weight in the deprivation measure is given to households lacking those items that most in the population already have. This means a greater importance, when an item is lacked, is assigned to those items that are more commonly owned in the population.
 
-### Changes to measuring material deprivation in 2010/11
+#### Changes to measuring material deprivation in 2010/11
 
 The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the UK believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11 four new questions about additional items were included in the FRS to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
 
@@ -91,7 +91,7 @@ In the 2010/11 FRS, both the new and the old questions were asked. As such, esti
 
 For further information about material deprivation see the DWP [Households Below Average Income publication](www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
-## Material deprivation for pensioners {#penmatdep}
+### Material deprivation for pensioners {#penmatdep}
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 
