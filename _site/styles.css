@@ -7,7 +7,7 @@ em {
   font-style: normal;
 }
 
-h4 {
+.caption {
   font-weight: 900;
 }
 
@@ -209,5 +209,6 @@ a:focus {
 .panel > .panel-heading > p {
   margin-bottom: 0;
 }
+
 
 
