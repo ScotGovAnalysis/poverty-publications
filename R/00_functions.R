@@ -1892,7 +1892,7 @@ createSepsheet <- function(filename = filename, sheetname, text) {
   addWorksheet(wb, sheetname, gridLines = FALSE)
   writeData(wb, sheetname, text, startRow = 2,
             startCol = 2)
-  addStyle(wb, "- 1 -", rows = 2, cols = 2, style = titleStyle)
+  addStyle(wb, sheetname, rows = 2, cols = 2, style = titleStyle)
   saveWorkbook(wb, filename, overwrite = TRUE)
 }
 
