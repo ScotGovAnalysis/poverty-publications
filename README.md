@@ -46,6 +46,7 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
 * R/00_colours.R
 * R/00_functions.R
+* R/00_functions_rmd.R
 * R/00_strings.R
 
 ### Data prep<a name="dataprep"></a>
