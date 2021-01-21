@@ -1,159 +1,78 @@
-## In the UK
+## -----------------
 
-`r devnote("update manually and make sure that wording makes sense")`
+## Methodology
 
-### All individuals {.tabset}
+This section provides key information on the methodology used to produce persistent poverty statistics. A more [detailed methodological paper](www.gov.uk/government/collections/income-dynamics-statistics) is available from the Department for Work and Pensions’ (DWP) website.
 
-When looking at the overall population, Scotland had levels of persistent poverty after housing costs that were similar to England and Wales and slightly higher than in Northern Ireland.
+### Data sources
 
-Between `r params$data_period_long`, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%. 
+The figures in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.
 
-#### After housing costs
+### Comparison with other sources
 
-##### Chart 3: Proportion of people in persistent poverty by UK country
-```{r chart03}
-interactive(persistentcharts[["chart03"]])
+Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](index.html) come from a different source – DWP’s Households Below Average Income dataset which is produced from the Family Resource Survey (FRS). This is the best source of household income data available in the UK. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
+
+The FRS and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.
+
+### Housing costs
+
+This publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is principally to take into account variations in housing costs that themselves do not correspond to comparable variations in the quality of housing. 
+
+### Time periods {#periods}
+
+This publication presents persistent poverty rates for six overlapping periods: 
+
+* 2010-2011 to 2013-2014 (referred to as 2010-2014)
+* 2011-2012 to 2014-2015 (referred to as 2011-2015)
+* 2012-2013 to 2015-2016 (referred to as 2012-2016)
+* 2013-2014 to 2016-2017 (referred to as 2013-2017)
+* 2014-2015 to 2017-2018 (referred to as 2014-2018)
+* 2015-2016 to 2018-2019 (referred to as 2015-2019)
+
+Persistent poverty statistics are based on tracking an individual over a four-year period. Each set of results are therefore based on four waves of the Understanding Society survey. This publication presents persistent poverty statistics based on waves 2-5, waves 3-6, waves 4-7, waves 5-8, waves 6-9, and waves 7-10. Each wave of interviews is conducted over a two-year period as shown in the table below.
+
+An individual is in persistent poverty if they are in relative poverty for at least three years in any four-year period. This means that the same individual can be in persistent poverty in all, any or none of the time periods covered in this publication.
+
+```{r table}
+df <- data.frame(Wave = c(1:10),
+                 "Start year" = c(2009:2018),
+                 "End year" = c(2010:2019),
+                 "In 2010-2014 statistics?" = c("no", "yes", "yes", "yes", "yes", "no", "no", "no", "no", "no"),
+                 "In 2011-2015 statistics?" = c("no", "no", "yes", "yes", "yes", "yes", "no", "no", "no", "no"),
+                 "In 2012-2016 statistics?" = c("no", "no", "no", "yes", "yes", "yes", "yes", "no", "no", "no"),
+                 "In 2013-2017 statistics?" = c("no", "no", "no", "no", "yes", "yes", "yes", "yes", "no", "no"),
+                 "In 2014-2018 statistics?" = c("no", "no", "no", "no", "no", "yes", "yes", "yes", "yes", "no"),
+                 "In 2015-2019 statistics?" = c("no", "no", "no", "no", "no", "no", "yes", "yes", "yes", "yes"))
+
+kable(df, col.names = c("Wave", "Start year", "End year", 
+                        "In 2010-2014 statistics?", 
+                        "In 2011-2015 statistics?", 
+                        "In 2012-2016 statistics?",
+                        "In 2013-2017 statistics?",
+                        "In 2014-2018 statistics?",
+                        "In 2015-2019 statistics?"),
+      align = "cccccccc") %>%
+  kable_styling(bootstrap_options = c("striped",
+                                      "hover",
+                                      "responsive",
+                                      "condensed"),
+                full_width = F, position = "left") 
 ```
 
-#### Before housing costs
+There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper [Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)](www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.
 
-##### Chart 4: Proportion of people in persistent poverty by UK country
-```{r chart04}
-interactive(persistentcharts[["chart04"]])
-```
+### Population coverage 
 
-#### Table
+Understanding Society is a survey of private households (although it does collect information from households about their children if a child has moved into an institution). This means that people who were in residential institutions, such as nursing homes, barracks, prisons or university halls of residence at the start of the survey are excluded from the scope of the analysis presented here.
 
-##### Table 2: Proportion of people in persistent poverty by country {#table2}
-```{r table2}
+### Reliability of estimates 
 
-data <- persistenttables[["table2"]]
-pers_source <- persistenttables[["source"]]
+The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations.
 
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
-                full_width = F, position = "left")  %>%
-  add_header_above(c(" ", "Before housing costs" = 5, "After housing costs" = 5)) %>%
-  footnote(general = pers_source,
-           general_title = "")
-```
+As with most longitudinal surveys, attrition reduces the Understanding Society sample size over time. As well as attrition reducing the sample size, we have missing data for many of the variables we are using in the analysis. We exclude individuals with missing data from relevant analysis, but include individuals whenever we can. Weights have been applied which adjust for unequal selection probabilities, differential non-response, and potential sampling error.
 
-### Children {.tabset}
+Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.
 
-Between `r params$data_period_long`, the persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). 
+### Age groups
 
-In previous periods, persistent child poverty levels in Scotland and Northern Ireland had been similar, and consistently below the English and Welsh rates. 
-
-#### After housing costs
-
-##### Chart 5: Proportion of children in persistent poverty by UK country
-```{r chart05}
-interactive(persistentcharts[["chart05"]])
-```
-
-#### Before housing costs
-
-##### Chart 6: Proportion of children in persistent poverty by UK country
-```{r chart06}
-interactive(persistentcharts[["chart06"]])
-```
-
-#### Table
-
-##### Table 3: Proportion of children in persistent poverty by country {#table3}
-```{r table3}
-
-data <- persistenttables[["table3"]]
-pers_source <- persistenttables[["source"]]
-
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
-                full_width = F, position = "left")  %>%
-  add_header_above(c(" ", "Before housing costs" = 5, "After housing costs" = 5)) %>%
-  footnote(general = pers_source,
-           general_title = "")
-```
-
-### Working-age adults {.tabset}
-
-Between `r params$data_period_long`, persistent poverty rates after housing costs for working-age adults in Scotland were the same as those in Northern Ireland (11%) and slightly below those in England and Wales (both 12%). 
-
-#### After housing costs
-
-##### Chart 7: Proportion of working-age adults in persistent poverty by UK country
-```{r chart07}
-interactive(persistentcharts[["chart07"]])
-```
-
-#### Before housing costs
-
-##### Chart 8: Proportion of working-age adults in persistent poverty by UK country
-```{r chart08}
-interactive(persistentcharts[["chart08"]])
-```
-
-#### Table
-
-##### Table 4: Proportion of working-age adults in persistent poverty by country {#table4}
-```{r table4}
-
-data <- persistenttables[["table4"]]
-pers_source <- persistenttables[["source"]]
-
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
-                full_width = F, position = "left")  %>%
-  add_header_above(c(" ", "Before housing costs" = 5, "After housing costs" = 5)) %>%
-  footnote(general = pers_source,
-           general_title = "")
-```
-
-### Pensioners {.tabset}
-
-Between `r params$data_period_long`, persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).
-
-#### After housing costs
-
-##### Chart 9: Proportion of pensioners in persistent poverty by UK country
-```{r chart09}
-interactive(persistentcharts[["chart09"]])
-```
-
-#### Before housing costs
-
-##### Chart 10: Proportion of pensioners in persistent poverty by UK country
-```{r chart10}
-interactive(persistentcharts[["chart10"]])
-```
-
-#### Table
-
-##### Table 5: Proportion of pensioners in persistent poverty by country {#table5}
-```{r table5}
-
-data <- persistenttables[["table5"]]
-pers_source <- persistenttables[["source"]]
-
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
-                full_width = F, position = "left")  %>%
-  add_header_above(c(" ", "Before housing costs" = 5, "After housing costs" = 5)) %>%
-  footnote(general = pers_source,
-           general_title = "")
-```
+Whether an individual is counted as a child, working-age adult or pensioner is determined by their age during the first survey period. So, for example, an individual aged 15 in 2011 and aged 19 in 2015 will be counted as a child for the 2011-15 period.

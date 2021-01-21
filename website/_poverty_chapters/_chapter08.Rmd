@@ -18,9 +18,9 @@ The Family Resources Survey is a survey of private households. This means that p
 
 ### Reliability of estimates
 
-The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) presented are available.
+The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](https://www.gov.scot/publications/confidence-intervals-for-poverty-statistics/) presented are available.
 
-The method used to calculate these confidence intervals changed in 2015/16. Information on this can be found in DWP's [statistical notice](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
+The method used to calculate these confidence intervals changed in 2015/16. Information on this can be found in DWP's [statistical notice (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
 
 The [Family Resources Survey publication](www.gov.uk/government/collections/family-resources-survey--2#background-information-and-guidance) contains information on topics such as sample design, non-response biases, weighting; item non-response, imputation and editing; accuracy of income data.
 

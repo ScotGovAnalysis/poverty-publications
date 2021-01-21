@@ -20,63 +20,11 @@ library(scales)
 library(ggiraph)
 library(htmltools)
 
-source("R/00_functions.R")
+source("R/00_functions_rmd.R")
 source("R/00_colours.R")
 
 cp_charts <- readRDS("data/cp_charts.rds")
 
-create_html <- function(md) {
-  htmltools::HTML(
-    markdown::markdownToHTML(
-      text = md, fragment.only = TRUE
-    )
-  )
-}
-
-make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
-                        title_tr, subtitle_tr, text_tr, chart_tr, desc_tr,
-                        title_bl, subtitle_bl, text_bl, chart_bl, desc_bl,
-                        title_br, subtitle_br, text_br, chart_br, desc_br) {
-  
-  div(class = "row fluid-row",
-     
-      div(class = "col-md-6", 
-          
-          div(class = "panel panel-default",
-              div(class = "panel-heading",
-                  h1(class = "panel-title", title_tl),
-                  p(subtitle_tl)),
-              div(class = "panel-body",
-                  p(text_tl),
-                  chart_tl)),
-              
-          div(class = "panel panel-default",
-              div(class = "panel-heading",
-                  h1(class = "panel-title", title_bl),
-                  p(subtitle_bl)),
-              div(class = "panel-body",
-                  p(text_bl),
-                  chart_bl))),
-     
-      div(class = "col-md-6", 
-          
-          div(class = "panel panel-default",
-              div(class = "panel-heading",
-                  h1(class = "panel-title", title_tr),
-                  p(subtitle_tr)),
-              div(class = "panel-body",
-                  p(text_tr),
-                  chart_tr)),
-          
-          div(class = "panel panel-default",
-              div(class = "panel-heading",
-                  h1(class = "panel-title", title_br),
-                  p(subtitle_br)),
-              div(class = "panel-body",
-                  p(text_br),
-                  chart_br))) )
-}
- 
 # Theme ----
 
 mytheme <- theme_grey() +

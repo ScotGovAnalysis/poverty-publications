@@ -1,70 +1,167 @@
-## In Scotland {.tabset}
+## Persistent poverty
 
-`r devnote("Check that wording makes sense")`
+`r devnote("update manually and make sure that wording makes sense")`
 
 Someone is in persistent poverty if they have been in poverty for three or more of the last four years. This measure is important because the longer someone is in poverty, the more it impacts on their health, well-being, and overall life chances.
 
 Poverty estimates in this publication are derived by looking at household income before housing costs are paid for (BHC) and after housing costs are paid for (AHC). 
 
-**All individuals**
+### All individuals {.tabset}
 
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCpp %>% tail(1L)` of people in Scotland were in persistent poverty after housing costs, compared to `r persistenttables[["table1"]]$AHCpp %>% tail(2L) %>% head(1L)` in the previous period.
+- Between `r params$data_period_long`, `r persistenttables[["tableScotland"]]$AHCpp %>% tail(1L)` of people in Scotland were in persistent poverty after housing costs, compared to `r persistenttables[["tableScotland"]]$AHCpp %>% tail(2L) %>% head(1L)` in the previous period (`r params$prev_period`). Before housing costs, `r persistenttables[["tableScotland"]]$BHCpp %>% tail(1L)` of all people in Scotland were in persistent poverty, compared to `r persistenttables[["tableScotland"]]$BHCpp %>% tail(2L) %>% head(1L)` in the previous period.
+- Scotland had levels of persistent poverty after housing costs that were similar to England and Wales and slightly higher than in Northern Ireland: Between `r params$data_period_long`, Scotland, England and Wales all had a persistent poverty rate after housing cost of 13%, whereas Northern Ireland had a slightly lower rate with 11%. 
 
-Before housing costs, `r persistenttables[["table1"]]$BHCpp %>% tail(1L)` of all people in Scotland were in persistent poverty, compared to `r persistenttables[["table1"]]$BHCpp %>% tail(2L) %>% head(1L)` in the previous period.
+#### After housing costs
 
-**Children**
-
-Persistent poverty rates were higher for children.
-
-Children have consistently had the highest risk of living in persistent poverty after housing costs (`r persistenttables[["table1"]]$AHCch %>% tail(1L)` in `r params$data_period`) when comparing with working-age adults (`r persistenttables[["table1"]]$AHCwa %>% tail(1L)`) and pensioners (`r persistenttables[["table1"]]$AHCpn %>% tail(1L)`). In the previous period, `r persistenttables[["table1"]]$AHCpp %>% tail(2L) %>% head(1L)` of children were in persistent poverty after housing costs.
-
-Before housing costs, `r persistenttables[["table1"]]$BHCch %>% tail(1L)` of children were in persistent poverty, compared to `r persistenttables[["table1"]]$BHCch %>% tail(2L) %>% head(1L)` in the previous period.
-
-**Working-age adults**
-
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCwa %>% tail(1L)` of working-age adults were in persistent poverty after housing costs, compared to `r persistenttables[["table1"]]$AHCwa %>% tail(2L) %>% head(1L)` in the previous period.
-
-Before housing costs, `r persistenttables[["table1"]]$BHCwa %>% tail(1L)` of working-age adults were in persistent poverty, compared to `r persistenttables[["table1"]]$BHCwa %>% tail(2L) %>% head(1L)` in the previous period.
-
-**Pensioners**
-
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCpn %>% tail(1L)` of pensioners were in persistent poverty after housing costs, compared to `r persistenttables[["table1"]]$AHCpn %>% tail(2L) %>% head(1L)` in the previous period.
-
-Before housing costs, the proportion of pensioners in persistent poverty was `r persistenttables[["table1"]]$BHCpn %>% tail(1L)`, compared to `r persistenttables[["table1"]]$BHCpn %>% tail(2L) %>% head(1L)` in the previous period.
-
-For most groups of the population, the persistent poverty rate after housing costs is greater or the same than that before housing costs. Often, the opposite is true, or the rates are very similar, for pensioners. The majority of pensioners own their own home and so have lower housing costs. Examining pensioners’ incomes after deducting housing costs allows for more meaningful comparisons of income between working-age people and pensioners, and of the pensioner population over time.
-
-### After housing costs
-
-#### Chart 1: Proportion of people in persistent poverty in Scotland AHC by age group
 ```{r chart01}
-interactive(persistentcharts[["chart01"]])
+caption <- "Figure 1: Proportion of people in persistent poverty by UK country"
+interactive(persistentcharts[["chart01"]], caption = caption)
 ```
 
-### Before housing costs
+#### Before housing costs
 
-#### Chart 2: Proportion of people in persistent poverty in Scotland BHC by age group
 ```{r chart02}
-interactive(persistentcharts[["chart02"]])
+caption <- "Figure 2: Proportion of people in persistent poverty by UK country"
+interactive(persistentcharts[["chart02"]], caption = caption)
 ```
 
-### Table
+#### Table
 
-#### Table 1: Proportion of people in persistent poverty in Scotland by age group {#table1}
 ```{r table1}
+add_tablecaption("Table 1: Proportion of people in persistent poverty by country")
 data <- persistenttables[["table1"]]
 pers_source <- persistenttables[["source"]]
 
 kableExtra::kable(data, 
-      col.names = c("Period", "All", "Children", "Working-age adults", 
-                    "Pensioners", "All", "Children", "Working-age adults", 
-                    "Pensioners"),
-      align = c('lrrrrrrrr')) %>%
+      col.names = c("Period", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK"),
+      align = c('lrrrrrrrrrr')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c(" ", "Before housing costs" = 4, "After housing costs" = 4)) %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
   footnote(general = pers_source,
            general_title = "")
-  
+
 ```
 
+### Children {.tabset}
+
+- Persistent poverty rates were higher for children.
+- Children have consistently had the highest risk of living in persistent poverty after housing costs (`r persistenttables[["tableScotland"]]$AHCch %>% tail(1L)` in Scotland in `r params$data_period`) when comparing with working-age adults (`r persistenttables[["tableScotland"]]$AHCwa %>% tail(1L)`) and pensioners (`r persistenttables[["tableScotland"]]$AHCpn %>% tail(1L)`). In the previous period, `r persistenttables[["tableScotland"]]$AHCpp %>% tail(2L) %>% head(1L)` of children were in persistent poverty after housing costs. Before housing costs, `r persistenttables[["tableScotland"]]$BHCch %>% tail(1L)` of children were in persistent poverty, compared to `r persistenttables[["tableScotland"]]$BHCch %>% tail(2L) %>% head(1L)` in the previous period.
+- The persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17% in `r params$data_period`) was lower than in England (20%) and Wales (19%). In previous periods, persistent child poverty levels in Scotland and Northern Ireland had been similar, and consistently below the English and Welsh rates. 
+
+#### After housing costs
+
+```{r chart03}
+caption <- "Figure 3: Proportion of children in persistent poverty by UK country"
+interactive(persistentcharts[["chart03"]], caption = caption)
+```
+
+#### Before housing costs
+
+```{r chart04}
+caption <- "Figure 4: Proportion of children in persistent poverty by UK country"
+interactive(persistentcharts[["chart04"]], caption = caption)
+```
+
+#### Table
+
+```{r table2}
+
+add_tablecaption("Table 2: Proportion of children in persistent poverty by country")
+
+data <- persistenttables[["table2"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
+      col.names = c("Period", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK"),
+      align = c('lrrrrrrrrrr')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
+                full_width = F, position = "left")  %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  footnote(general = pers_source,
+           general_title = "")
+```
+
+
+### Working-age adults {.tabset}
+
+- Between `r params$data_period_long`, `r persistenttables[["tableScotland"]]$AHCwa %>% tail(1L)` of working-age adults in Scotland were in persistent poverty after housing costs, compared to `r persistenttables[["tableScotland"]]$AHCwa %>% tail(2L) %>% head(1L)` in the previous period. Before housing costs, `r persistenttables[["tableScotland"]]$BHCwa %>% tail(1L)` of working-age adults were in persistent poverty, compared to `r persistenttables[["tableScotland"]]$BHCwa %>% tail(2L) %>% head(1L)` in the previous period.
+- Persistent poverty rates after housing costs for working-age adults in Scotland were the same as those in Northern Ireland (11% in `r params$data_period`) and slightly below those in England and Wales (both 12%). 
+
+#### After housing costs
+
+```{r chart05}
+caption <- "Figure 5: Proportion of working-age adults in persistent poverty by UK country"
+interactive(persistentcharts[["chart05"]], caption = caption)
+```
+
+#### Before housing costs
+
+```{r chart06}
+caption <- "Figure 6: Proportion of working-age adults in persistent poverty by UK country"
+interactive(persistentcharts[["chart06"]], caption = caption)
+```
+
+#### Table
+
+```{r table3}
+
+add_tablecaption("Table 3: Proportion of working-age adults in persistent poverty by country")
+data <- persistenttables[["table3"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
+      col.names = c("Period", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK"),
+      align = c('lrrrrrrrrrr')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
+                full_width = F, position = "left")  %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  footnote(general = pers_source,
+           general_title = "")
+```
+
+### Pensioners {.tabset}
+
+- Between `r params$data_period_long`, `r persistenttables[["tableScotland"]]$AHCpn %>% tail(1L)` of pensioners in Scotland were in persistent poverty after housing costs, compared to `r persistenttables[["tableScotland"]]$AHCpn %>% tail(2L) %>% head(1L)` in the previous period. Before housing costs, the proportion of pensioners in persistent poverty was `r persistenttables[["tableScotland"]]$BHCpn %>% tail(1L)`, compared to `r persistenttables[["tableScotland"]]$BHCpn %>% tail(2L) %>% head(1L)` in the previous period.
+- For most groups of the population, the persistent poverty rate after housing costs is greater or the same than that before housing costs. Often, the opposite is true, or the rates are very similar, for pensioners. The majority of pensioners own their own home and so have lower housing costs. Examining pensioners’ incomes after deducting housing costs allows for more meaningful comparisons of income between working-age people and pensioners, and of the pensioner population over time.
+- Between `r params$data_period_long`, the persistent pensioner poverty rate after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).
+
+#### After housing costs
+
+```{r chart07}
+caption <- "Figure 7: Proportion of pensioners in persistent poverty by UK country"
+interactive(persistentcharts[["chart07"]], caption = caption)
+```
+
+#### Before housing costs
+
+```{r chart08}
+caption <- "Figure 8: Proportion of pensioners in persistent poverty by UK country"
+interactive(persistentcharts[["chart08"]], caption = caption)
+```
+
+#### Table
+
+```{r table4}
+
+add_tablecaption("Table 4: Proportion of pensioners in persistent poverty by country")
+data <- persistenttables[["table4"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, 
+      col.names = c("Period", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
+                    "Northern Ireland", "UK"),
+      align = c('lrrrrrrrrrr')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
+                full_width = F, position = "left")  %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  footnote(general = pers_source,
+           general_title = "")
+```

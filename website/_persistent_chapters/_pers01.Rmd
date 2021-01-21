@@ -12,30 +12,18 @@ The statistics in this report provide information on persistent poverty in Scotl
 
 Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.
 
-### All individuals
+In Scotland, between `r params$data_period_long`:
 
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCpp %>% tail(1L)` of people in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCpp %>% tail(2L) %>% head(1L)` in `r params$prev_period`. 
+- `r persistenttables[["tableScotland"]]$AHCpp %>% tail(1L)` of people were in persistent poverty after housing costs. This compares to `r persistenttables[["tableScotland"]]$AHCpp %>% tail(2L) %>% head(1L)` in the previous period (`r params$prev_period`). 
+- `r persistenttables[["tableScotland"]]$AHCch %>% tail(1L)` of children were in persistent poverty after housing costs. This compares to `r persistenttables[["tableScotland"]]$AHCch %>% tail(2L) %>% head(1L)` previously. 
+Children have consistently had a higher risk of living in persistent poverty after housing costs than working-age adults and pensioners.
+- `r persistenttables[["tableScotland"]]$AHCwa %>% tail(1L)` of working-age adults were in persistent poverty after housing costs. This compares to `r persistenttables[["tableScotland"]]$AHCwa %>% tail(2L) %>% head(1L)` previously.
+- `r persistenttables[["tableScotland"]]$AHCpn %>% tail(1L)` of pensioners were in persistent poverty after housing costs. This compares to `r persistenttables[["tableScotland"]]$AHCpn %>% tail(2L) %>% head(1L)` previously.
 
-### Children
-
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCch %>% tail(1L)` of children in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCch %>% tail(2L) %>% head(1L)` in `r params$prev_period`.
-
-Children have consistently had a higher risk of living in persistent poverty after housing costs than working-age adults and pensioners in Scotland.
-
-### Working-age adults
-
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCwa %>% tail(1L)` of working-age adults in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCwa %>% tail(2L) %>% head(1L)` in `r params$prev_period`.
-
-### Pensioners
-
-Between `r params$data_period_long`, `r persistenttables[["table1"]]$AHCpn %>% tail(1L)` of pensioners in Scotland were in persistent poverty after housing costs. This compares to `r persistenttables[["table1"]]$AHCpn %>% tail(2L) %>% head(1L)` in `r params$prev_period`.
-
-### Scotland compared to other UK countries
+Scotland compared to other UK countries between `r params$data_period_long`:
 
 `r devnote("manually update this section")`
 
-When looking at the overall population, Scotland had similar levels of persistent poverty after housing costs to England and Wales (all 13%), and slightly higher rates than Northern Ireland (11%). 
-
-The persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). This has been consistent over time. 
-
-Persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%)
+- When looking at the overall population, Scotland had similar levels of persistent poverty after housing costs to England and Wales (all 13%), and slightly higher rates than Northern Ireland (11%). 
+- The persistent child poverty rate after housing costs in Scotland and Northern Ireland (both 17%) was lower than in England (20%) and Wales (19%). This has been consistent over time. 
+- Persistent pensioner poverty after housing costs in Scotland (12%) was slightly higher compared to England and Wales (both 11%) and considerably higher compared to Northern Ireland (5%).

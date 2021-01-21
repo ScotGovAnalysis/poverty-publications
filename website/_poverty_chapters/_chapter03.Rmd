@@ -16,8 +16,8 @@ The proportion of people in relative poverty after housing costs had been fallin
 
 ```{r, chart01}
 
-add_caption("Figure 1 - Proportion of people in relative poverty, Scotland")
-interactive(povertycharts[["chart01"]])
+caption <- "Figure 1 - Proportion of people in relative poverty, Scotland"
+interactive(povertycharts[["chart01"]], caption = caption)
 ```
 
 #### Absolute poverty 
@@ -33,8 +33,8 @@ The gap between the before and after housing costs measure had widened in 2008-1
 Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the relative poverty threshold in 2010/11.
 
 ```{r chart02}
-add_caption("Figure 2 - Proportion of people in absolute poverty, Scotland")
-interactive(povertycharts[["chart02"]], height = 4)
+caption <- "Figure 2 - Proportion of people in absolute poverty, Scotland"
+interactive(povertycharts[["chart02"]], height = 4, caption = caption)
 ```
 
 #### Food insecurity
@@ -46,8 +46,7 @@ add commentary here: what is food insecurity, previous data collection, differen
 ```{r chart03}
 
 caption <- str_c("Figure 3 - Levels of food security of all people and those in poverty, Scotland ", params$data_year, " (fake data!)")
-add_caption(caption)
-interactive(povertycharts[["chart03"]])
+interactive(povertycharts[["chart03"]], caption = caption)
 
 ```
 
@@ -67,8 +66,8 @@ Working-age adults are defined as all adults up to the state pension age. State 
 
 
 ```{r chart04}
-add_caption("Figure 4 - Proportion of working-age adults in relative poverty, Scotland")
-interactive(povertycharts[["chart04"]])
+caption <- "Figure 4 - Proportion of working-age adults in relative poverty, Scotland"
+interactive(povertycharts[["chart04"]], caption = caption)
 ```
 
 #### Absolute poverty 
@@ -82,8 +81,8 @@ This means that in `r params$data_period`, there were 580,000 working-age adults
 Working-age adults are considered to be in poverty when they live in a household which is in poverty.
 
 ```{r chart05}
-add_caption("Figure 5 - Proportion of working-age adults in absolute poverty, Scotland")
-interactive(povertycharts[["chart05"]], height = 4)
+caption <- "Figure 5 - Proportion of working-age adults in absolute poverty, Scotland"
+interactive(povertycharts[["chart05"]], height = 4, caption = caption)
 ```
 
 #### In-work poverty
@@ -97,8 +96,8 @@ In-work poverty for working-age adults continuously increased since 2011-14, and
 `r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
 
 ```{r chart06}
-add_caption("Figure 6 - Proportion of working-age adults in relative poverty who live in a working household, Scotland")
-interactive(povertycharts[["chart06"]])
+caption <- "Figure 6 - Proportion of working-age adults in relative poverty who live in a working household, Scotland"
+interactive(povertycharts[["chart06"]], caption = caption)
 ```
 
 ### Pensioners {.tabset}
@@ -114,8 +113,8 @@ Relative pensioner poverty showed a long decline until 2008-11, was then largely
 The majority of pensioners own their home. Examining pensioners' income after deducting housing costs allows for more meaningful comparisons of income between working-age adults and pensioners, or for pensioners over time.
 
 ```{r chart07}
-add_caption("Figure 7 - Proportion of pensioners in relative poverty, Scotland")
-interactive(povertycharts[["chart07"]])
+caption <- "Figure 7 - Proportion of pensioners in relative poverty, Scotland"
+interactive(povertycharts[["chart07"]], caption = caption)
 ```
 
 #### Absolute poverty
@@ -129,8 +128,8 @@ Absolute poverty has remained broadly stable since 2008-11 following a continuou
 Pensioners are defined as all those adults above state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
 
 ```{r chart08}
-add_caption("Figure 8 - Proportion of pensioners in absolute poverty, Scotland")
-interactive(povertycharts[["chart08"]], height = 4)
+caption <- "Figure 8 - Proportion of pensioners in absolute poverty, Scotland"
+interactive(povertycharts[["chart08"]], height = 4, caption = caption)
 ```
 
 #### Material deprivation
@@ -148,7 +147,7 @@ More information about pensioner material deprivation can be found in the [Defin
 Pensioner material deprivation is included for pensioners aged 65 or over.
 
 ```{r chart09}
-add_caption("Figure 9 - Proportion of pensioners in material deprivation")
-interactive(povertycharts[["chart09"]])
+caption <- "Figure 9 - Proportion of pensioners in material deprivation"
+interactive(povertycharts[["chart09"]], caption = caption)
 ```
 

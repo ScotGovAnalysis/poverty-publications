@@ -8,10 +8,6 @@ Poverty can be measured in a number of different ways, each of which can tell us
 
 This publication presents persistent poverty estimates for five overlapping periods from 2010-2014 to `r params$data_period`. More information can be found in the [Methodology section](#periods).
 
-### Official Statistics status
-
-Previous releases of this publication series had the label “Experimental Official Statistics to signal that the methodology was still under development. As this has now been largely concluded, the “experimental” label is no longer required, and the current release is published as an “Official Statistics” publication.
-
 ### Data source and methodology
 
 The estimates in this report come from the Understanding Society survey, a longitudinal survey with longitudinal information about just over 2,500 individuals in Scotland in `r params$data_year`. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Information on the method used to calculate persistent poverty estimates can be found in the [Methodology][Methodology] section, and in more detail on the [UK government webpages](www.gov.uk/government/collections/income-dynamics-statistics).

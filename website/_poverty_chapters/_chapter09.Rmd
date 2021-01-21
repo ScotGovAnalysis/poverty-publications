@@ -24,7 +24,7 @@ Following a subsequent review the National Statistician, John Pullinger, wrote t
 
 This led to a change in HBAI methodology in 2014/15 and the Scottish Government adopted the change in deflator to allow consistent poverty estimates for Scotland and the UK.
 
-Full details can be found at this link: [Methodological changes to poverty statistics](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
+Full details can be found at this link: [Methodological changes to poverty statistics (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
 
 ### Equivalisation
 
@@ -37,7 +37,7 @@ Consider a single person, a couple with no children, and a couple with two child
 The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and one for income After Housing Costs (AHC). Modified OECD rescaled to a couple without children is as follows:
 
 ```{r table2}
-kable(povertytables[["table2"]], col.names = c(" ", "BHC", "AHC"),
+kable(povertytables[["table2"]], col.names = c("Household member", "BHC", "AHC"),
                 align = "lrr") %>%
   kable_styling(bootstrap_options = c("striped",
                                       "hover",
@@ -77,7 +77,7 @@ Consequently, the 60 percent poverty threshold, which is used to derive the low 
 
 ### Material deprivation for children {#matdep}
 
-A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (McKay, S. and Collard, S. (2004))](www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
+A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (pdf, McKay, S. and Collard, S. (2004))](www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
 
 These questions are used as an additional way of measuring living standards for children and their households.
 
@@ -95,8 +95,8 @@ For further information about material deprivation see the DWP [Households Below
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 
-* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the FRS material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages](www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
-* McKay, S. (2008), Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54. [Available on the Bristol University webpages](www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf).
+* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the FRS material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages (pdf)](www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
+* McKay, S. (2008), Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54. [Available on the Bristol University webpages (pdf)](www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf).
 
 Together, these questions form the best discriminator between those pensioner households that are deprived and those that are not.
 

@@ -1,53 +1,38 @@
-## Find more information
+## Official Statistics
 
-### Further analysis
+Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
 
-The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](./). Further analysis published throughout the year are available on the [Scottish Government website](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+### How to access background or source data
 
-Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
+The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller.
 
-### Scottish Government websites
+### Correspondence and enquiries {#contact}
 
-Further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
+For enquiries about this publication please contact the lead statistician.
 
-- [Poverty and income inequality analysis](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
-- [Child poverty analysis](www.gov.scot/collections/child-poverty-statistics/)
-- [Wealth analysis](www.gov.scot/collections/wealth-statistics/)
-- [Scottish Index of Multiple Deprivation](www.gov.scot/simd)
-- [Other Scottish Government statistics collections](www.gov.scot/collections/scottish-government-statistics/)
-- [Further information on all Scottish Government statistics](www.gov.scot/topics/statistics/)
-- [Scottish Government approach to tackling poverty](www.gov.scot/policies/poverty-and-social-justice/)
+Maike Waldmann<br>
+Communities Analysis Division
 
-### Local poverty analysis
+#### Email
 
-The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
+social-justice-analysis@gov.scot
 
-More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
+#### Adress
 
-### Previous reports
+The Scottish Government<br>
+Communities Analysis Division<br>
+Area 2H North<br>
+Victoria Quay<br>
+Edinburgh EH6 6QQ
 
-#### Persistent Poverty in Scotland
+#### Phone
 
-- [Latest report](persistent.html)
-- [2010-2018 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
-- [2010-2017 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
-- [2010-2016 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
-- [2010-2015 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+0131 244 5851<br>
 
-#### Poverty and Income Inequality in Scotland
+If you would like to be consulted about statistical collections or receive notification of publications, please register your interest at [ScotStat](www.gov.scot/scotstat).
 
-- [Latest report](./)
-- [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
-- [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
-- [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
-- [2015/16 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)
-- [2014/15 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/)
-- [2013/14 report](www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/)
-- [2012/13 report](www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/)
-- [2011/12 report](www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
-- [2010/11 report](www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
+Details of [forthcoming publications](www.gov.scot/publications/official-statistics-forthcoming-publications/) are regularly published.
 
-### UK Government websites
+### Crown Copyright
 
-- [Income dynamics publication](www.gov.uk/government/statistics/income-dynamics-experimental) (contains figures comparable with those found in this publication)
-- [Households Below Average Income](www.gov.uk/government/collections/households-below-average-income-hbai--2), Department for Work and Pensions (methodology and UK estimates)
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](www.nationalarchives.gov.uk/doc/open-government-licence/).

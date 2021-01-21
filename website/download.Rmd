@@ -22,7 +22,7 @@ Estimates are averages of three years' worth of data in order to reduce data vol
 
 In addition, estimates based on single years of data are also available. These are used in the [Child poverty summary](cpupdate.html) alongside the trend data, but otherwise not used in the charts.
 
-- [Single-year poverty and income data](xlsx, 71 KB)](xls/All single year.xlsx)
+- [Single-year poverty and income data (xlsx, 71 KB)](xls/All single year.xlsx)
 
 ## Persistent poverty data
 

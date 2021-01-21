@@ -7,7 +7,7 @@ output:
     fig_width: 7
     fig_height: 3
     toc: yes
-    toc_depth: 2
+    toc_depth: 3
     toc_float:
       collapsed: yes
       smooth_scroll: no

@@ -16,8 +16,8 @@ After a long fall between 1999-02 and 2010-13, which halted briefly just before 
 
 
 ```{r chart10}
-add_caption("Figure 10 - Proportion of children in relative poverty, Scotland")
-interactive(povertycharts[["chart10"]])
+caption <- "Figure 10: Proportion of children in relative poverty, Scotland"
+interactive(povertycharts[["chart10"]], caption = caption)
 ```
 
 #### Absolute poverty
@@ -29,8 +29,8 @@ Absolute child poverty after housing costs affected 21% (210,000 children each y
 Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the recession. The decrease of the after housing costs rate then slowed down. The before housing costs measure continued to decrease until 2013-16 and has been largely flat since. As a result, the gap between absolute child poverty before and after housing costs widened in recent years.
 
 ```{r chart11}
-add_caption("Figure 11 - Proportion of children in absolute poverty, Scotland")
-interactive(povertycharts[["chart11"]], height = 4)
+caption <- "Figure 11: Proportion of children in absolute poverty, Scotland"
+interactive(povertycharts[["chart11"]], height = 4, caption = caption)
 ```
 
 #### Material deprivation
@@ -45,8 +45,8 @@ More detail on this can be found in the [Definitions section](#matdep).
 
 
 ```{r chart12}
-add_caption("Figure 12 - Proportion of children in combined low income and material deprivation, Scotland")
-interactive(povertycharts[["chart12"]])
+caption <- "Figure 12: Proportion of children in combined low income and material deprivation, Scotland"
+interactive(povertycharts[["chart12"]], caption = caption)
 ```
 
 `r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.")`
@@ -65,8 +65,8 @@ This data suggests that after a steady and steep increase of in-work poverty sin
 
 
 ```{r chart13}
-add_caption("Figure 13 - Proportion of children in relative poverty who live in working households, Scotland")
-interactive(povertycharts[["chart13"]])
+caption <- "Figure 13: Proportion of children in relative poverty who live in working households, Scotland"
+interactive(povertycharts[["chart13"]], caption = caption)
 ```
 
 #### Food insecurity
@@ -75,10 +75,9 @@ Add commentary here: what is food insecurity, previous data collection, differen
 
 ```{r chart14}
 
-caption <- str_c("Figure 14 - Levels of food security of all children and those in poverty, Scotland ",
+caption <- str_c("Figure 14: Levels of food security of all children and those in poverty, Scotland ",
                  params$data_year," (fake data!)")
-add_caption(caption)
-interactive(povertycharts[["chart14"]])
+interactive(povertycharts[["chart14"]], caption = caption)
 ```
 
 Bar chart showing the proportion of children who've expericenced food insecurity, broken down by poverty status (all children, childrenin relative poverty AHC, children in combined low income and material deprivation)
@@ -92,21 +91,21 @@ note re minority ethnic group includes white minorities such as white people who
 #### Relative poverty
 
 ```{r chart15}
-add_caption("Figure 15 - Proportion of children in relative poverty after housing cost, Scotland")
-interactive(povertycharts[["chart15"]])
+caption <- "Figure 15: Proportion of children in relative poverty after housing cost, Scotland"
+interactive(povertycharts[["chart15"]], caption = caption)
 ```
 
 #### Absolute poverty
 
 ```{r chart16}
-add_caption("Figure 16 - Proportion of children in absolute poverty after housing costs, Scotland")
-interactive(povertycharts[["chart16"]])
+caption <- "Figure 16: Proportion of children in absolute poverty after housing costs, Scotland"
+interactive(povertycharts[["chart16"]], caption = caption)
 ```
 
 #### Material deprivation
 
 ```{r chart17}
-add_caption("Figure 17 - Proportion of children in combined low income and material deprivation, Scotland")
-interactive(povertycharts[["chart17"]])
+caption <- "Figure 17: Proportion of children in combined low income and material deprivation, Scotland"
+interactive(povertycharts[["chart17"]], caption = caption)
 ```
 
