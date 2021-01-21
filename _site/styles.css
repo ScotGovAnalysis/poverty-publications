@@ -204,8 +204,10 @@ a:focus {
   float: right;
 }
 
-.panel-body > p {
-  line-height: normal;
+/* Child poverty update panels */
+
+.panel-body > figcaption {
+  font-weight: normal;
 }
 
 .panel > .panel-heading > p {
@@ -222,6 +224,7 @@ a:focus {
       clip: rect(0, 0, 0, 0);
       white-space: nowrap; /* added line */
       border: 0;
+      left: 50%;
 }
 
 
