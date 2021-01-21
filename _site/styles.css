@@ -7,8 +7,10 @@ em {
   font-style: normal;
 }
 
-.caption {
+.caption,
+figcaption {
   font-weight: 900;
+  font-size: large; /*Larger font for accessibility*/
 }
 
 p,
