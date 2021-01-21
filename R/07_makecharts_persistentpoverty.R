@@ -23,24 +23,28 @@ data <- data %>%
                                     "2013-2017", "2014-2018", "2015-2019"),
                          ordered = TRUE))
 
-# Scotland AHC and BHC
+# UK nations AHC and BHC
 
 persistentcharts[["chart01"]] <- data %>%
-  filter(housingcosts == "AHC") %>%
-  mutate(key = group,
-         value = Scotland) %>%
+  filter(group == "All individuals",
+         housingcosts == "AHC") %>%
+  select(-group, -UK, -housingcosts) %>%
+  gather(nation, value, -period) %>%
+  mutate(nation = factor(nation, levels = c("Scotland", "England", "Wales", "Northern Ireland")),
+         key = nation) %>%
   persistentchart()
 
 persistentcharts[["chart02"]] <- data %>%
-  filter(housingcosts == "BHC") %>%
-  mutate(key = group,
-         value = Scotland) %>%
+  filter(group == "All individuals",
+         housingcosts == "BHC") %>%
+  select(-group, -UK, -housingcosts) %>%
+  gather(nation, value, -period) %>%
+  mutate(nation = factor(nation, levels = c("Scotland", "England", "Wales", "Northern Ireland")),
+         key = nation) %>%
   persistentchart()
 
-# UK nations AHC and BHC
-
 persistentcharts[["chart03"]] <- data %>%
-  filter(group == "All individuals",
+  filter(group == "Children",
          housingcosts == "AHC") %>%
   select(-group, -UK, -housingcosts) %>%
   gather(nation, value, -period) %>%
@@ -49,7 +53,7 @@ persistentcharts[["chart03"]] <- data %>%
   persistentchart()
 
 persistentcharts[["chart04"]] <- data %>%
-  filter(group == "All individuals",
+  filter(group == "Children",
          housingcosts == "BHC") %>%
   select(-group, -UK, -housingcosts) %>%
   gather(nation, value, -period) %>%
@@ -58,7 +62,7 @@ persistentcharts[["chart04"]] <- data %>%
   persistentchart()
 
 persistentcharts[["chart05"]] <- data %>%
-  filter(group == "Children",
+  filter(group == "Working-age adults",
          housingcosts == "AHC") %>%
   select(-group, -UK, -housingcosts) %>%
   gather(nation, value, -period) %>%
@@ -67,7 +71,7 @@ persistentcharts[["chart05"]] <- data %>%
   persistentchart()
 
 persistentcharts[["chart06"]] <- data %>%
-  filter(group == "Children",
+  filter(group == "Working-age adults",
          housingcosts == "BHC") %>%
   select(-group, -UK, -housingcosts) %>%
   gather(nation, value, -period) %>%
@@ -76,24 +80,6 @@ persistentcharts[["chart06"]] <- data %>%
   persistentchart()
 
 persistentcharts[["chart07"]] <- data %>%
-  filter(group == "Working-age adults",
-         housingcosts == "AHC") %>%
-  select(-group, -UK, -housingcosts) %>%
-  gather(nation, value, -period) %>%
-  mutate(nation = factor(nation, levels = c("Scotland", "England", "Wales", "Northern Ireland")),
-         key = nation) %>%
-  persistentchart()
-
-persistentcharts[["chart08"]] <- data %>%
-  filter(group == "Working-age adults",
-         housingcosts == "BHC") %>%
-  select(-group, -UK, -housingcosts) %>%
-  gather(nation, value, -period) %>%
-  mutate(nation = factor(nation, levels = c("Scotland", "England", "Wales", "Northern Ireland")),
-         key = nation) %>%
-  persistentchart()
-
-persistentcharts[["chart09"]] <- data %>%
   filter(group == "Pensioners",
          housingcosts == "AHC") %>%
   select(-group, -UK, -housingcosts) %>%
@@ -102,7 +88,7 @@ persistentcharts[["chart09"]] <- data %>%
          key = nation) %>%
   persistentchart()
 
-persistentcharts[["chart10"]] <- data %>%
+persistentcharts[["chart08"]] <- data %>%
   filter(group == "Pensioners",
          housingcosts == "BHC") %>%
   select(-group, -UK, -housingcosts) %>%
