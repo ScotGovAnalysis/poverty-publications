@@ -1174,7 +1174,10 @@ rel <- do.call(rbind.data.frame,
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
   samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  mutate_at(vars(contains("sample")), comma_format(1)) %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "Asian or Asian British",
+                                   after = 4L)) %>%
+  arrange(groupingvar)
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -1183,7 +1186,10 @@ sev <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "Asian or Asian British",
+                                   after = 4L)) %>%
+  arrange(groupingvar)
 
 # split dataset into rates, numbers, compositions and transpose
 
@@ -1227,7 +1233,7 @@ data <- list(sheetname = "Ethnicity",
                            "2. Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.",
                            "3. Different ethnic groups have been combined into one for this analysis, as sample sizes are too small to reliably report on individual groups.",
                            "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
-                           "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
+                           "5. A time series is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
                            "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
@@ -1249,7 +1255,10 @@ rel <- do.call(rbind.data.frame,
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
   samplesizecheck_ad %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  mutate_at(vars(contains("sample")), comma_format(1)) %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "Other religion", after = 7L),
+         groupingvar = fct_relevel(groupingvar, "No religion", after = 7L)) %>%
+  arrange(groupingvar)
 
 sev <- do.call(rbind.data.frame,
                lapply(adult, getpovby_adult, povvar = "low50ahc",
@@ -1258,7 +1267,10 @@ sev <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  samplesizecheck_ad
+  samplesizecheck_ad %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "Other religion", after = 7L),
+         groupingvar = fct_relevel(groupingvar, "No religion", after = 7L)) %>%
+  arrange(groupingvar)
 
 # split dataset into rates, numbers, compositions and transpose
 
@@ -2298,7 +2310,10 @@ rel <- do.call(rbind.data.frame,
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
   samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  mutate_at(vars(contains("sample")), comma_format(1)) %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "Asian or Asian British",
+                                   after = 4L)) %>%
+  arrange(groupingvar)
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ethgrphh")) %>%
@@ -2306,7 +2321,10 @@ sev <- do.call(rbind.data.frame,
   formatpovby5yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
-  samplesizecheck
+  samplesizecheck %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "Asian or Asian British",
+                                   after = 4L)) %>%
+  arrange(groupingvar)
 
 # split dataset into rates, numbers, compositions and transpose
 
@@ -2351,7 +2369,7 @@ data <- list(sheetname = "Ethnicity 5-yr ch",
                            "2. Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.",
                            "3. Different ethnic groups have been combined into one for this analysis, as sample sizes are too small to reliably report on individual groups.",
                            "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
-                           "5. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
+                           "5. A time series is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
                            "6. In the tables, the following conventions have been used where figures are unavailable:",
                            "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
@@ -2424,9 +2442,10 @@ data <- list(sheetname = "Ethnicity 3-yr ch",
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.",
                            "2. Different ethnic groups have been combined into one for this analysis, as sample sizes are too small to reliably report on individual groups.",
-                           "3. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
-                           "4. A time series is not available. This is because religious composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
-                           "5. In the tables, the following conventions have been used where figures are unavailable:",
+                           "3. Note that categories have changed. Previously, we combined white ethnic minorities with white British, while they are now combined with other ethnic minorities.",
+                           "4. Table B (composition) is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, estimates of the composition are not reliable.",
+                           "5. A time series is not available. This is because ethnic composition of the population is not accounted for in the survey weighting process, and therefore, poverty estimates are volatile and apparent trends not reliable.",
+                           "6. In the tables, the following conventions have been used where figures are unavailable:",
                            "'..' not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
