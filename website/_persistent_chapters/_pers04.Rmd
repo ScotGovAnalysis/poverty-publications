@@ -1,5 +1,3 @@
-## -----------------
-
 ## Methodology
 
 This section provides key information on the methodology used to produce persistent poverty statistics. A more [detailed methodological paper](www.gov.uk/government/collections/income-dynamics-statistics) is available from the Department for Work and Pensions’ (DWP) website.

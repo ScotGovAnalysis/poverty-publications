@@ -34,7 +34,7 @@ interactive(povertycharts[["chart29"]], caption = caption)
 
 After housing costs data is available in the associated tables.
 
-### Income distribution and poverty thresholds
+### Income distribution
 
 The next chart shows the distribution of weekly income before housing costs across Scotland in `r params$data_period` with relative poverty threshold, UK median income, and income decile groups. Incomes of £0 and below and those above £1,200 are excluded from this chart.
 
@@ -49,10 +49,11 @@ caption <- str_c("Figure 30: Equivalised weekly household income distribution be
 interactive(povertycharts[["chart30"]], caption = caption)
 ```
 
+### Poverty thresholds
+
 Most of the income estimates in this publication are based on equivalised income. This means that household income is adjusted to reflect different household sizes and compositions. When income is not equivalised, households of different sizes have different poverty thresholds. The table below shows the relative and absolute poverty thresholds, before equivalisation, for households of different sizes.
 
-The incomes presented elsewhere in this report use the value for "Couple with no children" as the standard; incomes of all other household types are adjusted (equivalised) to reflect their different household composition. An after housing costs table is available in the associated tables.
-
+The incomes presented elsewhere in this report use the value for "Couple with no children" as the standard; incomes of all other household types are adjusted (equivalised) to reflect their different household composition.
 
 ```{r table1}
 
@@ -79,6 +80,7 @@ kable(povertytables[["table1"]], col.names = c("Before housing costs incomes",
            general_title = "") 
 ```
 
+An after housing costs table is available in the associated tables.
 
 ### Income sources
 

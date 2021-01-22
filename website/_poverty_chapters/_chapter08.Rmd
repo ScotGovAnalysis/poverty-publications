@@ -1,5 +1,3 @@
-## -----------------
-
 ## Data sources
 
 All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset which is produced from the Family Resources Survey. UK figures are published by DWP in [Households Below Average Income](www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](./). For the UK figures, as well as more detail about the way these figures are collected and calculated, see the DWP website.

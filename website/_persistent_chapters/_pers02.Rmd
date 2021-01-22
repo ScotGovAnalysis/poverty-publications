@@ -18,4 +18,4 @@ Surveys gather information from a sample rather than from the whole population. 
 
 Work is ongoing to improve the income estimates and impute missing data, and therefore the estimates presented here will continue to be subject to routine revisions, as with figures based on longitudinal data in general.
 
-**The statistics presented below are subject to a degree of error. This means that implied changes over the years and between countries may not be significant and instead be within a given error range. More information can be found in the [Methodology][Methodology] section.**
+`r infobox("The statistics presented below are subject to a degree of error. This means that implied changes over the years and between countries may not be significant and instead be within a given error range. More information can be found in the [Methodology](#methodology) section.")`
