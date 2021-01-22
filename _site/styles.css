@@ -38,6 +38,10 @@ a {
   transition: color 0.2s, background-color 0.2s, outline 0.2s;
 }
 
+h4 {
+  font-size: x-large;
+}
+
 /* Navigation bar */
 
 .navbar-brand,
