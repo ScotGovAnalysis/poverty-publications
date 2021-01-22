@@ -88,7 +88,7 @@ Before housing costs data is available in the associated tables.
 
 The above chart shows an ethnicity breakdown based on an average of data from the past five financial years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more [detailed ethnicity breakdown using ten years of data](www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
 
-Due to the small sample sizes for some of the ethnic groups, the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by ethnicity, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of people in poverty is not available for some ethnic groups due to small sample sizes.
+Due to the small sample sizes for some of the ethnic groups, and the fact that ethnic composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by ethnicity, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of people in poverty is not available for some ethnic groups due to small sample sizes.
 
 ### Religion
 
@@ -113,7 +113,7 @@ Before housing costs data is available in the associated tables.
 
 The above chart shows an average for data from the past five financial years.
 
-Due to the small sample sizes for some of the religious groups, the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by religion, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of adults in poverty is not available for some religious groups due to small sample sizes.
+Due to the small sample sizes for some of the religious groups, and the fact that religious composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by religion, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of adults in poverty is not available for some religious groups due to small sample sizes.
 
 ### Disability
 
