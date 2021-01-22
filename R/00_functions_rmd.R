@@ -1,21 +1,20 @@
 # Functions for rendering the website
 
 infobox <- function(md) {
-  div(class = "ds_inset-text",
-      div(class = "ds_inset-text__text",
-          create_html(md)))
+  div(class = "infobox-text",
+      create_html(md))
 }
 
 message <- function(md) {
+  tags <- htmltools::tags
   div(class = "message-text",
-      div(class = "message-text__text",
-          create_html(md)))
+      tags$strong(md))
 }
 
 devnote <- function(md) {
+  tags <- htmltools::tags
   div(class = "devnote-text",
-      div(class = "devnote-text__text",
-          create_html(md)))
+      tags$strong(md))
 }
 
 create_html <- function(md) {
@@ -66,7 +65,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
 
           tags$figure(class = "panel panel-default",
                       div(class = "panel-heading",
-                          h1(class = "panel-title", title_tl),
+                          h2(class = "panel-title", title_tl),
                           p(subtitle_tl)),
                       div(class = "panel-body",
                           tags$figcaption(text_tl),
@@ -74,7 +73,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
 
           tags$figure(class = "panel panel-default",
                       div(class = "panel-heading",
-                          h1(class = "panel-title", title_bl),
+                          h2(class = "panel-title", title_bl),
                           p(subtitle_bl)),
                       div(class = "panel-body",
                           tags$figcaption(text_bl),
@@ -84,7 +83,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
 
           tags$figure(class = "panel panel-default",
                       div(class = "panel-heading",
-                          h1(class = "panel-title", title_tr),
+                          h2(class = "panel-title", title_tr),
                           p(subtitle_tr)),
                       div(class = "panel-body",
                           tags$figcaption(text_tr),
@@ -92,7 +91,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
 
           tags$figure(class = "panel panel-default",
                       div(class = "panel-heading",
-                          h1(class = "panel-title", title_br),
+                          h2(class = "panel-title", title_br),
                           p(subtitle_br)),
                       div(class = "panel-body",
                           tags$figcaption(text_br),
