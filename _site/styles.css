@@ -8,6 +8,7 @@ em {
 }
 
 .caption,
+.panel-title,
 figcaption {
   font-weight: 900;
   font-size: large; /*Larger font for accessibility*/
@@ -17,8 +18,6 @@ p,
 .container-fluid > ul,
 .section > ul,
 .dropdown-menu,
-.panel-title,
-.ds_inset-text,
 #TOC,
 #navbar {
   font-size: large; /*Larger font for accessibility*/
@@ -71,6 +70,7 @@ a {
   transition-duration: 0s;
 }
 
+/* collapses navbar into button for smaller screens */
 @media (max-width: 1200px) {
     .navbar-header {
         float: none;
@@ -124,44 +124,39 @@ a {
 
 /* Info "box" */
 
-.ds_inset-text {
-    padding-left: 32px;
-    padding-right: 64px;
+.infobox-text {
+    padding: 8px 32px;
     border-left: 8px solid #b3b3b3;
     border-bottom: 1px solid #ebebeb;
     background-color: #f8f8f8;
-    padding: 16px;
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin: 16px 0;
 }
 
 /* Key message "box" */
 
 .message-text {
-    padding-left: 32px;
-    padding-right: 64px;
+    padding: 8px 32px;
     border-left: 8px solid #0065bd;
     border-bottom: 1px solid #7fb2de;
-    background-color: #d9effc;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    font-weight: bold;
     color: #002d54;
+    background-color: #d9effc;
+    margin: 16px 0;
+    font-size: large;
 }
 
 /* Notes to self */
 
 .devnote-text {
-    padding-left: 32px;
-    padding-right: 64px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    color: red;
+    padding: 8px 32px;
+    margin: 16px 0;
+    background-color: #fac8af;
+    border-left: 8px solid #f47738;
+    border-bottom: 1px solid #f79f73;
+    font-size: large;
 }
 
 #sglogo {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding: 10px 0;
 }
 
 #sglogo:focus {
