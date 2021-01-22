@@ -11,7 +11,7 @@ em {
 .panel-title,
 figcaption {
   font-weight: 900;
-  font-size: large; /*Larger font for accessibility*/
+  font-size: large;
 }
 
 p,
@@ -20,7 +20,7 @@ p,
 .dropdown-menu,
 #TOC,
 #navbar {
-  font-size: large; /*Larger font for accessibility*/
+  font-size: large;
   line-height: 1.8;
 }
 
@@ -74,7 +74,8 @@ h4 {
   transition-duration: 0s;
 }
 
-/* collapses navbar into button for smaller screens */
+/* hide navbar (and show button) on smaller screens */
+
 @media (max-width: 1200px) {
     .navbar-header {
         float: none;
@@ -126,7 +127,7 @@ h4 {
     border-color: #0065bd;
 }
 
-/* Info "box" */
+/* Infobox */
 
 .infobox-text {
     padding: 8px 32px;
@@ -136,7 +137,7 @@ h4 {
     margin: 16px 0;
 }
 
-/* Key message "box" */
+/* Key message box */
 
 .message-text {
     padding: 8px 32px;
@@ -148,7 +149,7 @@ h4 {
     font-size: large;
 }
 
-/* Notes to self */
+/* Notes to self (delete before publication) */
 
 .devnote-text {
     padding: 8px 32px;
@@ -160,17 +161,14 @@ h4 {
 }
 
 #sglogo {
-  padding: 10px 0;
-}
-
-#sglogo:focus {
-  padding-bottom: 8px;
+  padding: 10px 15px;
 }
 
 /* National Statistics badge */
+
 #badge {
   height: 70px;
-  margin: 0 10px;
+  margin: 10px;
   float: right;
 }
 
