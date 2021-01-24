@@ -1,6 +1,6 @@
 ## Find more information
 
-### Associated tables and further analysis
+### Tables and further analysis
 
 This publication contains the headline poverty and household income statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only. The [associated tables](download.html) are available for download.
 

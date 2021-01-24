@@ -2,11 +2,11 @@
 
 Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
 
-### How to access background or source data
+### Source data
 
-The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller.
+The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the University of Essex, Institute for Social and Economic Research) are making the data available through the [UK Data Service](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=6614).
 
-### Correspondence and enquiries {#contact}
+### Contact {#contact}
 
 For enquiries about this publication please contact the lead statistician.
 

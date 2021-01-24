@@ -6,23 +6,6 @@ The headline poverty and income inequality statistics can be found in the latest
 
 Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
 
-### Scottish Government websites
-
-Further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government statistics are available here:
-
-- [Child poverty analysis](www.gov.scot/collections/child-poverty-statistics/)
-- [Wealth analysis](www.gov.scot/collections/wealth-statistics/)
-- [Scottish Index of Multiple Deprivation](www.gov.scot/simd)
-- [Other Scottish Government statistics collections](www.gov.scot/collections/scottish-government-statistics/)
-- [Further information on all Scottish Government statistics](www.gov.scot/topics/statistics/)
-- [Scottish Government approach to tackling poverty](www.gov.scot/policies/poverty-and-social-justice/)
-
-### Local poverty analysis
-
-The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
-
-More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
-
 ### Previous reports
 
 #### Persistent Poverty in Scotland

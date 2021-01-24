@@ -34,10 +34,15 @@ Equivalence scales conventionally take an adult couple without children as the r
 
 Consider a single person, a couple with no children, and a couple with two children aged fourteen and ten, all having unadjusted weekly household incomes of £200 (Before Housing Costs). The process of equivalisation, as conducted in HBAI, gives an equivalised income of £299 to the single person, £200 to the couple with no children, but only £131 to the couple with children.
 
-The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and one for income After Housing Costs (AHC). Modified OECD rescaled to a couple without children is as follows:
+The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and the companion scale for income After Housing Costs (AHC). 
 
 ```{r table2}
-kable(povertytables[["table2"]], col.names = c("Household member", "BHC", "AHC"),
+
+caption <- "Modified OECD equivalence scales, rescaled to a couple without children"
+  
+kable(povertytables[["table2"]], 
+      caption = caption,
+      col.names = c("Household member", "BHC", "AHC"),
                 align = "lrr") %>%
   kable_styling(bootstrap_options = c("striped",
                                       "hover",

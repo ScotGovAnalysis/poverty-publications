@@ -28,14 +28,14 @@ interactive(persistentcharts[["chart02"]], caption = caption)
 #### Table
 
 ```{r table1}
-add_tablecaption("Table 1: Proportion of people in persistent poverty by country")
+caption <- "Proportion of people in persistent poverty by country"
 data <- persistenttables[["table1"]]
 pers_source <- persistenttables[["source"]]
 
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
+kableExtra::kable(data, caption = caption, 
+                  col.names = c("Period", "Scotland", "England", "Wales", 
+                                "Northern Ireland", "UK", "Scotland", "England", 
+                                "Wales", "Northern Ireland", "UK"),
       align = c('lrrrrrrrrrr')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
                 full_width = F, position = "left")  %>%
@@ -69,19 +69,20 @@ interactive(persistentcharts[["chart04"]], caption = caption)
 
 ```{r table2}
 
-add_tablecaption("Table 2: Proportion of children in persistent poverty by country")
-
+caption <- "Proportion of children in persistent poverty by country"
 data <- persistenttables[["table2"]]
 pers_source <- persistenttables[["source"]]
 
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
+kableExtra::kable(data, caption = caption,
+                  col.names = c("Period", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
+                  align = c('lrrrrrrrrrr')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive", 
+                                      "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, 
+                     "After housing costs" = 5)) %>%
   footnote(general = pers_source,
            general_title = "")
 ```
@@ -110,18 +111,20 @@ interactive(persistentcharts[["chart06"]], caption = caption)
 
 ```{r table3}
 
-add_tablecaption("Table 3: Proportion of working-age adults in persistent poverty by country")
+caption <- "Proportion of working-age adults in persistent poverty by country"
 data <- persistenttables[["table3"]]
 pers_source <- persistenttables[["source"]]
 
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
+kableExtra::kable(data, caption = caption,
+                  col.names = c("Period", "Scotland", "England", "Wales", 
+                                "Northern Ireland", "UK", "Scotland", "England", 
+                                "Wales", "Northern Ireland", "UK"),
+                  align = c('lrrrrrrrrrr')) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive", 
+                                      "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, 
+                     "After housing costs" = 5)) %>%
   footnote(general = pers_source,
            general_title = "")
 ```
@@ -150,18 +153,20 @@ interactive(persistentcharts[["chart08"]], caption = caption)
 
 ```{r table4}
 
-add_tablecaption("Table 4: Proportion of pensioners in persistent poverty by country")
+caption <- "Proportion of pensioners in persistent poverty by country"
 data <- persistenttables[["table4"]]
 pers_source <- persistenttables[["source"]]
 
-kableExtra::kable(data, 
-      col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK"),
+kableExtra::kable(data, caption = caption,
+                  col.names = c("Period", "Scotland", "England", "Wales", 
+                                "Northern Ireland", "UK", "Scotland", "England", 
+                                "Wales", "Northern Ireland", "UK"),
       align = c('lrrrrrrrrrr')) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive", 
+                                      "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  add_header_above(c("Measure:", "Before housing costs" = 5, 
+                     "After housing costs" = 5)) %>%
   footnote(general = pers_source,
            general_title = "")
 ```

@@ -32,6 +32,8 @@ Persistent poverty statistics are based on tracking an individual over a four-ye
 An individual is in persistent poverty if they are in relative poverty for at least three years in any four-year period. This means that the same individual can be in persistent poverty in all, any or none of the time periods covered in this publication.
 
 ```{r table}
+
+caption <- "Data collection years covered in each persistent poverty reporting period"
 df <- data.frame(Wave = c(1:10),
                  "Start year" = c(2009:2018),
                  "End year" = c(2010:2019),
@@ -42,7 +44,9 @@ df <- data.frame(Wave = c(1:10),
                  "In 2014-2018 statistics?" = c("no", "no", "no", "no", "no", "yes", "yes", "yes", "yes", "no"),
                  "In 2015-2019 statistics?" = c("no", "no", "no", "no", "no", "no", "yes", "yes", "yes", "yes"))
 
-kable(df, col.names = c("Wave", "Start year", "End year", 
+kable(df, 
+      caption = caption,
+      col.names = c("Wave", "Start year", "End year", 
                         "In 2010-2014 statistics?", 
                         "In 2011-2015 statistics?", 
                         "In 2012-2016 statistics?",

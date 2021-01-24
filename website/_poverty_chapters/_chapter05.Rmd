@@ -25,7 +25,7 @@ The poverty rate was highest for single women with children (39%). The poverty r
 
 Until 2010-13, the gap in poverty rates between these groups had narrowed, but in recent years it widened again.
 
-`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#child). <br>Estimates for single fathers are not available due to small sample sizes.")`
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#child).\n\nEstimates for single fathers are not available due to small sample sizes.")`
 
 ```{r chart19}
 caption <- "Figure 19: Proportion of single working-age adults in relative poverty after housing costs, Scotland"
@@ -55,7 +55,7 @@ In `r params$data_period`, the relative poverty rate after housing costs was hig
 
 Poverty among widowed and divorced/separated adults largely decreased over the long term, whereas the trend for singles, cohabiting and married adults was broadly flat over time.
 
-`r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner. The 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart. The 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
+`r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner.\n\nThe 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart.\n\nThe 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
 
 ```{r chart21}
 caption <- "Figure 21: Proportion of adults in relative poverty after housing costs, Scotland"
@@ -74,8 +74,7 @@ The poverty rate was 39% for the 'Asian or Asian British' ethnic groups, and 38%
 
 The poverty rate amongst the 'White - Other' group was 25% (80,000 people) and that of the 'White - British' group was 18% (860,000 people).
 
-`r infobox("This analysis doesn't take into account differences in the age profiles of the ethnic groups.<br>For the 'White - British' ethnic group the median average age of the highest income earner was 50 compared with a median age of 36 for the 'White - Other' ethnic group, 39 for 'Asian or Asian British' and and 40 for 'Mixed, Black, Black British or Other' ethnic groups.<br>Older people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups.")`
-
+`r infobox("This analysis doesn't take into account differences in the age profiles of the ethnic groups.\n\nFor the 'White - British' ethnic group the median average age of the highest income earner was 50 compared with a median age of 36 for the 'White - Other' ethnic group, 39 for 'Asian or Asian British' and and 40 for 'Mixed, Black, Black British or Other' ethnic groups.\n\nOlder people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups.")`
 
 ```{r chart22}
 caption <- "Figure 22: Proportion of people in relative poverty after housing costs, Scotland 2014-2019"
@@ -100,7 +99,7 @@ In 2014-19, Muslim adults were more likely to be in relative poverty (49%) than 
 
 Of adults belonging to the Church of Scotland, 15% were in relative poverty after housing costs (180,000 adults each year), compared to 19% of Roman Catholic adults (120,000 adults) and adults of other Christian denominations (also 19%; 70,000 adults).
 
-`r infobox("This analysis doesn't take into account differences in the age profiles of the religions. <br>For adults belonging to the Church of Scotland, the median average age was 61. In contrast, the median age was 35 for Muslim adults, and 40 for adults belonging to no religion.<br>Older people have a lower poverty rate, so age profile partly explains the lower poverty rate for people belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups.")`
+`r infobox("This analysis doesn't take into account differences in the age profiles of the religions.\n\nFor adults belonging to the Church of Scotland, the median average age was 61. In contrast, the median age was 35 for Muslim adults, and 40 for adults belonging to no religion.\n\nOlder people have a lower poverty rate, so age profile partly explains the lower poverty rate for people belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups.")`
 
 ```{r chart23}
 caption <- "Figure 23: Proportion of adults in relative poverty after housing costs, Scotland 2014-19"
@@ -128,7 +127,7 @@ caption <- "Figure 24: Proportion of people in relative poverty after housing co
 interactive(povertycharts[["chart24"]], caption = caption)
 ```
 
-`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.<br> Since 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.<br>More detail can be found on pages 34-36 in the 2015/16 HBAI technical report.")`
+`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.\n\nMore detail can be found on pages 34-36 in the [2015/16 HBAI technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
 
 Before housing costs data is available in the associated tables.
 
@@ -149,6 +148,6 @@ caption <- "Figure 25: Proportion of people in relative poverty (disability bene
 interactive(povertycharts[["chart25"]], caption = caption)
 ```
 
-`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now move down the income distribution, which lowers the median income and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold.<br>As a result, the poverty rate for households without a disabled person is slightly lower.")`
+`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now move down the income distribution, which lowers the median income and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold.\n\nAs a result, the poverty rate for households without a disabled person is slightly lower.")`
 
 Before housing costs data is available in the associated tables.
