@@ -7,9 +7,10 @@ em {
   font-style: normal;
 }
 
-.caption,
 .panel-title,
-figcaption {
+figcaption,
+caption {
+  color: #333333;
   font-weight: 900;
   font-size: large;
 }
@@ -211,6 +212,8 @@ a:focus {
   margin-bottom: 0;
 }
 
+/* Visible to screenreaders only */
+
 .sr-only {
       position: absolute;
       width: 1px;
@@ -223,6 +226,7 @@ a:focus {
       border: 0;
       left: 50%;
 }
+
 
 
 
