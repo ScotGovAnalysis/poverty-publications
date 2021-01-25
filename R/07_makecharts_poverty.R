@@ -327,8 +327,9 @@ data <- povertychartdata[["priority"]] %>%
                                  "In household with disabled person(s)",
                                  "3 or more children",
                                  "Youngest child is younger than 1",
-                                 "Single parent in household",
-                                 "Minority ethnic")))
+                                 "Minority ethnic",
+                                 "Single parent in household")),
+         key = fct_rev(key))
 
 povertycharts[["chart15"]] <- barchart(filter(data, povvar == "low60ahc"))
 
@@ -458,19 +459,23 @@ povertycharts[["chart21"]] <- linechart(data, recession = FALSE) +
 
 data <- povertychartdata[["ethnic"]] %>%
   mutate(value = pprate,
-         key = groupingvar)
+         key = fct_relevel(groupingvar, "Asian or Asian British",
+                           after = 4L),
+         key = fct_rev(key)) %>%
+  arrange(key)
 
 povertycharts[["chart22"]] <- barchart(data) +
-  scale_x_discrete(labels = str_wrap(data$key, 40))
+  scale_x_discrete(labels = data$key)
 
 ## chart23 religion ----
 
 data <- povertychartdata[["religion"]] %>%
   mutate(value = adrate,
          key = factor(groupingvar,
-                      levels = c("All", "No religion", "Other religion",
-                                "Muslim","Other Christian", "Roman Catholic",
-                                "Church of Scotland")))
+                      levels = c("All", "Church of Scotland", "Roman Catholic",
+                                 "Other Christian", "Muslim", "Other religion",
+                                 "No religion")),
+         key = fct_rev(key))
 
 povertycharts[["chart23"]] <- barchart(data)
 

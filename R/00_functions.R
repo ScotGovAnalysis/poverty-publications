@@ -2105,6 +2105,7 @@ barchart <- function(df) {
   ggplot(data = df,
          aes(x = key,
              y = value,
+             group = key,
              fill = key,
              label = percent(value, 1))) +
 
