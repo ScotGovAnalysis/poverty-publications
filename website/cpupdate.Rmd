@@ -58,6 +58,15 @@ theme_set(mytheme)
 
 ```
 
+<!-- Include skip link at the top of the document -->
+
+<script>
+  $(document).ready(function(){
+    $nav = $('#nav');
+    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
+    });
+</script>
+
 <!-- Include skip target at the top of the document -->
 
 <script>
@@ -71,7 +80,7 @@ theme_set(mytheme)
 
 The Child Poverty Act 2017 contains four income-based targets to reduce child poverty in Scotland by 2030. The charts show the interim and final targets and the latest poverty estimates and trends. Note that the dots and labels show single-year estimates and the lines show the three-year averages. Single-year estimates can be used to understand the situation at a certain point in time, and three-year averages show trends more accurately.
 
-The charts show that relative and absolute child poverty fell between 1994/95 when data collection began, and 2011/12. Since then, absolute poverty and child material deprivation have been largely stable at a level considerably higher than the targets, and relative and persistent poverty have started to slowly increase again, moving further away from the targets.
+The charts show that relative and absolute child poverty fell between 1994/95, when data collection began, and 2011/12. Child material deprivation has been measured since 2004, and persistent poverty since 2010 - with no clear long-term trend. In recent years, absolute poverty and child material deprivation have been largely stable at a level considerably higher than the targets, and relative and persistent poverty have started to slowly increase again, moving further away from the targets.
 
 As a result, the child poverty measures now appear not on track to achieve the targets.
 

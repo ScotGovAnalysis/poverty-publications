@@ -2,6 +2,15 @@
 title: "Download data and reports"
 ---
 
+<!-- Include skip link at the top of the document -->
+
+<script>
+  $(document).ready(function(){
+    $nav = $('#nav');
+    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
+    });
+</script>
+
 <!-- Include skip target at the top of the document -->
 
 <script>
@@ -15,14 +24,14 @@ The data used to produce the charts of the main report and the Child Poverty upd
   
 ## Poverty and child poverty data
 
-Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately.
+Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately:
 
-- [**All data (xlsx, 330 KB)**](xls/All three-year average.xlsx) - all data from the report, plus additional poverty and child poverty breakdowns
-- [Confidence intervals (docx, 26 KB)](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) - measurement uncertainty information for the headline estimates
+- [**all data (xlsx, 330 KB)**](xls/All three-year average.xlsx) - all data from the main report, plus additional poverty and child poverty breakdowns
+- [confidence intervals (docx, 26 KB)](https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx) - measurement uncertainty information for the headline estimates
 
-In addition, estimates based on single years of data are also available. These are used in the [Child poverty summary](cpupdate.html) alongside the trend data, but otherwise not used in the charts.
+In addition, estimates based on single years of data are also available. These are used in the [Child poverty summary](cpupdate.html) alongside the trend data, but otherwise not used in the charts:
 
-- [Single-year poverty and income data (xlsx, 71 KB)](xls/All single year.xlsx)
+- [single-year poverty and income data (xlsx, 71 KB)](xls/All single year.xlsx)
 
 ## Persistent poverty data
 

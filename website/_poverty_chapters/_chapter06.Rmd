@@ -1,6 +1,6 @@
 ## Income inequality {.tabset}
 
-### Palma {#palma}
+### Palma
 
 `r message("Palma ratio of income inequality fluctuating")`
 

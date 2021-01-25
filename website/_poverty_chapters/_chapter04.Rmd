@@ -2,7 +2,7 @@
 
 The Child Poverty (Scotland) Act 2017 requires us to report annually on a number of child poverty measures. The latest single-year estimates can be found in the [Child Poverty Update](cpupdate.html). The analysis in this report however includes three-year averaged estimates only, which are more suitable for showing trends.
 
-`r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#child).")`
+`r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#dependent-children).")`
 
 ### Key trends {.tabset}
 
@@ -41,7 +41,7 @@ It is estimated that 12% of children (120,000 children each year) were living in
 
 Combined low income and child material deprivation is an additional way of measuring living standards and refers to the inability of households to afford basic goods and activities that are seen as necessities in society.
 
-More detail on this can be found in the [Definitions section](#matdep).
+More detail on this can be found in the [Definitions section](#child-material-deprivation).
 
 
 ```{r chart12}

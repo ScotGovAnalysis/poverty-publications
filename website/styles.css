@@ -11,7 +11,7 @@ em {
 figcaption,
 caption {
   color: #333333;
-  font-weight: 900;
+  font-weight: 700;
   font-size: large;
 }
 
@@ -193,6 +193,9 @@ a:focus {
     z-index: 1;
     padding: 15px;
     width: 197px;
+    font-size: large;
+    line-height: 1.8;
+    height: 62px;
 }
 
 .skiptarget {
@@ -214,7 +217,7 @@ a:focus {
 
 /* Visible to screenreaders only */
 
-.sr-only {
+.visually-hidden {
       position: absolute;
       width: 1px;
       height: 1px;

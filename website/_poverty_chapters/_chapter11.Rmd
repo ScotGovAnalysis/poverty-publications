@@ -10,7 +10,7 @@ The designation of these statistics as National Statistics was confirmed in May 
 
 The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the UK Department for Work and Pensions) are making the data available through the [UK Data Service](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=5828).
 
-### Contact {#contact}
+### Contact
 
 For enquiries about this publication please contact the lead statistician.
 

@@ -2,6 +2,15 @@
 title: "Accessibility"
 ---
 
+<!-- Include skip link at the top of the document -->
+
+<script>
+  $(document).ready(function(){
+    $nav = $('#nav');
+    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
+    });
+</script>
+
 <!-- Include skip target at the top of the document -->
 
 <script>

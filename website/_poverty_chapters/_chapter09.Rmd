@@ -6,9 +6,31 @@ The income measure used in HBAI is weekly net (disposable) equivalised household
 
 Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation).
 
-* Income before housing costs (BHC) includes the following main components: net earnings; profit or loss from self-employment after income tax and NI; all UK and Scottish social security payments, including housing and council tax benefits; all tax credits; occupational and private pension income; investment income; maintenance payments; top-up loans and parental contributions for students, educational grants and payments; the cash value of certain forms of income in kind such as free school meals, free welfare milk and free school milk and free TV licences for the over 75s (where data is available). Income is net of: income tax payments; National Insurance contributions; contributions to occupational, stakeholder and personal pension schemes; council tax; maintenance and child support payments made; and parental contributions to students living away from home.
-* Income after housing costs (AHC) is derived by deducting a measure of housing costs from the above income measure.
-* Housing costs include the following: rent (gross of housing benefit); water rates; mortgage interest payments; structural insurance premiums; ground rent and service charges.
+Income before housing costs (BHC) includes the following main components: 
+
+- net earnings
+- profit or loss from self-employment (after income tax and National Insurance contributions)
+- all UK and Scottish social security payments, including housing and council tax benefits, tax credits, and the state pension
+- occupational and private pension income
+- investment income
+- maintenance payments
+- top-up loans and parental contributions for students, educational grants and payments
+- the cash value of certain forms of income in kind such as free school meals, free welfare milk and free school milk and free TV licences for the over 75s (where data is available)
+
+Income is net of: 
+
+- income tax payments
+- National Insurance contributions
+- contributions to occupational, stakeholder and personal pension schemes
+- council tax
+- maintenance and child support payments made
+- parental contributions to students living away from home
+
+Income after housing costs (AHC) is derived by deducting a [measure of housing costs](#housing-costs) from the above income measure.
+
+### Housing costs
+
+Housing costs include the following: rent (gross of housing benefit); water rates; mortgage interest payments; structural insurance premiums; ground rent and service charges.
 
 ### Income sources
 
@@ -59,19 +81,11 @@ This is made up of 0.67 for the first adult, 0.33 for their spouse, the other ad
 
 Further information on equivalisation can be found in the [methodology report](www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
 
-### Dependent children {#child}
-
-In this publication, 'child' refers to a dependent child. A dependent child is a person either aged 0-15, or aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
-
-### Single mothers / single women with children
-
-Family types are becoming increasingly complex. In this publication, 'single mothers' refers to a situation where the primary residence of a dependent child is in a household with one adult, who is female. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Currently, some, but not all income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
-
 ### Poverty measurement
 
 Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the UK median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
 
-For a couple with no children, the UK median income BHC in `r params$data_period` was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the UK median increased by £5 to £464 per week compared to 2015-18.
+For a couple with no children, the UK median income before housing vosts in `r params$data_period` was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the UK median increased by £5 to £464 per week compared to 2015-18.
 
 Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
 
@@ -80,7 +94,7 @@ Consequently, the 60 percent poverty threshold, which is used to derive the low 
 * Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
 * Relative poverty - individuals living in households whose equivalised income is below 60 percent of median income in the same year. This is a measure of whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole.
 
-### Material deprivation for children {#matdep}
+### Child material deprivation
 
 A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (pdf, McKay, S. and Collard, S. (2004))](www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
 
@@ -96,7 +110,7 @@ In the 2010/11 FRS, both the new and the old questions were asked. As such, esti
 
 For further information about material deprivation see the DWP [Households Below Average Income publication](www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
-### Material deprivation for pensioners {#penmatdep}
+### Pensioner material deprivation
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 
@@ -114,5 +128,14 @@ The same prevalence weighted approach has been used to that for children, in det
 For children, material deprivation is presented as an indicator in combination with a low income threshold. However for pensioners, the concept of material deprivation is broad and very different from low income; therefore, it is appropriate to present it as a separate measure.
 
 A technical note given a full explanation of the pensioner material deprivation measure is [available for download](www.gov.uk/government/statistics/households-below-average-income-hbai-technical-note-on-pensioner-material-deprivation).
+
+### Dependent children
+
+In this publication, 'child' refers to a dependent child. A dependent child is a person either aged 0-15, or aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
+
+### Single mothers
+
+Family types are becoming increasingly complex. In this publication, 'single mothers' refers to a situation where the primary residence of a dependent child is in a household with one adult, who is female. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Currently, some, but not all income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
+
 
 

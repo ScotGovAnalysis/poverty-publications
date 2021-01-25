@@ -2,24 +2,13 @@
 
 ### Tables and further analysis
 
-This publication contains the headline poverty and household income statistics. The associated tables contain all data used in the charts as well as additional data, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only. The [associated tables](download.html) are available for download.
+This publication contains the headline poverty, child poverty and household income statistics. [Associated tables](download.html) are available for download and contain:
 
-Additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics are also available.
+- all estimates used in the charts
+- additional estimates, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only (where available)
+- additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics
 
 Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
-
-### Scottish Government websites
-
-Further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
-
-- [Poverty and income inequality analysis](www.gov.scot/collections/poverty-and-income-inequality-statistics/)
-- [Confidence limits surrounding Scotland's key poverty estimates](www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/)
-- [Child poverty analysis](www.gov.scot/collections/child-poverty-statistics/)
-- [Wealth analysis](www.gov.scot/collections/wealth-statistics/)
-- [Scottish Index of Multiple Deprivation](www.gov.scot/simd)
-- [Other Scottish Government statistics collections](www.gov.scot/collections/scottish-government-statistics/)
-- [Further information on all Scottish Government statistics](www.gov.scot/topics/statistics/)
-- [Scottish Government approach to tackling poverty](www.gov.scot/policies/poverty-and-social-justice/)
 
 ### Local poverty analysis
 
@@ -27,11 +16,20 @@ The main poverty data source, the Family Resources Survey, provides information 
 
 More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
 
+### Persistent poverty
+
+[New figures on persistent poverty](persistent.html) were published on `r params$pub_day`.
+
+Persistent poverty identifies the number of individuals living in relative poverty for 3 or more of the last 4 years. It therefore identifies people who have been living in poverty for a significant period of time, the rationale being that this is more damaging than brief periods spent with a low income, with the impacts affecting an individual through their lifetime.
+
+One of the four [statutory child poverty target measures](cpupdate.html) is persistent child poverty after housing costs.
+
+These figures come from the Understanding Society survey which tracks individuals over time. The persistent poverty figures are not directly comparable to the figures in this publication as they use different income definitions and cover different time periods, but they provide useful additional information on poverty in Scotland.
+
 ### Previous reports
 
 #### Poverty and Income Inequality in Scotland
 
-- [Latest report](./)
 - [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
 - [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
 - [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
@@ -49,3 +47,18 @@ More information on [local poverty and income analysis from alternative data sou
 - [2010-2017 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
 - [2010-2016 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
 - [2010-2015 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+
+### Scottish Government websites
+
+Further analysis based on the FRS and HBAI datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
+
+- [Poverty and income inequality analysis](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+- [Confidence limits surrounding Scotland's key poverty estimates](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/)
+- [Child poverty analysis](www.gov.scot/collections/child-poverty-statistics/)
+- [Wealth analysis](https://www.gov.scot/collections/wealth-statistics/)
+- [Scottish Index of Multiple Deprivation](https://www.gov.scot/simd)
+- [Further information on all Scottish Government statistics](https://www.gov.scot/about/how-government-is-run/statistics-and-research/)
+- [Scottish Government approach to tackling poverty](https://www.gov.scot/policies/poverty-and-social-justice/)
+
+
+

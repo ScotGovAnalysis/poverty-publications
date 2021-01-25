@@ -1,6 +1,6 @@
 ## Income
 
-### Household income trends {#incometrends}
+### Household income trends
 
 `r message("Median weekly household income growing")`
 

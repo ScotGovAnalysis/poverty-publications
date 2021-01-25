@@ -17,7 +17,16 @@ params:
   data_period: "2016-19"
   data_year: "2018/19"
 ---
-  
+
+<!-- Include skip link at the top of the document -->
+
+<script>
+  $(document).ready(function(){
+    $nav = $('#nav');
+    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
+    });
+</script>
+
 <!-- Include logo and skip target at the top of the document -->
   
 <script>
@@ -26,6 +35,8 @@ params:
     $head.prepend('<img src=\"img/badge.png\" alt=\"National Statistics logo\" id=\"badge\"/></a><div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
     });
 </script>
+
+
   
 
 ```{r setup, include = FALSE}

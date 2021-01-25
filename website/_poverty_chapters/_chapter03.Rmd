@@ -4,7 +4,7 @@
 
 The most commonly used poverty indicator in Scotland is relative poverty after housing costs. It is complemented in this report by other poverty measures, which are shown in the additional tabs below.
 
-#### Relative poverty {#relpov}
+#### Relative poverty
 
 `r message("Relative poverty rate for all individuals no longer rising")`
 
@@ -142,7 +142,7 @@ This data has been collected since 2009.
 
 Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure, in that is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation prevent access to goods and services, rather than solely low income.
 
-More information about pensioner material deprivation can be found in the [Definitions section](#penmatdep).
+More information about pensioner material deprivation can be found in the [Definitions section](#pensioner-material-deprivation).
 
 Pensioner material deprivation is included for pensioners aged 65 or over.
 

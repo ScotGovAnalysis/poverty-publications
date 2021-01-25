@@ -25,7 +25,7 @@ The poverty rate was highest for single women with children (39%). The poverty r
 
 Until 2010-13, the gap in poverty rates between these groups had narrowed, but in recent years it widened again.
 
-`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#child).\n\nEstimates for single fathers are not available due to small sample sizes.")`
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#dependent-children).\n\nEstimates for single fathers are not available due to small sample sizes.")`
 
 ```{r chart19}
 caption <- "Figure 19: Proportion of single working-age adults in relative poverty after housing costs, Scotland"
@@ -85,7 +85,7 @@ Before housing costs data is available in the associated tables.
 
 #### More information on ethnicity data
 
-The above chart shows an ethnicity breakdown based on an average of data from the past five financial years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more [detailed ethnicity breakdown using ten years of data](www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
+The above chart shows an ethnicity breakdown based on an average of data from the past five financial years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more [detailed ethnicity breakdown using ten years of data](https://www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
 
 Due to the small sample sizes for some of the ethnic groups, and the fact that ethnic composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by ethnicity, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of people in poverty is not available for some ethnic groups due to small sample sizes.
 
