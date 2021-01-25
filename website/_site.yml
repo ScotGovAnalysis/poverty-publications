@@ -5,6 +5,4 @@ output:
     number_sections: false
     mathjax: NULL
     css: styles.css
-    includes:
-      in_header: _header.html
 
