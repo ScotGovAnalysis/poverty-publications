@@ -1,11 +1,8 @@
 ---
 title: "Poverty and Income Inequality in Scotland `r params$data_period`" 
-
+lang: "en"
 output:
   bookdown::html_document2:
-    number_sections: false
-    fig_width: 7
-    fig_height: 3
     toc: yes
     toc_depth: 3
     toc_float:

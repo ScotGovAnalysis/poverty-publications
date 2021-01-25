@@ -1,5 +1,6 @@
 ---
 title: "Child poverty update"
+lang: "en"
 ---
 
 ```{r setup, include = FALSE}

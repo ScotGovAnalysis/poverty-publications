@@ -1,5 +1,6 @@
 ---
 title: "Accessibility"
+lang: "en"
 ---
 
 <!-- Include skip link at the top of the document -->
