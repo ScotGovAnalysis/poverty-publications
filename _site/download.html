@@ -260,11 +260,11 @@ $(document).ready(function () {
 
 
 
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav id = "nav" class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only"> Website navigation</span>
+        <span class="visually-hidden"> Website navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -276,13 +276,6 @@ $(document).ready(function () {
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li>
-          <div>
-            <a href="#maincontent" class="skiplink govuk-link">
-              Skip to main content
-            </a>
-          </div>
-        </li>
         <li>
           <a href="cpupdate.html">
             <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
@@ -325,6 +318,13 @@ $(document).ready(function () {
 </div>
 
 
+<!-- Include skip link at the top of the document -->
+<script>
+  $(document).ready(function(){
+    $nav = $('#nav');
+    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
+    });
+</script>
 <!-- Include skip target at the top of the document -->
 <script>
   $(document).ready(function(){
@@ -335,14 +335,14 @@ $(document).ready(function () {
 <p>The data used to produce the charts of the main report and the Child Poverty update is available for download below. The files also contain further poverty and child poverty analysis which is not included in the main report.</p>
 <div id="poverty-and-child-poverty-data" class="section level2">
 <h2>Poverty and child poverty data</h2>
-<p>Estimates are averages of three years’ worth of data in order to reduce data volatility and show trends more accurately.</p>
+<p>Estimates are averages of three years’ worth of data in order to reduce data volatility and show trends more accurately:</p>
 <ul>
-<li><a href="xls/All%20three-year%20average.xlsx"><strong>All data (xlsx, 330 KB)</strong></a> - all data from the report, plus additional poverty and child poverty breakdowns</li>
-<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx">Confidence intervals (docx, 26 KB)</a> - measurement uncertainty information for the headline estimates</li>
+<li><a href="xls/All%20three-year%20average.xlsx"><strong>all data (xlsx, 330 KB)</strong></a> - all data from the main report, plus additional poverty and child poverty breakdowns</li>
+<li><a href="https://www.gov.scot/binaries/content/documents/govscot/publications/statistics/2020/03/poverty-income-inequality-scotland-2016-19/documents/confidence-intervals/confidence-intervals/govscot%3Adocument/confidence-intervals.docx">confidence intervals (docx, 26 KB)</a> - measurement uncertainty information for the headline estimates</li>
 </ul>
-<p>In addition, estimates based on single years of data are also available. These are used in the <a href="cpupdate.html">Child poverty summary</a> alongside the trend data, but otherwise not used in the charts.</p>
+<p>In addition, estimates based on single years of data are also available. These are used in the <a href="cpupdate.html">Child poverty summary</a> alongside the trend data, but otherwise not used in the charts:</p>
 <ul>
-<li><a href="xls/All%20single%20year.xlsx">Single-year poverty and income data (xlsx, 71 KB)</a></li>
+<li><a href="xls/All%20single%20year.xlsx">single-year poverty and income data (xlsx, 71 KB)</a></li>
 </ul>
 </div>
 <div id="persistent-poverty-data" class="section level2">
