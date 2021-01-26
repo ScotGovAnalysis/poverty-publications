@@ -1996,7 +1996,7 @@ createContentSheet <- function(filename){
 
 # Chart functions ----
 
-linechart <- function(df, up = 0, GBP = FALSE, ...){
+linechart <- function(df, GBP = FALSE, ...){
 
   df$key <- factor(df$key)
 
@@ -2024,7 +2024,7 @@ linechart <- function(df, up = 0, GBP = FALSE, ...){
              label = text)) +
 
     addxlabels() +
-    addrecessionbar(up = up, ...) +
+    addrecessionbar(...) +
 
     geom_point_interactive(aes(tooltip = text,
                                data_id = paste(text, value)),
@@ -2162,7 +2162,7 @@ persistentchart <- function(df) {
 }
 
 # Add annotations for recession and welfare reform
-addrecessionbar <- function(up = 0, recession = TRUE){
+addrecessionbar <- function(recession = TRUE){
 
   # positions of bars
   rec_start <- 16.84
@@ -2181,9 +2181,9 @@ addrecessionbar <- function(up = 0, recession = TRUE){
                        size = 3,
                        colour = SGgreys[2],
                        hjust = 1,
-                       vjust = 1,
+                       vjust = 2,
                        x = rec_centre,
-                       y = 0.45 + up)
+                       y = Inf)
 
   if (recession) {list(rec_rect, rec_text)}
 

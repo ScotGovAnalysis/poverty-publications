@@ -87,7 +87,7 @@ saveplot("website/img/chart0c.png")
 data <- mutate(povertychartdata[["relpov"]],
                value = pprate)
 
-povertycharts[["chart01"]] <- linechart(data, up = -0.1) +
+povertycharts[["chart01"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.05, 0.35)) +
   addscales() +
   addsource() +
@@ -98,7 +98,7 @@ povertycharts[["chart01"]] <- linechart(data, up = -0.1) +
 ## chart02 abs pov pp ----
 data <- mutate(povertychartdata[["abspov"]], value = pprate)
 
-povertycharts[["chart02"]] <- linechart(data, up = 0.15) +
+povertycharts[["chart02"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.13, 0.6)) +
   addnames(up = c(-0.18, +0.035)) +
   addscales() +
@@ -154,7 +154,7 @@ povertycharts[["chart03"]] <- ggplot(data, aes(x = group,
 ## chart04 rel pov wa ----
 data <- mutate(povertychartdata[["relpov"]], value = warate)
 
-povertycharts[["chart04"]] <- linechart(data, up = -0.1) +
+povertycharts[["chart04"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.05, 0.35)) +
   addnames(up = c(-0.04, 0.05)) +
   addscales() +
@@ -164,7 +164,7 @@ povertycharts[["chart04"]] <- linechart(data, up = -0.1) +
 ## chart05 abs pov wa ----
 data <- mutate(povertychartdata[["abspov"]], value = warate)
 
-povertycharts[["chart05"]] <- linechart(data, up = 0.1) +
+povertycharts[["chart05"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.1, 0.57)) +
   addnames(up = c(-0.13, +0.04)) +
   addscales() +
@@ -175,7 +175,7 @@ povertycharts[["chart05"]] <- linechart(data, up = 0.1) +
 data <- mutate(povertychartdata[["workpov"]], value = wacomp) %>%
   filter(groupingvar == "Someone in paid work")
 
-povertycharts[["chart06"]] <- linechart(data, up = 0.3) +
+povertycharts[["chart06"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.3, 0.75)) +
   addnames(up = c(-0.06, 0.09)) +
   addscales() +
@@ -185,7 +185,7 @@ povertycharts[["chart06"]] <- linechart(data, up = 0.3) +
 ## chart07 rel pov pn ----
 data <- mutate(povertychartdata[["relpov"]], value = pnrate)
 
-povertycharts[["chart07"]] <- linechart(data, up = -0.05) +
+povertycharts[["chart07"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.1, 0.4)) +
   addnames(up = c(-0.11, 0.03)) +
   addscales() +
@@ -195,7 +195,7 @@ povertycharts[["chart07"]] <- linechart(data, up = -0.05) +
 ## chart08 abs pov pn ----
 data <- mutate(povertychartdata[["abspov"]], value = pnrate)
 
-povertycharts[["chart08"]] <- linechart(data, up = 0.11) +
+povertycharts[["chart08"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.11, 0.58)) +
   addnames(up = c(0.035, -0.27)) +
   addscales() +
@@ -217,7 +217,7 @@ povertycharts[["chart09"]] <- linechart(data, recession = FALSE) +
 # chart10 rel pov ch ----
 data <- mutate(povertychartdata[["relpov"]], value = chrate)
 
-povertycharts[["chart10"]] <- linechart(data, up = -0.05) +
+povertycharts[["chart10"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.1, 0.4)) +
   addscales() +
   addsource() +
@@ -227,7 +227,7 @@ povertycharts[["chart10"]] <- linechart(data, up = -0.05) +
 # chart11 abs pov ch ----
 data <- mutate(povertychartdata[["abspov"]], value = chrate)
 
-povertycharts[["chart11"]] <- linechart(data, up = 0.07) +
+povertycharts[["chart11"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.06, 0.53)) +
   addnames(up = c(-0.2, 0.03)) +
   addscales() +
@@ -259,7 +259,7 @@ povertycharts[["chart12"]] <- linechart(data, recession = FALSE) +
 data <- mutate(povertychartdata[["workpov"]], value = chcomp) %>%
   filter(groupingvar == "Someone in paid work")
 
-povertycharts[["chart13"]] <- linechart(data, up = 0.3) +
+povertycharts[["chart13"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.3, 0.75)) +
   addnames(up = c(-0.07, 0.07)) +
   addscales() +
@@ -514,7 +514,7 @@ povertycharts[["chart25"]] <- linechart(data, recession = FALSE) +
 ## chart26 palma ----
 data <- mutate(povertychartdata[["palma"]], value = Palma)
 
-povertycharts[["chart26"]] <- linechart(data, up = 1.15) +
+povertycharts[["chart26"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.9, 1.6)) +
   addscales() +
   addsource() +
@@ -524,7 +524,7 @@ povertycharts[["chart26"]] <- linechart(data, up = 1.15) +
 ## chart27 gini ----
 data <- mutate(povertychartdata[["gini"]], value = Gini)
 
-povertycharts[["chart27"]] <- linechart(data, up = -0.07) +
+povertycharts[["chart27"]] <- linechart(data) +
   scale_y_continuous(limits = c(0.27, 0.38)) +
   addscales() +
   addsource() +
@@ -539,7 +539,7 @@ data <- mutate(povertychartdata[["medians"]],
                text = stringi::stri_enc_toutf8(comma(value, 1, prefix = "£")),
                tooltip = str_c(key, ": ", text, " (", years, ")"))
 
-povertycharts[["chart28"]] <- linechart(data, up = 599.55, GBP = TRUE) +
+povertycharts[["chart28"]] <- linechart(data, GBP = TRUE) +
   scale_y_continuous(limits = c(250, 600)) +
   addscales() +
   addsource() +
