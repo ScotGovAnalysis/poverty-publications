@@ -3,22 +3,15 @@ title: "Accessibility"
 lang: "en"
 ---
 
-<!-- Include skip link at the top of the document -->
+<!-- Include skip link and skip target at the top of the document -->
 
 <script>
   $(document).ready(function(){
     $nav = $('#nav');
     $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
+    $head = $('#header');
+    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
     });
-</script>
-
-<!-- Include skip target at the top of the document -->
-
-<script>
-$(document).ready(function(){
-  $head = $('#header');
-  $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
-});
 </script>
 
 

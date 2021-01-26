@@ -8,7 +8,10 @@ The Child Poverty (Scotland) Act 2017 requires us to report annually on a number
 
 #### Relative poverty
 
-`r message("Relative poverty rate for children no longer rising")`
+```{r}
+keymessage <- "Relative poverty rate for children no longer rising"
+message(keymessage)
+```
 
 It is estimated that 24% of children (230,000 children each year) were living in relative poverty after housing costs in `r params$data_period`. Before housing costs, it is estimated that 20% of children (200,000 children each year) were in relative poverty.
 
@@ -16,26 +19,35 @@ After a long fall between 1999-02 and 2010-13, which halted briefly just before 
 
 
 ```{r chart10}
-caption <- "Figure 10: Proportion of children in relative poverty, Scotland"
-interactive(povertycharts[["chart10"]], caption = caption)
+title <- str_c("Figure 10: ", keymessage)
+subtitle <- "Proportion of children in relative poverty, Scotland"
+interactive(povertycharts[["chart10"]], title = title, subtitle = subtitle)
 ```
 
 #### Absolute poverty
 
-`r message("Absolute poverty rate for children stable")`
+```{r}
+keymessage <- "Absolute poverty rate for children stable"
+message(keymessage)
+```
 
 Absolute child poverty after housing costs affected 21% (210,000 children each year). Before housing costs, absolute child poverty was at 17% (160,000 children each year).
 
 Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the recession. The decrease of the after housing costs rate then slowed down. The before housing costs measure continued to decrease until 2013-16 and has been largely flat since. As a result, the gap between absolute child poverty before and after housing costs widened in recent years.
 
 ```{r chart11}
-caption <- "Figure 11: Proportion of children in absolute poverty, Scotland"
-interactive(povertycharts[["chart11"]], height = 4, caption = caption)
+title <- str_c("Figure 11: ", keymessage)
+caption <- "Proportion of children in absolute poverty, Scotland"
+interactive(povertycharts[["chart11"]], height = 4.5, title = title, 
+            subtitle = subtitle)
 ```
 
 #### Material deprivation
 
-`r message("Children in combined material deprivation and low income broadly stable")`
+```{r}
+keymessage <- "Children in combined material deprivation and low income broadly stable"
+message(keymessage)
+```
 
 It is estimated that 12% of children (120,000 children each year) were living in combined low income and material deprivation after housing costs in `r params$data_period`. Before housing costs, this was 11% of children (110,000 children).
 
@@ -45,15 +57,19 @@ More detail on this can be found in the [Definitions section](#child-material-de
 
 
 ```{r chart12}
-caption <- "Figure 12: Proportion of children in combined low income and material deprivation, Scotland"
-interactive(povertycharts[["chart12"]], caption = caption)
+title <- str_c("Figure 12: ", keymessage)
+subtitle <- "Proportion of children in combined low income and material deprivation, Scotland"
+interactive(povertycharts[["chart12"]], height = 3.5, title = title, subtitle = subtitle)
 ```
 
 `r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. The break in the time series indicates this change.")`
 
 #### In-work poverty
 
-`r message("In-work poverty for children no longer rising")`
+```{r}
+keymessage <- "In-work poverty for children no longer rising"
+message(keymessage)
+```
 
 While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
 
@@ -63,21 +79,26 @@ This data suggests that after a steady and steep increase of in-work poverty sin
 
 `r infobox("The terms 'working' and 'in-work poverty' here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
 
-
 ```{r chart13}
-caption <- "Figure 13: Proportion of children in relative poverty who live in working households, Scotland"
-interactive(povertycharts[["chart13"]], caption = caption)
+title <- str_c("Figure 13: ", keymessage)
+subtitle <- "Proportion of children in relative poverty who live in working households, Scotland"
+interactive(povertycharts[["chart13"]], height = 3.5, title = title, subtitle = subtitle)
 ```
 
 #### Food insecurity
 
+```{r}
+keymessage <- "Add key message here"
+message(keymessage)
+```
+
 Add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
 ```{r chart14}
-
-caption <- str_c("Figure 14: Levels of food security of all children and those in poverty, Scotland ",
+title <- str_c("Figure 14: ", keymessage)
+subtitle <- str_c("Levels of food security of all children and those in poverty, Scotland ",
                  params$data_year," (fake data!)")
-interactive(povertycharts[["chart14"]], caption = caption)
+interactive(povertycharts[["chart14"]], title = title, subtitle = subtitle)
 ```
 
 Bar chart showing the proportion of children who've expericenced food insecurity, broken down by poverty status (all children, childrenin relative poverty AHC, children in combined low income and material deprivation)
@@ -91,21 +112,27 @@ note re minority ethnic group includes white minorities such as white people who
 #### Relative poverty
 
 ```{r chart15}
-caption <- "Figure 15: Proportion of children in relative poverty after housing cost, Scotland"
-interactive(povertycharts[["chart15"]], caption = caption)
+keymessage <- "Add a key message here"
+title <- str_c("Figure 15: ", keymessage)
+subtitle <- "Proportion of children in relative poverty after housing cost, Scotland"
+interactive(povertycharts[["chart15"]], title = title, subtitle = subtitle)
 ```
 
 #### Absolute poverty
 
 ```{r chart16}
-caption <- "Figure 16: Proportion of children in absolute poverty after housing costs, Scotland"
-interactive(povertycharts[["chart16"]], caption = caption)
+keymessage <- "Add a key message here"
+title <- str_c("Figure 16: ", keymessage)
+subtitle <- "Proportion of children in absolute poverty after housing costs, Scotland"
+interactive(povertycharts[["chart16"]], title = title, subtitle = subtitle)
 ```
 
 #### Material deprivation
 
 ```{r chart17}
-caption <- "Figure 17: Proportion of children in combined low income and material deprivation, Scotland"
-interactive(povertycharts[["chart17"]], caption = caption)
+keymessage <- "Add a key message here"
+title <- str_c("Figure 17: ", keymessage)
+subtitle <- "Proportion of children in combined low income and material deprivation, Scotland"
+interactive(povertycharts[["chart17"]], title = title, subtitle = subtitle)
 ```
 

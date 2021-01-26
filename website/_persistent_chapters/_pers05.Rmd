@@ -23,4 +23,4 @@ Income after housing costs (AHC) is derived by deducting a measure of housing co
 
 ### Equivalisation 
 
-Equivalisation is the process by which household income is adjusted to make it comparable across households of different size and composition. This reflects the fact that a bigger household requires more money than a smaller one to achieve the same standard of living. Further information on equivalisation can be found on the [Scottish Government poverty methodology webpages](www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/)
+Equivalisation is the process by which household income is adjusted to make it comparable across households of different size and composition. This reflects the fact that a bigger household requires more money than a smaller one to achieve the same standard of living. Further information on equivalisation can be found on the [Scottish Government poverty methodology webpages](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/)

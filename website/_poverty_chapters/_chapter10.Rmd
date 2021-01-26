@@ -30,23 +30,23 @@ These figures come from the Understanding Society survey which tracks individual
 
 #### Poverty and Income Inequality in Scotland
 
-- [2016-19 report](www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
-- [2015-18 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
-- [2014-17 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
-- [2015/16 report](www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)
-- [2014/15 report](www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/)
-- [2013/14 report](www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/)
-- [2012/13 report](www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/)
-- [2011/12 report](www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
-- [2010/11 report](www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
+- [2016-19 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
+- [2015-18 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
+- [2014-17 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
+- [2015/16 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)
+- [2014/15 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/)
+- [2013/14 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/)
+- [2012/13 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/)
+- [2011/12 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
+- [2010/11 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
 
 #### Persistent Poverty in Scotland
 
 - [Latest report](persistent.html)
-- [2010-2018 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
-- [2010-2017 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
-- [2010-2016 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
-- [2010-2015 report](www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+- [2010-2018 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
+- [2010-2017 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
+- [2010-2016 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
+- [2010-2015 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
 
 ### Scottish Government websites
 

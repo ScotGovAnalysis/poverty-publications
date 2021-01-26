@@ -36,13 +36,8 @@ mytheme <- theme_grey() +
                             lineend = 2,
                             size = 0.5),
 
-        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
-        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
         plot.caption = element_text(hjust = 1,
                                     margin = margin(t = 20)),
-
-        legend.position = "top",
-        legend.title = element_blank(),
 
         panel.background = element_blank(),
         panel.grid.major = element_blank(),
@@ -59,21 +54,14 @@ theme_set(mytheme)
 
 ```
 
-<!-- Include skip link at the top of the document -->
+<!-- Include skip link and skip target at the top of the document -->
 
 <script>
   $(document).ready(function(){
     $nav = $('#nav');
     $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
-    });
-</script>
-
-<!-- Include skip target at the top of the document -->
-
-<script>
-  $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
     });
 </script>
 
@@ -90,25 +78,25 @@ As a result, the child poverty measures now appear not on track to achieve the t
 make4panels(title_tl = "Relative poverty",
             subtitle_tl = "= low income relative to the rest of society", 
             text_tl = "Proportion of children living in households with equivalised incomes below 60% of the median (middle) UK income in the current year.", 
-            chart_tl = girafe(ggobj = cp_charts[['rel']]), 
+            chart_tl = cp_charts[['rel']], 
             desc_tl = "Line chart of the relative child poverty trend, also including single-year data points and the interim and final targets, showing a small increase in recent years that may now have stopped at a level remaining considerably above the targets.",
             
             title_tr = "Absolute poverty", 
             subtitle_tr = "= low living standards relative to 2010/11", 
             text_tr = "Proportion of children living in households with equivalised incomes below 60% of the median UK income in a base year (currently 2010/11) adjusted for inflation.", 
-            chart_tr = girafe(ggobj = cp_charts[['abs']]), 
+            chart_tr = cp_charts[['abs']], 
             desc_tr = "Line chart of the absolute child poverty trend, also including single-year data points and the interim and final targets, showing an initial fall followed by stagnation in recent years at a level considerably higher than the targets.",
             
             title_bl = "Combined low income and material deprivation", 
             subtitle_bl = "= unable to afford basic necessities", 
             text_bl = "Proportion of children in households with equivalised incomes below 70% of the median UK income and going without certain basic goods and services.", 
-            chart_bl = girafe(ggobj = cp_charts[['md']]), 
+            chart_bl = cp_charts[['md']], 
             desc_bl = "Line chart of the proportion of children in combined low income and material deprivation trend, also including single-year data points and the interim and final targets, showing little change and a level that is considerably higher than the targets.",
             
             title_br = "Persistent poverty", 
             subtitle_br = "= in poverty for several years", 
             text_br = "Proportion of children who have lived in relative poverty in three or more of the last four years.", 
-            chart_br = girafe(ggobj = cp_charts[['pers']]), 
+            chart_br = cp_charts[['pers']], 
             desc_br = "Line chart of the persistent child poverty trend, also including single-year data points and the interim and final targets with data only available since 2010, showing an apparent increase in recent years, moving further away from the targets.")
 
 

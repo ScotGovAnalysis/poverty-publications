@@ -14,15 +14,18 @@ Poverty estimates in this publication are derived by looking at household income
 #### After housing costs
 
 ```{r chart01}
-caption <- "Figure 1: Proportion of people in persistent poverty by UK country"
-interactive(persistentcharts[["chart01"]], caption = caption)
+
+title <- "Figure 1: Proportion of people in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart01"]], title = title, subtitle = subtitle)
 ```
 
 #### Before housing costs
 
 ```{r chart02}
-caption <- "Figure 2: Proportion of people in persistent poverty by UK country"
-interactive(persistentcharts[["chart02"]], caption = caption)
+title <- "Figure 2: Proportion of people in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart02"]], title = title, subtitle = subtitle)
 ```
 
 #### Table
@@ -54,15 +57,17 @@ kableExtra::kable(data, caption = caption,
 #### After housing costs
 
 ```{r chart03}
-caption <- "Figure 3: Proportion of children in persistent poverty by UK country"
-interactive(persistentcharts[["chart03"]], caption = caption)
+title <- "Figure 3: Proportion of children in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart03"]], title = title, subtitle = subtitle)
 ```
 
 #### Before housing costs
 
 ```{r chart04}
-caption <- "Figure 4: Proportion of children in persistent poverty by UK country"
-interactive(persistentcharts[["chart04"]], caption = caption)
+title <- "Figure 4: Proportion of children in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart04"]], title = title, subtitle = subtitle)
 ```
 
 #### Table
@@ -96,15 +101,17 @@ kableExtra::kable(data, caption = caption,
 #### After housing costs
 
 ```{r chart05}
-caption <- "Figure 5: Proportion of working-age adults in persistent poverty by UK country"
-interactive(persistentcharts[["chart05"]], caption = caption)
+title <- "Figure 5: Proportion of working-age adults in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart05"]], title = title, subtitle = subtitle)
 ```
 
 #### Before housing costs
 
 ```{r chart06}
-caption <- "Figure 6: Proportion of working-age adults in persistent poverty by UK country"
-interactive(persistentcharts[["chart06"]], caption = caption)
+title <- "Figure 6: Proportion of working-age adults in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart06"]], title = title, subtitle = subtitle)
 ```
 
 #### Table
@@ -138,15 +145,17 @@ kableExtra::kable(data, caption = caption,
 #### After housing costs
 
 ```{r chart07}
-caption <- "Figure 7: Proportion of pensioners in persistent poverty by UK country"
-interactive(persistentcharts[["chart07"]], caption = caption)
+title <- "Figure 7: Proportion of pensioners in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart07"]], title = title, subtitle = subtitle)
 ```
 
 #### Before housing costs
 
 ```{r chart08}
-caption <- "Figure 8: Proportion of pensioners in persistent poverty by UK country"
-interactive(persistentcharts[["chart08"]], caption = caption)
+title <- "Figure 8: Proportion of pensioners in persistent poverty by UK country"
+subtitle = NULL
+interactive(persistentcharts[["chart08"]], title = title, subtitle = subtitle)
 ```
 
 #### Table

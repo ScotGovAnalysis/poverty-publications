@@ -61,7 +61,7 @@ kable(df,
                 full_width = F, position = "left") 
 ```
 
-There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper [Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)](www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.
+There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper [Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)](https://www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.
 
 ### Population coverage 
 

@@ -19,21 +19,14 @@ params:
 
 ---
 
-<!-- Include skip link at the top of the document -->
+<!-- Include skip link and skip target at the top of the document -->
 
 <script>
   $(document).ready(function(){
     $nav = $('#nav');
     $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
-    });
-</script>
-
-<!-- Include skip target at the top of the document -->
-
-<script>
-  $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
     });
 </script>
 
@@ -69,9 +62,9 @@ mytheme <- theme_grey() +
                             lineend = 2,
                             size = 0.5),
 
-        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
-        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 16),
         plot.caption = element_text(hjust = 1),
+        plot.title.position = "plot",
 
         legend.position = "top",
         legend.title = element_blank(),

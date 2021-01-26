@@ -2,13 +2,17 @@
 
 ### Age
 
-`r message("Relative poverty rates higher for the youngest adults")`
+```{r}
+keymessage <- "Relative poverty rates higher for the youngest adults"
+message(keymessage)
+```
 
 - note re hhld level analysis
 
 ```{r chart18}
-caption <- "Figure 18: Proportion of adults in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart18"]], caption = caption)
+title <- str_c("Figure 18: ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
+interactive(povertycharts[["chart18"]], title = title, subtitle = subtitle)
 ```
 
 ### Gender {.tabset}
@@ -17,7 +21,10 @@ Income is measured at a household level, which makes it difficult to measure the
 
 #### Working age
 
-`r message("Relative poverty rates highest for single women with children but gap is smaller than it used to be")`
+```{r}
+keymessage <- "Relative poverty rates highest for single women with children but gap is smaller than it used to be"
+message(keymessage)
+```
 
 In `r params$data_period`, the relative poverty rate after housing costs for single working-age adults was 32%, higher than for the total working-age adult population (19%).
 
@@ -28,28 +35,38 @@ Until 2010-13, the gap in poverty rates between these groups had narrowed, but i
 `r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#dependent-children).\n\nEstimates for single fathers are not available due to small sample sizes.")`
 
 ```{r chart19}
-caption <- "Figure 19: Proportion of single working-age adults in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart19"]], height = 4, caption = caption)
+title <- str_c("Figure 19: ", keymessage)
+subtitle <- "Proportion of single working-age adults in relative poverty after housing costs, Scotland"
+interactive(povertycharts[["chart19"]], height = 5, title = title,
+            subtitle = subtitle)
 ```
 
 #### Pensioners
 
-`r message("Relative poverty rates higher for single female pensioners than male")`
+```{r}
+keymessage <- "Relative poverty rates higher for single female pensioners than male"
+message(keymessage)
+```
 
 In `r params$data_period`, 18% of single female pensioners and 15% of single male pensioners were in relative poverty after housing costs. In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
 
 Some of the difference in pensioner poverty between genders may be due to different age profiles. For example, in `r params$data_period`, 40% of female single pensioners were aged over 80 compared with 31% of male single pensioners. Older pensioners may have different sources of income which may result in them having lower incomes.
 
 ```{r chart20}
-caption <- "Figure 20: Proportion of single pensioners in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart20"]], height = 4, caption = caption)
+title <- str_c("Figure 20: ", keymessage)
+subtitle <- "Proportion of single pensioners in relative poverty after housing costs, Scotland"
+interactive(povertycharts[["chart20"]], height = 5, title = title,
+            subtitle = subtitle)
 ```
 
 Before housing costs data is available in the associated tables.
 
 ### Marital status
 
-`r message("Relative poverty rates highest for singles, divorced & separated, and lowest for married adults")`
+```{r}
+keymessage <- "Relative poverty rates highest for singles, divorced & separated, and lowest for married adults"
+message(keymessage)
+```
 
 In `r params$data_period`, the relative poverty rate after housing costs was highest for single adults (27%, 260,000 adults each year) and divorced (or separated) adults (26%, 90,000). Married adults were the least likely to be in poverty (13%, 270,000), and widowed and cohabiting adults were in the middle (17% and 20%; 50,000 and 120,000).
 
@@ -58,15 +75,20 @@ Poverty among widowed and divorced/separated adults largely decreased over the l
 `r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner.\n\nThe 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart.\n\nThe 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
 
 ```{r chart21}
-caption <- "Figure 21: Proportion of adults in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart21"]], height = 4, caption = caption)
+title <- str_c("Figure 21: ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
+interactive(povertycharts[["chart21"]], height = 5, title = title,
+            subtitle = subtitle)
 ```
 
 ### Ethnicity
 
 Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.
 
-`r message("Relative poverty rates higher for ethnic minorities")`
+```{r}
+keymessage <- "Relative poverty rates higher for ethnic minorities"
+message(keymessage)
+```
 
 In 2014-19, people from non-white minority ethnic groups were more likely to be in relative poverty after housing costs compared to those from the 'White - British' and 'White - Other' groups.
 
@@ -77,8 +99,11 @@ The poverty rate amongst the 'White - Other' group was 25% (80,000 people) and t
 `r infobox("This analysis doesn't take into account differences in the age profiles of the ethnic groups.\n\nFor the 'White - British' ethnic group the median average age of the highest income earner was 50 compared with a median age of 36 for the 'White - Other' ethnic group, 39 for 'Asian or Asian British' and and 40 for 'Mixed, Black, Black British or Other' ethnic groups.\n\nOlder people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups.")`
 
 ```{r chart22}
-caption <- "Figure 22: Proportion of people in relative poverty after housing costs, Scotland 2014-2019"
-interactive(povertycharts[["chart22"]], caption = caption)
+title <- str_c("Figure 22: ", keymessage)
+subtitle <- str_c("Proportion of people in relative poverty after housing costs, Scotland ", 
+                  params$data_period_5)
+interactive(povertycharts[["chart22"]], title = title,
+            subtitle = subtitle)
 ```
 
 Before housing costs data is available in the associated tables.
@@ -93,7 +118,10 @@ Due to the small sample sizes for some of the ethnic groups, and the fact that e
 
 Data on religion is available for adults only, so this analysis doesn't include children in a household.
 
-`r message("Relative poverty rates higher for Muslims")`
+```{r}
+keymessage <- "Relative poverty rates higher for Muslims"
+message(keymessage)
+```
 
 In 2014-19, Muslim adults were more likely to be in relative poverty (49%) than adults overall (18%), after housing costs were taken into account.
 
@@ -102,8 +130,10 @@ Of adults belonging to the Church of Scotland, 15% were in relative poverty afte
 `r infobox("This analysis doesn't take into account differences in the age profiles of the religions.\n\nFor adults belonging to the Church of Scotland, the median average age was 61. In contrast, the median age was 35 for Muslim adults, and 40 for adults belonging to no religion.\n\nOlder people have a lower poverty rate, so age profile partly explains the lower poverty rate for people belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups.")`
 
 ```{r chart23}
-caption <- "Figure 23: Proportion of adults in relative poverty after housing costs, Scotland 2014-19"
-interactive(povertycharts[["chart23"]], caption = caption)
+title <- str_c("Figure 23: ", keymessage)
+subtitle <- str_c("Proportion of adults in relative poverty after housing costs, Scotland ", 
+                  params$data_period_5)
+interactive(povertycharts[["chart23"]], title = title, subtitle = subtitle)
 ```
 
 Before housing costs data is available in the associated tables.
@@ -116,15 +146,20 @@ Due to the small sample sizes for some of the religious groups, and the fact tha
 
 ### Disability
 
-`r message("Relative poverty rates higher where a household member is disabled")`
+```{r}
+keymessage <- "Relative poverty rates higher where a household member is disabled"
+message(keymessage)
+```
 
 Poverty rates remain higher for households in which somebody is disabled compared to those where no-one is disabled. The gap between the two groups has remained fairly steady over the last few years.
 
 In `r params$data_period`, the poverty rate after housing costs for people in households with a disabled person was 23% (490,000 people each year). This compares with 17% (530,000 people) in a household without disabled household members.
 
 ```{r chart24}
-caption <- "Figure 24: Proportion of people in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart24"]], caption = caption)
+title <- str_c("Figure 24: ", keymessage)
+subtitle <- "Proportion of people in relative poverty after housing costs, Scotland"
+interactive(povertycharts[["chart24"]], height = 3.5,  title = title,
+            subtitle = subtitle)
 ```
 
 `r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.\n\nMore detail can be found on pages 34-36 in the [2015/16 HBAI technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
@@ -135,7 +170,10 @@ Before housing costs data is available in the associated tables.
 
 The relative poverty measure doesn't take into account the fact that additional living costs may be incurred due to the illness or disability in question. The analysis shown in the next chart attempts to make an adjustment to the poverty rates to partly account for additional living costs for those households where someone is in receipt of disability benefits.
 
-`r message("Relative poverty rates, with disability benefits removed from household income, higher where a household member is disabled")`
+```{r}
+keymessage <- "Relative poverty rates, with disability benefits removed from household income, higher where a household member is disabled"
+message(keymessage)
+```
 
 Whilst it is recognised that there are additional costs associated with disability, research shows that these vary greatly in level and nature, and there is no general agreement on how to measure these costs.
 
@@ -144,8 +182,10 @@ Analysis on this page excludes Disability Living Allowance, Attendance Allowance
 In `r params$data_period`, as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability related benefits are not included in the household income. After housing costs, the poverty rate was 29% (620,000 people each year) for people living with a disabled household member, and 16% (500,000 people) for those without.
 
 ```{r chart25}
-caption <- "Figure 25: Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland"
-interactive(povertycharts[["chart25"]], caption = caption)
+title <- str_c("Figure 25: ", keymessage)
+subtitle <- "Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland"
+interactive(povertycharts[["chart25"]], height = 4,  title = title,
+            subtitle = subtitle)
 ```
 
 `r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now move down the income distribution, which lowers the median income and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold.\n\nAs a result, the poverty rate for households without a disabled person is slightly lower.")`

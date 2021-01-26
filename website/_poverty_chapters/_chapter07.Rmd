@@ -2,7 +2,10 @@
 
 ### Household income trends
 
-`r message("Median weekly household income growing")`
+```{r}
+keymessage <- "Median weekly household income growing"
+message(keymessage)
+```
 
 In `r params$data_period`, median household income before housing costs was £517 per week. Median income has increased slowly but steadily since the recovery after the last recession, and has reached its highest level since reporting began.
 
@@ -12,12 +15,17 @@ Median incomes rose for all age groups: children, working-age adults and pension
 
 
 ```{r chart28}
-caption <- str_c("Figure 28: Median weekly household income in ",
-params$data_year, " prices, Scotland")
-interactive(povertycharts[["chart28"]], caption = caption)
+title <- str_c("Figure 28: ", keymessage)
+subtitle <- str_c("Median weekly household income in ", params$data_year, 
+                  " prices, Scotland")
+interactive(povertycharts[["chart28"]], title = title,
+            subtitle = subtitle)
 ```
 
-`r message("Lower incomes increasing more than higher incomes")`
+```{r}
+keymessage <- "Lower incomes increasing more than higher incomes"
+message(keymessage)
+```
 
 The next chart shows how weekly equivalised incomes before housing costs have changed from 2013-16 to `r params$data_period` across the different income deciles. The bottom five decile points saw small increases compared to the previous period, whereas the top three decile points saw small decreases.
 
@@ -27,9 +35,11 @@ Over the last four years shown in the chart, middle income households saw the la
 
 
 ```{r chart29}
-caption <- str_c("Figure 29: Weekly household income before housing costs at each decile point in ",
+title <- str_c("Figure 29: ", keymessage)
+subtitle <- str_c("Weekly household income before housing costs at each decile point in ",
 params$data_year," prices, Scotland")
-interactive(povertycharts[["chart29"]], caption = caption)
+interactive(povertycharts[["chart29"]], height = 3.5, title = title,
+            subtitle = subtitle)
 ```
 
 After housing costs data is available in the associated tables.
@@ -44,9 +54,12 @@ Decile groups are groups of the population defined by the decile points. The fir
 
 
 ```{r chart30}
-caption <- str_c("Figure 30: Equivalised weekly household income distribution before housing costs, Scotland ", 
+keymessage <- "add key message"
+title <- str_c("Figure 30: ", keymessage)
+subtitle <- str_c("Equivalised weekly household income distribution before housing costs, Scotland ", 
                  params$data_period)
-interactive(povertycharts[["chart30"]], caption = caption)
+interactive(povertycharts[["chart30"]], title = title,
+            subtitle = subtitle)
 ```
 
 ### Poverty thresholds
@@ -87,7 +100,10 @@ An after housing costs table is available in the associated tables.
 
 The chart below shows the different sources of gross income by decile, ranking the population by income and dividing it into ten equal-sized groups. Income components are considered before tax; this is therefore a different definition of household income from that used elsewhere in this report.
 
-`r message("Earnings and social security payments main household income sources")`
+```{r}
+keymessage <- "Earnings and social security payments main household income sources"
+message(keymessage)
+```
 
 Higher income households receive a large proportion of their income from earnings, and lower income households receive more of their income from social security payments. Social security payments include the state pension.
 
@@ -97,7 +113,9 @@ The proportion of household income from earnings exceeds that from social securi
 
 
 ```{r chart31}
-caption <- str_c("Figure 31: Income sources as a percentage of gross income by income decile, Scotland ", 
+title <- str_c("Figure 31: ", keymessage)
+subtitle <- str_c("Income sources as a percentage of gross income by income decile, Scotland ", 
                  params$data_period)
-interactive(povertycharts[["chart31"]], height = 5, caption = caption)
+interactive(povertycharts[["chart31"]], height = 5.5, title = title,
+            subtitle = subtitle)
 ```

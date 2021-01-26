@@ -3,21 +3,14 @@ title: "Download data and reports"
 lang: "en"
 ---
 
-<!-- Include skip link at the top of the document -->
+<!-- Include skip link and skip target at the top of the document -->
 
 <script>
   $(document).ready(function(){
     $nav = $('#nav');
     $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
-    });
-</script>
-
-<!-- Include skip target at the top of the document -->
-
-<script>
-  $(document).ready(function(){
     $head = $('#header');
-    $head.prepend('<div class=\"skiptarget\"><a id=\"maincontent\">-</a></div>')
+    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
     });
 </script>
 

@@ -79,7 +79,7 @@ The construction of household equivalence values from these scales is quite stra
 
 This is made up of 0.67 for the first adult, 0.33 for their spouse, the other adult and the fourteen year old child and 0.20 for the ten year old child. The total income for the household would then be divided by 1.86 in order to arrive at the measure of equivalised household income used in HBAI analysis.
 
-Further information on equivalisation can be found in the [methodology report](www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
+Further information on equivalisation can be found in the [methodology report](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
 
 ### Poverty measurement
 
@@ -96,7 +96,7 @@ Consequently, the 60 percent poverty threshold, which is used to derive the low 
 
 ### Child material deprivation
 
-A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (pdf, McKay, S. and Collard, S. (2004))](www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
+A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (pdf, McKay, S. and Collard, S. (2004))](https://www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
 
 These questions are used as an additional way of measuring living standards for children and their households.
 
@@ -108,14 +108,14 @@ The 21 items in the suite of questions used to measure material deprivation are 
 
 In the 2010/11 FRS, both the new and the old questions were asked. As such, estimates are presented based on both sets of questions for this year.
 
-For further information about material deprivation see the DWP [Households Below Average Income publication](www.gov.uk/government/collections/households-below-average-income-hbai--2).
+For further information about material deprivation see the DWP [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
 ### Pensioner material deprivation
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 
-* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the FRS material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages (pdf)](www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
-* McKay, S. (2008), Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54. [Available on the Bristol University webpages (pdf)](www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf).
+* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the FRS material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
+* McKay, S. (2008), Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf).
 
 Together, these questions form the best discriminator between those pensioner households that are deprived and those that are not.
 
@@ -127,7 +127,7 @@ The same prevalence weighted approach has been used to that for children, in det
 
 For children, material deprivation is presented as an indicator in combination with a low income threshold. However for pensioners, the concept of material deprivation is broad and very different from low income; therefore, it is appropriate to present it as a separate measure.
 
-A technical note given a full explanation of the pensioner material deprivation measure is [available for download](www.gov.uk/government/statistics/households-below-average-income-hbai-technical-note-on-pensioner-material-deprivation).
+A [technical note giving a full explanation of the pensioner material deprivation measure](https://www.gov.uk/government/statistics/households-below-average-income-hbai-technical-note-on-pensioner-material-deprivation) is available for download.
 
 ### Dependent children
 

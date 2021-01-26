@@ -2,7 +2,10 @@
 
 ### Palma
 
-`r message("Palma ratio of income inequality fluctuating")`
+```{r}
+keymessage <- "Palma ratio of income inequality fluctuating"
+message(keymessage)
+```
 
 This chart shows the ratio of total income received by the top ten percent of the population divided by the total income of the bottom forty percent of the population (expressed as a percentage) over time. This measure of how equally income is distributed across the population is known as the "Palma ratio" or "S90/S40 ratio". Palma is used internationally to estimate the extent of inequality between those at the top of the income distribution and those at the bottom. The Palma ratio is usually calculated from income before housing costs, but we have included it for after housing costs income as well.
 
@@ -13,17 +16,24 @@ Income inequality has been fluctuating since the beginning of this data collecti
 Income decile shares are available in the associated tables.
 
 ```{r chart26}
-caption <- "Figure 26: Palma ratio of income inequality, Scotland"
-interactive(povertycharts[["chart26"]], caption = caption)
+title <- str_c("Figure 26: ", keymessage)
+subtitle <- "Palma ratio of income inequality, Scotland"
+interactive(povertycharts[["chart26"]], title = title,
+            subtitle = subtitle)
 ```
 
 ### Gini
 
-`r message("key result here")`
+```{r}
+keymessage <- "key result here"
+message(keymessage)
+```
 
 commentary
 
 ```{r chart27}
-caption <- "Figure 27: Gini coefficient of income inequality, Scotland"
-interactive(povertycharts[["chart27"]], caption = caption)
+title <- str_c("Figure 27: ", keymessage)
+subtitle <- "Gini coefficient of income inequality, Scotland"
+interactive(povertycharts[["chart27"]], title = title,
+            subtitle = subtitle)
 ```

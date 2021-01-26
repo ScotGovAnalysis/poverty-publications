@@ -6,7 +6,10 @@ The most commonly used poverty indicator in Scotland is relative poverty after h
 
 #### Relative poverty
 
-`r message("Relative poverty rate for all individuals no longer rising")`
+```{r}
+keymessage <- "Relative poverty rate for all individuals no longer rising"
+message(keymessage)
+```
 
 It is estimated that 19% of Scotland's population (1.02 million people each year) were living in relative poverty after housing costs in `r params$data_period`. Before housing costs, 17% of the population (900,000 people) were living in poverty.
 
@@ -15,14 +18,17 @@ Relative poverty is a measure of whether the income of the poorest households ar
 The proportion of people in relative poverty after housing costs had been falling slightly between the late nineties and the lowest point in this time series in 2009-12. After that, it started to rise again up until now, where the rise appears to have stopped. Before housing costs poverty looks similar, with the all-time low slightly later, in 2011-14.
 
 ```{r, chart01}
-
-caption <- "Figure 1 - Proportion of people in relative poverty, Scotland"
-interactive(povertycharts[["chart01"]], caption = caption)
+title <- str_c("Figure 1: ", keymessage)
+subtitle <- "Proportion of people in relative poverty, Scotland"
+interactive(povertycharts[["chart01"]], height = 3.5, title = title, subtitle = subtitle)
 ```
 
 #### Absolute poverty 
 
-`r message("Absolute poverty rate for all individuals stable")`
+```{r}
+keymessage <- "Absolute poverty rate for all individuals stable"
+message(keymessage)
+```
 
 It is estimated that 17% of Scotland's population (910,000 people each year) were living in absolute poverty after housing costs in `r params$data_period`. After a long decline since the beginning of this time series in the mid-nineties, absolute poverty rates have stagnated since 2006-09.
 
@@ -33,20 +39,25 @@ The gap between the before and after housing costs measure had widened in 2008-1
 Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the relative poverty threshold in 2010/11.
 
 ```{r chart02}
-caption <- "Figure 2 - Proportion of people in absolute poverty, Scotland"
-interactive(povertycharts[["chart02"]], height = 4, caption = caption)
+title <- str_c("Figure 2: ", keymessage)
+subtitle <- "Proportion of people in absolute poverty, Scotland"
+interactive(povertycharts[["chart02"]], height = 4.5, title = title, 
+            subtitle = subtitle)
 ```
 
 #### Food insecurity
 
-`r message("Key message on food insecurity")`
+```{r}
+keymessage <- "Key message on food insecurity"
+message(keymessage)
+```
 
 add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
 
 ```{r chart03}
-
-caption <- str_c("Figure 3 - Levels of food security of all people and those in poverty, Scotland ", params$data_year, " (fake data!)")
-interactive(povertycharts[["chart03"]], caption = caption)
+title <- str_c("Figure 3: ", keymessage)
+subtitle <- str_c("Levels of food security of all people and those in poverty, Scotland ", params$data_year, " (fake data!)")
+interactive(povertycharts[["chart03"]], title = title, subtitle = subtitle)
 
 ```
 
@@ -56,7 +67,10 @@ Bar chart showing the proportion of people who've expericenced food insecurity, 
 
 #### Relative poverty 
 
-`r message("Relative poverty rate for working-age adults stable")`
+```{r}
+keymessage <- "Relative poverty rate for working-age adults stable"
+message(keymessage)
+```
 
 Relative poverty for working-age adults has been broadly stable since reporting began. Relative poverty in `r params$data_period` was estimated to be 19% after housing costs, and 16% before housing costs.
 
@@ -64,15 +78,18 @@ In `r params$data_period`, there were 640,000 working-age adults in poverty afte
 
 Working-age adults are defined as all adults up to the state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
 
-
 ```{r chart04}
-caption <- "Figure 4 - Proportion of working-age adults in relative poverty, Scotland"
-interactive(povertycharts[["chart04"]], caption = caption)
+title <- str_c("Figure 4: ", keymessage)
+subtitle <- "Proportion of working-age adults in relative poverty, Scotland"
+interactive(povertycharts[["chart04"]], title = title, subtitle = subtitle)
 ```
 
-#### Absolute poverty 
+#### Absolute poverty
 
-`r message("Absolute poverty rate for working-age adults stable")`
+```{r}
+keymessage <- "Absolute poverty rate for working-age adults stable"
+message(keymessage)
+```
 
 Absolute poverty amongst working-age adults remained broadly stable during the last fifteen years. In `r params$data_period`, 17% of working-age adults were in absolute poverty after housing costs, and 14% before housing costs.
 
@@ -81,13 +98,18 @@ This means that in `r params$data_period`, there were 580,000 working-age adults
 Working-age adults are considered to be in poverty when they live in a household which is in poverty.
 
 ```{r chart05}
-caption <- "Figure 5 - Proportion of working-age adults in absolute poverty, Scotland"
-interactive(povertycharts[["chart05"]], height = 4, caption = caption)
+title <- str_c("Figure 5: ", keymessage)
+subtitle <- "Proportion of working-age adults in absolute poverty, Scotland"
+interactive(povertycharts[["chart05"]], height = 4.5, title = title, 
+            subtitle = subtitle)
 ```
 
 #### In-work poverty
 
-`r message("In-work poverty for working-age adults now stable")`
+```{r}
+keymessage <- "In-work poverty for working-age adults now stable"
+message(keymessage)
+```
 
 In `r params$data_period`, 60% of working-age adults in relative poverty after housing costs as well as before housing costs were living in working households. This represents 380,000 working-age adults in poverty after housing costs, and 310,000 working-age adults before housing costs.
 
@@ -96,15 +118,19 @@ In-work poverty for working-age adults continuously increased since 2011-14, and
 `r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
 
 ```{r chart06}
-caption <- "Figure 6 - Proportion of working-age adults in relative poverty who live in a working household, Scotland"
-interactive(povertycharts[["chart06"]], caption = caption)
+title <- str_c("Figure 6: ", keymessage)
+subtitle <- "Proportion of working-age adults in relative poverty who live in a working household, Scotland"
+interactive(povertycharts[["chart06"]], height = 3.5, title = title, subtitle = subtitle)
 ```
 
 ### Pensioners {.tabset}
 
 #### Relative poverty
 
-`r message("Relative poverty rate for pensioners stable")`
+```{r}
+keymessage <- "Relative poverty rate for pensioners stable"
+message(keymessage)
+```
 
 Relative poverty after housing costs for pensioners was 15% in `r params$data_period` (150,000 pensioners each year). Before housing costs, 18% of pensioners (180,000 pensioners) were in relative poverty.
 
@@ -113,13 +139,17 @@ Relative pensioner poverty showed a long decline until 2008-11, was then largely
 The majority of pensioners own their home. Examining pensioners' income after deducting housing costs allows for more meaningful comparisons of income between working-age adults and pensioners, or for pensioners over time.
 
 ```{r chart07}
-caption <- "Figure 7 - Proportion of pensioners in relative poverty, Scotland"
-interactive(povertycharts[["chart07"]], caption = caption)
+title <- str_c("Figure 7: ", keymessage)
+subtitle <- "Proportion of pensioners in relative poverty, Scotland"
+interactive(povertycharts[["chart07"]], title = title, subtitle = subtitle)
 ```
 
 #### Absolute poverty
 
-`r message("Absolute poverty rate for pensioners stable")`
+```{r}
+keymessage <- "Absolute poverty rate for pensioners stable"
+message(keymessage)
+```
 
 Absolute poverty after housing costs for pensioners was 12% (130,000 pensioners each year) in `r params$data_period`. Before housing costs, it was 14% (150,000 pensioners).
 
@@ -128,13 +158,18 @@ Absolute poverty has remained broadly stable since 2008-11 following a continuou
 Pensioners are defined as all those adults above state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
 
 ```{r chart08}
-caption <- "Figure 8 - Proportion of pensioners in absolute poverty, Scotland"
-interactive(povertycharts[["chart08"]], height = 4, caption = caption)
+title <- str_c("Figure 8: ", keymessage)
+subtitle <- "Proportion of pensioners in absolute poverty, Scotland"
+interactive(povertycharts[["chart08"]], height = 4.5, title = title, 
+            subtitle = subtitle)
 ```
 
 #### Material deprivation
 
-`r message("Pensioners in material deprivation broadly stable")`
+```{r}
+keymessage <- "Pensioners in material deprivation broadly stable"
+message(keymessage)
+```
 
 In `r params$data_period`, 5% of pensioners (50,000 pensioners each year) were in material deprivation.
 
@@ -147,7 +182,8 @@ More information about pensioner material deprivation can be found in the [Defin
 Pensioner material deprivation is included for pensioners aged 65 or over.
 
 ```{r chart09}
-caption <- "Figure 9 - Proportion of pensioners in material deprivation"
-interactive(povertycharts[["chart09"]], caption = caption)
+title <- str_c("Figure 9: ", keymessage)
+subtitle <- "Proportion of pensioners in material deprivation, Scotland"
+interactive(povertycharts[["chart09"]], title = title, subtitle = subtitle)
 ```
 
