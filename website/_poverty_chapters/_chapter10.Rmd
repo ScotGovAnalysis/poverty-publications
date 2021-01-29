@@ -54,7 +54,7 @@ Further analysis based on the FRS and HBAI datasets is published by the Scottish
 
 - [Poverty and income inequality analysis](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
 - [Confidence limits surrounding Scotland's key poverty estimates](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/)
-- [Child poverty analysis](www.gov.scot/collections/child-poverty-statistics/)
+- [Child poverty analysis](https://www.gov.scot/collections/child-poverty-statistics/)
 - [Wealth analysis](https://www.gov.scot/collections/wealth-statistics/)
 - [Scottish Index of Multiple Deprivation](https://www.gov.scot/simd)
 - [Further information on all Scottish Government statistics](https://www.gov.scot/about/how-government-is-run/statistics-and-research/)

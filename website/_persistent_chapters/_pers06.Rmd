@@ -10,10 +10,10 @@ Additional analysis themes are based on the needs of users. If you have any sugg
 
 #### Persistent Poverty in Scotland
 
-- [2010-2018 report](https://www.gov.scot/about/how-government-is-run/statistics-and-research/www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
-- [2010-2017 report](https://www.gov.scot/about/how-government-is-run/statistics-and-research/www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
-- [2010-2016 report](https://www.gov.scot/about/how-government-is-run/statistics-and-research/www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
-- [2010-2015 report](https://www.gov.scot/about/how-government-is-run/statistics-and-research/www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+- [2010-2018 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
+- [2010-2017 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
+- [2010-2016 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
+- [2010-2015 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
 
 #### Poverty and Income Inequality in Scotland
 

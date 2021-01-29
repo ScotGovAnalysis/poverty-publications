@@ -10,12 +10,12 @@ output:
       smooth_scroll: no
       
 params:
-  pub_day: "26 March 2020"
-  pub_period: "2010-2018"
-  data_period_long: "2014 and 2018"
-  data_period: "2014-2018"
-  prev_period: "2013-2017"
-  data_year: "2017-2018"
+  pub_day: "xx March 2021"
+  pub_period: "2010-2019"
+  data_period_long: "2015 and 2019"
+  data_period: "2015-2019"
+  prev_period: "2014-2018"
+  data_year: "2018-2019"
 
 ---
 
@@ -49,6 +49,7 @@ library(htmltools)
 library(ggiraph)
 
 source("R/00_colours.R")
+source("R/00_functions.R")
 source("R/00_functions_rmd.R")
 
 persistentcharts <- readRDS("data/persistentcharts.rds")

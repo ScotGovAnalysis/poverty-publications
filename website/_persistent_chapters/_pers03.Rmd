@@ -17,7 +17,8 @@ Poverty estimates in this publication are derived by looking at household income
 
 title <- "Figure 1: Proportion of people in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart01"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart01"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Before housing costs
@@ -25,7 +26,8 @@ interactive(persistentcharts[["chart01"]], title = title, subtitle = subtitle)
 ```{r chart02}
 title <- "Figure 2: Proportion of people in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart02"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart02"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Table
@@ -35,14 +37,17 @@ caption <- "Proportion of people in persistent poverty by country"
 data <- persistenttables[["table1"]]
 pers_source <- persistenttables[["source"]]
 
+nrows <- nrow(data)/3
+
 kableExtra::kable(data, caption = caption, 
                   col.names = c("Period", "Scotland", "England", "Wales", 
-                                "Northern Ireland", "UK", "Scotland", "England", 
-                                "Wales", "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
+                                "Northern Ireland", "UK"),
+      align = c('lrrrrr')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive", "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, "After housing costs" = 5)) %>%
+  pack_rows("After housing costs", 1, nrows) %>%
+  pack_rows("Before housing costs", nrows + 1, 2 * nrows) %>%
+  pack_rows("Sample sizes", 2 * nrows + 1, 3 * nrows) %>%
   footnote(general = pers_source,
            general_title = "")
 
@@ -59,7 +64,8 @@ kableExtra::kable(data, caption = caption,
 ```{r chart03}
 title <- "Figure 3: Proportion of children in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart03"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart03"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Before housing costs
@@ -67,7 +73,8 @@ interactive(persistentcharts[["chart03"]], title = title, subtitle = subtitle)
 ```{r chart04}
 title <- "Figure 4: Proportion of children in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart04"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart04"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Table
@@ -78,16 +85,18 @@ caption <- "Proportion of children in persistent poverty by country"
 data <- persistenttables[["table2"]]
 pers_source <- persistenttables[["source"]]
 
+nrows <- nrow(data)/3
+
 kableExtra::kable(data, caption = caption,
                   col.names = c("Period", "Scotland", "England", "Wales", 
-                    "Northern Ireland", "UK", "Scotland", "England", "Wales", 
                     "Northern Ireland", "UK"),
-                  align = c('lrrrrrrrrrr')) %>%
+                  align = c('lrrrrr')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive", 
                                       "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, 
-                     "After housing costs" = 5)) %>%
+  pack_rows("After housing costs", 1, nrows) %>%
+  pack_rows("Before housing costs", nrows + 1, 2 * nrows) %>%
+  pack_rows("Sample sizes", 2 * nrows + 1, 3 * nrows) %>%
   footnote(general = pers_source,
            general_title = "")
 ```
@@ -103,7 +112,8 @@ kableExtra::kable(data, caption = caption,
 ```{r chart05}
 title <- "Figure 5: Proportion of working-age adults in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart05"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart05"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Before housing costs
@@ -111,7 +121,8 @@ interactive(persistentcharts[["chart05"]], title = title, subtitle = subtitle)
 ```{r chart06}
 title <- "Figure 6: Proportion of working-age adults in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart06"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart06"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Table
@@ -122,16 +133,18 @@ caption <- "Proportion of working-age adults in persistent poverty by country"
 data <- persistenttables[["table3"]]
 pers_source <- persistenttables[["source"]]
 
+nrows <- nrow(data)/3
+
 kableExtra::kable(data, caption = caption,
                   col.names = c("Period", "Scotland", "England", "Wales", 
-                                "Northern Ireland", "UK", "Scotland", "England", 
-                                "Wales", "Northern Ireland", "UK"),
-                  align = c('lrrrrrrrrrr')) %>%
+                                "Northern Ireland", "UK"),
+                  align = c('lrrrrr')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive", 
                                       "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, 
-                     "After housing costs" = 5)) %>%
+  pack_rows("After housing costs", 1, nrows) %>%
+  pack_rows("Before housing costs", nrows + 1, 2 * nrows) %>%
+  pack_rows("Sample sizes", 2 * nrows + 1, 3 * nrows) %>%
   footnote(general = pers_source,
            general_title = "")
 ```
@@ -147,7 +160,8 @@ kableExtra::kable(data, caption = caption,
 ```{r chart07}
 title <- "Figure 7: Proportion of pensioners in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart07"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart07"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Before housing costs
@@ -155,7 +169,8 @@ interactive(persistentcharts[["chart07"]], title = title, subtitle = subtitle)
 ```{r chart08}
 title <- "Figure 8: Proportion of pensioners in persistent poverty by UK country"
 subtitle = NULL
-interactive(persistentcharts[["chart08"]], title = title, subtitle = subtitle)
+interactive(persistentcharts[["chart08"]], title = title, subtitle = subtitle,
+            height = 4)
 ```
 
 #### Table
@@ -166,16 +181,18 @@ caption <- "Proportion of pensioners in persistent poverty by country"
 data <- persistenttables[["table4"]]
 pers_source <- persistenttables[["source"]]
 
+nrows <- nrow(data)/3
+
 kableExtra::kable(data, caption = caption,
                   col.names = c("Period", "Scotland", "England", "Wales", 
-                                "Northern Ireland", "UK", "Scotland", "England", 
-                                "Wales", "Northern Ireland", "UK"),
-      align = c('lrrrrrrrrrr')) %>%
+                                "Northern Ireland", "UK"),
+      align = c('lrrrrr')) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "responsive", 
                                       "condensed"),
                 full_width = F, position = "left")  %>%
-  add_header_above(c("Measure:", "Before housing costs" = 5, 
-                     "After housing costs" = 5)) %>%
+  pack_rows("After housing costs", 1, nrows) %>%
+  pack_rows("Before housing costs", nrows + 1, 2 * nrows) %>%
+  pack_rows("Sample sizes", 2 * nrows + 1, 3 * nrows) %>%
   footnote(general = pers_source,
            general_title = "")
 ```

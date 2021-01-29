@@ -231,6 +231,10 @@ a:focus {
       left: 50%;
 }
 
+abbr[title] {
+  text-decoration: none;
+}
+
 
 
 

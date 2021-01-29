@@ -59,6 +59,7 @@ library(htmltools)
 library(ggiraph)
 
 source("R/00_colours.R")
+source("R/00_functions.R")
 source("R/00_functions_rmd.R")
 
 povertycharts <- readRDS("data/povertycharts.rds")

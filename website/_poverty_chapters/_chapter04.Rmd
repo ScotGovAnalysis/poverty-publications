@@ -85,7 +85,7 @@ subtitle <- "Proportion of children in relative poverty who live in working hous
 interactive(povertycharts[["chart13"]], height = 3.5, title = title, subtitle = subtitle)
 ```
 
-#### Food insecurity
+#### Food security
 
 ```{r}
 keymessage <- "Add key message here"

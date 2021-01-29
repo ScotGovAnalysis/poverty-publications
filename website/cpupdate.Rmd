@@ -22,6 +22,7 @@ library(ggiraph)
 library(htmltools)
 
 source("R/00_functions_rmd.R")
+source("R/00_functions.R")
 source("R/00_colours.R")
 
 cp_charts <- readRDS("data/cp_charts.rds")

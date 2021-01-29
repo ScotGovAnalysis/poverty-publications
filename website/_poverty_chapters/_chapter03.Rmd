@@ -45,10 +45,10 @@ interactive(povertycharts[["chart02"]], height = 4.5, title = title,
             subtitle = subtitle)
 ```
 
-#### Food insecurity
+#### Food security
 
 ```{r}
-keymessage <- "Key message on food insecurity"
+keymessage <- "Key message on food security"
 message(keymessage)
 ```
 
