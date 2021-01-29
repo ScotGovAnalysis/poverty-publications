@@ -16,7 +16,7 @@ names(adult_clean) <- years
 # penflag from 1011 (before: fixed ages 60 f and 65 m)
 # religsc from 1112 - not needed before
 
-# 9495 to 9596 ---------------------------------------------------------------------------------
+# 9495 to 9596 -----------------------------------------------------------------
 for (year in years[1:2]) {
 
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -54,7 +54,7 @@ for (year in years[1:2]) {
 
 }
 
-# 9697 ------------------------------------------------------------------------------------------
+# 9697 -------------------------------------------------------------------------
 for (year in years[3]){
 
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -78,7 +78,7 @@ for (year in years[3]){
 
 }
 
-# 9798 to 0910 ---------------------------------------------------------------------------------
+# 9798 to 0910 -----------------------------------------------------------------
 for (year in years[4:16]) {
 
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -98,7 +98,7 @@ for (year in years[4:16]) {
 
 }
 
-# 1011 ------------------------------------------------------------------------------------------
+# 1011 -------------------------------------------------------------------------
 for (year in years[17]) {
 
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -116,7 +116,7 @@ for (year in years[17]) {
 
 }
 
-# 1112 to latest year --------------------------------------------------------------------------
+# 1112 to latest year ----------------------------------------------------------
 for (year in years[18:length(years)]) {
 
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
@@ -133,7 +133,7 @@ for (year in years[18:length(years)]) {
 
 }
 
-# Last: Add year variable and also year in comment attribute to each dataset --------------------------
+# Last: Add year variable and also year in comment attribute to each dataset ---
 for (year in years) {
   adult_clean[[year]]$year <- year
   attr(adult_clean[[year]], "comment") <- year
@@ -141,3 +141,5 @@ for (year in years) {
 
 saveRDS(adult_clean, "data/adult_clean.rds")
 rm(list = ls())
+
+

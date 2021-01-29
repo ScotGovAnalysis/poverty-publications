@@ -13,18 +13,18 @@ names(child_clean) <- years
 # Variable changes
 
 
-# 9495 to latest year -------------------------------------------------------------------------------
-for (year in years[1:length(years)]){
-  
+# 9495 to latest year ----------------------------------------------------------
+for (year in years[1:length(years)]) {
+
   nextdataset <- readRDS("data/files_child.rds")[[year]]
-  
+
   colnames(nextdataset) <- tolower(colnames(nextdataset))
-  
+
   nextdataset <- nextdataset %>%
     select(sernum, benunit, age)
-  
-  child_clean[[year]] <- nextdataset 
-  
+
+  child_clean[[year]] <- nextdataset
+
 }
 
 saveRDS(child_clean, "data/child_clean.rds")

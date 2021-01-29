@@ -186,7 +186,7 @@ getpovdisabilityflags <- function(df){
 
 }
 
-geturbanrural <- function(df, househol_datasets){
+geturbanrural <- function(df, househol_datasets) {
 
   # get the correct FRS househol dataset
   # (current year is stored in "comment" attribute)
@@ -205,6 +205,45 @@ geturbanrural <- function(df, househol_datasets){
 
   attr(df, "comment") <- year
     df
+}
+
+getfoodsec <- function(df, househol_datasets) {
+
+  year <- comment(df)
+
+  foodsec <- househol_datasets[[year]] %>%
+    replace(is.na(.), 0) %>%
+    mutate(foodsec_score = 0,
+           foodsec_score = ifelse(foodq1 %in% c(1, 2), foodsec_score + 1,
+                                  foodsec_score),
+           foodsec_score = ifelse(foodq2 %in% c(1, 2), foodsec_score + 1,
+                                  foodsec_score),
+           foodsec_score = ifelse(foodq3 %in% c(1, 2), foodsec_score + 1,
+                                  foodsec_score),
+           foodsec_score = ifelse(foodq4a == 1, foodsec_score + 1, foodsec_score),
+           foodsec_score = ifelse(foodq4b >= 3 | foodq4c == 1, foodsec_score + 1,
+                                  foodsec_score),
+           foodsec_score = ifelse(foodq5 == 1, foodsec_score + 1, foodsec_score),
+           foodsec_score = ifelse(foodq6 == 1, foodsec_score + 1, foodsec_score),
+           foodsec_score = ifelse(foodq7 == 1, foodsec_score + 1, foodsec_score),
+           foodsec_score = ifelse(foodq8a == 1, foodsec_score + 1, foodsec_score),
+           foodsec_score = ifelse(foodq8b >= 3 | foodq8c == 1, foodsec_score + 1,
+                                  foodsec_score),
+           foodsec = case_when(foodsec_score %in% c(1, 2) ~ 2,
+                               foodsec_score %in% c(3, 4, 5) ~ 3,
+                               foodsec_score >= 6 ~ 4,
+                               TRUE ~ 1),
+           foodsec = factor(foodsec, levels = c(1, 2, 3, 4),
+                            labels = c("high", "marginal", "low", "very low"),
+                            ordered = TRUE)) %>%
+    select(sernum, foodsec_score, foodsec)
+
+  # join with hbai dataset
+  df <- df %>%
+    left_join(foodsec, by = "sernum")
+
+  attr(df, "comment") <- year
+  df
 }
 
 getchildweights <- function(df){
