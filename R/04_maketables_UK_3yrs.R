@@ -34,10 +34,10 @@ pn <- df %>%
   select(years, gvtregn, pnrate) %>%
   spread(years, pnrate)
 
-pp[is.na(pp)] = "--"
-ch[is.na(ch)] = "--"
-wa[is.na(wa)] = "--"
-pn[is.na(pn)] = "--"
+pp[is.na(pp)] = NA
+ch[is.na(ch)] = NA
+wa[is.na(wa)] = NA
+pn[is.na(pn)] = NA
 
 # Put all input for the spreadsheet into a list
 data <- list(df1 = pp,
@@ -59,7 +59,7 @@ data <- list(df1 = pp,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)"))
 
 remove(pp, ch, wa, pn, df)
@@ -90,10 +90,10 @@ pn <- df %>%
   select(years, gvtregn, pnrate) %>%
   spread(years, pnrate)
 
-pp[is.na(pp)] = "--"
-ch[is.na(ch)] = "--"
-wa[is.na(wa)] = "--"
-pn[is.na(pn)] = "--"
+pp[is.na(pp)] = NA
+ch[is.na(ch)] = NA
+wa[is.na(wa)] = NA
+pn[is.na(pn)] = NA
 
 # Put all input for the spreadsheet into a list
 data <- list(df1 = pp,
@@ -115,15 +115,13 @@ data <- list(df1 = pp,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)"))
 
 remove(pp, ch, wa, pn, df)
 
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
-
-
 
 # Absolute poverty BHC ----------------------------------------------------------------
 
@@ -148,10 +146,10 @@ pn <- df %>%
   select(years, gvtregn, pnrate) %>%
   spread(years, pnrate)
 
-pp[is.na(pp)] = "--"
-ch[is.na(ch)] = "--"
-wa[is.na(wa)] = "--"
-pn[is.na(pn)] = "--"
+pp[is.na(pp)] = NA
+ch[is.na(ch)] = NA
+wa[is.na(wa)] = NA
+pn[is.na(pn)] = NA
 
 # Put all input for the spreadsheet into a list
 data <- list(df1 = pp,
@@ -173,7 +171,7 @@ data <- list(df1 = pp,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)"))
 
 remove(pp, ch, wa, pn, df)
@@ -204,10 +202,10 @@ pn <- df %>%
   select(years, gvtregn, pnrate) %>%
   spread(years, pnrate)
 
-pp[is.na(pp)] = "--"
-ch[is.na(ch)] = "--"
-wa[is.na(wa)] = "--"
-pn[is.na(pn)] = "--"
+pp[is.na(pp)] = NA
+ch[is.na(ch)] = NA
+wa[is.na(wa)] = NA
+pn[is.na(pn)] = NA
 
 # Put all input for the spreadsheet into a list
 data <- list(df1 = pp,
@@ -229,7 +227,7 @@ data <- list(df1 = pp,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)"))
 
 remove(pp, ch, wa, pn, df)
@@ -284,7 +282,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getworkpovbynation, povvar = "low60
   group_by(gvtregn) %>%
   arrange(gvtregn, years) %>%
   mutate_at(vars(ends_with("comp")), get3yraverage) %>%
-  mutate_at(vars(ends_with("comp")), fmtpct) %>%
+  mutate_at(vars(ends_with("comp")), roundpct) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods)) %>%
@@ -298,8 +296,8 @@ wa <- df %>%
   select(years, gvtregn, wacomp) %>%
   spread(years, wacomp)
 
-ch[is.na(ch)] = "--"
-wa[is.na(wa)] = "--"
+ch[is.na(ch)] = NA
+wa[is.na(wa)] = NA
 
 # Put all input for the spreadsheet into a list
 data <- list(df1 = ch,
@@ -321,7 +319,7 @@ data <- list(df1 = ch,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)"))
 
 remove(ch, wa, df)
@@ -338,7 +336,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getworkpovbynation, povvar = "low60
   group_by(gvtregn) %>%
   arrange(gvtregn, years) %>%
   mutate_at(vars(ends_with("comp")), get3yraverage) %>%
-  mutate_at(vars(ends_with("comp")), fmtpct) %>%
+  mutate_at(vars(ends_with("comp")), roundpct) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods)) %>%
@@ -352,8 +350,8 @@ wa <- df %>%
   select(years, gvtregn, wacomp) %>%
   spread(years, wacomp)
 
-ch[is.na(ch)] = "--"
-wa[is.na(wa)] = "--"
+ch[is.na(ch)] = NA
+wa[is.na(wa)] = NA
 
 # Put all input for the spreadsheet into a list
 data <- list(df1 = ch,
@@ -375,7 +373,7 @@ data <- list(df1 = ch,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..'   not available due to small sample size (fewer than 100)",
+                           "'..'   not available due to small sample size",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.)"))
 
 remove(ch, wa, df)

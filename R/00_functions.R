@@ -6,7 +6,7 @@ library(stringr)
 library(Hmisc)
 library(scales)
 
-# Data wrangling functions ----
+# Data prep ----
 
 # replace categories with other categories
 decode <- function(x, search, replace, default = NULL) {
@@ -251,6 +251,8 @@ addpovflagsnadultwgt <- function(df, hbai_datasets){
     left_join(pov_hbai, by = c("sernum", "benunit")) %>%
     mutate(adultwgt = gs_newad / adultb)
 }
+
+# Data analysis and restructure ----
 
 # get poverty numbers and rates for children, adults, pensioners, and people
 getpov <- function(df, povvar){
@@ -712,8 +714,8 @@ checkandfmtUK <- function(df){
     mutate_at(vars(c(ends_with("rate")), ends_with("num"), ends_with("comp")),
               get3yraverage) %>%
     mutate_at(vars(contains("sample")), get3yrtotal) %>%
-    mutate_at(vars(ends_with("num")), fmtpop) %>%
-    mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), fmtpct) %>%
+    mutate_at(vars(ends_with("num")), roundpop) %>%
+    mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), roundpct) %>%
     samplesizecheck %>%
     mutate(years = factor(years,
                           levels = labels[["years"]]$years,
@@ -791,21 +793,21 @@ getdecsharesbhc <- function(df){
   df <- df %>%
     filter(gvtregn == "Scotland")
 
-  decs <- wtd.quantile(df$s_oe_bhc * df$infl_bhc,
+  decs <- wtd.quantile(df$s_oe_bhc,
                        probs = seq(0.1, 1, 0.1),
                        weights = df$gs_newpp)
 
   df %>%
-    mutate(decbhc = case_when(s_oe_bhc * infl_bhc <= decs[1] ~ 1,
-                              s_oe_bhc * infl_bhc <= decs[2] ~ 2,
-                              s_oe_bhc * infl_bhc <= decs[3] ~ 3,
-                              s_oe_bhc * infl_bhc <= decs[4] ~ 4,
-                              s_oe_bhc * infl_bhc <= decs[5] ~ 5,
-                              s_oe_bhc * infl_bhc <= decs[6] ~ 6,
-                              s_oe_bhc * infl_bhc <= decs[7] ~ 7,
-                              s_oe_bhc * infl_bhc <= decs[8] ~ 8,
-                              s_oe_bhc * infl_bhc <= decs[9] ~ 9,
-                              s_oe_bhc * infl_bhc >  decs[9] ~ 10)) %>%
+    mutate(decbhc = case_when(s_oe_bhc <= decs[1] ~ 1,
+                              s_oe_bhc <= decs[2] ~ 2,
+                              s_oe_bhc <= decs[3] ~ 3,
+                              s_oe_bhc <= decs[4] ~ 4,
+                              s_oe_bhc <= decs[5] ~ 5,
+                              s_oe_bhc <= decs[6] ~ 6,
+                              s_oe_bhc <= decs[7] ~ 7,
+                              s_oe_bhc <= decs[8] ~ 8,
+                              s_oe_bhc <= decs[9] ~ 9,
+                              s_oe_bhc >  decs[9] ~ 10)) %>%
     group_by(decbhc) %>%
     summarise(share = 365/7 * sum(s_oe_bhc * infl_bhc * gs_newpp)) %>%
     spread(decbhc, share)
@@ -817,21 +819,21 @@ getdecsharesahc <- function(df){
   df <- df %>%
     filter(gvtregn == "Scotland")
 
-  decs <- wtd.quantile(df$s_oe_ahc * df$infl_ahc,
+  decs <- wtd.quantile(df$s_oe_ahc,
                        probs = seq(0.1, 1, 0.1),
                        weights = df$gs_newpp)
 
   df %>%
-    mutate(decahc = case_when(s_oe_ahc * infl_ahc <= decs[1] ~ 1,
-                              s_oe_ahc * infl_ahc <= decs[2] ~ 2,
-                              s_oe_ahc * infl_ahc <= decs[3] ~ 3,
-                              s_oe_ahc * infl_ahc <= decs[4] ~ 4,
-                              s_oe_ahc * infl_ahc <= decs[5] ~ 5,
-                              s_oe_ahc * infl_ahc <= decs[6] ~ 6,
-                              s_oe_ahc * infl_ahc <= decs[7] ~ 7,
-                              s_oe_ahc * infl_ahc <= decs[8] ~ 8,
-                              s_oe_ahc * infl_ahc <= decs[9] ~ 9,
-                              s_oe_ahc * infl_ahc >  decs[9] ~ 10)) %>%
+    mutate(decahc = case_when(s_oe_ahc <= decs[1] ~ 1,
+                              s_oe_ahc <= decs[2] ~ 2,
+                              s_oe_ahc <= decs[3] ~ 3,
+                              s_oe_ahc <= decs[4] ~ 4,
+                              s_oe_ahc <= decs[5] ~ 5,
+                              s_oe_ahc <= decs[6] ~ 6,
+                              s_oe_ahc <= decs[7] ~ 7,
+                              s_oe_ahc <= decs[8] ~ 8,
+                              s_oe_ahc <= decs[9] ~ 9,
+                              s_oe_ahc >  decs[9] ~ 10)) %>%
     group_by(decahc) %>%
     summarise(share = 365/7 * sum(s_oe_ahc * infl_ahc * gs_newpp)) %>%
     spread(decahc, share)
@@ -854,7 +856,7 @@ getpalmaahc <- function(df){
   Palma
 }
 
-gini <- function (x, weights = rep(1, length = length(x))) {
+gini <- function(x, weights = rep(1, length = length(x))) {
   ox <- order(x)
   x <- x[ox]
   weights <- weights[ox] / sum(weights)
@@ -1015,20 +1017,20 @@ getsources <- function(df){
 
   bydec <- data  %>%
     group_by(decbhc) %>%
-    summarise(earnings = sum(earns * gs_newpp) / sum(total * gs_newpp),
-              benefits = sum(bens * gs_newpp) / sum(total * gs_newpp),
-              occpens = sum(pen * gs_newpp) / sum(total * gs_newpp),
-              investments = sum(inv * gs_newpp) / sum(total * gs_newpp),
-              other = sum(misc * gs_newpp) / sum(total * gs_newpp)) %>%
+    summarise(earnings_rate = sum(earns * gs_newpp) / sum(total * gs_newpp),
+              benefits_rate = sum(bens * gs_newpp) / sum(total * gs_newpp),
+              occpens_rate = sum(pen * gs_newpp) / sum(total * gs_newpp),
+              investments_rate = sum(inv * gs_newpp) / sum(total * gs_newpp),
+              other_rate = sum(misc * gs_newpp) / sum(total * gs_newpp)) %>%
     ungroup() %>%
     mutate(decbhc = factor(decbhc))
 
   tot <- data %>%
-    summarise(earnings = sum(earns * gs_newpp) / sum(total * gs_newpp),
-              benefits = sum(bens * gs_newpp) / sum(total * gs_newpp),
-              occpens = sum(pen * gs_newpp) / sum(total * gs_newpp),
-              investments = sum(inv * gs_newpp) / sum(total * gs_newpp),
-              other = sum(misc * gs_newpp) / sum(total * gs_newpp)) %>%
+    summarise(earnings_rate = sum(earns * gs_newpp) / sum(total * gs_newpp),
+              benefits_rate = sum(bens * gs_newpp) / sum(total * gs_newpp),
+              occpens_rate = sum(pen * gs_newpp) / sum(total * gs_newpp),
+              investments_rate = sum(inv * gs_newpp) / sum(total * gs_newpp),
+              other_rate = sum(misc * gs_newpp) / sum(total * gs_newpp)) %>%
     mutate(decbhc = "All")
 
   rbind(bydec, tot)
@@ -1052,25 +1054,63 @@ getUKdeciles <- function(df) {
 
 }
 
-fmtweeklyGBP <- function(df) {
+splitntranspose <- function(df, measure){
+
+  df$measure <- df[["measure"]]
 
   df %>%
-    mutate_if(is.numeric, comma_format(1))
+    select(years, groupingvar, measure) %>%
+    spread(years, measure)
+
 }
 
-# Format population numbers and rates
+getpersistentpoverty <- function(df) {
+
+  names(df)[1] <- "nation"
+
+  df %>%
+    filter_at(1, all_vars(. %in% c("Total", "England", "Scotland", "Wales",
+                                   "Northern Ireland"))) %>%
+    gather(period, value, -nation)
+}
+
+# Formatting and rounding ----
+
+round2 <- function(x, n) {
+  posneg = sign(x)
+  z = abs(x)*10^n
+  z = z + 0.5 + sqrt(.Machine$double.eps)
+  z = trunc(z)
+  z = z/10^n
+  z*posneg
+}
+
 fmtpop <- function(x) {
 
   require(scales)
 
-  ifelse(!is.na(x), comma(x, 10000), NA)
+  ifelse(!is.na(x), comma(x), NA)
+}
+
+roundpop <- function(x) {
+
+  require(scales)
+
+  ifelse(!is.na(x), round2(x, -4), NA)
 }
 
 fmtpct <- function(x) {
 
   require(scales)
 
-  ifelse(!is.na(x), percent(x, 1), NA)
+  ifelse(!is.na(x), percent2(x), NA)
+}
+
+roundpct <- function(x) {
+
+  require(scales)
+
+  ifelse(!is.na(x), round2(x, 2), NA)
 }
 
 formatpov <- function(df){
@@ -1079,9 +1119,11 @@ formatpov <- function(df){
     mutate(years = factor(years,
                           levels = labels[["years"]]$years,
                           labels = labels[["years"]]$formatted)) %>%
-    mutate_at(vars(ends_with("num")), fmtpop) %>%
-    mutate_at(vars(ends_with("rate")), fmtpct)
+    mutate_at(vars(ends_with("num")), roundpop) %>%
+    mutate_at(vars(ends_with("rate")), roundpct)
 }
+
+# Averages ----
 
 get3yrcentavg <- function(x) {
   x <- (x + lag(x) + lead(x)) / 3
@@ -1132,8 +1174,8 @@ formatpov3yraverage <- function(df){
 
   df %>%
     get3yrtable() %>%
-    mutate_at(vars(contains("num")), fmtpop) %>%
-    mutate_at(vars(contains(c("rate")), contains("comp")), fmtpct)
+    mutate_at(vars(contains("num")), roundpop) %>%
+    mutate_at(vars(contains(c("rate")), contains("comp")), roundpct)
 }
 
 formatpovby3yraverage <- function(df){
@@ -1144,8 +1186,8 @@ df %>%
   mutate_at(vars(c(ends_with("rate")), ends_with("num"), ends_with("comp")),
             get3yraverage) %>%
   mutate_at(vars(contains("sample")), get3yrtotal) %>%
-  mutate_at(vars(ends_with("num")), fmtpop) %>%
-  mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), fmtpct) %>%
+  mutate_at(vars(ends_with("num")), roundpop) %>%
+  mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), roundpct) %>%
   filter(groupingvar != "(Missing)") %>%
   ungroup() %>%
   filter(!is.na(adnum))
@@ -1159,36 +1201,27 @@ formatpovby5yraverage <- function(df){
     mutate_at(vars(c(ends_with("rate")), ends_with("num"), ends_with("comp")),
               get5yraverage) %>%
     mutate_at(vars(contains("sample")), get5yrtotal) %>%
-    mutate_at(vars(ends_with("num")), fmtpop) %>%
-    mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), fmtpct) %>%
+    mutate_at(vars(ends_with("num")), roundpop) %>%
+    mutate_at(vars(c(ends_with("rate"), ends_with("comp"))), roundpct) %>%
     filter(groupingvar != "(Missing)") %>%
     ungroup() %>%
     filter(!is.na(adnum))
 }
 
-formatpersistentpoverty <- function(df) {
-  df %>% filter_at(1, all_vars(. %in% c("Total", "England", "Scotland", "Wales",
-                                        "Northern Ireland"))) %>%
-    gather(key, value, -Category3) %>%
-    mutate(value = value / 100) %>%
-    spread(Category3, value) %>%
-    rename(UK = Total,
-           period = key) %>%
-    select(period, nations)
-}
+# Sample size checks ----
 
 samplesizecheck <- function(df){
   df %>%
-    mutate(ppnum = ifelse(povsample < 100, "..", ppnum),
-           pprate = ifelse(groupsample < 100, "..", pprate),
-           chnum = ifelse(povsample_ch < 100, "..", chnum),
-           chrate = ifelse(groupsample_ch < 100, "..", chrate),
-           wanum = ifelse(povsample_wa < 100, "..", wanum),
-           warate = ifelse(groupsample_wa < 100, "..", warate),
-           pnnum = ifelse(povsample_pn < 100, "..", pnnum),
-           pnrate = ifelse(groupsample_pn < 100, "..", pnrate),
-           adnum = ifelse(povsample_ad < 100, "..", adnum),
-           adrate = ifelse(groupsample_ad < 100, "..", adrate))
+    mutate(ppnum = ifelse(povsample < 100, NA, ppnum),
+           pprate = ifelse(groupsample < 100, NA, pprate),
+           chnum = ifelse(povsample_ch < 100, NA, chnum),
+           chrate = ifelse(groupsample_ch < 100, NA, chrate),
+           wanum = ifelse(povsample_wa < 100, NA, wanum),
+           warate = ifelse(groupsample_wa < 100, NA, warate),
+           pnnum = ifelse(povsample_pn < 100, NA, pnnum),
+           pnrate = ifelse(groupsample_pn < 100, NA, pnrate),
+           adnum = ifelse(povsample_ad < 100, NA, adnum),
+           adrate = ifelse(groupsample_ad < 100, NA, adrate))
 }
 
 samplesizecheck_num <- function(df){
@@ -1207,12 +1240,12 @@ samplesizecheck_num <- function(df){
 
 samplesizecheck_childage <- function(df){
   df %>%
-    mutate(num0_4 = ifelse(povsample0_4 < 100, "..", num0_4),
-           rate0_4 = ifelse(groupsample0_4 < 100, "..", rate0_4),
-           num5_12 = ifelse(povsample5_12 < 100, "..", num5_12),
-           rate5_12 = ifelse(groupsample5_12 < 100, "..", rate5_12),
-           num13_19 = ifelse(povsample13_19 < 100, "..", num13_19),
-           rate13_19 = ifelse(groupsample13_19 < 100, "..", rate13_19))
+    mutate(num0_4 = ifelse(povsample0_4 < 100, NA, num0_4),
+           rate0_4 = ifelse(groupsample0_4 < 100, NA, rate0_4),
+           num5_12 = ifelse(povsample5_12 < 100, NA, num5_12),
+           rate5_12 = ifelse(groupsample5_12 < 100, NA, rate5_12),
+           num13_19 = ifelse(povsample13_19 < 100, NA, num13_19),
+           rate13_19 = ifelse(groupsample13_19 < 100, NA, rate13_19))
 }
 
 samplesizecheck_ad_num <- function(df){
@@ -1223,18 +1256,8 @@ samplesizecheck_ad_num <- function(df){
 
 samplesizecheck_ad <- function(df){
   df %>%
-    mutate(adnum = ifelse(povsample_ad < 100, "..", adnum),
-           adrate = ifelse(groupsample_ad < 100, "..", adrate))
-}
-
-splitntranspose <- function(df, measure){
-
-  df$measure <- df[["measure"]]
-
-  df %>%
-    select(years, groupingvar, measure) %>%
-    spread(years, measure)
-
+    mutate(adnum = ifelse(povsample_ad < 100, NA, adnum),
+           adrate = ifelse(groupsample_ad < 100, NA, adrate))
 }
 
 # Spreadsheet functions ----
@@ -1306,8 +1329,13 @@ createSpreadsheet <- function(data){
                                  border = "TopBottomLeftRight",
                                  borderColour = "#D3D3D3", borderStyle = "thin",
                                  wrapText = TRUE)
-  bodyStyle <- createStyle(halign = "right")
-  endrowStyle <- createStyle(border = "bottom", halign = "right")
+
+  popStyle <- createStyle(numFmt = "#,##0", halign = "right")
+  pctStyle <- createStyle(numFmt = "0%", halign = "right")
+  popStyle_underline <- createStyle(numFmt = "#,##0", halign = "right",
+                                    border = "bottom")
+  pctStyle_underline <- createStyle(numFmt = "0%", halign = "right",
+                                    border = "bottom")
   sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
                              wrapText = FALSE, halign = "left")
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
@@ -1319,6 +1347,26 @@ createSpreadsheet <- function(data){
   # Calculate body dimensions
   endcol <- length(df) + 1
   endrow <- dim(df)[1] + 6
+
+  # Get column numbers for populations and percentages
+  nums <- grep("num", names(df), fixed = TRUE)
+  rates <- grep("rate", names(df), fixed = TRUE)
+
+  if (length(nums) > 0) {
+    startcol_pop <- nums[1] + 1
+    endcol_pop <- nums[length(nums)] + 1
+  } else {
+    startcol_pop <- 3
+    endcol_pop <- length(df) + 1
+  }
+
+  if (length(rates > 0)) {
+    startcol_pct <- rates[1] + 1
+    endcol_pct <- rates[length(rates)] + 1
+  } else {
+    startcol_pct <- 1
+    endcol_pct <- 1
+  }
 
   # Transform headers into a data frame so they can be written as data
   headers <- ifelse(is.na(headers), NULL, as.data.frame(t(headers)))
@@ -1336,45 +1384,74 @@ createSpreadsheet <- function(data){
 
   # Title row
   writeData(wb, sheetname, title, startRow = 2, startCol = 2)
-  addStyle(wb, sheetname, rows = 2, cols = 2, style = titleStyle)
 
   # Subtitle row
   writeData(wb, sheetname, subtitle, startRow = 3, startCol = 2)
-  addStyle(wb, sheetname, rows = 3, cols = 2, style = subtitleStyle)
 
   # Uber header (above headers)
   addUberheader(wb, sheetname, uberheaders)
-  if (is.vector(uberheaders)) {
-    addStyle(wb, sheetname, rows = 5, cols = 3:endcol, style = uberheaderStyle)
-    setRowHeights(wb, sheetname, rows = 5, heights = 30)
-    }
 
   # Data / body (with header)
-  writeData(wb, sheetname, df, startRow = 6, startCol = 2)
+  writeData(wb, sheetname, df, startRow = 6, startCol = 2,
+            keepNA = TRUE, na.string = "--")
   writeData(wb, sheetname, headers, startRow = 6, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = 6, cols = 2:endcol, style = headerStyle)
-  addStyle(wb, sheetname, rows = 7:endrow, cols = 2:endcol, style = bodyStyle,
-           gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow + 1, startCol = 2)
+
+  # Footnotes
+  if (is.vector(footnotes)) {
+    writeData(wb, sheetname, "Notes", startRow = endrow + 3, startCol = 2)
+    writeData(wb, sheetname, footnotes, startRow = endrow + 4, startCol = 2)
+  }
+
+  # Add styles
+
+  # Title row
+  addStyle(wb, sheetname, rows = 2, cols = 2, style = titleStyle)
+
+  # Subtitle row
+  addStyle(wb, sheetname, rows = 3, cols = 2, style = subtitleStyle)
+
+  # Uber header (above headers)
+  if (is.vector(uberheaders)) {
+    addStyle(wb, sheetname, rows = 5, cols = 3:endcol, style = uberheaderStyle)
+    setRowHeights(wb, sheetname, rows = 5, heights = 30)
+  }
+
+  # Data / body (with header)
+  addStyle(wb, sheetname, rows = 6, cols = 2:endcol, style = headerStyle)
+
+  addStyle(wb, sheetname, rows = 7:(endrow - 1), cols = startcol_pop:endcol_pop,
+           style = popStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow, cols = startcol_pop:endcol_pop,
+           style = popStyle_underline, gridExpand = TRUE)
+
+  addStyle(wb, sheetname, rows = 7:(endrow - 1), cols = startcol_pct:endcol_pct,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow, cols = startcol_pct:endcol_pct,
+           style = pctStyle_underline, gridExpand = TRUE)
+
+  addStyle(wb, sheetname, rows = endrow, cols = 2,
+           style = createStyle(border = "bottom"))
+  addStyle(wb, sheetname, rows = 7:endrow, cols = 2,
+           style = createStyle(halign = "right"), stack = TRUE)
+
+  # # Data source
   addStyle(wb, sheetname, rows = endrow + 1, cols = 2, style = sourceStyle)
 
   # Footnotes
   if (is.vector(footnotes)) {
-  writeData(wb, sheetname, "Notes", startRow = endrow + 3, startCol = 2)
   addStyle(wb, sheetname, rows = endrow + 3, cols = 2,
            style = footnoteHeaderStyle)
-  writeData(wb, sheetname, footnotes, startRow = endrow + 4, startCol = 2)
   addStyle(wb, sheetname, rows = (endrow + 4):(endrow + 4 + length(footnotes)),
            cols = 2, style = footnoteStyle)
   }
 
-  setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto",
+  setColWidths(wb, sheetname, cols = 3:endcol, widths = 17,
                ignoreMergedCells = TRUE)
+
   saveWorkbook(wb, filename, overwrite = TRUE)
 }
 
@@ -1417,25 +1494,38 @@ createWideSpreadsheet <- function(data){
   headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
                              halign = "right", border = "bottom",
                              wrapText = FALSE)
-  bodyStyle <- createStyle(halign = "right")
-  endrowStyle <- createStyle(border = "bottom", halign = "right")
+  popStyle <- createStyle(numFmt = "#,##0", halign = "right")
+  popStyle_underline <- createStyle(numFmt = "#,##0", halign = "right",
+                                    border = "bottom")
+  pctStyle <- createStyle(numFmt = "0%", halign = "right")
+  pctStyle_underline <- createStyle(numFmt = "0%", halign = "right",
+                                    border = "bottom")
   sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
-                             wrapText = FALSE)
+                             wrapText = FALSE, halign = "left")
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
                                      fontSize = 11, textDecoration = "BOLD",
-                                     wrapText = FALSE)
+                                     wrapText = FALSE, halign = "left")
   footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11,
-                               wrapText = FALSE)
+                               wrapText = FALSE, halign = "left")
 
   # Calculate body dimensions
   endcol <- length(df1) + 1
-  endrow1 <- dim(df1)[1] + 6
-  endrow2 <- endrow1 + dim(df2)[1] + 4
-  endrow3 <- endrow2 + dim(df3)[1] + 8
-  endrow4 <- endrow3 + dim(df4)[1] + 4
-  endrow5 <- endrow4 + dim(df5)[1] + 8
-  endrow6 <- endrow5 + dim(df6)[1] + 4
-  endrow7 <- endrow6 + dim(df7)[1] + 6
+  nrows <- dim(df1)[1]
+
+  startrow1 <- 7
+  endrow1 <- nrows + startrow1 - 1
+  startrow2 <- endrow1 + 5
+  endrow2 <- nrows + startrow2 - 1
+  startrow3 <- endrow2 + 9
+  endrow3 <- nrows + startrow3 - 1
+  startrow4 <- endrow3 + 5
+  endrow4 <- nrows + startrow4 - 1
+  startrow5 <- endrow4 + 9
+  endrow5 <- nrows + startrow5 - 1
+  startrow6 <- endrow5 + 5
+  endrow6 <- nrows + startrow6 - 1
+  startrow7 <- endrow6 + 7
+  endrow7 <- nrows + startrow7 - 1
 
   # Transform headers into a data frame so they can be written as data
   headers <- ifelse(is.na(headers), NULL, as.data.frame(t(headers)))
@@ -1451,220 +1541,306 @@ createWideSpreadsheet <- function(data){
 
   addWorksheet(wb, sheetname, gridLines = FALSE)
 
+  # Write data
+
   # "A" tables - title row
   writeData(wb, sheetname, title_a, startRow = 2, startCol = 2)
-  addStyle(wb, sheetname, rows = 2, cols = 2, style = titleStyle)
 
   # "A" tables = subtitle row
   writeData(wb, sheetname, subtitle_a, startRow = 3, startCol = 2)
-  addStyle(wb, sheetname, rows = 3, cols = 2, style = subtitleStyle)
 
   # Add rel pov table title
   writeData(wb, sheetname, subsubtitle_rel, startRow = 5, startCol = 2)
-  addStyle(wb, sheetname, rows = 5, cols = 2, style = subtitleStyle)
 
-  # Header
+  # Header 1
   writeData(wb, sheetname, headers, startRow = 6, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = 6, cols = 2:endcol, style = headerStyle)
 
   # Data / body 1
-  writeData(wb, sheetname, df1, startRow = 7, startCol = 2, colNames = FALSE)
-  addStyle(wb, sheetname, rows = 7, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = 8:endrow1, cols = 2:endcol, style = bodyStyle,
-           gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow1, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df1, startRow = startrow1, startCol = 2, colNames = FALSE,
+            keepNA = TRUE, na.string = "..")
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow1 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow1 + 1, cols = 2, style = sourceStyle)
 
   # Add sev pov table title
   writeData(wb, sheetname, subsubtitle_sev, startRow = endrow1 + 3,
             startCol = 2)
-  addStyle(wb, sheetname, rows = endrow1 + 3, cols = 2, style = subtitleStyle)
 
-  # Header
-  writeData(wb, sheetname, headers, startRow = endrow1 + 4, startCol = 2,
+  # Header 2
+  writeData(wb, sheetname, headers, startRow = startrow2 - 1, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow1 + 4, cols = 2:endcol,
-           style = headerStyle)
 
   # Data / body 2
-  writeData(wb, sheetname, df2, startRow = endrow1 + 5, startCol = 2,
-            colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow1 + 5, cols = 2:endcol,
-           style = endrowStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow1 + 6:endrow2, cols = 2:endcol,
-           style = bodyStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow2, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df2, startRow = startrow2, startCol = 2,
+            colNames = FALSE, keepNA = TRUE, na.string = "..")
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow2 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow2 + 1, cols = 2, style = sourceStyle)
 
   # "B" tables - title row
   writeData(wb, sheetname, title_b, startRow = endrow2 + 4, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow2 + 4, cols = 2, style = titleStyle)
 
   # "B" tables - subtitle row
   writeData(wb, sheetname, subtitle_b, startRow = endrow2 + 5, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow2 + 5, cols = 2, style = subtitleStyle)
 
   # Add rel pov table title
   writeData(wb, sheetname, subsubtitle_rel, startRow = endrow2 + 7,
             startCol = 2)
-  addStyle(wb, sheetname, rows = endrow2 + 7, cols = 2, style = subtitleStyle)
 
-  # Header
-  writeData(wb, sheetname, headers, startRow = endrow2 + 8, startCol = 2,
+  # Header 3
+  writeData(wb, sheetname, headers, startRow = startrow3 - 1, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow2 + 8, cols = 2:endcol,
-           style = headerStyle)
 
   # Data / body 3
-  writeData(wb, sheetname, df3, startRow = endrow2 + 9, startCol = 2,
-            colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow2 + 9, cols = 2:endcol,
-           style = endrowStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow2 + 10:endrow3, cols = 2:endcol,
-           style = bodyStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow3, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df3, startRow = startrow3, startCol = 2,
+            colNames = FALSE, keepNA = TRUE, na.string = "..")
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow3 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow3 + 1, cols = 2, style = sourceStyle)
 
   # Add sev pov table title
   writeData(wb, sheetname, subsubtitle_sev, startRow = endrow3 + 3,
             startCol = 2)
-  addStyle(wb, sheetname, rows = endrow3 + 3, cols = 2, style = subtitleStyle)
 
-  # Header
-  writeData(wb, sheetname, headers, startRow = endrow3 + 4, startCol = 2,
+  # Header 4
+  writeData(wb, sheetname, headers, startRow = startrow4 - 1, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow3 + 4, cols = 2:endcol,
-           style = headerStyle)
 
   # Data / body 4
-  writeData(wb, sheetname, df4, startRow = endrow3 + 5, startCol = 2,
-            colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow3 + 5, cols = 2:endcol,
-           style = endrowStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow3 + 6:endrow4, cols = 2:endcol,
-           style = bodyStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow4, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df4, startRow = startrow4, startCol = 2,
+            colNames = FALSE, keepNA = TRUE, na.string = "..")
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow4 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow4 + 1, cols = 2, style = sourceStyle)
 
   # "C" tables - title row
   writeData(wb, sheetname, title_c, startRow = endrow4 + 4, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow4 + 4, cols = 2, style = titleStyle)
 
   # "C" tables - subtitle row
   writeData(wb, sheetname, subtitle_c, startRow = endrow4 + 5, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow4 + 5, cols = 2, style = subtitleStyle)
 
   # Add rel pov table title
   writeData(wb, sheetname, subsubtitle_rel, startRow = endrow4 + 7,
             startCol = 2)
-  addStyle(wb, sheetname, rows = endrow4 + 7, cols = 2, style = subtitleStyle)
 
-  # Header
-  writeData(wb, sheetname, headers, startRow = endrow4 + 8, startCol = 2,
+  # Header 5
+  writeData(wb, sheetname, headers, startRow = startrow5 - 1, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow4 + 8, cols = 2:endcol,
-           style = headerStyle)
 
   # Data / body 5
-  writeData(wb, sheetname, df5, startRow = endrow4 + 9, startCol = 2,
-            colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow4 + 9, cols = 2:endcol,
-           style = endrowStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow4 + 10:endrow5, cols = 2:endcol,
-           style = bodyStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow5, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df5, startRow = startrow5, startCol = 2,
+            colNames = FALSE, keepNA = TRUE, na.string = "..")
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow5 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow5 + 1, cols = 2, style = sourceStyle)
 
   # Add sev pov table title
   writeData(wb, sheetname, subsubtitle_sev, startRow = endrow5 + 3,
             startCol = 2)
-  addStyle(wb, sheetname, rows = endrow5 + 3, cols = 2, style = subtitleStyle)
 
-  # Header
-  writeData(wb, sheetname, headers, startRow = endrow5 + 4, startCol = 2,
+  # Header 6
+  writeData(wb, sheetname, headers, startRow = startrow6 - 1, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow5 + 4, cols = 2:endcol,
-           style = headerStyle)
 
   # Data / body 6
-  writeData(wb, sheetname, df6, startRow = endrow5 + 5, startCol = 2,
-            colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow5 + 5, cols = 2:endcol,
-           style = endrowStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow5 + 6:endrow6, cols = 2:endcol,
-           style = bodyStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow6, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df6, startRow = startrow6, startCol = 2,
+            colNames = FALSE, keepNA = TRUE, na.string = "..")
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow6 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow6 + 1, cols = 2, style = sourceStyle)
-
 
   # "D" tables - title row
   writeData(wb, sheetname, title_d, startRow = endrow6 + 4, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow6 + 4, cols = 2, style = titleStyle)
 
   # "D" tables - subtitle row
   writeData(wb, sheetname, subtitle_d, startRow = endrow6 + 5, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow6 + 5, cols = 2, style = subtitleStyle)
 
-  # Header
-  writeData(wb, sheetname, headers, startRow = endrow6 + 6, startCol = 2,
+  # Header 7
+  writeData(wb, sheetname, headers, startRow = startrow7 - 1, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow6 + 6, cols = 2:endcol,
-           style = headerStyle)
 
   # Data / body 7
-  writeData(wb, sheetname, df7, startRow = endrow6 + 7, startCol = 2,
+  writeData(wb, sheetname, df7, startRow = startrow7, startCol = 2,
             colNames = FALSE)
-  addStyle(wb, sheetname, rows = endrow6 + 7, cols = 2:endcol,
-           style = endrowStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow6 + 8:endrow7, cols = 2:endcol,
-           style = bodyStyle, gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow7, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow7 + 1, startCol = 2)
-  addStyle(wb, sheetname, rows = endrow7 + 1, cols = 2, style = sourceStyle)
-
 
   # Footnotes
   if (is.vector(footnotes)) {
     writeData(wb, sheetname, "Notes", startRow = endrow7 + 3, startCol = 2)
-    addStyle(wb, sheetname, rows = endrow7 + 3, cols = 2,
-             style = footnoteHeaderStyle)
     writeData(wb, sheetname, footnotes, startRow = endrow7 + 4, startCol = 2)
+  }
+
+  # Add styles
+
+  # "A" tables - title row
+  addStyle(wb, sheetname, rows = 2, cols = 2, style = titleStyle, stack = TRUE)
+
+  # "A" tables = subtitle row
+  addStyle(wb, sheetname, rows = 3, cols = 2, style = subtitleStyle, stack = TRUE)
+
+  # Add rel pov table title
+  addStyle(wb, sheetname, rows = 5, cols = 2, style = subtitleStyle, stack = TRUE)
+
+  # Header 1
+  addStyle(wb, sheetname, rows = startrow1 - 1, cols = 2:endcol,
+           style = headerStyle, stack = TRUE)
+
+  # Data / body 1
+  addStyle(wb, sheetname, rows = startrow1, cols = 2:endcol, style = pctStyle_underline,
+           gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow1 + 1):(endrow1 - 1), cols = 2:endcol,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow1, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = endrow1 + 1, cols = 2, style = sourceStyle)
+
+  # Add sev pov table title
+  addStyle(wb, sheetname, rows = endrow1 + 3, cols = 2, style = subtitleStyle)
+
+  # Header 2
+  addStyle(wb, sheetname, rows = startrow2 - 1, cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 2
+  addStyle(wb, sheetname, rows = startrow2, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow2 + 1):(endrow2 - 1), cols = 2:endcol,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow2, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = endrow2 + 1, cols = 2, style = sourceStyle)
+
+  # "B" tables - title row
+  addStyle(wb, sheetname, rows = endrow2 + 4, cols = 2, style = titleStyle)
+
+  # "B" tables - subtitle row
+  addStyle(wb, sheetname, rows = endrow2 + 5, cols = 2, style = subtitleStyle)
+
+  # Add rel pov table title
+  addStyle(wb, sheetname, rows = endrow2 + 7, cols = 2, style = subtitleStyle)
+
+  # Header 3
+  addStyle(wb, sheetname, rows = startrow3 - 1, cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 3
+  addStyle(wb, sheetname, rows = startrow3, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow3 + 1):(endrow3 - 1), cols = 2:endcol,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow3, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = endrow3 + 1, cols = 2, style = sourceStyle)
+
+  # Add sev pov table title
+  addStyle(wb, sheetname, rows = (endrow3 + 3), cols = 2, style = subtitleStyle)
+
+  # Header 4
+  addStyle(wb, sheetname, rows = (startrow4 - 1), cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 4
+  addStyle(wb, sheetname, rows = startrow4, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow4 + 1):(endrow4 - 1), cols = 2:endcol,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow4, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = (endrow4 + 1), cols = 2, style = sourceStyle)
+
+  # "C" tables - title row
+  addStyle(wb, sheetname, rows = (endrow4 + 4), cols = 2, style = titleStyle)
+
+  # "C" tables - subtitle row
+  addStyle(wb, sheetname, rows = (endrow4 + 5), cols = 2, style = subtitleStyle)
+
+  # Add rel pov table title
+  addStyle(wb, sheetname, rows = (endrow4 + 7), cols = 2, style = subtitleStyle)
+
+  # Header 5
+  addStyle(wb, sheetname, rows = (startrow5 - 1), cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 5
+  addStyle(wb, sheetname, rows = startrow5, cols = 2:endcol,
+           style = popStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow5 + 1):(endrow5 - 1), cols = 2:endcol,
+           style = popStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow5, cols = 2:endcol,
+           style = popStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = (endrow5 + 1), cols = 2, style = sourceStyle)
+
+  # Add sev pov table title
+  addStyle(wb, sheetname, rows = (endrow5 + 3), cols = 2, style = subtitleStyle)
+
+  # Header 6
+  addStyle(wb, sheetname, rows = (startrow6 - 1), cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 6
+  addStyle(wb, sheetname, rows = startrow6, cols = 2:endcol,
+           style = popStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow6 + 1):(endrow6 - 1), cols = 2:endcol,
+           style = popStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow6, cols = 2:endcol,
+           style = popStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = (endrow6 + 1), cols = 2, style = sourceStyle)
+
+  # "D" tables - title row
+  addStyle(wb, sheetname, rows = (endrow6 + 4), cols = 2, style = titleStyle)
+
+  # "D" tables - subtitle row
+  addStyle(wb, sheetname, rows = (endrow6 + 5), cols = 2, style = subtitleStyle)
+
+  # Header 7
+  addStyle(wb, sheetname, rows = (startrow7 - 1), cols = 2:endcol,
+           style = headerStyle)
+
+  # Data / body 7
+  addStyle(wb, sheetname, rows = startrow7, cols = 2:endcol,
+           style = popStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = (startrow7 + 1):(endrow7 - 1), cols = 2:endcol,
+           style = popStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow7, cols = 2:endcol,
+           style = popStyle_underline, gridExpand = TRUE)
+
+  # Data source
+  addStyle(wb, sheetname, rows = (endrow7 + 1), cols = 2, style = sourceStyle)
+
+  # Footnotes
+  if (is.vector(footnotes)) {
+    addStyle(wb, sheetname, rows = (endrow7 + 3), cols = 2,
+             style = footnoteHeaderStyle)
     addStyle(wb, sheetname,
              rows = (endrow7 + 4):(endrow7 + 4 + length(footnotes)),
              cols = 2, style = footnoteStyle)
   }
 
+  # Data / body 1 (repeat)
+  addStyle(wb, sheetname, rows = 7, cols = 2:endcol, style = pctStyle_underline,
+           gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = 8:(endrow1 - 1), cols = 2:endcol,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow1, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+
   setColWidths(wb, sheetname, cols = 2, widths = 40)
-  setColWidths(wb, sheetname, cols = 3:endcol, widths = "auto")
+  setColWidths(wb, sheetname, cols = 3:endcol, widths = 8.5)
   saveWorkbook(wb, filename, overwrite = TRUE)
 }
 
@@ -1702,8 +1878,9 @@ createUKSpreadsheet <- function(data) {
   headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
                              halign = "right", border = "bottom",
                              wrapText = FALSE)
-  bodyStyle <- createStyle(halign = "right")
-  endrowStyle <- createStyle(border = "bottom", halign = "right")
+  pctStyle <- createStyle(numFmt = "0%", halign = "right")
+  pctStyle_underline <- createStyle(numFmt = "0%", halign = "right",
+                                    border = "bottom")
   sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
                              wrapText = FALSE)
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
@@ -1747,13 +1924,15 @@ createUKSpreadsheet <- function(data) {
   addStyle(wb, sheetname, rows = 5, cols = 2:endcol, style = headerStyle)
 
   # Data / body 1
-  writeData(wb, sheetname, df1, startRow = 6, startCol = 2, colNames = FALSE)
-  addStyle(wb, sheetname, rows = 6, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = 7:endrow1, cols = 2:endcol, style = bodyStyle,
-           gridExpand = TRUE)
-  addStyle(wb, sheetname, rows = endrow1, cols = 2:endcol, style = endrowStyle,
-           gridExpand = TRUE)
+  writeData(wb, sheetname, df1, startRow = 6, startCol = 2, colNames = FALSE,
+            keepNA = TRUE, na.string = "--")
+
+  addStyle(wb, sheetname, rows = 6, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = 7:endrow1, cols = 2:endcol,
+           style = pctStyle, gridExpand = TRUE)
+  addStyle(wb, sheetname, rows = endrow1, cols = 2:endcol,
+           style = pctStyle_underline, gridExpand = TRUE)
 
   # Data source
   writeData(wb, sheetname, source, startRow = endrow1 + 1, startCol = 2)
@@ -1779,11 +1958,11 @@ createUKSpreadsheet <- function(data) {
     writeData(wb, sheetname, df2, startRow = endrow1 + 8, startCol = 2,
               colNames = FALSE)
     addStyle(wb, sheetname, rows = endrow1 + 8, cols = 2:endcol,
-             style = endrowStyle, gridExpand = TRUE)
+             style = pctStyle_underline, gridExpand = TRUE)
     addStyle(wb, sheetname, rows = endrow1 + 9:endrow2, cols = 2:endcol,
-             style = bodyStyle, gridExpand = TRUE)
+             style = pctStyle, gridExpand = TRUE)
     addStyle(wb, sheetname, rows = endrow2, cols = 2:endcol,
-             style = endrowStyle, gridExpand = TRUE)
+             style = pctStyle_underline, gridExpand = TRUE)
 
     # Data source
     writeData(wb, sheetname, source, startRow = endrow2 + 1, startCol = 2)
@@ -1809,11 +1988,11 @@ createUKSpreadsheet <- function(data) {
       writeData(wb, sheetname, df3, startRow = endrow2 + 8, startCol = 2,
                 colNames = FALSE)
       addStyle(wb, sheetname, rows = endrow2 + 8, cols = 2:endcol,
-               style = endrowStyle, gridExpand = TRUE)
+               style = pctStyle_underline, gridExpand = TRUE)
       addStyle(wb, sheetname, rows = endrow2 + 9:endrow3, cols = 2:endcol,
-               style = bodyStyle, gridExpand = TRUE)
+               style = pctStyle, gridExpand = TRUE)
       addStyle(wb, sheetname, rows = endrow3, cols = 2:endcol,
-               style = endrowStyle, gridExpand = TRUE)
+               style = pctStyle_underline, gridExpand = TRUE)
 
       # Data source
       writeData(wb, sheetname, source, startRow = endrow3 + 1, startCol = 2)
@@ -1838,11 +2017,11 @@ createUKSpreadsheet <- function(data) {
       writeData(wb, sheetname, df4, startRow = endrow3 + 8, startCol = 2,
                 colNames = FALSE)
       addStyle(wb, sheetname, rows = endrow3 + 8, cols = 2:endcol,
-               style = endrowStyle, gridExpand = TRUE)
+               style = pctStyle_underline, gridExpand = TRUE)
       addStyle(wb, sheetname, rows = endrow3 + 9:endrow4, cols = 2:endcol,
-               style = bodyStyle, gridExpand = TRUE)
+               style = pctStyle, gridExpand = TRUE)
       addStyle(wb, sheetname, rows = endrow4, cols = 2:endcol,
-               style = endrowStyle, gridExpand = TRUE)
+               style = pctStyle_underline, gridExpand = TRUE)
 
       # Data source
       writeData(wb, sheetname, source, startRow = endrow4 + 1, startCol = 2)
@@ -1994,7 +2173,47 @@ createContentSheet <- function(filename){
 
 }
 
+mark_missing <- function(data = data, ncols, nrows, xlscol, xlsrow) {
+  filename <- paste0("output/", data[["filename"]])
+  sheetname <- data[["sheetname"]]
+  wb <- loadWorkbook(filename)
+
+  df <- data.frame(matrix("--", nrows, ncols))
+  startcell <- c(xlscol, xlsrow)
+
+  writeData(
+    wb,
+    sheetname,
+    x = df,
+    xy = startcell,
+    colNames = FALSE
+  )
+
+  saveWorkbook(wb, filename, overwrite = TRUE)
+}
+
+wrap_text <- function(data = data, rows, cols) {
+  filename <- paste0("output/", data[["filename"]])
+  sheetname <- data[["sheetname"]]
+  wb <- loadWorkbook(filename)
+  addStyle(wb, sheetname, rows = rows, cols = cols,
+           style = createStyle(wrapText = TRUE), gridExpand = TRUE,
+           stack = TRUE)
+}
+
+
 # Chart functions ----
+
+# Change scales::percent() and scales::comma() functions
+# to ensure correct rounding
+
+percent2 <- function(x) {paste0(round2(x, 2) * 100, "%")}
+
+comma2 <- function(x, accuracy = 1, scale = 1, prefix = "") {
+
+  y <- round2(x, accuracy)
+  scales::comma(x = y, accuracy = accuracy, scale = scale, prefix = prefix)
+}
 
 linechart <- function(df, GBP = FALSE, ...){
 
@@ -2004,15 +2223,14 @@ linechart <- function(df, GBP = FALSE, ...){
     if (GBP) {
       df$text <- df$tooltip
     } else {
-      df$text <- str_c(df$key, ": ", percent(df$value, 1), " (", df$years, ")")
+      df$text <- str_c(df$key, ": ", percent2(df$value), " (", df$years, ")")
     }
   } else {
     if (GBP) {
       df$text <- str_c(df$text, " (", df$years, ")")
     } else {
-      df$text <- str_c(percent(df$value, 1), " (", df$years, ")")
+      df$text <- str_c(percent2(df$value), " (", df$years, ")")
     }
-
   }
 
   ggplot(data = df,
@@ -2029,7 +2247,7 @@ linechart <- function(df, GBP = FALSE, ...){
     geom_point_interactive(aes(tooltip = text,
                                data_id = paste(text, value)),
                            show.legend = FALSE,
-                           size = 5,
+                           size = 6,
                            colour = "white",
                            alpha = 0.01) +
 
@@ -2049,7 +2267,10 @@ linechart_small <- function(df, yrange = c(0.1, 0.35),
                             GBP = FALSE, col = SGblue){
 
   if (!GBP) {
-    df$text <- percent(df$value, 1)
+    df$text <- percent2(df$value)
+  } else {
+    df$text <- stringi::stri_enc_toutf8(comma2(df$value,
+                                               prefix = "£"))
   }
 
   ggplot(data = df,
@@ -2107,9 +2328,9 @@ barchart <- function(df) {
              y = value,
              group = key,
              fill = key,
-             label = percent(value, 1))) +
+             label = percent2(value))) +
 
-    geom_bar_interactive(aes(tooltip = str_c(key, ": ", percent(value, 1)),
+    geom_bar_interactive(aes(tooltip = str_c(key, ": ", percent2(value)),
                              data_id = paste(key, value)),
                          show.legend = FALSE,
                          stat = "identity") +
@@ -2140,9 +2361,9 @@ persistentchart <- function(df) {
                        y = value,
                        fill = period,
                        group = period,
-                       label = percent(value, 1))) +
+                       label = percent2(value))) +
 
-    geom_bar_interactive(aes(tooltip = str_c(percent(value, 1), " (",
+    geom_bar_interactive(aes(tooltip = str_c(percent2(value), " (",
                                              period, ")"),
                              data_id = paste(key, period, value)),
                          stat = "identity",
@@ -2150,13 +2371,14 @@ persistentchart <- function(df) {
                          colour = "white") +
 
     scale_fill_manual(values = rev(SGblues)) +
+    scale_y_continuous(limits = c(0, 0.23)) +
+    scale_alpha_manual(values = c("0" = 0, "1" = 1)) +
 
-    scale_y_continuous(limits = c(0, 0.22)) +
-
-    geom_text(aes(label = ifelse(period == max(period), percent(value, 1), NA)),
+    geom_text(aes(alpha = ifelse(period == max(period), "1", "0")),
               vjust = -0.5,
               position = position_dodge(1),
-              colour = SGblues[2]) +
+              colour = SGblues[1],
+              show.legend = FALSE) +
 
     labs(caption = "Source: Understanding Society Survey")
 }
@@ -2222,7 +2444,7 @@ addsource <- function(){
 addlabels <- function(df = data, GBP = FALSE, size = 4){
 
 if (!GBP) {
-  df$labeltext <- percent(df$value, 1)
+  df$labeltext <- percent2(df$value)
 } else {
   df$labeltext <- df$text
 }
@@ -2306,14 +2528,14 @@ addinterimtarget <- function(target){
 
   c <- geom_text(data = tail(data, 1L),
                  aes(x = 30.2, y = target + 0.05,
-                       label = percent(target, 1)),
+                       label = percent2(target)),
                  colour = SGgreys[1],
                  size = 5)
 
   d <- geom_point_interactive(aes(x = "2324",
                                   y = target,
                                   tooltip = str_c("Interim target (2023/24): ",
-                                                  percent(target, 1)),
+                                                  percent2(target)),
                                   data_id = target),
                               size = 8,
                               colour = "white",
@@ -2341,14 +2563,14 @@ addfinaltarget <- function(target){
 
   c <- geom_text(data = tail(data, 1L),
                    aes(x = 37.2, y = target + 0.05,
-                       label = percent(target, 1)),
+                       label = percent2(target)),
                    colour = SGgreys[1],
                  size = 5)
 
   d <- geom_point_interactive(aes(x = "3031",
                                   y = target,
                                   tooltip = str_c("Final target (2030/31): ",
-                                                  percent(target, 1)),
+                                                  percent2(target)),
                                   data_id = target),
                               size = 8,
                               colour = "white",
@@ -2386,14 +2608,14 @@ adddatalabels <- function(){
 
   a <- geom_text(data = head(data, 1L),
                  aes(x = year, y = single + 0.04,
-                     label = percent(single, 1)),
+                     label = percent2(single)),
                  size = 3,
                  nudge_x = -0.4,
                  colour = SGgreys[1])
 
   b <-  geom_text(data = tail(data, 1L),
                   aes(x = year, y = single + 0.04,
-                      label = percent(single, 1)),
+                      label = percent2(single)),
                   size = 3,
                   hjust = 0,
                   colour = SGgreys[1])

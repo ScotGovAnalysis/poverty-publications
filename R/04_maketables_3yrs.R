@@ -2,7 +2,6 @@
 
 source("R/00_functions.R")
 source("R/00_strings.R")
-source("R/00_colours.R")
 
 filename <- "All three-year average.xlsx"
 
@@ -43,6 +42,8 @@ data <- list(df = relpovbhc,
 
 # Create worksheet
 createSpreadsheet(data)
+
+
 
 ## Relative poverty AHC ----
 relpovahc <- do.call(rbind.data.frame,
@@ -122,15 +123,14 @@ cmdbhc <- do.call(rbind.data.frame,
                         (chnum + lag(chnum, 1L) + lag(chnum_new, 2L))/3,
                         get3yraverage(chnum)),
          chnum = ifelse(years == 1112, NA, chnum),
-         chnum = fmtpop(chnum),
+         chnum = roundpop(chnum),
          chrate = ifelse(years == 1213,
                          (chrate + lag(chrate, 1L) + lag(chrate_new, 2L))/3,
                          get3yraverage(chrate)),
          chrate = ifelse(years == 1112, NA, chrate),
-         chrate = fmtpct(chrate)) %>%
+         chrate = roundpct(chrate)) %>%
   tail(-2L) %>%
   select(1:3) %>%
-  replace(., is.na(.), "-") %>%
   mutate(years = factor(years,
                         labels = periods[13:length(periods)]))
 
@@ -157,15 +157,14 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
                         (chnum + lag(chnum, 1L) + lag(chnum_new, 2L))/3,
                         get3yraverage(chnum)),
          chnum = ifelse(years == 1112, NA, chnum),
-         chnum = fmtpop(chnum),
+         chnum = roundpop(chnum),
          chrate = ifelse(years == 1213,
                          (chrate + lag(chrate, 1L) + lag(chrate_new, 2L))/3,
                          get3yraverage(chrate)),
          chrate = ifelse(years == 1112, NA, chrate),
-         chrate = fmtpct(chrate)) %>%
+         chrate = roundpct(chrate)) %>%
   tail(-2L) %>%
   select(1:3) %>%
-  replace(., is.na(.), "-") %>%
   mutate(years = factor(years,
                         labels = periods[13:length(periods)]))
 
@@ -184,8 +183,8 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpmd)) %>%
          pnrate = get3yraverage(pnrate),
          years = factor(years,
                         labels = periods[16:length(periods)])) %>%
-  mutate_at(vars(contains("num")), fmtpop) %>%
-  mutate_at(vars(contains("rate")), fmtpct) %>%
+  mutate_at(vars(contains("num")), roundpop) %>%
+  mutate_at(vars(contains("rate")), roundpct) %>%
   tail(-2L)
 
 data[["df"]] <- pndep
@@ -215,8 +214,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "0506" ) %>%
   mutate(years = factor(years, labels = periods[12:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -272,11 +270,11 @@ data <- list(sheetname = "Tenure",
                            "However, further data points are required to confirm whether this marks an increasing trend in poverty.")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Urban/rural class ------------------------------------------------------------
 
@@ -288,8 +286,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "0809" ) %>%
   mutate(years = factor(years, labels = periods[15:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -341,11 +338,11 @@ data <- list(sheetname = "Urban rural",
                            "2. Information on urban/rural class is not available prior to 2006.")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Number of children in household ----------------------------------------------
@@ -357,8 +354,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -410,11 +406,11 @@ data <- list(sheetname = "Number of children",
                            "'..'   not available due to small sample size")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Age (adults) -----------------------------------------------------------------
 
@@ -425,8 +421,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck_ad %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck_ad
 
 sev <- do.call(rbind.data.frame,
                lapply(adult, getpovby_adult, povvar = "low50ahc",
@@ -473,12 +468,14 @@ data <- list(sheetname = "Age band",
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. In these tables, 'adults' include working-age adults as well as pensioners.",
                            "2. In the tables, the following conventions have been used where figures are unavailable:",
-                           "'..' not available due to small sample size",
-                           "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
+                           "'..' not available due to small sample size")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
+
+remove(rel, rel_rates, rel_comps, rel_numbers,
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Gender (adults) --------------------------------------------------------------
 
@@ -492,8 +489,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, function(x) {
@@ -553,7 +549,7 @@ data <- list(sheetname = "Gender",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Family type (adults) ---------------------------------------------------------
 
@@ -564,8 +560,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -626,7 +621,7 @@ data <- list(sheetname = "Family type",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Marital status (adults) ------------------------------------------------------
 
@@ -637,8 +632,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck_ad %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck_ad
 
 sev <- do.call(rbind.data.frame,
                lapply(adult, getpovby_adult, povvar = "low50ahc",
@@ -698,7 +692,7 @@ data <- list(sheetname = "Marital status",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Family economic status (working-age adults) ----------------------------------
 
@@ -710,8 +704,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9899" ) %>%
   mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -770,7 +763,7 @@ data <- list(sheetname = "Family economic status",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Household work status (working-age adults) -----------------------------------
@@ -783,8 +776,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9899" ) %>%
   mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc",
@@ -842,7 +834,7 @@ data <- list(sheetname = "Household work status",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Disability ------------------------------------------------------------------
@@ -855,8 +847,7 @@ rel_pp <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc",
@@ -866,8 +857,7 @@ rel_ch <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc",
@@ -877,8 +867,7 @@ rel_ad <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc",
@@ -949,13 +938,6 @@ sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
 sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
 sample <- rbind(sample1, sample2, sample3)
-
-# mark time series break
-rel_numbers[, 12] <- "--"
-rel_numbers[, 13] <- "--"
-sev_numbers[, 12] <- "--"
-sev_numbers[, 13] <- "--"
-
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Disability",
@@ -993,15 +975,19 @@ data <- list(sheetname = "Disability",
                            "5. Data on disability is available from 1995/96.")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
+
+# mark missing data ("--")
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 60)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 71)
 
 remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
        rel_comps, rel_comps1, rel_comps2, rel_comps3,
        rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3,
        sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3,
        sev_comps, sev_comps1, sev_comps2, sev_comps3,
-       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
+       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3, data)
 
 
 ## Disability with benefits removed from income --------------------------------
@@ -1014,8 +1000,7 @@ rel_pp <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis",
@@ -1025,8 +1010,7 @@ rel_ch <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis",
@@ -1036,8 +1020,7 @@ rel_ad <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc_dis",
@@ -1108,13 +1091,6 @@ sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
 sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
 sample <- rbind(sample1, sample2, sample3)
-
-# mark time series break
-rel_numbers[, 12] <- "--"
-rel_numbers[, 13] <- "--"
-sev_numbers[, 12] <- "--"
-sev_numbers[, 13] <- "--"
-
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "DisabilityBenefitsRemoved",
@@ -1154,15 +1130,18 @@ data <- list(sheetname = "DisabilityBenefitsRemoved",
                            "6. Data on disability is available from 1995/96.")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 60)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 71)
 
 remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
        rel_comps, rel_comps1, rel_comps2, rel_comps3,
        rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3,
        sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3,
        sev_comps, sev_comps1, sev_comps2, sev_comps3,
-       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
+       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3, data)
 
 ## Ethnicity -------------------------------------------------------------------
 
@@ -1174,7 +1153,6 @@ rel <- do.call(rbind.data.frame,
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
   samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1)) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "Asian or Asian British",
                                    after = 4L)) %>%
   arrange(groupingvar)
@@ -1202,10 +1180,6 @@ rel_numbers <- splitntranspose(rel, "ppnum")
 sev_rates <- splitntranspose(sev, "pprate")
 sev_comps <- splitntranspose(sev, "ppcomp")
 sev_numbers <- splitntranspose(sev, "ppnum")
-
-# remove composition data - not reliable for ethnicity
-rel_comps[, 2] <- "--"
-sev_comps[, 2] <- "--"
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Ethnicity",
@@ -1239,11 +1213,14 @@ data <- list(sheetname = "Ethnicity",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 1, nrows = 4, xlscol = 3, xlsrow = 30)
+mark_missing(data, ncols = 1, nrows = 4, xlscol = 3, xlsrow = 39)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Religion (adults) -----------------------------------------------------------
 
@@ -1255,7 +1232,6 @@ rel <- do.call(rbind.data.frame,
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
   samplesizecheck_ad %>%
-  mutate_at(vars(contains("sample")), comma_format(1)) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "Other religion", after = 7L),
          groupingvar = fct_relevel(groupingvar, "No religion", after = 7L)) %>%
   arrange(groupingvar)
@@ -1283,10 +1259,6 @@ rel_numbers <- splitntranspose(rel, "adnum")
 sev_rates <- splitntranspose(sev, "adrate")
 sev_comps <- splitntranspose(sev, "adcomp")
 sev_numbers <- splitntranspose(sev, "adnum")
-
-# remove composition data - not reliable for religion
-rel_comps[, 2] <- "--"
-sev_comps[, 2] <- "--"
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Religion",
@@ -1320,8 +1292,15 @@ data <- list(sheetname = "Religion",
                            "'--' not available for another reason (data accuracy, data wasn't collected etc.) ")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 1, nrows = 6, xlscol = 3, xlsrow = 34)
+mark_missing(data, ncols = 1, nrows = 6, xlscol = 3, xlsrow = 45)
+
+
+remove(rel, rel_rates, rel_comps, rel_numbers,
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 # 3. Characteristics - children ----
 createSepsheet(filename = filename, sheetname = "- 3 -",
@@ -1334,8 +1313,7 @@ rel <- do.call(rbind.data.frame,
   addyearvar %>%
   formatpov3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
-  samplesizecheck_childage %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck_childage
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovbychildage, povvar = "low50ahc")) %>%
@@ -1414,11 +1392,11 @@ data <- list(sheetname = "Child age",
                            "Also note that differences of 10,000 between years in table C may, in some cases, be largely explained by rounding.")
 )
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Tenure ---------------------------------------------------------------------------------------
@@ -1430,8 +1408,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "0506" ) %>%
   mutate(years = factor(years, labels = periods[12:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ptentyp2")) %>%
@@ -1488,7 +1465,7 @@ data <- list(sheetname = "Tenure ch",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Urban/rural class ----------------------------------------------------------------------------
 
@@ -1499,8 +1476,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "0809" ) %>%
   mutate(years = factor(years, labels = periods[15:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "urinds")) %>%
@@ -1555,9 +1531,7 @@ data <- list(sheetname = "Urban rural ch",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
-
-
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Number of children in household --------------------------------------------------------------
 
@@ -1567,8 +1541,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "depchldh_ch")) %>%
@@ -1623,7 +1596,7 @@ data <- list(sheetname = "Number of children ch",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Age of youngest child in household --------------------------------------------------------------
 
@@ -1633,8 +1606,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "babyhh")) %>%
@@ -1655,15 +1627,6 @@ rel_numbers <- splitntranspose(rel, "chnum")
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
 sev_numbers <- splitntranspose(sev, "chnum")
-
-# remove estimates where age not available
-rel_rates[2:3, 8:13] <- "--"
-rel_comps[2:3, 8:13] <- "--"
-rel_numbers[2:3, 8:13] <- "--"
-sev_rates[2:3, 8:13] <- "--"
-sev_comps[2:3, 8:13] <- "--"
-sev_numbers[2:3, 8:13] <- "--"
-sample[2:3, 8:13] <- "--"
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Age of youngest child",
@@ -1699,9 +1662,17 @@ data <- list(sheetname = "Age of youngest child",
 
 # Create new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 8)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 15)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 26)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 33)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 44)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 51)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 60)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Age of mother --------------------------------------------------------------------------------------
 
@@ -1712,8 +1683,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9900" ) %>%
   mutate(years = factor(years, labels = periods[6:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "youngmumhh")) %>%
@@ -1735,15 +1705,6 @@ rel_numbers <- splitntranspose(rel, "chnum")
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
 sev_numbers <- splitntranspose(sev, "chnum")
-
-# remove estimates where age not available
-rel_rates[2:3, 5:10] <- "--"
-rel_comps[2:3, 5:10] <- "--"
-rel_numbers[2:3, 5:10] <- "--"
-sev_rates[2:3, 5:10] <- "--"
-sev_comps[2:3, 5:10] <- "--"
-sev_numbers[2:3, 5:10] <- "--"
-sample[2:3, 5:10] <- "--"
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Age of mother",
@@ -1778,9 +1739,17 @@ data <- list(sheetname = "Age of mother",
 
 # Create new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 8)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 15)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 26)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 33)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 44)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 51)
+mark_missing(data, ncols = 6, nrows = 2, xlscol = 6, xlsrow = 60)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Family type (children) -------------------------------------------------------------------------
@@ -1791,8 +1760,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   mutate(years = factor(years, labels = periods[3:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "loneparenthh")) %>%
@@ -1849,7 +1817,7 @@ data <- list(sheetname = "Family type ch",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Family economic status (children) -------------------------------------------------
@@ -1861,8 +1829,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9899" ) %>%
   mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ecobu")) %>%
@@ -1920,7 +1887,7 @@ data <- list(sheetname = "Family economic status ch",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Household work status (children) ---------------------------------------------------
@@ -1932,8 +1899,7 @@ rel <- do.call(rbind.data.frame,
   filter(years >= "9899" ) %>%
   mutate(years = factor(years, labels = periods[5:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "workinghh")) %>%
@@ -1990,7 +1956,7 @@ data <- list(sheetname = "Household work status ch",
 createWideSpreadsheet(data)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 
 ## Disability -----------------------------------------------------------------------------------
@@ -2002,8 +1968,7 @@ rel_pp <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "disch_hh")) %>%
@@ -2012,8 +1977,7 @@ rel_ch <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc", groupingvar = "disad_hh")) %>%
@@ -2022,8 +1986,7 @@ rel_ad <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "dispp_hh")) %>%
@@ -2092,14 +2055,6 @@ sev_rates <- rbind(sev_rates1, sev_rates2, sev_rates3)
 sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
 sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
-
-# mark time series break
-rel_numbers[, 12] <- "--"
-rel_numbers[, 13] <- "--"
-sev_numbers[, 12] <- "--"
-sev_numbers[, 13] <- "--"
-
-
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Disability ch",
              title_a = "A. Proportion of children in poverty and severe poverty by whether there is a disabled person in the household",
@@ -2138,13 +2093,16 @@ data <- list(sheetname = "Disability ch",
 
 # Create new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 60)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 71)
 
 remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
        rel_comps, rel_comps1, rel_comps2, rel_comps3,
        rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3,
        sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3,
        sev_comps, sev_comps1, sev_comps2, sev_comps3,
-       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
+       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3, data)
 
 
 ## Disability with benefits removed from income -------------------------------------------------
@@ -2156,8 +2114,7 @@ rel_pp <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ch <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "disch_hh")) %>%
@@ -2166,8 +2123,7 @@ rel_ch <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 rel_ad <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low60ahc_dis", groupingvar = "disad_hh")) %>%
@@ -2176,8 +2132,7 @@ rel_ad <- do.call(rbind.data.frame,
   filter(years >= "9798" ) %>%
   mutate(years = factor(years, labels = periods[4:yearsno])) %>%
   arrange(years) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev_pp <- do.call(rbind.data.frame,
                   lapply(hbai, getpovby, povvar = "low50ahc_dis", groupingvar = "dispp_hh")) %>%
@@ -2246,13 +2201,6 @@ sev_rates <- rbind(sev_rates1, sev_rates2, sev_rates3)
 sev_comps <- rbind(sev_comps1, sev_comps2, sev_comps3)
 sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3)
 
-# mark time series break
-rel_numbers[, 12] <- "--"
-rel_numbers[, 13] <- "--"
-sev_numbers[, 12] <- "--"
-sev_numbers[, 13] <- "--"
-
-
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "DisabilityBenefitsRemovedch",
              title_a = "A. Proportion of children in poverty and severe poverty by whether there is a disabled person in the household, with disability benefits removed from household income",
@@ -2293,13 +2241,16 @@ data <- list(sheetname = "DisabilityBenefitsRemovedch",
 
 # Create new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 60)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 13, xlsrow = 71)
 
 remove(rel_pp, rel_ch, rel_ad, rel_rates, rel_rates1, rel_rates2, rel_rates3,
        rel_comps, rel_comps1, rel_comps2, rel_comps3,
        rel_numbers, rel_numbers1, rel_numbers2, rel_numbers3,
        sev_pp, sev_ch, sev_ad, sev_rates, sev_rates1, sev_rates2, sev_rates3,
        sev_comps, sev_comps1, sev_comps2, sev_comps3,
-       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3)
+       sev_numbers, sev_numbers1, sev_numbers2, sev_numbers3, data)
 
 ## Ethnicity (5-year average) ------------------------------------------------------------------------
 
@@ -2310,7 +2261,6 @@ rel <- do.call(rbind.data.frame,
   filter(years == max(years)) %>%
   mutate(years = period5yr) %>%
   samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1)) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "Asian or Asian British",
                                    after = 4L)) %>%
   arrange(groupingvar)
@@ -2337,10 +2287,6 @@ rel_numbers <- splitntranspose(rel, "chnum")
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
 sev_numbers <- splitntranspose(sev, "chnum")
-
-# remove composition data - not reliable for ethnicity
-rel_comps[, 2] <- "--"
-sev_comps[, 2] <- "--"
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Ethnicity 5-yr ch",
@@ -2377,11 +2323,12 @@ data <- list(sheetname = "Ethnicity 5-yr ch",
 
 # Create new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 1, nrows = 4, xlscol = 3, xlsrow = 30)
+mark_missing(data, ncols = 1, nrows = 4, xlscol = 3, xlsrow = 39)
 
 remove(rel, rel_rates, rel_comps, rel_numbers,
-       sev, sev_rates, sev_comps, sev_numbers)
-
-
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 ## Ethnicity (3-year average) --------------------------------------------------
 
@@ -2391,8 +2338,7 @@ rel <- do.call(rbind.data.frame,
   formatpovby3yraverage %>%
   filter(years == max(years)) %>%
   mutate(years = periods[length(periods)]) %>%
-  samplesizecheck %>%
-  mutate_at(vars(contains("sample")), comma_format(1))
+  samplesizecheck
 
 sev <- do.call(rbind.data.frame,
                lapply(hbai, getpovby, povvar = "low50ahc", groupingvar = "ethgrphh_2f")) %>%
@@ -2413,10 +2359,6 @@ rel_numbers <- splitntranspose(rel, "chnum")
 sev_rates <- splitntranspose(sev, "chrate")
 sev_comps <- splitntranspose(sev, "chcomp")
 sev_numbers <- splitntranspose(sev, "chnum")
-
-# remove composition data - not reliable for ethnicity
-rel_comps[, 2] <- "--"
-sev_comps[, 2] <- "--"
 
 # put all input for the spreadsheet into a list
 data <- list(sheetname = "Ethnicity 3-yr ch",
@@ -2452,6 +2394,12 @@ data <- list(sheetname = "Ethnicity 3-yr ch",
 
 # Create new worksheet
 createWideSpreadsheet(data)
+# mark missing data ("--")
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 26)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 33)
+
+remove(rel, rel_rates, rel_comps, rel_numbers,
+       sev, sev_rates, sev_comps, sev_numbers, data)
 
 # 4. Income ----
 createSepsheet(filename = filename, sheetname = "- 4 -",
@@ -2466,7 +2414,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods)) %>%
-  fmtweeklyGBP
+  mutate_if(is.numeric, ~round2(., 0))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2479,8 +2427,10 @@ data <- list(df = df,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = NULL)
 
-# Create spreadsheet and first worksheet
+# Create spreadsheet and new worksheet
 createSpreadsheet(data)
+
+remove(data)
 
 ## Median AHC household income by age group ------------------------------------
 
@@ -2490,8 +2440,8 @@ df <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
   tail(-2L) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
-                        labels = periods)) %>%
-  fmtweeklyGBP
+                        labels = periods))  %>%
+  mutate_if(is.numeric, ~round2(., 0))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2507,6 +2457,8 @@ data <- list(df = df,
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
 
+remove(data)
+
 ## BHC income decile points ----------------------------------------------------
 
 df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
@@ -2516,7 +2468,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods)) %>%
-  fmtweeklyGBP
+  mutate_if(is.numeric, ~round2(., 0))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2531,6 +2483,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## AHC income decile points ----------------------------------------------------
 
@@ -2541,7 +2494,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecptsahc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods)) %>%
-  fmtweeklyGBP
+  mutate_if(is.numeric, ~round2(., 0))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2556,6 +2509,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## BHC income decile shares ----------------------------------------------------
 
@@ -2563,7 +2517,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesbhc)) %>%
   addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate_if(is.numeric, comma_format(scale = 1E-6, accuracy = 1)) %>%
+  mutate_if(~ any(is.numeric(.)), ~round2(. / 1000000, n = 0)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods))
@@ -2581,6 +2535,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## AHC income decile shares ----------------------------------------------------
 
@@ -2588,7 +2543,7 @@ df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesahc)) %>%
   addyearvar() %>%
   mutate_if(is.numeric, get3yraverage) %>%
   tail(-2L) %>%
-  mutate_if(is.numeric, comma_format(scale = 1E-6, accuracy = 1)) %>%
+  mutate_if(~ any(is.numeric(.)), ~round2(. / 1000000, n = 0)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods))
@@ -2606,6 +2561,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## BHC Palma -------------------------------------------------------------------
 
@@ -2616,7 +2572,8 @@ df <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods),
-         Palma = percent(Palma, 1))
+         Palma_rate = round2(Palma, 2)) %>%
+  select(-Palma)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2631,6 +2588,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## AHC Palma -------------------------------------------------------------------
 
@@ -2641,7 +2599,8 @@ df <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods),
-         Palma = percent(Palma, 1))
+         Palma_rate = round2(Palma, 2)) %>%
+  select(-Palma)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2656,6 +2615,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## BHC Gini --------------------------------------------------------------------
 
@@ -2666,7 +2626,8 @@ df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods),
-         Gini = percent(Gini, 1))
+         Gini_rate = round2(Gini, 2)) %>%
+  select(-Gini)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2681,6 +2642,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## AHC Gini --------------------------------------------------------------------
 
@@ -2691,7 +2653,8 @@ df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
   mutate(years = factor(years,
                         levels = labels[["years"]]$years,
                         labels = periods),
-         Gini = percent(Gini, 1))
+         Gini_rate = round2(Gini, 2)) %>%
+  select(-Gini)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2706,6 +2669,7 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+remove(data)
 
 ## BHC poverty thresholds ------------------------------------------------------
 
@@ -2728,8 +2692,8 @@ df$weekly4 <- (df1$weekly4 + df2$weekly4 + df3$weekly4)/3
 df$annual4 <- (df1$annual4 + df2$annual4 + df3$annual4)/3
 
 df <- df %>%
-  mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
-  mutate_at(vars(starts_with("annual")), comma_format(100))
+  mutate_at(vars(starts_with("weekly")), ~round2(., n = 0)) %>%
+  mutate_at(vars(starts_with("annual")), ~round2(., n = -2))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2752,6 +2716,7 @@ setColWidths(wb, data$sheetname, cols = 2, widths = 70)
 setColWidths(wb, data$sheetname, cols = 3:10, widths = 10)
 saveWorkbook(wb, str_c("output/", filename), overwrite = TRUE)
 
+remove(data)
 
 ## AHC poverty thresholds ------------------------------------------------------
 
@@ -2774,8 +2739,8 @@ df$weekly4 <- (df1$weekly4 + df2$weekly4 + df3$weekly4)/3
 df$annual4 <- (df1$annual4 + df2$annual4 + df3$annual4)/3
 
 df <- df %>%
-  mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
-  mutate_at(vars(starts_with("annual")), comma_format(100))
+  mutate_at(vars(starts_with("weekly")), ~round2(., n = 0)) %>%
+  mutate_at(vars(starts_with("annual")), ~round2(., n = -2))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2798,6 +2763,8 @@ setColWidths(wb, data$sheetname, cols = 2, widths = 70)
 setColWidths(wb, data$sheetname, cols = 3:10, widths = 10)
 saveWorkbook(wb, str_c("output/", filename), overwrite = TRUE)
 
+remove(data)
+
 ## Income sources (BHC only) by income decile ----------------------------------
 
 df1 <- getsources(hbai[[length(labels$years[[1]])]])
@@ -2813,7 +2780,7 @@ df[6] <- (df1[6] + df2[6] + df3[6])/3
 
 df <- df %>%
   mutate(decbhc = factor(decbhc)) %>%
-  mutate_if(is.numeric, fmtpct)
+  mutate_if(is.numeric, roundpct)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -2829,6 +2796,8 @@ data <- list(df = df,
 
 # Create spreadsheet and new worksheet
 createSpreadsheet(data)
+wrap_text(data, cols = 4:5, rows = 6)
+
 
 # TOC --------------------------------------------------------------------------
 

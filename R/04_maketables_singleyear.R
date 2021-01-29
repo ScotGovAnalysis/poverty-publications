@@ -104,7 +104,7 @@ cmdbhc_new <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc_ne
          chrate_new = chrate)
 cmdbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc")) %>% addyearvar() %>%
   left_join(cmdbhc_new, by = "years") %>%
-  select(years, chnum, chrate, chnum_new, chrate_new) %>%
+  select(years, chnum, chnum_new, chrate, chrate_new) %>%
   mutate(years = factor(years,
                         levels = unformatted,
                         labels = formatted),
@@ -116,17 +116,15 @@ cmdbhc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdbhc")) %>%
                         NA, chnum),
          chrate = ifelse(years %in% formatted[18:length(unformatted)],
                          NA, chrate)) %>%
-  mutate_at(vars(contains("num")), fmtpop) %>%
-  mutate_at(vars(contains("rate")), fmtpct) %>%
-  replace(., is.na(.), "-")
-remove(cmdbhc_new)
+  mutate_at(vars(contains("num")), roundpop) %>%
+  mutate_at(vars(contains("rate")), roundpct)
 
 data[["df"]] <- cmdbhc
 data[["sheetname"]] <- "Child mat dep BHC"
 data[["title"]] <- "Children in combined low income and material deprivation before housing costs"
 data[["subtitle"]] <- "Number and proportion of children with household incomes below 70% of the UK median and unable to afford some basic necessities, Scotland"
-data[["headers"]] <- c("Year", "Number", "Proportion", "Number", "Proportion")
-data[["uberheaders"]] <- c(" " = 1, "Old measure" = 2, "New measure" = 2)
+data[["headers"]] <- c("Year", "Old", "New", "Old", "New")
+data[["uberheaders"]] <- c(" " = 1, "Number" = 2, "Proportion" = 2)
 data[["footnotes"]] <- "The definition of material deprivation changed in 2010/11, creating a break in the time series."
 createSpreadsheet(data)
 
@@ -137,7 +135,7 @@ cmdahc_new <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc_ne
          chrate_new = chrate)
 cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>% addyearvar() %>%
   left_join(cmdahc_new, by = "years") %>%
-  select(years, chnum, chrate, chnum_new, chrate_new) %>%
+  select(years, chnum, chnum_new, chrate, chrate_new) %>%
   mutate(years = factor(years,
                         levels = unformatted,
                         labels = formatted),
@@ -145,10 +143,8 @@ cmdahc <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>%
          chrate_new = ifelse(years %in% formatted[18:length(unformatted)], chrate, chrate_new),
          chnum = ifelse(years %in% formatted[18:length(unformatted)], NA, chnum),
          chrate = ifelse(years %in% formatted[18:length(unformatted)], NA, chrate)) %>%
-  mutate_at(vars(contains("num")), fmtpop) %>%
-  mutate_at(vars(contains("rate")), fmtpct) %>%
-  replace(., is.na(.), "-")
-remove(cmdahc_new)
+  mutate_at(vars(contains("num")), roundpop) %>%
+  mutate_at(vars(contains("rate")), roundpct)
 
 data[["df"]] <- cmdahc
 data[["sheetname"]] <- "Child mat dep AHC"
@@ -162,8 +158,8 @@ pndep <- do.call(rbind.data.frame, lapply(hbai, getpmd)) %>%
   mutate(years = factor(years,
                  levels = unformatted,
                  labels = formatted)) %>%
-  mutate_at(vars(contains("num")), fmtpop) %>%
-  mutate_at(vars(contains("rate")), fmtpct)
+  mutate_at(vars(contains("num")), roundpop) %>%
+  mutate_at(vars(contains("rate")), roundpct)
 
 data[["df"]] <- pndep
 data[["sheetname"]] <- "Pensioner dep"
@@ -184,7 +180,7 @@ createSepsheet(filename = filename, sheetname = "- 2 -",
 
 df <- do.call(rbind.data.frame, lapply(hbai, getmediansbhc)) %>%
   addyearvar() %>%
-  fmtweeklyGBP %>%
+  mutate_if(is.numeric, ~round2(., 0)) %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted))
 
 # Put all input for the spreadsheet into a list
@@ -205,7 +201,7 @@ createSpreadsheet(data)
 
 df <- do.call(rbind.data.frame, lapply(hbai, getmediansahc)) %>%
   addyearvar() %>%
-  fmtweeklyGBP %>%
+  mutate_if(is.numeric, ~round2(., 0)) %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted))
 
 # Put all input for the spreadsheet into a list
@@ -227,7 +223,7 @@ createSpreadsheet(data)
 
 df <- do.call(rbind.data.frame, lapply(hbai, getdecptsbhc)) %>%
   addyearvar() %>%
-  fmtweeklyGBP %>%
+  mutate_if(is.numeric, ~round2(., 0)) %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted))
 
 # Put all input for the spreadsheet into a list
@@ -248,7 +244,7 @@ createSpreadsheet(data)
 
 df <- do.call(rbind.data.frame, lapply(hbai, getdecptsahc)) %>%
   addyearvar() %>%
-  fmtweeklyGBP %>%
+  mutate_if(is.numeric, ~round2(., 0)) %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted))
 
 # Put all input for the spreadsheet into a list
@@ -270,8 +266,9 @@ createSpreadsheet(data)
 
 df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesbhc)) %>%
   addyearvar() %>%
-  mutate_if(is.numeric, comma_format(scale = 1E-6, accuracy = 1)) %>%
+  mutate_if(~ any(is.numeric(.)), ~round2(. / 1000000, n = 0)) %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted))
+
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -291,7 +288,7 @@ createSpreadsheet(data)
 
 df <- do.call(rbind.data.frame, lapply(hbai, getdecsharesahc)) %>%
   addyearvar() %>%
-  mutate_if(is.numeric, comma_format(scale = 1E-6, accuracy = 1)) %>%
+  mutate_if(~ any(is.numeric(.)), ~round2(. / 1000000, n = 0)) %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted))
 
 # Put all input for the spreadsheet into a list
@@ -313,7 +310,8 @@ createSpreadsheet(data)
 df <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%
   addyearvar() %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted),
-         Palma = percent(Palma, 1))
+         Palma_rate = round2(Palma, 2)) %>%
+  select(-Palma)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -334,7 +332,8 @@ createSpreadsheet(data)
 df <- do.call(rbind.data.frame, lapply(hbai, getpalmaahc)) %>%
   addyearvar() %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted),
-         Palma = percent(Palma, 1))
+         Palma_rate = round2(Palma, 2)) %>%
+  select(-Palma)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -355,7 +354,8 @@ createSpreadsheet(data)
 df <- do.call(rbind.data.frame, lapply(hbai, getginibhc)) %>%
   addyearvar() %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted),
-         Gini = percent(Gini, 1))
+         Gini_rate = round2(Gini, 2)) %>%
+  select(-Gini)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -376,7 +376,8 @@ createSpreadsheet(data)
 df <- do.call(rbind.data.frame, lapply(hbai, getginiahc)) %>%
   addyearvar() %>%
   mutate(years = factor(years, levels = unformatted, labels = formatted),
-         Gini = percent(Gini, 1))
+         Gini_rate = round2(Gini, 2)) %>%
+  select(-Gini)
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -398,8 +399,8 @@ createSpreadsheet(data)
 latesthbai <- hbai[[length(unformatted)]]
 
 df <- getpovertythresholdsbhc(latesthbai) %>%
-  mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
-  mutate_at(vars(starts_with("annual")), comma_format(100))
+  mutate_at(vars(starts_with("weekly")), ~round2(., n = 0)) %>%
+  mutate_at(vars(starts_with("annual")), ~round2(., n = -2))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,
@@ -428,8 +429,8 @@ saveWorkbook(wb, str_c("output/", filename), overwrite = TRUE)
 latesthbai <- hbai[[length(unformatted)]]
 
 df <- getpovertythresholdsahc(latesthbai) %>%
-  mutate_at(vars(starts_with("weekly")), comma_format(1)) %>%
-  mutate_at(vars(starts_with("annual")), comma_format(100))
+  mutate_at(vars(starts_with("weekly")), ~round2(., n = 0)) %>%
+  mutate_at(vars(starts_with("annual")), ~round2(., n = -2))
 
 # Put all input for the spreadsheet into a list
 data <- list(df = df,

@@ -25,6 +25,13 @@ create_html <- function(md) {
   )
 }
 
+abbr <- function(short, long) {
+  tags <- htmltools::tags
+  tags$abbr(title = long,
+            short)
+  }
+
+
 interactive <- function(chart,
                         title,
                         subtitle,

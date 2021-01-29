@@ -7,10 +7,7 @@ source("R/00_colours.R")
 source("R/00_functions.R")
 
 cp_data <- readRDS("data/cp_data.rds")
-
 cp_charts <- list()
-
-
 
 ## Chart cp1 - Relpov ch ----
 
@@ -22,7 +19,12 @@ cp_charts[["rel"]] <- ggplot(data, aes(x = years,
                                        labels = percent(value, 1),
                                        group = "all")) +
   addtargetbars() +
-  geom_line(aes(y = chrate3),
+  scale_x_discrete(drop = FALSE,
+                   breaks = c("9495", "0607", "1819", "3031"),
+                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
+                   expand = c(0.1, 0.1)) +
+  geom_line(data = tail(data, -1L) %>% head(-1L),
+            aes(y = chrate3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
@@ -52,10 +54,6 @@ cp_charts[["rel"]] <- ggplot(data, aes(x = years,
            hjust = 1,
            colour = SGgreys[2],
            size = 5) +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
-                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
-                   expand = c(0.1, 0.1)) +
   addinterimtarget(target = 0.18) +
   addfinaltarget(target = 0.10) +
   addyaxis() +
@@ -71,7 +69,12 @@ cp_charts[["abs"]]  <- ggplot(data, aes(x = years,
                                         labels = percent(value, 1),
                                         group = "all")) +
   addtargetbars() +
-  geom_line(aes(y = chrate3),
+  scale_x_discrete(drop = FALSE,
+                   breaks = c("9495", "0607", "1819", "3031"),
+                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
+                   expand = c(0.1, 0.1)) +
+  geom_line(data = tail(data, -1L) %>% head(-1L),
+            aes(y = chrate3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
@@ -86,10 +89,6 @@ cp_charts[["abs"]]  <- ggplot(data, aes(x = years,
                          alpha = 0.4) +
   addlabels(size = 5) +
   scale_colour_manual(values = SGgreys) +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
-                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
-                   expand = c(0.1, 0.1)) +
   addinterimtarget(target = 0.14) +
   addfinaltarget(target = 0.05) +
   addyaxis() +
@@ -111,13 +110,18 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
 
   addtargetbars() +
 
+  scale_x_discrete(drop = FALSE,
+                   breaks = c("9495", "0607", "1819", "3031"),
+                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
+                   expand = c(0.1, 0.1)) +
   annotate("text", x = 16.7, y = 0.02,
            label = "Methodology change 2010/11",
            hjust = 1,
            colour = SGgreys[2],
            size = 5) +
 
-  geom_line(aes(y = chrate3),
+  geom_line(data = tail(data, -1L) %>% head(-1L),
+            aes(y = chrate3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
@@ -132,7 +136,8 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
                          fill = SGgreys[1],
                          alpha = 0.4) +
 
-  geom_point_interactive(aes(y = chrate_new,
+  geom_point_interactive(data = filter(data, years == "1011"),
+                         aes(y = chrate_new,
                              tooltip = text_new,
                              data_id = years),
                          size = 3,
@@ -143,11 +148,6 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
 
   addlabels(size = 5) +
   scale_colour_manual(values = SGgreys) +
-
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
-                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
-                   expand = c(0.1, 0.1)) +
   addinterimtarget(target = 0.08) +
   addfinaltarget(target = 0.05) +
   addyaxis() +
@@ -164,7 +164,12 @@ cp_charts[["pers"]] <- ggplot(data, aes(x = years,
                                         labels = percent(value, 1),
                                         group = "all")) +
   addtargetbars() +
-  geom_line(aes(y = chrate3),
+  scale_x_discrete(drop = FALSE,
+                   breaks = c("9495", "0607", "1819", "3031"),
+                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
+                   expand = c(0.1, 0.1)) +
+  geom_line(data = tail(data, -1L) %>% head(-1L),
+            aes(y = chrate3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
@@ -179,10 +184,7 @@ cp_charts[["pers"]] <- ggplot(data, aes(x = years,
                          alpha = 0.4) +
   addlabels(size = 5) +
   scale_colour_manual(values = SGgreys) +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
-                   labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
-                   expand = c(0.1, 0.1)) +
+
   addinterimtarget(target = 0.08) +
   addfinaltarget(target = 0.05) +
   addyaxis() +

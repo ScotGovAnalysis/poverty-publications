@@ -28,8 +28,8 @@ df$weekly4 <- (df1$weekly4 + df2$weekly4 + df3$weekly4)/3
 df$annual4 <- (df1$annual4 + df2$annual4 + df3$annual4)/3
 
 povertytables[["table1"]] <- df %>%
-  mutate_at(vars(starts_with("weekly")), comma_format(1, prefix = "£")) %>%
-  mutate_at(vars(starts_with("annual")), comma_format(100, prefix = "£")) %>%
+  mutate_at(vars(starts_with("weekly")), ~comma2(., 1, prefix = "£")) %>%
+  mutate_at(vars(starts_with("annual")), ~comma2(., 100, prefix = "£")) %>%
   head(4L)
 
 

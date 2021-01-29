@@ -69,8 +69,7 @@ saveplot("website/img/chart0b.png")
 
 # chart0c ----
 data <- mutate(povertychartdata[["medians"]],
-               value = pp,
-               text = comma(value, 1, prefix = "£")) %>%
+               value = pp) %>%
   filter(key == "Before housing costs")
 
 povertycharts[["chart0c"]] <- linechart_small(data,
@@ -93,7 +92,6 @@ povertycharts[["chart01"]] <- linechart(data) +
   addsource() +
   addlabels() +
   addnames(up = c(-0.04, +0.03))
-
 
 ## chart02 abs pov pp ----
 data <- mutate(povertychartdata[["abspov"]], value = pprate)
@@ -124,7 +122,7 @@ data <- povertychartdata[["sources"]] %>%
                                       "Low",
                                       "Very low")),
          text = str_c(key, ": ",
-                      percent(value,1)))
+                      percent2(value)))
 
 povertycharts[["chart03"]] <- ggplot(data, aes(x = group,
                                                y = value,
@@ -241,14 +239,14 @@ povertycharts[["chart12"]] <- linechart(data, recession = FALSE) +
   scale_y_continuous(limits = c(0, 0.45)) +
   addscales() +
   addlabels() +
-  geom_vline(aes(xintercept = 18),
+  geom_vline(aes(xintercept = 16),
              colour = SGgreys[3],
              alpha = 0.9) +
   annotate("text",
-           label = "Methodology \nchange",
+           label = "Methodology change\n2010/11",
            size = 3,
            colour = SGgreys[2],
-           x = 18.2,
+           x = 16.2,
            y = 0.45,
            hjust = 0,
            vjust = 1) +
@@ -290,7 +288,7 @@ data <- povertychartdata[["sources"]] %>%
                                       "Low",
                                       "Very low")),
          text = str_c(key, ": ",
-                      percent(value,1)))
+                      percent2(value)))
 
 povertycharts[["chart14"]] <- ggplot(data, aes(x = group,
                                                y = value,
@@ -363,14 +361,14 @@ povertycharts[["chart18"]] <- linechart(data, recession = FALSE) +
                    expand = c(0.3, 0)) +
   geom_text_repel(data = filter(data, years == min(years)),
                   mapping = aes(x = years,
-                                label = str_c(key, ": ", percent(value, 1))),
+                                label = str_c(key, ": ", percent2(value))),
                   direction = "y",
                   nudge_x = -1,
                   hjust = 1,
                   show.legend = FALSE,
                   segment.colour = NA) +
   geom_text_repel(data = filter(data, years == max(years)),
-                  mapping = aes(label = str_c(percent(value, 1), " (", key, ")")),
+                  mapping = aes(label = str_c(percent2(value), " (", key, ")")),
                   direction = "y",
                   nudge_x = 1,
                   hjust = 0,
@@ -441,14 +439,14 @@ povertycharts[["chart21"]] <- linechart(data, recession = FALSE) +
   addscales() +
   addsource() +
   geom_text_repel(data = filter(data, years == min(years)),
-                  mapping = aes(label = str_c(key, ": ", percent(value, 1))),
+                  mapping = aes(label = str_c(key, ": ", percent2(value))),
                   direction = "y",
                   nudge_x = -1,
                   hjust = 1,
                   show.legend = FALSE,
                   segment.colour = NA) +
   geom_text_repel(data = filter(data, years == max(years)),
-                  mapping = aes(label = str_c(percent(value, 1), " (", key, ")")),
+                  mapping = aes(label = str_c(percent2(value), " (", key, ")")),
                   direction = "y",
                   nudge_x = 1,
                   hjust = 0,
@@ -536,7 +534,7 @@ povertycharts[["chart27"]] <- linechart(data) +
 ## chart28 medians ----
 data <- mutate(povertychartdata[["medians"]],
                value = pp,
-               text = stringi::stri_enc_toutf8(comma(value, 1, prefix = "£")),
+               text = comma2(value, prefix = "£"),
                tooltip = str_c(key, ": ", text, " (", years, ")"))
 
 povertycharts[["chart28"]] <- linechart(data, GBP = TRUE) +
@@ -551,7 +549,7 @@ data <- povertychartdata[["deciles"]] %>%
   tail(4L) %>%
   gather(key, value, -years) %>%
   filter(key != "100%") %>%
-  mutate(text = str_c(comma(value, accuracy = 1, prefix = "£"), " (", years, ")"))
+  mutate(text = str_c(comma2(value, prefix = "£"), " (", years, ")"))
 
 povertycharts[["chart29"]] <- ggplot(data,
                                      aes(x = key,
@@ -648,17 +646,15 @@ povertycharts[["chart30"]] <- ggplot(data,
 
   annotate("text", x = 280, y = 0.002,
            label = str_c("Poverty threshold: ",
-                         comma(data$povthresh[1],
-                               prefix = "£",
-                               accuracy = 1)),
+                         comma2(data$povthresh[1],
+                               prefix = "£")),
            colour = SGgreys[2],
            hjust = 1) +
 
   annotate("text", x = 570, y = 0.002,
            label = str_c("Median income: ",
-                         comma(data$UKmedian[1],
-                               prefix = "£",
-                               accuracy = 1)),
+                         comma2(data$UKmedian[1],
+                               prefix = "£")),
            colour = SGgreys[2],
            hjust = 0) +
   addsource()
@@ -679,7 +675,7 @@ data <- povertychartdata[["sources"]] %>%
                                       "Other",
                                       "Social security")),
          text = str_c(key, ": ",
-                      percent(value,1)))
+                      percent2(value)))
 
 povertycharts[["chart31"]] <- ggplot(data, aes(x = decbhc,
                  y = value,
