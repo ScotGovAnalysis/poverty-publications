@@ -162,7 +162,7 @@ interactive(povertycharts[["chart24"]], height = 3.5,  title = title,
             subtitle = subtitle)
 ```
 
-`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.\n\nMore detail can be found on pages 34-36 in the [2015/16 HBAI technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
+`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.\n\nMore detail can be found on pages 34-36 in the [2015/16 Households Below Average Incomes technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
 
 Before housing costs data is available in the associated tables.
 

@@ -2,7 +2,7 @@
 
 ### Further analysis
 
-The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](./). Further analysis published throughout the year are available on the [Scottish Government poverty analysis website](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](https://data.gov.scot/poverty). Further analysis published throughout the year are available on the [Scottish Government poverty analysis website](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
 
 Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](#contact).
 
@@ -17,7 +17,7 @@ Additional analysis themes are based on the needs of users. If you have any sugg
 
 #### Poverty and Income Inequality in Scotland
 
-- [Latest report](./)
+- [Latest report](https://data.gov.scot/poverty)
 - [2016-19 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
 - [2015-18 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
 - [2014-17 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
@@ -28,7 +28,7 @@ Additional analysis themes are based on the needs of users. If you have any sugg
 - [2011/12 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
 - [2010/11 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
 
-### UK Government websites
+### `r abbr("UK", "United Kingdom")` Government websites
 
 - [Income dynamics publication](https://www.gov.uk/government/statistics/income-dynamics-experimental) (contains figures comparable with those found in this publication)
-- [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2), Department for Work and Pensions (methodology and UK estimates)
+- [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2), Department for Work and Pensions (methodology and `r abbr("UK", "United Kingdom")` estimates)

@@ -4,7 +4,7 @@ The Child Poverty (Scotland) Act 2017 requires us to report annually on a number
 
 `r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#dependent-children).")`
 
-### Key trends {.tabset}
+### Trends {.tabset}
 
 #### Relative poverty
 

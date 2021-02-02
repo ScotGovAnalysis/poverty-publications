@@ -1,4 +1,4 @@
-**An Official Statistics publication**
+**A Scottish Government Official Statistics publication**
 
 Published on `r params$pub_day`
 

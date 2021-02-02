@@ -8,9 +8,9 @@ The figures in this publication are derived from the Understanding Society surve
 
 ### Comparison with other sources
 
-Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](index.html) come from a different source – DWP’s Households Below Average Income dataset which is produced from the Family Resource Survey (FRS). This is the best source of household income data available in the UK. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
+Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](https://data.gov.scot/poverty) come from a different source – `r abbr("DWP", "Department for Work and Pensions")`’s Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). This is the best source of household income data available in the `r abbr("UK", "United Kingdom")`. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
 
-The FRS and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.
+The `r abbr("FRS", "Family Resourcse Survey")` and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.
 
 ### Housing costs
 

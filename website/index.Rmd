@@ -10,10 +10,10 @@ output:
       smooth_scroll: no
 
 params:
-  pub_day: "26 March 2020"
-  data_period: "2016-19"
-  data_period_5: "2014-19"
-  data_year: "2018/19"
+  pub_day: "18 March 2021"
+  data_period: "2017-20"
+  data_period_5: "2015-20"
+  data_year: "2019/20"
 ---
 
 <!-- Include skip link and skip target at the top of the document -->

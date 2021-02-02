@@ -235,6 +235,81 @@ abbr[title] {
   text-decoration: none;
 }
 
+/* print styles */
+@media print {
+
+  /* remove navigation bar and table of contents */
+  nav, #TOC {
+    display: none;
+  }
+
+  /* show URLs */
+  p a[href^="http://"]:after, a[href^="https://"]:after {
+    content: " (" attr(href) ")";
+  }
+  p a[href^="#"]:after {
+    display: none;
+  }
+  p a {
+    word-wrap: break-word;
+  }
+
+  /* display all tab content and remove tabs */
+  .tab-content > .tab-pane {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  .nav-tabs {
+    display:none;
+  }
+
+  /* page layout */
+  @page {
+    margin: 2cm 1cm 1cm 1cm;
+  }
+  figure {
+    margin: 16px 0;
+  }
+    /* Triple charts at top */
+  .col-md-4 {
+    width: 33.333333%;
+    float: left;
+  }
+  /* Child poverty panels */
+  .col-md-6 {
+    width: 50%;
+    float: left;
+  }
+
+  /* format headings and text */
+  h2 {
+    page-break-before: always;
+    margin: 12px 0;
+    font-size: xxx-large;
+  }
+  h3 {
+    margin: 12px 0;;
+    font-size: xx-large;
+  }
+  h4 {
+    text-decoration: underline;
+  }
+  p {
+    line-height: 1.5;
+    margin: 12px 0;
+  }
+  .message-text {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: x-large;
+    border-bottom: 0;
+  }
+  .infobox-text {
+    border-bottom: 0;
+  }
+}
+
 
 
 

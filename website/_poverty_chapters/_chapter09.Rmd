@@ -2,7 +2,7 @@
 
 ### Household income
 
-The income measure used in HBAI is weekly net (disposable) equivalised household income. This comprises total income from all sources of all household members including dependants. An adjustment is made to sample cases at the top of the income distribution to correct for volatility in the highest incomes captured in the survey.
+The income measure used in `r abbr("HBAI", "Households Below Average Income")` is weekly net (disposable) equivalised household income. This comprises total income from all sources of all household members including dependants. An adjustment is made to sample cases at the top of the income distribution to correct for volatility in the highest incomes captured in the survey.
 
 Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation).
 
@@ -10,7 +10,7 @@ Income before housing costs (BHC) includes the following main components:
 
 - net earnings
 - profit or loss from self-employment (after income tax and National Insurance contributions)
-- all UK and Scottish social security payments, including housing and council tax benefits, tax credits, and the state pension
+- all `r abbr("UK", "United Kingdom")` and Scottish social security payments, including housing and council tax benefits, tax credits, and the state pension
 - occupational and private pension income
 - investment income
 - maintenance payments
@@ -42,9 +42,9 @@ Unless otherwise stated, all figures relating to income are in `r params$data_ye
 
 This change followed an announcement by the National Statistician that, in accordance with the Statistics and Registration Service Act 2007, the RPI and its derivatives had been assessed against the Code of Practice for Official Statistics and found not to meet the required standard for designation as National Statistics.
 
-Following a subsequent review the National Statistician, John Pullinger, wrote to the Chair of the UK Statistics Authority, Sir Andrew Dilnot, setting out his view that RPI "is not a good measure of inflation" and that future usage is strongly discouraged in favour of alternative measures.
+Following a subsequent review the National Statistician, John Pullinger, wrote to the Chair of the `r abbr("UK", "United Kingdom")` Statistics Authority, Sir Andrew Dilnot, setting out his view that RPI "is not a good measure of inflation" and that future usage is strongly discouraged in favour of alternative measures.
 
-This led to a change in HBAI methodology in 2014/15 and the Scottish Government adopted the change in deflator to allow consistent poverty estimates for Scotland and the UK.
+This led to a change in `r abbr("HBAI", "Households Below Average Income")` methodology in 2014/15 and the Scottish Government adopted the change in deflator to allow consistent poverty estimates for Scotland and the `r abbr("UK", "United Kingdom")`.
 
 Full details can be found at this link: [Methodological changes to poverty statistics (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
 
@@ -54,7 +54,7 @@ Equivalisation is the process by which household income is adjusted to take into
 
 Equivalence scales conventionally take an adult couple without children as the reference point, with an equivalence value of one. The process then increases relatively the income of single person households (since their incomes are divided by a value of less than one) and reduces relatively the incomes of households with three or more persons, which have an equivalence value of greater than one.
 
-Consider a single person, a couple with no children, and a couple with two children aged fourteen and ten, all having unadjusted weekly household incomes of £200 (Before Housing Costs). The process of equivalisation, as conducted in HBAI, gives an equivalised income of £299 to the single person, £200 to the couple with no children, but only £131 to the couple with children.
+Consider a single person, a couple with no children, and a couple with two children aged fourteen and ten, all having unadjusted weekly household incomes of £200 (Before Housing Costs). The process of equivalisation, as conducted in `r abbr("HBAI", "Households Below Average Income")`, gives an equivalised income of £299 to the single person, £200 to the couple with no children, but only £131 to the couple with children.
 
 The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and the companion scale for income After Housing Costs (AHC). 
 
@@ -73,19 +73,19 @@ kable(povertytables[["table2"]],
                 full_width = F, position = "left")
 ```
 
-The construction of household equivalence values from these scales is quite straightforward. For example, the BHC equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:
+The construction of household equivalence values from these scales is quite straightforward. For example, the `r abbr("BHC", "Before Housing Costs")` equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:
 
 0.67 + 0.33 + 0.33 + 0.33 + 0.20 = 1.86
 
-This is made up of 0.67 for the first adult, 0.33 for their spouse, the other adult and the fourteen year old child and 0.20 for the ten year old child. The total income for the household would then be divided by 1.86 in order to arrive at the measure of equivalised household income used in HBAI analysis.
+This is made up of 0.67 for the first adult, 0.33 for their spouse, the other adult and the fourteen year old child and 0.20 for the ten year old child. The total income for the household would then be divided by 1.86 in order to arrive at the measure of equivalised household income used in `r abbr("HBAI", "Households Below Average Income")` analysis.
 
 Further information on equivalisation can be found in the [methodology report](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
 
 ### Poverty measurement
 
-Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the UK median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
+Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the `r abbr("UK", "United Kingdom")` median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
 
-For a couple with no children, the UK median income before housing vosts in `r params$data_period` was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the UK median increased by £5 to £464 per week compared to 2015-18.
+For a couple with no children, the `r abbr("UK", "United Kingdom")` median income before housing vosts in `r params$data_period` was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the `r abbr("UK", "United Kingdom")` median increased by £5 to £464 per week compared to 2015-18.
 
 Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
 
@@ -104,17 +104,17 @@ A prevalence weighted approach has been used, in combination with a relative low
 
 #### Changes to measuring material deprivation in 2010/11
 
-The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the UK believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11 four new questions about additional items were included in the FRS to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
+The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the `r abbr("UK", "United Kingdom")` believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11 four new questions about additional items were included in the `r abbr("FRS", "Family Resources Survey")` to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
 
-In the 2010/11 FRS, both the new and the old questions were asked. As such, estimates are presented based on both sets of questions for this year.
+In the 2010/11 `r abbr("FRS", "Family Resources Survey")`, both the new and the old questions were asked. As such, estimates are presented based on both sets of questions for this year.
 
-For further information about material deprivation see the DWP [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+For further information about material deprivation see the `r abbr("DWP", "Department for Work and Pensions")` [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
 ### Pensioner material deprivation
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 
-* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the FRS material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
+* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the `r abbr("FRS", "Family Resources Survey")` material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
 * McKay, S. (2008), Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf).
 
 Together, these questions form the best discriminator between those pensioner households that are deprived and those that are not.
