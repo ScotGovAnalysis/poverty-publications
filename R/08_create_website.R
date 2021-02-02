@@ -9,7 +9,7 @@ source("R/06_prepcharts_poverty.R")
 source("R/06_prepcharts_cpupdate.R")
 
 # Make charts and tables for reports and cp update
-source("R/07_makecharts_poverty.R")
+source("R/07_makecharts_poverty.R", encoding = "UTF-8")
 source("R/07_maketables_poverty.R", encoding = "UTF-8")
 source("R/07_makecharts_persistentpoverty.R")
 source("R/07_maketables_persistentpoverty.R")

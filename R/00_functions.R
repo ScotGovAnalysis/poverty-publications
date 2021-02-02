@@ -2097,7 +2097,8 @@ getSheetTitles <- function(filename = filename, sheetname){
 
 createSepsheet <- function(filename = filename, sheetname, text) {
 
-  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14)
+  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
+                            halign = "left")
   filename <- paste0("output/", filename)
 
   if (file.exists(filename)) {
@@ -2145,6 +2146,8 @@ createContentSheet <- function(filename){
                             wrapText = FALSE, halign = "left")
   noteStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
                            wrapText = TRUE, halign = "left")
+  noteStyle_nowrap <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                           wrapText = FALSE, halign = "left")
   tocStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
                           fontColour = "blue", textDecoration = "underline",
                           halign = "left")
@@ -2178,22 +2181,40 @@ createContentSheet <- function(filename){
   names(email) <- "social-justice-analysis@gov.scot"
   class(email) <- "hyperlink"
 
-  writeData(wb, "Contents", "Contact", startRow = length(sheets) + 7,
-            startCol = 2)
-  addStyle(wb, "Contents", rows = length(sheets) + 7, cols = 2,
-           style = titleStyle)
+  writeData(wb, "Contents", "Contact", startRow = 2,
+            startCol = 3)
+  addStyle(wb, "Contents", rows = 2, cols = 3, style = titleStyle)
 
-  writeData(wb, "Contents", "Maike Waldmann", startRow = length(sheets) + 8,
-            startCol = 2)
-  writeData(wb, "Contents", "Scottish Government",
-            startRow = length(sheets) + 9, startCol = 2)
-  writeData(wb, "Contents", "Communities Analysis Division",
-            startRow = length(sheets) + 10, startCol = 2)
-  writeData(wb, "Contents", email, startRow = length(sheets) + 11, startCol = 2)
-  addStyle(wb, "Contents", rows = (length(sheets) + 8):(length(sheets) + 11),
-           cols = 2, style = noteStyle)
+  writeData(wb, "Contents", "Maike Waldmann", startRow = 3, startCol = 3)
+  writeData(wb, "Contents", "Scottish Government", startRow = 4, startCol = 3)
+  writeData(wb, "Contents", "Communities Analysis Division", startRow = 5,
+            startCol = 3)
+  writeData(wb, "Contents", email, startRow = 6, startCol = 3)
+  addStyle(wb, "Contents", rows = 3:6, cols = 3, style = noteStyle_nowrap)
 
-  setColWidths(wb, "Contents", 2, widths = 80)
+  # add note on sample sizes
+  text <- c("Some estimates are unavailable due to small sample size and marked '..'.",
+            "For population estimates, the sample of the underlying population has to",
+            "be at least 100 cases, for example 100 interviewed people, or 100",
+            "interviewed households (depending on the question).",
+            "For estimated proportions, the sample of the base has to be at least 100.",
+            "For example, if there were 100 German households in the Scottish sample,",
+            "and 19 of them were in poverty, we could produce an estimate of the",
+            "proportion of German households in Scotland who are in poverty.",
+            "However, we could not produce a population estimate of German households",
+            "in poverty, as this would be based on only 19 households.",
+            "Estimates of amounts, such as median incomes, are based on at least 50 cases.")
+
+  text <- data.frame(text)
+
+  writeData(wb, "Contents", "Note on sample sizes", startRow = 8,
+            startCol = 3)
+  addStyle(wb, "Contents", rows = 8, cols = 3, style = titleStyle)
+
+  writeData(wb, "Contents", text, startRow = 9, startCol = 3, colNames = FALSE)
+  addStyle(wb, "Contents", rows = 9:19, cols = 3, style = noteStyle_nowrap)
+
+  setColWidths(wb, "Contents", 2:3, widths = 80)
 
   # move contents sheet to first position
   order <- worksheetOrder(wb)
@@ -2307,9 +2328,6 @@ linechart_small <- function(df, yrange = c(0.1, 0.35),
 
   if (!GBP) {
     df$text <- percent2(df$value)
-  } else {
-    df$text <- stringi::stri_enc_toutf8(comma2(df$value,
-                                               prefix = "£"))
   }
 
   ggplot(data = df,
@@ -2497,7 +2515,7 @@ if (!GBP) {
                            hjust = 1,
                            size = size,
                            show.legend = FALSE,
-                           segment.colour = NA)
+                           min.segment.length = 10)
 
   right <- geom_text_repel(data = filter(df,
                                       years == max(years)),
@@ -2508,7 +2526,7 @@ if (!GBP) {
                            hjust = 0,
                            size = size,
                            show.legend = FALSE,
-                           segment.colour = NA)
+                           min.segment.length = 10)
   list(left, right)
 }
 

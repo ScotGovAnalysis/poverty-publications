@@ -69,7 +69,9 @@ saveplot("website/img/chart0b.png")
 
 # chart0c ----
 data <- mutate(povertychartdata[["medians"]],
-               value = pp) %>%
+               value = pp,
+               text = stringi::stri_enc_toutf8(comma2(value,
+                                                      prefix = "£"))) %>%
   filter(key == "Before housing costs")
 
 povertycharts[["chart0c"]] <- linechart_small(data,

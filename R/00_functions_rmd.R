@@ -39,7 +39,7 @@ interactive <- function(chart,
                         height = 3.5) {
 
   title <- str_wrap(title, 64)
-  subtitle <- str_wrap(subtitle, 79)
+  subtitle <- str_wrap(subtitle, 78)
   chart <- chart + labs(title = title, subtitle = subtitle)
   chart <- girafe(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
   chart <- girafe_options(x = chart,

@@ -71,9 +71,10 @@ cp_data[["md"]] <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmda
 
 cp_data[["pers"]] <- persistent %>%
   filter(housingcosts == "AHC",
-         group == "ch") %>%
-  select(period, Scotland) %>%
-  rename(chrate = Scotland) %>%
+         group == "ch",
+         nation == "Scotland") %>%
+  select(period, value) %>%
+  rename(chrate = value) %>%
   mutate(years = str_sub(period, -2L, -1L),
          years = str_c(lag(years), years),
          years = ifelse(is.na(years), "1314", years),
