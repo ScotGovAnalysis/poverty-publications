@@ -14,36 +14,6 @@ povertychartdata <- readRDS("data/povertychartdata.rds")
 
 povertycharts <- list()
 
-# Theme ----
-
-mytheme <- theme_grey() +
-  theme(text = element_text(colour = SGgreys[1], size = 14),
-
-        line = element_line(colour = SGgreys[1],
-                            linetype = 1,
-                            lineend = 2,
-                            size = 0.5),
-
-        plot.title = element_text(hjust = 0, colour = SGgreys[1]),
-        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
-        plot.caption = element_text(hjust = 1),
-
-        legend.position = "top",
-        legend.title = element_blank(),
-
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-
-        axis.line.x = element_line(),
-        axis.ticks.length = unit(2, "pt"),
-        axis.ticks.y = element_blank(),
-
-        axis.title = element_blank(),
-        axis.text.y = element_blank())
-
-theme_set(mytheme)
-
 # Key trends ----
 
 # chart0a ----
@@ -109,16 +79,15 @@ povertycharts[["chart02"]] <- linechart(data) +
 data <- povertychartdata[["sources"]] %>%
   gather(key, value, -decbhc) %>%
   filter(decbhc %in% c("All", "1", "2"),
-         key != "other")  %>%
+         key != "other_rate")  %>%
   mutate(group = case_when(decbhc == "All" ~ "All people",
-                           decbhc == 1 ~ "People in relative poverty",
-                           decbhc == 2 ~ "People in absolute poverty"),
+                           decbhc == 2 ~ "People in relative poverty",
+                           decbhc == 1 ~ "People in absolute poverty"),
          group = factor(group, ordered = TRUE),
-         group = fct_rev(group),
-         key = case_when(key == "earnings" ~ "High",
-                         key == "benefits" ~ "Marginal",
-                         key == "occpens" ~ "Low",
-                         key == "investments" ~ "Very low"),
+         key = case_when(key == "earnings_rate" ~ "High",
+                         key == "benefits_rate" ~ "Marginal",
+                         key == "occpens_rate" ~ "Low",
+                         key == "investments_rate" ~ "Very low"),
          key = factor(key, levels = c("High",
                                       "Marginal",
                                       "Low",
@@ -269,28 +238,28 @@ povertycharts[["chart13"]] <- linechart(data) +
 # chart14 food pov ch ----
 data <- povertychartdata[["sources"]] %>%
   gather(key, value, -decbhc) %>%
-  filter(decbhc %in% c("All", "1", "2", "3") )  %>%
+  filter(decbhc %in% c("All", "1", "2", "3"),
+         key != "other_rate")  %>%
   mutate(group = case_when(decbhc == "All" ~ "All children",
                            decbhc == 1 ~ "Children in relative poverty",
                            decbhc == 2 ~ "Children in absolute poverty",
                            decbhc == 3 ~ "Children in combined low income and material deprivation"),
-         group = factor(group,
-                        levels = c("All children",
-                                   "Children in relative poverty",
-                                   "Children in absolute poverty",
-                                   "Children in combined low income and material deprivation")),
+         group = factor(group, levels = c("All children",
+                                          "Children in relative poverty",
+                                          "Children in absolute poverty",
+                                          "Children in combined low income and material deprivation")),
          group = fct_rev(group),
-         key = case_when(key == "earnings" ~ "High",
-                         key == "benefits" ~ "Marginal",
-                         key == "occpens" ~ "Low",
-                         key == "investments" ~ "Very low",
-                         key == "other" ~ "Very low"),
+         key = case_when(key == "earnings_rate" ~ "High",
+                         key == "benefits_rate" ~ "Marginal",
+                         key == "occpens_rate" ~ "Low",
+                         key == "investments_rate" ~ "Very low"),
          key = factor(key, levels = c("High",
                                       "Marginal",
                                       "Low",
                                       "Very low")),
          text = str_c(key, ": ",
-                      percent2(value)))
+                      percent2(value))) %>%
+  arrange(key, group)
 
 povertycharts[["chart14"]] <- ggplot(data, aes(x = group,
                                                y = value,
@@ -666,11 +635,11 @@ povertycharts[["chart30"]] <- ggplot(data,
 data <- povertychartdata[["sources"]] %>%
   gather(key, value, -decbhc) %>%
   filter(decbhc != "All") %>%
-  mutate(key = case_when(key == "earnings" ~ "Earnings",
-                         key == "benefits" ~ "Social security",
-                         key == "occpens" ~ "Occupational pensions",
-                         key == "investments" ~ "Investments",
-                         key == "other" ~ "Other"),
+  mutate(key = case_when(key == "earnings_rate" ~ "Earnings",
+                         key == "benefits_rate" ~ "Social security",
+                         key == "occpens_rate" ~ "Occupational pensions",
+                         key == "investments_rate" ~ "Investments",
+                         key == "other_rate" ~ "Other"),
          key = factor(key, levels = c("Earnings",
                                       "Investments",
                                       "Occupational pensions",
