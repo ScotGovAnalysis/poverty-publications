@@ -2,9 +2,9 @@
 
 Published on `r params$pub_day`
 
-`r devnote("This webpage is a development version for the next report. The data is from the last published report.")`
-
 This publication presents three-year averaged estimates of the percentage of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
+
+The latest estimates relate to the period between April 2017 and March 2020, before the first `r abbr("UK", "United Kingdom")`-wide lockdown due to the coronavirus (COVID-19) pandemic. Therefore, these statistics do not yet tell us anything about the impact of the pandemic on poverty and income inequality.
 
 ## Key trends
 

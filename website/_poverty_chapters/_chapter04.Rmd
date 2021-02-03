@@ -1,6 +1,6 @@
 ## Child poverty
 
-The Child Poverty (Scotland) Act 2017 requires us to report annually on a number of child poverty measures. The latest single-year estimates can be found in the [Child Poverty Update](cpupdate.html). The analysis in this report however includes three-year averaged estimates only, which are more suitable for showing trends.
+The Child Poverty (Scotland) Act 2017 requires us to report annually on a number of child poverty measures. The latest single-year estimates can be found in the [Child poverty summary](https://data.gov.scot/poverty/cpupdate.html). The analysis in this report however includes three-year averaged estimates only, which are more suitable for showing trends.
 
 `r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#dependent-children).")`
 
@@ -67,7 +67,7 @@ interactive(povertycharts[["chart12"]], height = 3.5, title = title, subtitle = 
 #### In-work poverty
 
 ```{r}
-keymessage <- "In-work poverty for children no longer rising"
+keymessage <- "Share of children in poverty who live in working households no longer rising"
 message(keymessage)
 ```
 
@@ -88,31 +88,34 @@ interactive(povertycharts[["chart13"]], height = 3.5, title = title, subtitle = 
 #### Food security
 
 ```{r}
-keymessage <- "Add key message here"
+keymessage <- "Children in poverty often lack food security"
 message(keymessage)
 ```
 
-Add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
+Add stats here
+
+`r infobox("Food security questions were newly added to the Family Resources Survey in 2019/20. They ask about whether people were worried about running out of food, had to reduce meal sizes or skip meals. More information can be found in the [Definitions](#food-security-2) section.")`
 
 ```{r chart14}
 title <- str_c("Figure 14: ", keymessage)
-subtitle <- str_c("Levels of food security of all children and those in poverty, Scotland ",
+subtitle <- str_c("Levels of food security of all children and those in poverty after housing costs, Scotland ",
                  params$data_year," (fake data!)")
 interactive(povertycharts[["chart14"]], title = title, subtitle = subtitle)
 ```
 
-Bar chart showing the proportion of children who've expericenced food insecurity, broken down by poverty status (all children, childrenin relative poverty AHC, children in combined low income and material deprivation)
 
 ### Priority groups {.tabset}
 
-add commentary here explaining where the groups are coming from, links with TCPDP, etc.
+Some types of households are known to be at a particularly high risk of child poverty. These include households with lone parents, three or more children, disabled household members, of a minority ethnic background, with a child under one, or a mother under 25. These groups do not cover everyone at higher risk of poverty, but taken together, they cover the majority of households with children that are in poverty.
 
-note re minority ethnic group includes white minorities such as white people who are not British 
+`r infobox("Here, the minority ethnic group includes white minorities such as white people who are not British.")`
 
 #### Relative poverty
 
+some stats commentary
+
 ```{r chart15}
-keymessage <- "Add a key message here"
+keymessage <- "Children in priority groups have a higher risk of being in relative poverty"
 title <- str_c("Figure 15: ", keymessage)
 subtitle <- "Proportion of children in relative poverty after housing cost, Scotland"
 interactive(povertycharts[["chart15"]], title = title, subtitle = subtitle)
@@ -120,8 +123,10 @@ interactive(povertycharts[["chart15"]], title = title, subtitle = subtitle)
 
 #### Absolute poverty
 
+some stats commentary
+
 ```{r chart16}
-keymessage <- "Add a key message here"
+keymessage <- "Children in priority groups have a higher risk of being in absolute poverty"
 title <- str_c("Figure 16: ", keymessage)
 subtitle <- "Proportion of children in absolute poverty after housing costs, Scotland"
 interactive(povertycharts[["chart16"]], title = title, subtitle = subtitle)
@@ -129,8 +134,10 @@ interactive(povertycharts[["chart16"]], title = title, subtitle = subtitle)
 
 #### Material deprivation
 
+some stats commentary
+
 ```{r chart17}
-keymessage <- "Add a key message here"
+keymessage <- "Children in some priority groups have a higher risk of experiencing combined low income and material deprivation"
 title <- str_c("Figure 17: ", keymessage)
 subtitle <- "Proportion of children in combined low income and material deprivation, Scotland"
 interactive(povertycharts[["chart17"]], title = title, subtitle = subtitle)

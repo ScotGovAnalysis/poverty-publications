@@ -48,20 +48,20 @@ interactive(povertycharts[["chart02"]], height = 4.5, title = title,
 #### Food security
 
 ```{r}
-keymessage <- "Key message on food security"
+keymessage <- "People in poverty often lack food security"
 message(keymessage)
 ```
 
-add commentary here: what is food insecurity, previous data collection, differences to UK measure, reference period, etc.
+add stats here, i.e. xx% of people lived in households with high food security etc.
+
+`r infobox("Food security questions were newly added to the Family Resources Survey in 2019/20. They ask about whether people were worried about running out of food, had to reduce meal sizes or skip meals. More information can be found in the [Definitions](#food-security-2) section.")`
+
 
 ```{r chart03}
 title <- str_c("Figure 3: ", keymessage)
-subtitle <- str_c("Levels of food security of all people and those in poverty, Scotland ", params$data_year, " (fake data!)")
+subtitle <- str_c("Levels of food security of all people and those in poverty after housing costs, Scotland ", params$data_year, " (fake data!)")
 interactive(povertycharts[["chart03"]], title = title, subtitle = subtitle)
-
 ```
-
-Bar chart showing the proportion of people who've expericenced food insecurity, broken down by poverty status (all people, people in relative poverty AHC, people in absolute poverty AHC)
 
 ### Working-age adults {.tabset}
 
@@ -107,7 +107,7 @@ interactive(povertycharts[["chart05"]], height = 4.5, title = title,
 #### In-work poverty
 
 ```{r}
-keymessage <- "In-work poverty for working-age adults now stable"
+keymessage <- "Share of working-age adults in poverty who live in working households now stable"
 message(keymessage)
 ```
 

@@ -14,8 +14,7 @@ lang: "en"
     });
 </script>
 
-The data used to produce the charts of the main report and the Child Poverty update is available for download below. The files also contain further poverty and child poverty analysis which is not included in the main report.
-
+The data used to produce the charts of the main report and the Child Poverty update is available for download below. The files also contain further poverty and child poverty analysis which is not shown in the charts of the main report.
 
 ## Poverty and child poverty data
 

@@ -129,6 +129,10 @@ For children, material deprivation is presented as an indicator in combination w
 
 A [technical note giving a full explanation of the pensioner material deprivation measure](https://www.gov.uk/government/statistics/households-below-average-income-hbai-technical-note-on-pensioner-material-deprivation) is available for download.
 
+### Food security
+
+The Family Resources Survey collected food security information for the first time in 2019/20. The questions were adopted from the [United States Department of Agriculture's Adult Food Security Survey Module (pdf)](https://www.ers.usda.gov/media/8279/ad2012.pdf), using a 30-day reference period, and using the same food security levels ("high", "marginal", "low", "very low"). Previously, data on food insecurity in Scotland was collected by the Scottish Health Survey.
+
 ### Dependent children
 
 In this publication, 'child' refers to a dependent child. A dependent child is a person either aged 0-15, or aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.

@@ -10,7 +10,9 @@ Unless otherwise stated, these statistics are based on net income (adjusted for 
 
 ### Survey data
 
-The estimates presented in this publication are based on a sample survey and are therefore subject to sampling error. None of the latest changes in the estimated numbers and percentages of people presented in the body of this report are statistically significant. In time series, looking at longer term trends offers a better indication of significant change.
+The estimates presented in this publication are based on a sample survey and are therefore subject to sampling error. None of the latest changes in the estimated numbers and percentages of people presented in this report are statistically significant. 
+
+For example, the child poverty rates for Scotland can vary within a typical uncertainty range of up to plus or minus three percentage points, or plus or minus 40,000 children. In time series, looking at longer term trends offers a better indication of significant change, or differences between groups.
 
 ### Three-year averages
 

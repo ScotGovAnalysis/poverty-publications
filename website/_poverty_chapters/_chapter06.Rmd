@@ -13,8 +13,6 @@ In `r params$data_period`, the top ten percent of the population had 24% more in
 
 Income inequality has been fluctuating since the beginning of this data collection in the mid-nineties, and, after the most recent low point in 2012-15 has now ceased to increase.
 
-Income decile shares are available in the associated tables.
-
 ```{r chart26}
 title <- str_c("Figure 26: ", keymessage)
 subtitle <- "Palma ratio of income inequality, Scotland"
@@ -22,14 +20,16 @@ interactive(povertycharts[["chart26"]], title = title,
             subtitle = subtitle)
 ```
 
+Income decile shares are available in the associated tables.
+
 ### Gini
 
 ```{r}
-keymessage <- "key result here"
+keymessage <- "Gini coefficient of income inequality fluctuating"
 message(keymessage)
 ```
 
-commentary
+some stats commentary
 
 ```{r chart27}
 title <- str_c("Figure 27: ", keymessage)

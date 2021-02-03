@@ -14,46 +14,38 @@ lang: "en"
     });
 </script>
 
-
-Last updated: 25 June 2020
-
-This website is run by the Scottish Government.
-
-We want it to be accessible and usable for as many people as possible.
+This website is run by the Scottish Government. We want it to be accessible and usable for as many people as possible.
 
 ## Feedback
 
-Contact us if you:
+[Contact us](#contact) if you:
 
 - Cannot access any part of this site or want to report an accessibility problem.
 - Need information on this website in a different format. Such as accessible PDF, large print, easy read, audio recording or braille. We’ll consider your request and get back to you as soon as we can.
 
 ### Enforcement
 
-If you’re not happy with how we respond to your feedback, contact the Equality Advisory and Support Service. They are an independent advice service. They will advise you on what to do next.
+If you’re not happy with how we respond to your feedback, contact the [Equality Advisory and Support Service](https://www.equalityadvisoryservice.com/). They are an independent advice service. They will advise you on what to do next.
 
 ## Compliance
 
-Scottish Government is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.
+Scottish Government is committed to making its websites accessible, in accordance with the [Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018](https://www.legislation.gov.uk/uksi/2018/952/regulation/4/made).
 
-This accessibility statement applies to the Poverty in Scotland website.
+This accessibility statement applies to the [data.gov.scot/poverty](https://data.gov.scot/poverty) webpages.
 
 ### Compliance status
 
 This website is partially compliant with the regulations, due to the non-compliances listed below.
 
-## Non-accessible content
+### Non-accessible content
 
 The content listed below is not-compliant with the regulations:
 
-- Some charts in the detailed analysis contain text that is difficult for people using screen readers to access
-- Some text does not appear in high contrast mode - mostly chart tooltips and annotations within charts
+- Some links lead to pdf documents
 
 ## Preparation of statement
 
-This statement was prepared on 25 June 2020.
-
-These web pages were reviewed by an internal accessibility specialist in June 2020.
+This statement was prepared on 3 February 2021.
 
 ## Contact {#contact}
 

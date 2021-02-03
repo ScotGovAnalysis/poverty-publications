@@ -3,11 +3,19 @@ body {
     font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.toc-content {
+  margin-top: 19px;
+}
+
+.col-md-3 {
+    margin-top: 19px;
+}
+
 .panel-title,
 figcaption,
 caption {
   color: #333333;
-  font-weight: 700;
+  font-weight: 500;
   font-size: large;
 }
 
@@ -35,6 +43,10 @@ a {
   transition: color 0.2s, background-color 0.2s, outline 0.2s;
 }
 
+h1 {
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
 h4 {
   font-size: x-large;
 }
@@ -47,6 +59,13 @@ h4 {
   text-decoration: none;
   line-height: 1.8;
   height: 62px;
+}
+
+nav:before {
+    background: #0065bd;
+    display: block !important;
+    content: '';
+    height: 7px;
 }
 
 .dropdown-header {
@@ -119,14 +138,14 @@ h4 {
 /* TOC */
 
 .list-group-item.active {
-    background-color: #002d54;
-    border-color: #002d54;
+    background-color: #0065bd;
+    border-color: #0065bd;
 }
 
 .list-group-item.active:focus,
 .list-group-item.active:hover {
-    background-color: #0065bd;
-    border-color: #0065bd;
+    background-color: #002d54;
+    border-color: #002d54;
 }
 
 /* Infobox */

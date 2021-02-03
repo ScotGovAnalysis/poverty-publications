@@ -72,7 +72,7 @@ The Child Poverty Act 2017 contains four income-based targets to reduce child po
 
 The charts show that relative and absolute child poverty fell between 1994/95, when data collection began, and 2011/12. Child material deprivation has been measured since 2004, and persistent poverty since 2010 - with no clear long-term trend. In recent years, absolute poverty and child material deprivation have been largely stable at a level considerably higher than the targets, and relative and persistent poverty have started to slowly increase again, moving further away from the targets.
 
-As a result, the child poverty measures now appear not on track to achieve the targets.
+As a result, the child poverty measures now appear on track to miss the targets.
 
 ```{r panels}
 

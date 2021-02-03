@@ -23,7 +23,7 @@ params:
     $nav = $('#nav');
     $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
     $head = $('#header');
-    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
+    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\" tabindex=\"-1\"></div>')
     });
 </script>
 
@@ -35,9 +35,6 @@ params:
     $head.prepend('<img src=\"img/badge.png\" alt=\"National Statistics logo\" id=\"badge\" style=\"height: 70px; width: 70px;\"/>')
     });
 </script>
-
-
-  
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -75,7 +72,7 @@ mytheme <- theme_grey() +
                             lineend = 2,
                             size = 0.5),
 
-        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 16),
+        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 15),
         plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
         plot.caption = element_text(hjust = 1),
         plot.title.position = "plot",
