@@ -1,10 +1,10 @@
 ## Methodology
 
-This section provides key information on the methodology used to produce persistent poverty statistics. A more [detailed methodological paper](www.gov.uk/government/collections/income-dynamics-statistics) is available from the Department for Work and Pensions’ (DWP) website.
+This section provides key information on the methodology used to produce persistent poverty statistics. A more [detailed methodological paper](https://www.gov.uk/government/collections/income-dynamics-statistics) is available from the Department for Work and Pensions’ (DWP) website.
 
 ### Data source
 
-The figures in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.
+The estimates in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.
 
 ### Comparison with other sources
 
