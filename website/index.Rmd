@@ -10,7 +10,7 @@ output:
       smooth_scroll: no
 
 params:
-  pub_day: "18 March 2021"
+  pub_day: "25 March 2021"
   data_period: "2017-20"
   data_period_5: "2015-20"
   data_year: "2019/20"
@@ -66,14 +66,12 @@ povertytables <- readRDS("data/povertytables.rds")
 
 mytheme <- theme_grey() +
   theme(text = element_text(colour = SGgreys[1], size = 14),
-
         line = element_line(colour = SGgreys[1],
                             linetype = 1,
                             lineend = 2,
                             size = 0.5),
 
-        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 15),
-        plot.subtitle = element_text(hjust = 0, colour = SGgreys[1]),
+        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 12),
         plot.caption = element_text(hjust = 1),
         plot.title.position = "plot",
 
