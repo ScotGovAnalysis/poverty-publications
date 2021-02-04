@@ -35,12 +35,11 @@ abbr <- function(short, long) {
 interactive <- function(chart,
                         title,
                         subtitle,
-                        description = NULL,
                         height = 3.5) {
 
-  title <- str_wrap(title, 68)
+  #title <- str_wrap(title, 68)
   subtitle <- str_wrap(subtitle, 78)
-  chart <- chart + labs(title = title, subtitle = subtitle)
+  chart <- chart + labs(title = subtitle)
   chart <- girafe(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
   chart <- girafe_options(x = chart,
                  opts_hover(css = "fill: #fdd522; stroke: gray; fill-opacity: 1; stroke-opacity: 1"))
@@ -53,10 +52,10 @@ interactive <- function(chart,
 
   tags$figure(
     id = id,
-    role = "group",
+    role = "figure",
     "aria-label" = title,
-    chart,
-    tags$figcaption(description)
+    tags$figcaption(title),
+    chart
   )
 }
 
@@ -80,7 +79,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
               div(class = "panel-heading",
                   h2(class = "panel-title", title_tl),
                   p(subtitle_tl)),
-              tags$figure(role = "group",
+              tags$figure(role = "figure",
                           class = "panel-body",
                           "aria-label" = desc_tl,
                           tags$figcaption(text_tl),
@@ -90,7 +89,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
               div(class = "panel-heading",
                   h2(class = "panel-title", title_bl),
                   p(subtitle_bl)),
-              tags$figure(role = "group",
+              tags$figure(role = "figure",
                           class = "panel-body",
                           "aria-label" = desc_bl,
                           tags$figcaption(text_bl),
@@ -102,7 +101,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
               div(class = "panel-heading",
                   h2(class = "panel-title", title_tr),
                   p(subtitle_tr)),
-              tags$figure(role = "group",
+              tags$figure(role = "figure",
                           class = "panel-body",
                           "aria-label" = desc_tr,
                           tags$figcaption(text_tr),
@@ -112,7 +111,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
               div(class = "panel-heading",
                   h2(class = "panel-title", title_br),
                   p(subtitle_br)),
-              tags$figure(role = "group",
+              tags$figure(role = "figure",
                           class = "panel-body",
                           "aria-label" = desc_br,
                           tags$figcaption(text_br),

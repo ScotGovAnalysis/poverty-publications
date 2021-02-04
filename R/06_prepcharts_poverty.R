@@ -332,7 +332,7 @@ sources[6] <- (sources1[6] + sources2[6] + sources3[6])/3
 
 povertychartdata[["sources"]] <- sources %>%
   mutate(decbhc = factor(decbhc)) %>%
-  mutate_if(is.numeric, list(~round2(., 3)))
+  mutate_if(is.numeric, list(~round2(., 4)))
 
 ## palma ----
 palmabhc <- do.call(rbind.data.frame, lapply(hbai, getpalmabhc)) %>%

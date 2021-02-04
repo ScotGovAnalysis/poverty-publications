@@ -1152,6 +1152,18 @@ roundpct <- function(x) {
   ifelse(!is.na(x), round2(x, 2), NA)
 }
 
+# Change scales::percent() and scales::comma() functions
+# to ensure correct rounding
+
+percent2 <- function(x) {paste0(round2(x, 2) * 100, "%")}
+
+comma2 <- function(x, accuracy = 1, scale = 1, prefix = "") {
+
+  y <- round2(x, accuracy)
+  scales::comma(x = y, accuracy = accuracy, scale = scale, prefix = prefix)
+}
+
+
 formatpov <- function(df){
 
   df %>%
@@ -1477,7 +1489,7 @@ createSpreadsheet <- function(data){
   addStyle(wb, sheetname, rows = 7:endrow, cols = 2,
            style = createStyle(halign = "right"), stack = TRUE)
 
-  # # Data source
+  # Data source
   addStyle(wb, sheetname, rows = endrow + 1, cols = 2, style = sourceStyle)
 
   # Footnotes
@@ -1921,12 +1933,12 @@ createUKSpreadsheet <- function(data) {
   pctStyle_underline <- createStyle(numFmt = "0%", halign = "right",
                                     border = "bottom")
   sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
-                             wrapText = FALSE)
+                             wrapText = FALSE, halign = "left")
   footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
                                      fontSize = 11, textDecoration = "BOLD",
-                                     wrapText = FALSE)
+                                     wrapText = FALSE, halign = "left")
   footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11,
-                               wrapText = FALSE)
+                               wrapText = FALSE, halign = "left")
 
   # Calculate body dimensions
   endcol <- length(df1) + 1
@@ -2264,16 +2276,7 @@ wrap_text <- function(data = data, rows, cols) {
 
 # Chart functions ----
 
-# Change scales::percent() and scales::comma() functions
-# to ensure correct rounding
 
-percent2 <- function(x) {paste0(round2(x, 2) * 100, "%")}
-
-comma2 <- function(x, accuracy = 1, scale = 1, prefix = "") {
-
-  y <- round2(x, accuracy)
-  scales::comma(x = y, accuracy = accuracy, scale = scale, prefix = prefix)
-}
 
 linechart <- function(df, GBP = FALSE, ...){
 

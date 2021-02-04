@@ -67,6 +67,12 @@ remove(pp, ch, wa, pn, df)
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
 
+# mark missing data ("--")
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 10)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 22)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 34)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 46)
+
 # Relative poverty AHC ----------------------------------------------------------------
 
 # Create time series dataset
@@ -122,6 +128,12 @@ remove(pp, ch, wa, pn, df)
 
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
+
+# mark missing data ("--")
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 10)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 22)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 34)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 46)
 
 # Absolute poverty BHC ----------------------------------------------------------------
 
@@ -179,6 +191,12 @@ remove(pp, ch, wa, pn, df)
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
 
+# mark missing data ("--")
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 10)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 22)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 34)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 46)
+
 # Absolute poverty AHC ----------------------------------------------------------------
 
 # Create time series dataset
@@ -234,6 +252,12 @@ remove(pp, ch, wa, pn, df)
 
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
+
+# mark missing data ("--")
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 10)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 22)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 34)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 46)
 
 # Child material deprivation BHC ----------------------------------------------------------------
 
@@ -314,7 +338,7 @@ data <- list(df1 = ch,
              subtitle_2 = "Proportion of working-age adults in relative poverty who live in a household where someone is in paid work",
              subtitle_3 = NULL,
              subtitle_4 = NULL,
-             headers = c(" ", levels(periods)[5:length(periods)-2]),
+             headers = c(" ", levels(periods)[5:length(periods) - 2]),
              uberheaders = NULL,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
@@ -327,6 +351,9 @@ remove(ch, wa, df)
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
 
+# mark missing data ("--")
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 10)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 22)
 
 # In-work poverty AHC --------------------------------------------------------------------------
 
@@ -368,7 +395,7 @@ data <- list(df1 = ch,
              subtitle_2 = "Proportion of working-age adults in relative poverty who live in a household where someone is in paid work",
              subtitle_3 = NULL,
              subtitle_4 = NULL,
-             headers = c(" ", levels(periods)[5:length(periods)-2]),
+             headers = c(" ", levels(periods)[5:length(periods) - 2]),
              uberheaders = NULL,
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset",
              footnotes = c("1. Northern Ireland data has been collected since 2002/03.",
@@ -381,6 +408,9 @@ remove(ch, wa, df)
 # Create spreadsheet and first worksheet
 createUKSpreadsheet(data)
 
+# mark missing data ("--")
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 10)
+mark_missing(data, ncols = 8, nrows = 1, xlscol = 3, xlsrow = 22)
 
 # TOC ------------------------------------------------------------------------------
 createContentSheet(paste0("output/", filename))
