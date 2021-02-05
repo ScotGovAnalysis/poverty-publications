@@ -8,7 +8,7 @@ Households Below Average Income (HBAI) uses household disposable incomes, adjust
 
 The unit of analysis is the individual, so the populations and percentages in the tables are numbers and percentages of individuals - both adults and children.
 
-The living standards of an individual depend not only on his or her own income, but also on the income of others in the household. Consequently, the analyses are based on total household income: the equivalised income of a household is taken to represent the income level of every individual in the household. Equivalisation, a technique that allows comparison of incomes between households of different sizes and compositions, is explained in Annex B under Equivalisation. Thus, all members of any one household will appear at the same point in the income distribution.
+The living standards of an individual depend not only on his or her own income, but also on the income of others in the household. Consequently, the analyses are based on total household income: the equivalised income of a household is taken to represent the income level of every individual in the household. Equivalisation, a technique that allows comparison of incomes between households of different sizes and compositions, is explained in the [Definitions section](#equivalisation). Thus, all members of any one household will appear at the same point in the income distribution.
 
 ### Population coverage
 

@@ -14,6 +14,21 @@ lang: "en"
     });
 </script>
 
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+```
+
+```{r}
+source("R/00_functions_rmd.R")
+```
+
 This website is run by the Scottish Government. We want it to be accessible and usable for as many people as possible.
 
 ## Feedback
@@ -35,17 +50,19 @@ This accessibility statement applies to the [data.gov.scot/poverty](https://data
 
 ### Compliance status
 
-This website is partially compliant with the regulations, due to the non-compliances listed below.
+We believe that this website is compliant with the regulations. This is based on a non-expert assessment using [`r abbr("WCAG", "Web Content Accessibility Guidelines")` 2.1 success criteria and techniques](https://www.w3.org/WAI/WCAG21/quickref/).
 
-### Non-accessible content
+### Potentially non-accessible content
 
-The content listed below is not-compliant with the regulations:
+The content listed below is compliant with the regulations, and yet may not be fully accessible:
 
-- Some links lead to pdf documents
+- Some links to external research papers lead to pdf documents which may not be fully accessible, and no other format is available.
+- Data for download is available in xlsx format only, but can on request be made available in other formats.
+- Most charts are vector graphics which may be difficult to explore using screen readers and other assistive tools.
 
 ## Preparation of statement
 
-This statement was prepared on 3 February 2021.
+This statement was prepared on 18 March 2021.
 
 ## Contact {#contact}
 

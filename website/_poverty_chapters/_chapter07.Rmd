@@ -1,6 +1,6 @@
 ## Income
 
-### Household income trends
+### Income trends
 
 ```{r}
 keymessage <- "Median weekly household income growing"
@@ -91,7 +91,10 @@ kable(povertytables[["table1"]],
                      "Single person with children aged 5 and 14" = 2,
                      "Couple with children aged 5 and 14" = 2)) %>%
   footnote(general = "Source: Family Resources Survey",
-           general_title = "") 
+           general_title = "") %>%
+  add_a11y(scope = c("row", "col", "col", "col", "col" ),
+           scope2 = "col")
+
 ```
 
 An after housing costs table is available in the associated tables.

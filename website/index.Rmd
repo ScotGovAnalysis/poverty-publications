@@ -54,6 +54,7 @@ library(scales)
 library(kableExtra)
 library(htmltools)
 library(ggiraph)
+library(xml2)
 
 source("R/00_colours.R")
 source("R/00_functions.R")

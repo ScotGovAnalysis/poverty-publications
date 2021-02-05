@@ -70,7 +70,8 @@ kable(povertytables[["table2"]],
                                       "hover",
                                       "responsive",
                                       "condensed"),
-                full_width = F, position = "left")
+                full_width = F, position = "left") %>%
+  add_a11y("col")
 ```
 
 The construction of household equivalence values from these scales is quite straightforward. For example, the `r abbr("BHC", "Before Housing Costs")` equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:
@@ -114,8 +115,8 @@ For further information about material deprivation see the `r abbr("DWP", "Depar
 
 A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
 
-* Legard, R., Gray, M. and Blake, M. (2008), Cognitive testing: older people and the `r abbr("FRS", "Family Resources Survey")` material deprivation questions, Department for Work and Pensions Working Paper Number 55. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf).
-* McKay, S. (2008), Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54. [Available on the Bristol University webpages (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf).
+* Legard, R., Gray, M. and Blake, M. (2008), [Cognitive testing: older people and the `r abbr("FRS", "Family Resources Survey")` material deprivation questions, Department for Work and Pensions Working Paper Number 55 (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf)
+* McKay, S. (2008), [Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54 (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf)
 
 Together, these questions form the best discriminator between those pensioner households that are deprived and those that are not.
 

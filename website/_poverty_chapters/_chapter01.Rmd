@@ -8,7 +8,7 @@ The latest estimates relate to the period between April 2017 and March 2020, bef
 
 ## Key trends
 
-* Poverty may have stopped rising, although further years are required to confirm this.
+* Relative poverty had been falling slightly between the nineties and the lowest point in this time series in 2009-12. It then started to rise again but appears now stable.
 * Income inequality continues to fluctuate.
 * Median household incomes continue to rise.
 
@@ -51,6 +51,6 @@ div(class = "row fluid-row",
      
  )
  
-
 ```
 
+Longer-term trends of poverty and income inequality in the `r abbr("UK", "United Kingdom")`, which are similar to those in Scotland, are available from the Department for Work and Pensions' [Households Below Average Income publication](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201819) on page 12 of the main report.
