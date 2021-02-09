@@ -86,5 +86,11 @@ for (year in years[26:length(years)]) {
 
 }
 
+househol_clean <- do.call(rbind, househol_clean)
+
+# remove some attributes to avoid warnings
+attr(househol_clean$sernum, "format.sas") <- NULL
+attr(househol_clean$sernum, "label") <- NULL
+
 saveRDS(househol_clean, "data/househol_clean.rds")
 rm(list = ls())

@@ -47,5 +47,11 @@ for (year in years[3:length(years)]) {
 
 }
 
+benefits_clean <- do.call(rbind, benefits_clean)
+
+# remove some attributes to avoid warnings
+attr(benefits_clean$sernum, "format.sas") <- NULL
+attr(benefits_clean$sernum, "label") <- NULL
+
 saveRDS(benefits_clean, "data/benefits_clean.rds")
 rm(list = ls())

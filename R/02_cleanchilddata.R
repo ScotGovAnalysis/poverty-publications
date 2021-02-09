@@ -27,5 +27,11 @@ for (year in years[1:length(years)]) {
 
 }
 
+child_clean <- do.call(rbind, child_clean)
+
+# remove some attributes to avoid warnings
+attr(child_clean$sernum, "format.sas") <- NULL
+attr(child_clean$sernum, "label") <- NULL
+
 saveRDS(child_clean, "data/child_clean.rds")
 rm(list = ls())

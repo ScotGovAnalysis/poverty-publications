@@ -4,10 +4,9 @@
 source("R/00_strings.R")
 source("R/00_functions.R")
 
-years <- labels[["years"]]$years
+years <- labels[["years"]]$numbered
 
 adult_clean <- vector("list", length(years))
-names(adult_clean) <- years
 
 # Variable changes
 
@@ -55,7 +54,7 @@ for (year in years[1:2]) {
 }
 
 # 9697 -------------------------------------------------------------------------
-for (year in years[3]){
+for (year in years[3]) {
 
   nextdataset <- readRDS("data/files_adult.rds")[[year]]
 
@@ -133,11 +132,18 @@ for (year in years[18:length(years)]) {
 
 }
 
-# Last: Add year variable and also year in comment attribute to each dataset ---
+# Last: Add year variable to each dataset --------------------------------------
 for (year in years) {
   adult_clean[[year]]$year <- year
-  attr(adult_clean[[year]], "comment") <- year
 }
+
+adult_clean <- do.call(rbind, adult_clean)
+
+# remove some attributes to avoid warnings
+attr(adult_clean$sernum, "format.sas") <- NULL
+attr(adult_clean$sernum, "label") <- NULL
+attr(adult_clean$benunit, "format.sas") <- NULL
+attr(adult_clean$benunit, "label") <- NULL
 
 saveRDS(adult_clean, "data/adult_clean.rds")
 rm(list = ls())

@@ -6,7 +6,8 @@ library(tidyverse)
 labels <- list()
 
 # Years -------------------------------------------------------------------------------------------
-labels[["years"]] <- data.frame(years = c("9495", "9596", "9697", "9798", "9899",
+labels[["years"]] <- data.frame(numbered = seq(1, 26, 1),
+                                years = c("9495", "9596", "9697", "9798", "9899",
                                           "9900", "0001", "0102", "0203", "0304",
                                           "0405", "0506", "0607", "0708", "0809",
                                           "0910", "1011", "1112", "1213", "1314",
@@ -57,22 +58,25 @@ labels[["years_exp"]] <- data.frame(years_exp = c("9495", "9596", "9697", "9798"
                                                   "2027/28", "2028/29", "2029/30",
                                                   "2030/31"))
 
-# Regions -----------------------------------------------------------------------------------------
+# Regions ----------------------------------------------------------------------
 labels[["regions"]] <- data.frame(codes = c(1:13),
-                                  labels = c("England", "England", "England", "England", "England",
-                                             "England", "England", "England", "England", "England",
-                                             "Wales", "Scotland", "Northern Ireland"))
+                                  labels = c("England", "England", "England",
+                                             "England", "England",  "England",
+                                             "England", "England", "England",
+                                             "England", "Wales", "Scotland",
+                                             "Northern Ireland"))
 
 labels[["regions"]] <- labels[["regions"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# People --------------------------------------------------------------------------------------------
+# People -----------------------------------------------------------------------
 labels[["people"]] <- c("people", "children", "adults", "pensioners")
 
-# Income types --------------------------------------------------------------------------------------
-labels[["inctypes"]] <- c("total", "earn", "ben", "occ", "inv", "oth", "privben", "ded")
+# Income types -----------------------------------------------------------------
+labels[["inctypes"]] <- c("total", "earn", "ben", "occ", "inv", "oth",
+                          "privben", "ded")
 
-# Urban/rural ---------------------------------------------------------------------------------------
+# Urban/rural ------------------------------------------------------------------
 labels[["urbrur"]] <- data.frame(codes = c(1:8),
                                  labels = c("Urban",
                                             "Urban",
@@ -83,19 +87,17 @@ labels[["urbrur"]] <- data.frame(codes = c(1:8),
                                             "Rural",
                                             "Rural"))
 
-# Tenure --------------------------------------------------------------------------------------------
-labels[["tenure"]] <- data.frame(codes = c(1:6),
-                                 labels = c("Rented from council or housing association",
-                                           "Rented from council or housing association",
-                                           "Rented privately",
-                                           "Rented privately",
-                                           "Owned outright [3]",
-                                           "Owned with mortgage"))
+# Tenure -----------------------------------------------------------------------
+labels[["tenure"]] <- data.frame(codes = c(1:4),
+                                 labels = c("Owned outright [3]",
+                                            "Owned with mortgage",
+                                            "Rented from council or housing association",
+                                            "Rented privately"))
 
 labels[["tenure"]] <- labels[["tenure"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Economic status -----------------------------------------------------------------------------------
+# Economic status --------------------------------------------------------------
 labels[["economic"]] <- data.frame(codes = c(1:8),
                                    labels = c("Self-employed (at least one FT)",
                                               "All in full-time work",
@@ -116,7 +118,7 @@ labels[["workinghh"]] <- data.frame(codes = c(0, 1),
 labels[["workinghh"]] <- labels[["workinghh"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Children's economic status ------------------------------------------------------------------------
+# Children's economic status ---------------------------------------------------
 labels[["kideconomic"]] <- data.frame(codes = c(1:9),
                                       labels = c("Lone parent, in full-time work",
                                                 "Lone parent, in part-time work",
@@ -132,7 +134,7 @@ labels[["kideconomic"]] <- labels[["kideconomic"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
 
-# Family type ----------------------------------------------------------------------------------------
+# Family type ------------------------------------------------------------------
 labels[["familytype"]] <- data.frame(codes = c(1:8),
                                      labels = c("Pensioner couple",
                                                 "Single pensioner - male",
@@ -159,7 +161,7 @@ labels[["gender"]] <- data.frame(codes = c(1:6),
 labels[["gender"]] <- labels[["gender"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Lone parent (household) ----------------------------------------------------------------------------
+# Lone parent (household) ------------------------------------------------------
 labels[["loneparent"]] <- data.frame(codes = c(0, 1),
                                      labels = c("No single parent in household",
                                                 "Single parent in household"))
@@ -167,7 +169,7 @@ labels[["loneparent"]] <- data.frame(codes = c(0, 1),
 labels[["loneparent"]] <- labels[["loneparent"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Baby in household ----------------------------------------------------------------------------------
+# Baby in household ------------------------------------------------------------
 labels[["baby"]] <- data.frame(codes = c(0, 1),
                                      labels = c("Youngest child in household is 1 or older",
                                                 "Youngest child is younger than 1"))
@@ -175,7 +177,7 @@ labels[["baby"]] <- data.frame(codes = c(0, 1),
 labels[["baby"]] <- labels[["baby"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Mother < 25 in household ----------------------------------------------------------------------------------
+# Mother < 25 in household -----------------------------------------------------
 labels[["youngmum"]] <- data.frame(codes = c(0, 1),
                                labels = c("No mother under 25 in household",
                                           "Mother under 25 in household"))
@@ -183,7 +185,7 @@ labels[["youngmum"]] <- data.frame(codes = c(0, 1),
 labels[["youngmum"]] <- labels[["youngmum"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Marital status -------------------------------------------------------------------------------------
+# Marital status ---------------------------------------------------------------
 labels[["marital"]] <- data.frame(codes = c(1:6),
                                   labels = c("Married / Civil Partnership",
                                              "Cohabiting",
@@ -195,7 +197,7 @@ labels[["marital"]] <- data.frame(codes = c(1:6),
 labels[["marital"]] <- labels[["marital"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Number of children ---------------------------------------------------------------------------------
+# Number of children -----------------------------------------------------------
 labels[["childno"]] <- data.frame(codes = c(0:10),
                                   labels = c("No children",
                                              "1 child",
@@ -212,7 +214,7 @@ labels[["childno"]] <- data.frame(codes = c(0:10),
 labels[["childno"]] <- labels[["childno"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Number of children (child poverty tables)-----------------------------------------------------------
+# Number of children (child poverty tables)-------------------------------------
 labels[["childno_ch"]] <- data.frame(codes = c(1:10),
                                   labels = c("1-2 children",
                                              "1-2 children",
@@ -228,7 +230,7 @@ labels[["childno_ch"]] <- data.frame(codes = c(1:10),
 labels[["childno_ch"]] <- labels[["childno_ch"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Disability -----------------------------------------------------------------------------------------
+# Disability -------------------------------------------------------------------
 labels[["disch"]] <- data.frame(codes = c(0, 1),
                                 labels = c("In household with no disabled child(ren)",
                                            "In household with disabled child(ren)"))
@@ -239,7 +241,7 @@ labels[["dispp"]] <- data.frame(codes = c(0, 1),
                                 labels = c("In household with no disabled person(s)",
                                            "In household with disabled person(s)"))
 
-# Ethnic group ---------------------------------------------------------------------------------------
+# Ethnic group -----------------------------------------------------------------
 labels[["ethnic"]] <- data.frame(codes = c(1:24),
                                   labels = c("White - British",
                                              "White - Other",
@@ -269,7 +271,7 @@ labels[["ethnic"]] <- data.frame(codes = c(1:24),
 labels[["ethnic"]] <- labels[["ethnic"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Ethnic group (2-fold for 3-year averages) ----------------------------------------------------------
+# Ethnic group (2-fold for 3-year averages) ------------------------------------
 labels[["ethnic_2f"]] <- data.frame(codes = c(1:24),
                                  labels = c("White - British",
                                             "Minority ethnic",
@@ -299,7 +301,7 @@ labels[["ethnic_2f"]] <- data.frame(codes = c(1:24),
 labels[["ethnic_2f"]] <- labels[["ethnic_2f"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
-# Religion -------------------------------------------------------------------------------------------
+# Religion ---------------------------------------------------------------------
 labels[["religion"]] <- data.frame(codes = c(1:10),
                                  labels = c("No religion",
                                             "Church of Scotland",
