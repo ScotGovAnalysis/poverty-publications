@@ -71,9 +71,12 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
-* R/04_maketables_headlines_1yr.R
-* R/04_maketables_income_1yr.R
-* R/04_maketables_all_3yr.R
+* R/04_maketables_singleyear_part1.R
+* R/04_maketables_singleyear_part2.R
+* R/04_maketables_3yrs_part1.R
+* R/04_maketables_3yrs_part2.R
+* R/04_maketables_3yrs_part3.R
+* R/04_maketables_3yrs_part4.R
 * R/04_maketables_UK_3yrs.R
 * R/05_run_maketables.R - runs all maketables (R/04_...) scripts and copies spreadsheets (for publication) into website folder
 
