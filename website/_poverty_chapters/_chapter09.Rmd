@@ -132,7 +132,9 @@ A [technical note giving a full explanation of the pensioner material deprivatio
 
 ### Food security
 
-The Family Resources Survey collected food security information for the first time in 2019/20. The questions were adopted from the [United States Department of Agriculture's Adult Food Security Survey Module (pdf)](https://www.ers.usda.gov/media/8279/ad2012.pdf), using a 30-day reference period, and using the same food security levels ("high", "marginal", "low", "very low"). Previously, data on food insecurity in Scotland was collected by the Scottish Health Survey.
+The Family Resources Survey collected household food security information for the first time in 2019/20. The questions were adopted from the [United States Department of Agriculture's Adult Food Security Survey Module (pdf)](https://www.ers.usda.gov/media/8279/ad2012.pdf), using a 30-day reference period, and using the same food security levels ("high", "marginal", "low", "very low"). 
+
+Previously, data on household food insecurity in Scotland had been collected by the Scottish Health Survey. The measure in this report is different from the one from the Scottish Health Survey, because it is based on different questions, which are asked in a different context, using a different sample of the population, and refer to a different period of time. Therefore, these measures cannot be directly compared.
 
 ### Dependent children
 
