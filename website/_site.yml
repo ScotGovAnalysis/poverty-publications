@@ -5,7 +5,8 @@ output:
     fig_height: 3
     number_sections: false
     mathjax: NULL
+    template: _template.html
     css: styles.css
     includes:
-      in_header: _meta.html
+      after_body: _footer.html
 

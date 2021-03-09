@@ -1,6 +1,7 @@
 ---
 title: "Persistent Poverty in Scotland `r params$pub_period`"
 lang: "en"
+description: "Official persistent poverty statistics for Scotland with the proportion of people, children, working-age adults and pensioners in persistent poverty."
 output:
   bookdown::html_document2:
     toc: yes
@@ -18,17 +19,6 @@ params:
   data_year: "2018-2019"
 
 ---
-
-<!-- Include skip link and skip target at the top of the document -->
-
-<script>
-  $(document).ready(function(){
-    $nav = $('#nav');
-    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
-    $head = $('#header');
-    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
-    });
-</script>
 
 ```{r setup, include = FALSE}
 

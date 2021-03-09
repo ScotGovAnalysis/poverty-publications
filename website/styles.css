@@ -3,12 +3,27 @@ body {
     font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.toc-content {
-  margin-top: 19px;
+h1 {
+  font-weight: 300;
+  letter-spacing: -0.5px;
+  margin-bottom: 35px;
+  font-size: xxx-large;
 }
 
-.col-md-3 {
-    margin-top: 19px;
+h4 {
+  font-size: x-large;
+}
+
+h5 {
+  font-size: medium;
+  font-weight: bold;
+  color: #555;
+}
+
+p {
+  margin-bottom: 16px;
+  font-size: large;
+  line-height: 1.8;
 }
 
 .panel-title,
@@ -19,7 +34,6 @@ caption {
   font-size: large;
 }
 
-p,
 .container-fluid > ul,
 .section > ul,
 .dropdown-menu,
@@ -34,7 +48,7 @@ table {
 }
 
 a {
-  color: #0065bd !important;
+  color: #0065bd;
   text-decoration: underline;
   outline: 2px solid transparent;
   outline-color: transparent;
@@ -43,15 +57,7 @@ a {
   transition: color 0.2s, background-color 0.2s, outline 0.2s;
 }
 
-h1 {
-  font-weight: 400;
-  letter-spacing: -0.5px;
-}
-h4 {
-  font-size: x-large;
-}
-
-/* Navigation bar */
+/* Navigation bar ----------------------------------------------------------- */
 
 .navbar-brand,
 .navbar-nav>li>a {
@@ -65,7 +71,7 @@ nav:before {
     background: #0065bd;
     display: block !important;
     content: '';
-    height: 7px;
+    height: 4px;
 }
 
 .dropdown-header {
@@ -89,13 +95,13 @@ nav:before {
 
 #navbar > ul > li:hover {
   background-color: #e7e7e7;
-  box-shadow: -2px 5px #333333, 2px 5px #333333;
+  box-shadow: 1px 5px #333333, 1px 5px #333333;
   outline-offset: 0;
   outline: 2px solid #e7e7e7;
   transition-duration: 0s;
 }
 
-/* hide navbar (and show button) on smaller screens */
+/* hide navbar (and show button menu) on smaller screens -------------------- */
 
 @media (max-width: 1200px) {
     .navbar-header {
@@ -135,7 +141,13 @@ nav:before {
     }
 }
 
-/* TOC */
+@media (max-width: 768px) {
+  .navbar-fixed-top {
+    position: relative;
+  }
+}
+
+/* TOC ---------------------------------------------------------------------- */
 
 .list-group-item.active {
     background-color: #0065bd;
@@ -148,7 +160,11 @@ nav:before {
     border-color: #002d54;
 }
 
-/* Infobox */
+.tocify {
+  border-radius: 4px;
+}
+
+/* Infobox ------------------------------------------------------------------ */
 
 .infobox-text {
     padding: 8px 32px;
@@ -158,7 +174,7 @@ nav:before {
     margin: 16px 0;
 }
 
-/* Key message box */
+/* Key message box --------------------------------------------------------- -*/
 
 .message-text {
     padding: 8px 32px;
@@ -170,22 +186,11 @@ nav:before {
     font-size: large;
 }
 
-/* Notes to self (delete before publication) */
-
-.devnote-text {
-    padding: 8px 32px;
-    margin: 16px 0;
-    background-color: #fac8af;
-    border-left: 8px solid #f47738;
-    border-bottom: 1px solid #f79f73;
-    font-size: large;
-}
-
 #sglogo {
   padding: 10px 15px;
 }
 
-/* National Statistics badge */
+/* National Statistics badge ----------------------------------------------- -*/
 
 #badge {
   margin: 10px;
@@ -203,6 +208,8 @@ a:focus {
     transition-duration: 0s;
 }
 
+/* Skiplink ----------------------------------------------------------------- */
+
 .skiplink {
     position: absolute;
     left: -9999em;
@@ -218,14 +225,7 @@ a:focus {
     height: 62px;
 }
 
-.skiptarget {
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  float: right;
-}
-
-/* Child poverty update panels */
+/* Child poverty update panels ---------------------------------------------- */
 
 .panel-body > figcaption {
   font-weight: normal;
@@ -254,14 +254,113 @@ abbr[title] {
   text-decoration: none;
 }
 
-/* print styles */
+/* Make existence of tabsets clearer ---------------------------------------- */
+
+.tab-content {
+  padding: 0 16px;
+  margin: 0 0 20px 0;
+  border-color: #ddd;
+  border-bottom-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+  border-width: thin;
+  border-radius: 0 0 4px 4px;
+}
+
+.nav-tabs > li > a {
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: medium ;
+}
+
+/* Footer ------------------------------------------------------------------- */
+
+footer{
+  display:block;
+  position: relative;
+  bottom:0;
+}
+
+.ds_site-footer{
+  background-color:#0065bd;
+  padding-bottom:8px;
+  padding-top:16px;
+  margin-top: 32px;
+}
+
+.ds_site-footer__site-items {
+  border-bottom:1px solid rgba(255,255,255,0.2);
+  font-size: medium;
+  font-weight:700;
+  list-style-type:none;
+  margin:0 0 23px;
+  padding-bottom:16px
+}
+
+.ds_site-footer__site-items > .ds_site-items__item > a,
+.ds_site-footer__copyright,
+.ds_site-footer__copyright > p,
+.ds_site-footer__copyright > p > a{
+    color: #fff;
+    font-size: medium;
+}
+
+.ds_site-footer__copyright {
+  padding: 0 16px;
+}
+
+.ds_site-items__item{display:inline-block}
+
+.ds_site-items__item:not(:last-child){margin-right:20px}
+
+@media (min-width: 768px){
+
+  .ds_site-footer__content{overflow: hidden;}
+
+  .ds_site-footer__copyright {
+    float: left;
+    position: relative;
+    padding-left: 38px;
+  }
+}
+
+.tocify-extend-page {
+  height: 0 !important;
+}
+
+/* Back-to-top button ------------------------------------------------------- */
+
+#myBtn {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  text-decoration: underline;
+  background-color: #f8f8f8;
+  background-color: rgba(255,255,255,0.9);
+  color: #0065bd;
+  cursor: pointer;
+  padding: 4px 16px;
+  border-radius: 4px;
+  font-size: medium;
+  font-weight: bold;
+}
+
+#myBtn:hover {
+  background-color: #d9effc;
+}
+
+
+/* print styles ------------------------------------------------------------- */
 @media print {
 
-  /* remove navigation bar and table of contents */
-  nav, #TOC {
+  /* remove navbar, table of contents, back-to-top link, footer */
+  nav, #TOC, .ds_back-to-top, footer{
     display: none;
   }
-
   /* show URLs */
   p a[href^="http://"]:after, a[href^="https://"]:after {
     content: " (" attr(href) ")";
@@ -282,53 +381,100 @@ abbr[title] {
   .nav-tabs {
     display:none;
   }
-
+  .tab-content {
+    padding: 0;
+    margin: 0;
+    border-style: none;
+    border-color: transparent;
+  }
   /* page layout */
   @page {
     margin: 2cm 1cm 1cm 1cm;
   }
   figure {
-    margin: 16px 0;
+    max-width: 50%;
+    page-break-inside: avoid;
   }
+
     /* Triple charts at top */
   .col-md-4 {
     width: 33.333333%;
     float: left;
   }
   /* Child poverty panels */
+  .panel {
+    page-break-inside: avoid;
+    margin-bottom: 10px;
+  }
+  figure.panel-body {
+    max-width: 100%;
+  }
   .col-md-6 {
     width: 50%;
     float: left;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .panel-title {
+    font-size: 12px;
+  }
+  .html-widget {
+    margin-bottom: -20px;
+  }
+  .panel-body {
+    padding: 8px 8px 0 8px;
+  }
+  .panel-heading {
+    padding: 8px 8px 4px 8px;
   }
 
   /* format headings and text */
-  h2 {
-    page-break-before: always;
-    margin: 12px 0;
-    font-size: xxx-large;
-  }
-  h3 {
-    margin: 12px 0;;
-    font-size: xx-large;
-  }
-  h4 {
-    text-decoration: underline;
+  body {
+    font-size: 12px;
+    margin-top: 6px;
+    margin-bottom: 6px;
   }
   p {
-    line-height: 1.5;
-    margin: 12px 0;
+    font-size: 12px;
+    line-height: 1.2;
+    margin-top: 6px;
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-top: -74px;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 16px;
+  }
+  h3 {
+    font-size: 14px;
+  }
+  h4 {
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+
+  figcaption {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+  li {
+    margin-top: 6px;
+    font-size: 12px;
+    line-height: 1.2;
   }
   .message-text {
-    margin-top: 12px;
     margin-bottom: 12px;
-    font-size: x-large;
+    font-size: 12px;
     border-bottom: 0;
   }
   .infobox-text {
     border-bottom: 0;
   }
 }
-
 
 
 

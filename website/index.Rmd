@@ -1,6 +1,7 @@
 ---
 title: "Poverty and Income Inequality in Scotland `r params$data_period`" 
 lang: "en"
+description: "Official Statistics and analysis relating to poverty, household income, and income inequality in Scotland, including child poverty statistics, pensioner poverty, poverty for equality groups, and household income and income inequality statistics. The estimates are used to monitor progress in reducing poverty, child poverty and income inequality."
 output:
   bookdown::html_document2:
     toc: yes
@@ -15,17 +16,6 @@ params:
   data_period_5: "2015-20"
   data_year: "2019/20"
 ---
-
-<!-- Include skip link and skip target at the top of the document -->
-
-<script>
-  $(document).ready(function(){
-    $nav = $('#nav');
-    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
-    $head = $('#header');
-    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\" tabindex=\"-1\"></div>')
-    });
-</script>
 
 <!-- Include National Statistics badge the top of the document -->
   
@@ -62,8 +52,9 @@ source("R/00_functions_rmd.R")
 
 povertycharts <- readRDS("data/povertycharts.rds")
 povertytables <- readRDS("data/povertytables.rds")
+data <- readRDS("data/povertychartdata.rds")
 
-# Theme ----
+# Theme ------------------------------------------------------------------------
 
 mytheme <- theme_grey() +
   theme(text = element_text(colour = SGgreys[1], size = 14),

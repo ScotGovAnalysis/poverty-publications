@@ -1,18 +1,8 @@
 ---
 title: "Accessibility"
 lang: "en"
+description: "Accessibility information for the content of the https://data.gov.scot/poverty webpages, including the official poverty statistics for Scotland."
 ---
-
-<!-- Include skip link and skip target at the top of the document -->
-
-<script>
-  $(document).ready(function(){
-    $nav = $('#nav');
-    $nav.prepend('<a class=\"skiplink\" href=\"#maincontent\">Skip to main content</a>')
-    $head = $('#header');
-    $head.prepend('<div id=\"maincontent\" class=\"skiptarget\"></div>')
-    });
-</script>
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -22,7 +12,6 @@ knitr::opts_chunk$set(
 )
 
 knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
-
 ```
 
 ```{r}
@@ -46,7 +35,7 @@ If you’re not happy with how we respond to your feedback, contact the [Equalit
 
 Scottish Government is committed to making its websites accessible, in accordance with the [Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018](https://www.legislation.gov.uk/uksi/2018/952/regulation/4/made).
 
-This accessibility statement applies to the [data.gov.scot/poverty](https://data.gov.scot/poverty) webpages.
+This accessibility statement applies to the [data.gov.scot/poverty](./) webpages.
 
 ### Compliance status
 
@@ -56,9 +45,11 @@ We believe that this website is compliant with the regulations. This is based on
 
 The content listed below is compliant with the regulations, and yet may not be fully accessible:
 
-- Some links to external research papers lead to pdf documents which may not be fully accessible, and no other format is available.
-- Data for download is available in xlsx format only, but can on request be made available in other formats.
-- Most charts are vector graphics which may be difficult to explore using screen readers and other assistive tools.
+- Some links to external research lead to pdf documents which may not be fully accessible, and no other format is available.
+- Data for download is available in xlsx format only, but can on request be made available in another format.
+- The data for download contains some complex tables.
+- The charts may be difficult to explore in detail using screen readers and other assistive tools.
+- Some of the text is complex.
 
 ## Preparation of statement
 

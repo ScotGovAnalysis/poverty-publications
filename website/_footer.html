@@ -1,0 +1,44 @@
+
+<!-- Footer -->
+<footer class="ds_site-footer ds_reversed">
+
+  <!-- Back-to-top button -->
+  <button onclick="topFunction()" id="myBtn" title="Go to top">Back to top</button>
+  <script>
+    var mybutton = document.getElementById("myBtn");
+    window.onscroll = function() {scrollFunction()};
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+    function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    }
+  </script>
+  <!-- Back-to-top button end -->
+
+   <div class="ds_wrapper">
+      <div class="ds_site-footer__content">
+         <!-- Items -->
+         <ul class="ds_site-footer__site-items">
+            <li class="ds_site-items__item">
+               <a href="accessibility.html">Accessibility</a>
+            </li>
+            <li class="ds_site-items__item">
+               <a href="contact.html">Contact</a>
+            </li>
+         </ul>
+         <!-- Copyright statement -->
+         <div class="ds_site-footer__copyright">
+            <p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>, except for logos and where otherwise stated.</p>
+            <p>© Crown Copyright</p>
+         </div>
+      </div>
+   </div>
+</footer>
+
+
