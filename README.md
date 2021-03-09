@@ -10,17 +10,17 @@ This repository contains the code for the annual Scottish Government "Poverty an
 
 ### 0. Files missing in github
 
-The following R files are missing from the github repository, because they contain absolute path names, which are potentially sensitive. These files import data from SAS datasets (FRS and HBAI data, which have access restricted to a few named users) and an Excel spreadsheet (persistent poverty data) and save it as .rds files.
+The following R files are missing from the github repository, because they contain absolute path names, which are potentially sensitive.
 
 * R/01_importSASfiles.R
-* R/01_importnewSASfiles.R
 * R/01_importpersistentpovertydata.R
+* R/09_backup.R
 
 ### 1. New data arrives in the SOCJUST SAS library
 
 * Ensure the inflation_index file in the SOCJUST SAS library is up to date
 * In R/00_strings.R, add latest year and period values to labels\[\["years"]].
-* Run all [Data prep](#dataprep) scripts except for R/01_importSASfiles.R (this imports the previous years' datasets)
+* Run all [Data prep](#dataprep) scripts.
 * Make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. 
 
 Tidy datasets are now available to produce reports and spreadsheets.
@@ -36,17 +36,15 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
   * website/index.Rmd
   * website/\_poverty_chapters/...
+  * website/persistent.Rmd
+  * website/\_persistent_chapters/...
   * website/cpupdate.Rmd
   * website/download.Rmd
   * website/accessibility.Rmd
-  * website/persistent.Rmd
-  * website/\_persistent_chapters/...
+  * website/uncertainty.Rmd
+  * website/contact.Rmd
 
 * Run last line of R/08_create_website.R again, inspect website, make required changes to the .Rmd files, and repeat until happy
-
-### 4. Create doc reports for briefing and download purposes - TO DO
-
-* Run ... to create main report docx .
 
 # List of scripts
 
@@ -60,7 +58,6 @@ Tidy datasets are now available to produce reports and spreadsheets.
 ### Data prep<a name="dataprep"></a>
 
 * R/01_importSASfiles.R - takes a very long time to run, maybe do at night; script not included on GitHub
-* R/01_importnewSASfiles.R - takes a while to run, maybe do at night; script not included on GitHub
 * R/01_importpersistentpovertydata.R - depends on persistent poverty data being supplied in a certain format; script not included on GitHub
 * R/02_cleanadultdata.R
 * R/02_cleanbenefitsdata.R
@@ -71,14 +68,14 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Create spreadsheets
 
-* R/04_maketables_singleyear_part1.R
-* R/04_maketables_singleyear_part2.R
-* R/04_maketables_3yrs_part1.R
-* R/04_maketables_3yrs_part2.R
-* R/04_maketables_3yrs_part3.R
-* R/04_maketables_3yrs_part4.R
-* R/04_maketables_UK_3yrs.R
-* R/05_run_maketables.R - runs all maketables (R/04_...) scripts and copies spreadsheets (for publication) into website folder
+* R/04_xlsx_1yr_part1.R
+* R/04_xlsx_1yr_part2.R
+* R/04_xlsx_3yrs_part1.R
+* R/04_xlsx_3yrs_part2.R
+* R/04_xlsx_3yrs_part3.R
+* R/04_xlsx_3yrs_part4.R
+* R/04_xlsx_3yrs_UK.R
+* R/05_xlsx_run_all.R - runs all xlsx (R/04_...) scripts and copies spreadsheets (for publication) into website folder
 
 ### Create charts and tables included in reports
 
@@ -89,10 +86,15 @@ Tidy datasets are now available to produce reports and spreadsheets.
 * R/07_maketables_poverty.R
 * R/07_makecharts_cpupdate.R
 * R/07_makecharts_poverty.R
+* R/07_maketables_uncertainty.R
 
 ### Create website
 
 * R/08_create_website.R - runs spreadsheets, charts and tables and then creates complete website in website/\_site
+
+### Backup
+
+* R/09_backup.R (not included) - backs up all R, Rmd, CSS files to restricted datashare folder
 
 # List of files in website folder
 
@@ -120,16 +122,19 @@ These will be compiled into html pages.
 * \_persistent_chapters/\_pers05.Rmd
 * \_persistent_chapters/\_pers06.Rmd
 * \_persistent_chapters/\_pers07.Rmd
+* accessibility.Rmd
+* contact.Rmd
 * cpupdate.Rmd
 * download.Rmd
-* accessibility.Rmd
+* uncertainty.Rmd
 
-### Helper files for styles, site- and navbar configurations
+### Helper files for styles, site- and navbar configurations, and template
 
 * styles.css
 * \_site.yml
-* \_header.html
+* \_footer.html
 * \_navbar.html
+* \_template.html
 
 ### Images and spreadsheets
 
