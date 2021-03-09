@@ -1,14 +1,20 @@
 
-# Clean datasets to reduce size and address variable name changes
+# Clean datasets: address variable changes, combine into single data frame -----
 
-source("R/00_strings.R")
+library(tidyverse)
 source("R/00_functions.R")
 
-years <- labels[["years"]]$numbered
+years <- c("9495", "9596", "9697", "9798", "9899",
+           "9900", "0001", "0102", "0203", "0304",
+           "0405", "0506", "0607", "0708", "0809",
+           "0910", "1011", "1112", "1213", "1314",
+           "1415", "1516", "1617", "1718", "1819",
+           "1920")
 
+files_adult <- readRDS("data/files_adult.rds")
 adult_clean <- vector("list", length(years))
 
-# Variable changes
+# Variable changes -------------------------------------------------------------
 
 # relationship matrix changed in 9697, 9798
 # marital new in 9697 (before: ms)
@@ -18,7 +24,7 @@ adult_clean <- vector("list", length(years))
 # 9495 to 9596 -----------------------------------------------------------------
 for (year in years[1:2]) {
 
-  nextdataset <- readRDS("data/files_adult.rds")[[year]]
+  nextdataset <- files_adult[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -31,8 +37,9 @@ for (year in years[1:2]) {
            r13 = NA,
            r14 = NA,
            marital = ms,
-           hdage = NA) %>%
-    select(sernum, benunit,
+           hdage = NA,
+           year = year) %>%
+    select(year, sernum, benunit,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -56,7 +63,7 @@ for (year in years[1:2]) {
 # 9697 -------------------------------------------------------------------------
 for (year in years[3]) {
 
-  nextdataset <- readRDS("data/files_adult.rds")[[year]]
+  nextdataset <- files_adult[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -67,8 +74,9 @@ for (year in years[3]) {
            r11 = NA,
            r12 = NA,
            r13 = NA,
-           r14 = NA) %>%
-    select(sernum, benunit,
+           r14 = NA,
+           year = year) %>%
+    select(year, sernum, benunit,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -80,15 +88,16 @@ for (year in years[3]) {
 # 9798 to 0910 -----------------------------------------------------------------
 for (year in years[4:16]) {
 
-  nextdataset <- readRDS("data/files_adult.rds")[[year]]
+  nextdataset <- files_adult[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
     mutate(religsc = NA,
            penflag = ifelse(sex == 2 & age >= 60, 1,
-                            ifelse(sex == 1 & age >= 65, 1, 2))) %>%
-    select(sernum, benunit,
+                            ifelse(sex == 1 & age >= 65, 1, 2)),
+           year = year) %>%
+    select(year, sernum, benunit,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -100,13 +109,14 @@ for (year in years[4:16]) {
 # 1011 -------------------------------------------------------------------------
 for (year in years[17]) {
 
-  nextdataset <- readRDS("data/files_adult.rds")[[year]]
+  nextdataset <- files_adult[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(religsc = NA) %>%
-    select(sernum, benunit,
+    mutate(religsc = NA,
+           year = year) %>%
+    select(year, sernum, benunit,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -118,34 +128,30 @@ for (year in years[17]) {
 # 1112 to latest year ----------------------------------------------------------
 for (year in years[18:length(years)]) {
 
-  nextdataset <- readRDS("data/files_adult.rds")[[year]]
+  nextdataset <- files_adult[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    select(sernum, benunit,
+    mutate(year = year) %>%
+    select(year, sernum, benunit,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
 
   adult_clean[[year]] <- nextdataset
 
-}
-
-# Last: Add year variable to each dataset --------------------------------------
-for (year in years) {
-  adult_clean[[year]]$year <- year
+  remove(nextdataset)
 }
 
 adult_clean <- do.call(rbind, adult_clean)
 
-# remove some attributes to avoid warnings
+# remove some attributes to avoid warnings -------------------------------------
 attr(adult_clean$sernum, "format.sas") <- NULL
 attr(adult_clean$sernum, "label") <- NULL
 attr(adult_clean$benunit, "format.sas") <- NULL
 attr(adult_clean$benunit, "label") <- NULL
 
+# Save -------------------------------------------------------------------------
 saveRDS(adult_clean, "data/adult_clean.rds")
 rm(list = ls())
-
-

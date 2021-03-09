@@ -9,7 +9,8 @@ data <- data %>%
   mutate_if(is.numeric, ~round(., 2)) %>%
   mutate(group = factor(group, levels = c("pp", "ch", "wa", "pn")),
          value = ifelse(housingcosts == "sample", comma(value, 1),
-                        percent(value, 1)))
+                        percent(value, 1))) %>%
+  rename(Period = period)
 
 
 persistenttables <- list()
@@ -20,7 +21,7 @@ persistenttables[["source"]] <- "Source: Understanding Society Survey"
 persistenttables[["tableScotland"]] <- data %>%
   filter(nation == "Scotland") %>%
   mutate(type = str_c(housingcosts, group)) %>%
-  select(period, value, type) %>%
+  select(Period, value, type) %>%
   spread(type, value)
 
 # Table 1 ----
@@ -29,19 +30,17 @@ data_pp <- data %>%
   select(-group) %>%
   mutate(nation = ifelse(nation == "Total", "UK", nation))
 
-dataAHC <- data_pp %>%
+persistenttables[["table1"]] <- data_pp %>%
   filter(housingcosts == "AHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-dataBHC <- data_pp %>%
+persistenttables[["table2"]] <- data_pp %>%
   filter(housingcosts == "BHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
-
-persistenttables[["table1"]] <- rbind(dataAHC, dataBHC)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
 # Table 2 ----
 data_ch <- data %>%
@@ -49,19 +48,17 @@ data_ch <- data %>%
   select(-group) %>%
   mutate(nation = ifelse(nation == "Total", "UK", nation))
 
-dataAHC <- data_ch %>%
+persistenttables[["table3"]] <- data_ch %>%
   filter(housingcosts == "AHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-dataBHC <- data_ch %>%
+persistenttables[["table4"]] <- data_ch %>%
   filter(housingcosts == "BHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
-
-persistenttables[["table2"]] <- rbind(dataAHC, dataBHC)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
 # Table 3 ----
 data_wa <- data %>%
@@ -69,19 +66,17 @@ data_wa <- data %>%
   select(-group) %>%
   mutate(nation = ifelse(nation == "Total", "UK", nation))
 
-dataAHC <- data_wa %>%
+persistenttables[["table5"]] <- data_wa %>%
   filter(housingcosts == "AHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-dataBHC <- data_wa %>%
+persistenttables[["table6"]] <- data_wa %>%
   filter(housingcosts == "BHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
-
-persistenttables[["table3"]] <- rbind(dataAHC, dataBHC)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
 # Table 4 ----
 data_pn <- data %>%
@@ -89,53 +84,24 @@ data_pn <- data %>%
   select(-group) %>%
   mutate(nation = ifelse(nation == "Total", "UK", nation))
 
-dataAHC <- data_pn %>%
+persistenttables[["table7"]] <- data_pn %>%
   filter(housingcosts == "AHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-dataBHC <- data_pn %>%
+persistenttables[["table8"]] <- data_pn %>%
   filter(housingcosts == "BHC") %>%
   select(-housingcosts) %>%
   spread(nation, value) %>%
-  select(period, Scotland, England, Wales, "Northern Ireland", UK)
+  select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-persistenttables[["table4"]] <- rbind(dataAHC, dataBHC)
-
-# Table 6 sample size
-sample_S <- data %>%
+# Table 10 sample size
+persistenttables[["table10"]] <- data %>%
   filter(housingcosts == "sample",
          nation == "Scotland") %>%
   select(-housingcosts, -nation) %>%
   spread(group, value)
-
-sample_E <- data %>%
-  filter(housingcosts == "sample",
-         nation == "England") %>%
-  select(-housingcosts, -nation) %>%
-  spread(group, value)
-
-sample_W <- data %>%
-  filter(housingcosts == "sample",
-         nation == "Wales") %>%
-  select(-housingcosts, -nation) %>%
-  spread(group, value)
-
-sample_N <- data %>%
-  filter(housingcosts == "sample",
-         nation == "Northern Ireland") %>%
-  select(-housingcosts, -nation) %>%
-  spread(group, value)
-
-sample_U <- data %>%
-  filter(housingcosts == "sample",
-         nation == "Total") %>%
-  select(-housingcosts, -nation) %>%
-  spread(group, value)
-
-persistenttables[["table6"]] <- rbind(sample_S, sample_E, sample_W, sample_N,
-                                      sample_U)
 
 saveRDS(persistenttables, "data/persistenttables.rds")
 rm(list = ls())

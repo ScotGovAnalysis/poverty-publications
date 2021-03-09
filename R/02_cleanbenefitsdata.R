@@ -1,21 +1,25 @@
 
-# Clean datasets to reduce size and address variable name changes
+# Clean dataset: variable name changes, combine into single data frame ---------
 
-source("R/00_strings.R")
-source("R/00_functions.R")
+library(tidyverse)
 
-years <- labels[["years"]]$years
+years = c("9495", "9596", "9697", "9798", "9899",
+          "9900", "0001", "0102", "0203", "0304",
+          "0405", "0506", "0607", "0708", "0809",
+          "0910", "1011", "1112", "1213", "1314",
+          "1415", "1516", "1617", "1718", "1819",
+          "1920")
 
+files_benefits <- readRDS("data/files_benefits.rds")
 benefits_clean <- vector("list", length(years))
-names(benefits_clean) <- years
 
-# Variable changes
+# Variable changes -------------------------------------------------------------
 # label changes in 9697
 
 # From 9495 to 9697 ------------------------------------------------------------
 for (year in years[1:2]) {
 
-  nextdataset <- readRDS("data/files_benefits.rds")[[year]]
+  nextdataset <- files_benefits[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -25,7 +29,8 @@ for (year in years[1:2]) {
     filter(benefit %in% c(1, 2, 12, 96, 97)) %>%
     select(sernum, benamt) %>%
     group_by(sernum) %>%
-    summarise(benamt = sum(benamt))
+    summarise(benamt = sum(benamt),
+              year = year)
 
   benefits_clean[[year]] <- nextdataset
 }
@@ -33,17 +38,21 @@ for (year in years[1:2]) {
 # From 9697 to latest year -----------------------------------------------------
 for (year in years[3:length(years)]) {
 
-  nextdataset <- readRDS("data/files_benefits.rds")[[year]]
+  nextdataset <- files_benefits[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
+    mutate(year = year) %>%
     filter(benefit %in% c(1, 2, 12, 96, 97)) %>%
     select(sernum, benamt) %>%
     group_by(sernum) %>%
-    summarise(benamt = sum(benamt))
+    summarise(benamt = sum(benamt),
+              year = year)
 
   benefits_clean[[year]] <- nextdataset
+
+  remove(nextdataset)
 
 }
 

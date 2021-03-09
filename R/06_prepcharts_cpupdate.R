@@ -6,83 +6,80 @@ library(tidyverse)
 source("R/00_strings.R")
 source("R/00_functions.R")
 
-hbai <- readRDS("data/tidyhbai.rds")
-persistent <- readRDS("data/persistentpoverty.rds")
+hbai <- readRDS("data/tidyhbai.rds") %>%
+  filter(gvtregn == "Scotland",
+         gs_newch > 0)
 
-yearlevels <- factor(labels[["years_exp"]]$years_exp,
-                     levels = as.character(labels[["years_exp"]]$years_exp)) %>%
-  levels()
+persistent <- readRDS("data/persistentpoverty.rds")
 
 cp_data <- list()
 
-# Rel pov ----
-cp_data[["rel"]] <- do.call(rbind.data.frame,
-                     lapply(hbai, getpov, povvar = "low60ahc")) %>%
-  addyearvar() %>%
-  select(years, chrate) %>%
-  mutate(chrate3 = get3yrcentavg(chrate),
-         years = factor(years, levels = yearlevels),
-         years_formatted = factor(years, levels = yearlevels,
-                                  labels = labels[["years_exp"]]$formatted),
-         text = str_c(years_formatted, ": ", percent(chrate, 1)),
-         value = round2(chrate, 4),
-         chrate3 = round2(chrate3, 4))
+# Rel pov ----------------------------------------------------------------------
+cp_data$rel <- getpovby(hbai, pov = "low60ahc", weight = "gs_newch") %>%
+  mutate(x = factor(yearn, levels = labels$years$numbered,
+                        labels = labels$years$formatted,
+                        ordered = TRUE),
+         x = fct_expand(x, levels(labels$years_exp$formatted)),
+         y = rate,
+         label = fmtpct(y),
+         tooltip = str_c(x, ": ", fmtpct(rate)),
+         y3 = get3yrcentavg(y)) %>%
+  mutate_at(vars(y3, y), ~round2(., 4)) %>%
+  select(x, y, y3, tooltip, label)
 
-# Abs pov ----
-cp_data[["abs"]] <- do.call(rbind.data.frame,
-                     lapply(hbai, getpov, povvar = "abspovahc")) %>%
-  addyearvar() %>%
-  select(years, chrate) %>%
-  mutate(chrate3 = get3yrcentavg(chrate),
-         years = factor(years, levels = yearlevels),
-         years_formatted = factor(years, levels = yearlevels,
-                                  labels = labels[["years_exp"]]$formatted),
-         text = str_c(years_formatted, ": ", percent(chrate, 1)),
-         value = round2(chrate, 4),
-         chrate3 = round2(chrate3, 4))
+# Abs pov ----------------------------------------------------------------------
+cp_data$abs <- getpovby(hbai, pov = "low60ahcabs", weight = "gs_newch") %>%
+  mutate(x = factor(yearn, levels = labels$years$numbered,
+                        labels = labels$years$formatted,
+                        ordered = TRUE),
+         x = fct_expand(x, levels(labels$years_exp$formatted)),
+         y = rate,
+         label = fmtpct(y),
+         tooltip = str_c(x, ": ", fmtpct(rate)),
+         y3 = get3yrcentavg(y)) %>%
+  mutate_at(vars(y3, y), ~round2(., 4)) %>%
+  select(x, y, y3, tooltip, label)
 
-# Mat dep ----
-cmdahc_new <- do.call(rbind.data.frame,
-                      lapply(hbai, getpov, povvar = "cmdahc_new")) %>%
-  addyearvar() %>%
-  select(years, chrate) %>%
-  rename(chrate_new = chrate)
+# Mat dep ----------------------------------------------------------------------
+cmdahc_new <- getpovby(hbai, pov = "cmdahc_new", weight = "gs_newch")
 
-cp_data[["md"]] <- do.call(rbind.data.frame, lapply(hbai, getpov, povvar = "cmdahc")) %>% addyearvar() %>%
-  left_join(cmdahc_new, by = "years") %>%
-  select(years, chrate, chrate_new) %>%
-  mutate(chrate3 = ifelse(years %in% years[11:16], get3yrcentavg(chrate),
-                         ifelse(years == 1011, NA,
-                                ifelse(years == 1112, (chrate + lag(chrate, 1L) + lead(chrate))/3,
-                                       get3yrcentavg(chrate)))),
-         years = factor(years, levels = yearlevels),
-         years_formatted = factor(years, levels = yearlevels,
-                                  labels = labels[["years_exp"]]$formatted),
-         text = str_c(years_formatted, ": ", percent(chrate, 1)),
-         text = ifelse(years == 1011, str_c("Old methodology ", text), text),
-         text_new = ifelse(years == 1011, str_c("New methodology ",
-                                                years_formatted,
-                                                ": ",
-                                                percent(chrate_new,1)), NA),
-         value = round2(chrate, 4),
-         chrate3 = round2(chrate3, 4))
+cp_data$md <- getpovby(hbai, pov = "cmdahc", weight = "gs_newch") %>%
+  rbind(cmdahc_new) %>%
+  arrange(yearn) %>%
+  mutate(y3 = case_when(yearn %in% seq(11, 16, 1) ~ get3yrcentavg(rate),
+                        TRUE ~ get3yrcentavg(rate)),
+         y3 = ifelse(yearn == 17, NA, y3),
+         x = factor(yearn, levels = labels$years$numbered,
+                        labels = labels$years$formatted,
+                        ordered = TRUE),
+         x = fct_expand(x, levels(labels$years_exp$formatted)),
+         y = rate,
+         label = fmtpct(y),
+         tooltip = str_c(x, ": ", fmtpct(y)),
+         tooltip = case_when(yearn == 17 & type == "cmdahc" ~ str_c("Old methodology ", tooltip),
+                             yearn == 17 & type == "cmdahc_new" ~ str_c("New methodology ", x, ": ", fmtpct(y)),
+                           TRUE ~ tooltip)) %>%
+  mutate_at(vars(y, y3), ~round2(., 4)) %>%
+  select(x, y, y3, tooltip, label)
 
-# Pers pov ----
+# Pers pov ---------------------------------------------------------------------
 
-cp_data[["pers"]] <- persistent %>%
+cp_data$pers <- persistent %>%
   filter(housingcosts == "AHC",
          group == "ch",
          nation == "Scotland") %>%
   select(period, value) %>%
-  rename(chrate = value) %>%
-  mutate(years = str_sub(period, -2L, -1L),
-         years = str_c(lag(years), years),
-         years = ifelse(is.na(years), "1314", years),
-         years = factor(years, levels = yearlevels, ordered = TRUE),
-         text = str_c(period, ": ", percent(chrate, 1)),
-         chrate3 = get3yrcentavg(chrate),
-         value = round2(chrate, 4),
-         chrate3 = round2(chrate3, 4))
+  rename(y = value) %>%
+  mutate(x = str_sub(period, -2L, -1L),
+         x = str_c(x, as.numeric(x) + 1),
+         x = factor(x, levels = labels$years_exp$years,
+                        labels = labels$years_exp$formatted,
+                        ordered = TRUE),
+         tooltip = str_c(period, ": ", fmtpct(y)),
+         label = fmtpct(y),
+         y3 = get3yrcentavg(y),
+         y = round2(y, 4),
+         y3 = round2(y3, 4))
 
 saveRDS(cp_data, "data/cp_data.rds")
 rm(list = ls())

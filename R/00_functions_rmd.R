@@ -37,8 +37,7 @@ interactive <- function(chart,
                         subtitle,
                         height = 3.5) {
 
-  #title <- str_wrap(title, 68)
-  subtitle <- str_wrap(subtitle, 78)
+  subtitle <- str_wrap(subtitle, 90)
   chart <- chart + labs(title = subtitle)
   chart <- girafe(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
   chart <- girafe_options(x = chart,
@@ -59,8 +58,7 @@ interactive <- function(chart,
   )
 }
 
-add_a11y <- function(kabletable, scope = "col", scope2 = NULL,
-                     summary = NULL, rowgroups = NULL) {
+add_a11y <- function(kabletable, scope = "col", scope2 = NULL, summary = NULL) {
 
   # Adding accessibility features to kable tables
 
@@ -86,22 +84,27 @@ add_a11y <- function(kabletable, scope = "col", scope2 = NULL,
       xml_set_attr("scope", scope2)
   }
 
-  # add scope to grouping rows
-  if (!is.null(rowgroups)) {
-
-    xml_find_all(xml_children(xml_child(xmltable, 3)), ".//td")[rowgroups] %>%
-      xml_set_attr("scope", "rowgroup")
-
-  }
-
   # add summary to explain how to read the table
   if (!is.null(summary)) {
     xmltable %>%
       xml_set_attr("summary", summary)
   }
 
-  xml_as_kable(xmltable)
+  # fix colspan attribute in footer
+  if (length(xml_find_all(xmltable, "tfoot")) > 0) {
+    cols <- xmltable %>%
+      xml_find_first("tbody") %>%
+      xml_child(2) %>%
+      xml_children() %>%
+      length()
+    footer <- xmltable %>%
+      xml_find_all("tfoot") %>%
+      xml_child(1) %>%
+      xml_child(1)
+    xml_attr(footer, "colspan") <- as.character(cols)
+  }
 
+  xml_as_kable(xmltable)
 }
 
 
@@ -127,6 +130,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
                   p(subtitle_tl)),
               tags$figure(role = "figure",
                           class = "panel-body",
+                          style = "max-width: 438px;",
                           "aria-label" = desc_tl,
                           tags$figcaption(text_tl),
                           chart_tl)),
@@ -137,6 +141,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
                   p(subtitle_bl)),
               tags$figure(role = "figure",
                           class = "panel-body",
+                          style = "max-width: 438px;",
                           "aria-label" = desc_bl,
                           tags$figcaption(text_bl),
                           chart_bl))),
@@ -149,6 +154,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
                   p(subtitle_tr)),
               tags$figure(role = "figure",
                           class = "panel-body",
+                          style = "max-width: 438px;",
                           "aria-label" = desc_tr,
                           tags$figcaption(text_tr),
                           chart_tr)),
@@ -159,6 +165,7 @@ make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
                   p(subtitle_br)),
               tags$figure(role = "figure",
                           class = "panel-body",
+                          style = "max-width: 438px;",
                           "aria-label" = desc_br,
                           tags$figcaption(text_br),
                           chart_br))) )

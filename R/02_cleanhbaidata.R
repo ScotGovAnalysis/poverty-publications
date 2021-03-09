@@ -1,16 +1,18 @@
 
-# Clean HBAI datasets to reduce size and address variable name changes
-
+# Clean HBAI datasets: address variable changes, combine into single data frame
 
 source("R/00_strings.R")
 source("R/00_functions.R")
 
-years <- labels[["years"]]$years
+years = factor(labels$years$years,
+               levels = labels$years$years)
 
 hbai_clean <- vector("list", length(years))
 names(hbai_clean) <- years
 
-# Variable changes
+files_hbai <- readRDS("data/files_hbai.rds")
+
+# Variable changes -------------------------------------------------------------
 
 # ecobu and kidecobu new in 9697
 # tenure new in 0304
@@ -24,7 +26,7 @@ names(hbai_clean) <- years
 # 9495 to 9596 -----------------------------------------------------------------
 for (year in years[1:2]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -39,16 +41,17 @@ for (year in years[1:2]) {
            chbenhh = NA,
            discorabflg = disabflg,
            discorkid = diskid,
-           kid16_19 = kid16_18) %>%
+           kid16plus = kid16_18) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -63,7 +66,7 @@ for (year in years[1:2]) {
 # 9697 to 9900 -----------------------------------------------------------------
 for (year in years[3:6]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -76,16 +79,17 @@ for (year in years[3:6]) {
            chbenhh = NA,
            discorabflg = disabflg,
            discorkid = diskid,
-           kid16_19 = kid16_18) %>%
+           kid16plus = kid16_18) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -102,7 +106,7 @@ for (year in years[3:6]) {
 # 0001 to 0203 -----------------------------------------------------------------
 for (year in years[7:9]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -114,16 +118,17 @@ for (year in years[7:9]) {
            ptentyp2 = NA,
            discorabflg = disabflg,
            discorkid = diskid,
-           kid16_19 = kid16_18) %>%
+           kid16plus = kid16_18) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -140,7 +145,7 @@ for (year in years[7:9]) {
 # 0304 -------------------------------------------------------------------------
 for (year in years[10]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -151,16 +156,17 @@ for (year in years[10]) {
            mdchnew = NA,
            discorabflg = disabflg,
            discorkid = diskid,
-           kid16_19 = kid16_18) %>%
+           kid16plus = kid16_18) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -176,7 +182,7 @@ for (year in years[10]) {
 # 0405 to 0506 -----------------------------------------------------------------
 for (year in years[11:12]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -186,16 +192,17 @@ for (year in years[11:12]) {
            mdchnew = NA,
            discorabflg = disabflg,
            discorkid = diskid,
-           kid16_19 = kid16_18) %>%
+           kid16plus = kid16_18) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -211,7 +218,7 @@ for (year in years[11:12]) {
 # 0607 to 0809 -----------------------------------------------------------------
 for (year in years[13:15]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -220,16 +227,18 @@ for (year in years[13:15]) {
            mdpn = NA,
            mdchnew = NA,
            discorabflg = disabflg,
-           discorkid = diskid) %>%
+           discorkid = diskid,
+           kid16plus = kid16_19) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -245,7 +254,7 @@ for (year in years[13:15]) {
 # 0910 -------------------------------------------------------------------------
 for (year in years[16]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -253,16 +262,18 @@ for (year in years[16]) {
     mutate(ethgrphh = NA,
            mdchnew = NA,
            discorabflg = disabflg,
-           discorkid = diskid) %>%
+           discorkid = diskid,
+           kid16plus = kid16_19) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -278,23 +289,25 @@ for (year in years[16]) {
 # 1011 -------------------------------------------------------------------------
 for (year in years[17]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
     mutate(ethgrphh = NA,
            discorabflg = disabflg,
-           discorkid = diskid) %>%
+           discorkid = diskid,
+           kid16plus = kid16_19) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -310,7 +323,7 @@ for (year in years[17]) {
 # 1112 -------------------------------------------------------------------------
 for (year in years[18]) {
 
-  nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+  nextdataset <- files_hbai[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
@@ -318,16 +331,18 @@ for (year in years[18]) {
     mutate(ethgrphh = NA,
            mdchnew = NA,
            discorabflg = disabflg,
-           discorkid = diskid) %>%
+           discorkid = diskid,
+           kid16plus = kid16_19) %>%
     select(sernum, benunit, gvtregn,
            gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
            depchldb, depchldh,
            adultb, adulth,
-           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
            mdch, mdchnew, mdpn,
            low50ahc, low60ahc, low70ahc,
            low50bhc, low60bhc, low70bhc,
            s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
            ahcdef, bhcdef, eqoahchh, eqobhchh,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -343,21 +358,23 @@ for (year in years[18]) {
 # 1213 to latest year ----------------------------------------------------------
 for (year in years[19:length(years)]) {
 
-nextdataset <- readRDS("data/files_hbai.rds")[[year]]
+nextdataset <- files_hbai[[year]]
 
 colnames(nextdataset) <- tolower(colnames(nextdataset))
 
 nextdataset <- nextdataset %>%
-  mutate(mdchnew = NA) %>%
+  mutate(mdchnew = NA,
+         kid16plus = kid16_19) %>%
   select(sernum, benunit, gvtregn,
          gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
          depchldb, depchldh,
          adultb, adulth,
-         kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16_19,
+         kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
          mdch, mdchnew, mdpn,
          low50ahc, low60ahc, low70ahc,
          low50bhc, low60bhc, low70bhc,
          s_oe_ahc, s_oe_bhc,
+         mdoeahc, mdoebhc,
          ahcdef, bhcdef, eqoahchh, eqobhchh,
          esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
          esmischh, espribhh, inchilhh, chbenhh, esginchh,
@@ -369,52 +386,22 @@ nextdataset <- nextdataset %>%
          esmischh, espribhh, inchilhh, chbenhh)
 
 hbai_clean[[year]] <- nextdataset
-
+remove(nextdataset)
 }
-
-# Add inflation index ----------------------------------------------------------
-inflationindex <- readRDS("data/inflationindex.rds")
-for (year in years) {
-
-  df <- hbai_clean[[year]]
-  df$infl_ahc <- filter(inflationindex, years == year) %>%
-    select(infl_ahc) %>%  pull()
-  df$infl_bhc <- filter(inflationindex, years == year) %>%
-    select(infl_bhc) %>% pull()
-
-  hbai_clean[[year]] <- df
-}
-
-# Add absolute poverty thresholds ----------------------------------------------
-abspovthresholds <- hbai_clean[["1011"]] %>%
-  summarise(abspovahc_threshold = 0.6 * wtd.quantile(s_oe_ahc,
-                                                     probs = 0.5,
-                                                     weights = gs_newpp),
-            abspovbhc_threshold = 0.6 * wtd.quantile(s_oe_bhc,
-                                                     probs = 0.5,
-                                                     weights = gs_newpp),
-            inflahc_1011 = max(infl_ahc),
-            inflbhc_1011 = max(infl_bhc))
-
-for (year in years) {
-  df <- hbai_clean[[year]]
-  df$abspovahc_threshold <- abspovthresholds$abspovahc_threshold
-  df$abspovbhc_threshold <- abspovthresholds$abspovbhc_threshold
-  df$inflahc_1011 <- abspovthresholds$inflahc_1011
-  df$inflbhc_1011 <- abspovthresholds$inflbhc_1011
-
-  hbai_clean[[year]] <- df
-}
-
-
-# Last: Add year variable and also year in comment attribute to each dataset ---
 
 for (year in years) {
   hbai_clean[[year]]$year <- year
-  attr(hbai_clean[[year]], "comment") <- year
 }
 
+# Combine into single data frame -----------------------------------------------
+hbai_clean <- do.call(rbind, hbai_clean)
 
-# Save and clear work space ----------------------------------------------------
+# remove some attributes to avoid warnings -------------------------------------
+attr(hbai_clean$sernum, "format.sas") <- NULL
+attr(hbai_clean$sernum, "label") <- NULL
+attr(hbai_clean$benunit, "format.sas") <- NULL
+attr(hbai_clean$benunit, "label") <- NULL
+
+# Save and clear work space  ---------------------------------------------------
 saveRDS(hbai_clean, "data/hbai_clean.rds")
 rm(list = ls())

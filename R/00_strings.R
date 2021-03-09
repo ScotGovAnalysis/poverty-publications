@@ -56,7 +56,8 @@ labels[["years_exp"]] <- data.frame(years_exp = c("9495", "9596", "9697", "9798"
                                                   "2021/22", "2022/23", "2023/24",
                                                   "2024/25", "2025/26", "2026/27",
                                                   "2027/28", "2028/29", "2029/30",
-                                                  "2030/31"))
+                                                  "2030/31"),
+                                    numbered = seq(1, 37, 1))
 
 # Regions ----------------------------------------------------------------------
 labels[["regions"]] <- data.frame(codes = c(1:13),
@@ -90,7 +91,7 @@ labels[["urbrur"]] <- data.frame(codes = c(1:8),
 # Tenure -----------------------------------------------------------------------
 labels[["tenure"]] <- data.frame(codes = c(1:4),
                                  labels = c("Owned outright [3]",
-                                            "Owned with mortgage",
+                                            "Buying with a mortgage",
                                             "Rented from council or housing association",
                                             "Rented privately"))
 
@@ -99,10 +100,10 @@ labels[["tenure"]] <- labels[["tenure"]] %>%
 
 # Economic status --------------------------------------------------------------
 labels[["economic"]] <- data.frame(codes = c(1:8),
-                                   labels = c("Self-employed (at least one FT)",
+                                   labels = c("Self-employed (at least one full-time)",
                                               "All in full-time work",
-                                              "Couple: one FT, one PT",
-                                              "Couple: one FT, one not in paid work",
+                                              "Couple: one full-time, one part-time",
+                                              "Couple: one full-time, one not in paid work",
                                               "Part-time work only",
                                               "Inactive or retired",
                                               "Unemployed",
@@ -199,33 +200,33 @@ labels[["marital"]] <- labels[["marital"]] %>%
 
 # Number of children -----------------------------------------------------------
 labels[["childno"]] <- data.frame(codes = c(0:10),
-                                  labels = c("No children",
-                                             "1 child",
-                                             "2 children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children"))
+                                  labels = c("No children in the household",
+                                             "1 child in the household",
+                                             "2 children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household"))
 
 labels[["childno"]] <- labels[["childno"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
 # Number of children (child poverty tables)-------------------------------------
 labels[["childno_ch"]] <- data.frame(codes = c(1:10),
-                                  labels = c("1-2 children",
-                                             "1-2 children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children",
-                                             "3 or more children"))
+                                  labels = c("1-2 children in the household",
+                                             "1-2 children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household",
+                                             "3 or more children in the household"))
 
 labels[["childno_ch"]] <- labels[["childno_ch"]] %>%
   mutate(labels = fct_reorder(labels, codes))
@@ -315,4 +316,14 @@ labels[["religion"]] <- data.frame(codes = c(1:10),
                                             "Other religion"))
 
 labels[["religion"]] <- labels[["religion"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
+
+# Food security ----------------------------------------------------------------
+labels[["foodsecurity"]] <- data.frame(codes = c(1:4),
+                                   labels = c("High",
+                                              "Marginal",
+                                              "Low",
+                                              "Very low"))
+
+labels[["foodsecurity"]] <- labels[["foodsecurity"]] %>%
   mutate(labels = fct_reorder(labels, codes))

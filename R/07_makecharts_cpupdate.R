@@ -9,35 +9,38 @@ source("R/00_functions.R")
 cp_data <- readRDS("data/cp_data.rds")
 cp_charts <- list()
 
-## Chart cp1 - Relpov ch ----
+## Chart cp1 - Relpov ch -------------------------------------------------------
 
-data <- cp_data[["rel"]]
+data <- cp_data$rel
 
-cp_charts[["rel"]] <- ggplot(data, aes(x = years,
-                                       y = value,
-                                       colour = "all",
-                                       labels = percent(value, 1),
-                                       group = "all")) +
+cp_charts$rel <- ggplot(data, aes(x = x,
+                                  y = y,
+                                  colour = "all",
+                                  label = label,
+                                  group = "all")) +
   addtargetbars() +
   scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
+                   breaks = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    expand = c(0.1, 0.1)) +
-  geom_line(data = tail(data, -1L) %>% head(-1L),
-            aes(y = chrate3),
+
+  geom_line(data = filter(data, !is.na(y)),
+            aes(y = y3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
             alpha = 0.8,
             show.legend = FALSE) +
-  geom_point_interactive(aes(tooltip = text,
-                             data_id = years),
+
+  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
              size = 3,
              shape = 21,
              colour = SGgreys[1],
              fill = SGgreys[1],
              alpha = 0.4) +
+
   addlabels(size = 5) +
+
   scale_colour_manual(values = SGgreys) +
   annotate("text", x = 23.5, y = 0.5,
            label = "Child Poverty (Scotland) Act 2017",
@@ -59,29 +62,25 @@ cp_charts[["rel"]] <- ggplot(data, aes(x = years,
   addyaxis() +
   addsource()
 
-## Chart cp2 - Abspov ch ----
+## Chart cp2 - Abspov ch -------------------------------------------------------
 
-data <- cp_data[["abs"]]
+data <- cp_data$abs
 
-cp_charts[["abs"]]  <- ggplot(data, aes(x = years,
-                                        y = value,
-                                        colour = "all",
-                                        labels = percent(value, 1),
-                                        group = "all")) +
+cp_charts$abs  <- ggplot(data, aes(x = x, y = y, colour = "all", label = label,
+                                   group = "all")) +
   addtargetbars() +
   scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
+                   breaks = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    expand = c(0.1, 0.1)) +
-  geom_line(data = tail(data, -1L) %>% head(-1L),
-            aes(y = chrate3),
+  geom_line(data = filter(data, !is.na(y)),
+            aes(y = y3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
             alpha = 0.8,
             show.legend = FALSE) +
-  geom_point_interactive(aes(tooltip = text,
-                             data_id = years),
+  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
                          size = 3,
                          shape = 21,
                          colour = SGgreys[1],
@@ -94,16 +93,12 @@ cp_charts[["abs"]]  <- ggplot(data, aes(x = years,
   addyaxis() +
   addsource()
 
+## Chart cp3 - Matdep ch -------------------------------------------------------
 
-## Chart cp3 - Matdep ch ----
+data <- cp_data$md
 
-data <- cp_data[["md"]]
-
-cp_charts[["md"]] <- ggplot(data, aes(x = years,
-                                      y = value,
-                                      colour = "all",
-                                      labels = percent(value, 1),
-                                      group = "all")) +
+cp_charts$md <- ggplot(data, aes(x = x, y = y, colour = "all", label = label,
+                                 group = "all")) +
 
   geom_vline(aes(xintercept = 17),
              colour = SGgreys[4]) +
@@ -111,7 +106,7 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
   addtargetbars() +
 
   scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
+                   breaks = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    expand = c(0.1, 0.1)) +
   annotate("text", x = 16.7, y = 0.02,
@@ -120,26 +115,15 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
            colour = SGgreys[2],
            size = 5) +
 
-  geom_line(data = tail(data, -1L) %>% head(-1L),
-            aes(y = chrate3),
+  geom_line(data = filter(data, !is.na(y)),
+            aes(y = y3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
             alpha = 0.8,
             show.legend = FALSE) +
 
-  geom_point_interactive(aes(tooltip = text,
-                             data_id = years),
-                         size = 3,
-                         shape = 21,
-                         colour = SGgreys[1],
-                         fill = SGgreys[1],
-                         alpha = 0.4) +
-
-  geom_point_interactive(data = filter(data, years == "1011"),
-                         aes(y = chrate_new,
-                             tooltip = text_new,
-                             data_id = years),
+  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
                          size = 3,
                          shape = 21,
                          colour = SGgreys[1],
@@ -153,30 +137,25 @@ cp_charts[["md"]] <- ggplot(data, aes(x = years,
   addyaxis() +
   addsource()
 
+## Chart cp4 - Pers pov --------------------------------------------------------
 
-## Chart cp4 - Pers pov ----
+data <- cp_data$pers
 
-data <- cp_data[["pers"]]
-
-cp_charts[["pers"]] <- ggplot(data, aes(x = years,
-                                        y = value,
-                                        colour = "all",
-                                        labels = percent(value, 1),
-                                        group = "all")) +
+cp_charts$pers <- ggplot(data, aes(x = x, y = y, colour = "all", label = label,
+                                   group = "all")) +
   addtargetbars() +
   scale_x_discrete(drop = FALSE,
-                   breaks = c("9495", "0607", "1819", "3031"),
+                   breaks = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    labels = c("1994/95", "2006/07", "2018/19", "2030/31"),
                    expand = c(0.1, 0.1)) +
-  geom_line(data = tail(data, -1L) %>% head(-1L),
-            aes(y = chrate3),
+  geom_line(data = filter(data, !is.na(y)),
+            aes(y = y3),
             size = 3,
             lineend = "round",
             colour = SGmix[1],
             alpha = 0.8,
             show.legend = FALSE) +
-  geom_point_interactive(aes(tooltip = text,
-                             data_id = years),
+  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
                          size = 3,
                          shape = 21,
                          colour = SGgreys[1],
