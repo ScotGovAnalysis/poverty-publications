@@ -178,7 +178,7 @@ rel_rates <- rel %>%
 rel_comps <- rel %>%
   group_by(year) %>%
   mutate(composition = number / number[1],
-         composition = round2(composition, 2)) %>%
+         composition = roundpct(composition)) %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, composition) %>%
@@ -214,7 +214,7 @@ sev_rates <- sev %>%
 sev_comps <- sev %>%
   group_by(year) %>%
   mutate(composition = number / number[1],
-         composition = round2(composition, 2)) %>%
+         composition = roundpct(composition)) %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, composition) %>%
@@ -354,7 +354,7 @@ mark_missing(data, ncols = 6, nrows = 2, xlscol = 9, xlsrow = 63)
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "youngmumhh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)",
-         yearn >= 6) %>%
+         yearn >= 4) %>%
   group_by(groupingvar) %>%
   get3yrtable() %>%
   samplesizecheck() %>%
@@ -365,7 +365,7 @@ rel <- getpovby(hbai, pov = "low60ahc", by = "youngmumhh", weight = "gs_newch") 
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "youngmumhh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)",
-         yearn >= 6) %>%
+         yearn >= 4) %>%
   group_by(groupingvar) %>%
   get3yrtable() %>%
   samplesizecheck() %>%
@@ -697,7 +697,7 @@ rel_pp <- getpovby(hbai, by = "dispp_hh", weight = "gs_newch") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc", by = "dispp_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -707,7 +707,7 @@ sev_pp <- getpovby(hbai, pov = "low50ahc", by = "dispp_hh", weight = "gs_newch")
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ch <- getpovby(hbai, by = "disch_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -717,7 +717,7 @@ rel_ch <- getpovby(hbai, by = "disch_hh", weight = "gs_newch") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc", by = "disch_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -727,7 +727,7 @@ sev_ch <- getpovby(hbai, pov = "low50ahc", by = "disch_hh", weight = "gs_newch")
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ad <- getpovby(hbai, by = "disad_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -737,7 +737,7 @@ rel_ad <- getpovby(hbai, by = "disad_hh", weight = "gs_newch") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc", by = "disad_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -747,7 +747,7 @@ sev_ad <- getpovby(hbai, pov = "low50ahc", by = "disad_hh", weight = "gs_newch")
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -820,14 +820,21 @@ data <- list(sheet = "32 Disability",
                            "Since 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities.",
                            "Therefore, care needs to be taken when considering long-term trends.",
                            "4. Since the last break in the methodology caused a large change in the size of the disabled population, the estimated numbers in poverty before and after the break cannot be directly compared and no three-year averaged data is available during the break.",
-                           "5. Data on disability is available from 1995/96."))
+                           "5. Data on disabled children is available from 1995/96."))
 
 # Create new worksheet
 createWideSpreadsheet(data)
 
 # mark missing data ("--")
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 35)
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 74)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 35)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 74)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 11)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 24)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 37)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 50)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 63)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 76)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 89)
 
 ## 33 Disability with benefits removed from income -------------------------------------------------
 
@@ -839,7 +846,7 @@ rel_pp <- getpovby(hbai, pov = "low60ahc_dis", by = "dispp_hh", weight = "gs_new
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc_dis", by = "dispp_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -849,7 +856,7 @@ sev_pp <- getpovby(hbai, pov = "low50ahc_dis", by = "dispp_hh", weight = "gs_new
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ch <- getpovby(hbai, pov = "low60ahc_dis", by = "disch_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -859,7 +866,7 @@ rel_ch <- getpovby(hbai, pov = "low60ahc_dis", by = "disch_hh", weight = "gs_new
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc_dis", by = "disch_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -869,7 +876,7 @@ sev_ch <- getpovby(hbai, pov = "low50ahc_dis", by = "disch_hh", weight = "gs_new
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ad <- getpovby(hbai, pov = "low60ahc_dis", by = "disad_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -879,7 +886,7 @@ rel_ad <- getpovby(hbai, pov = "low60ahc_dis", by = "disad_hh", weight = "gs_new
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc_dis", by = "disad_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
@@ -889,7 +896,7 @@ sev_ad <- getpovby(hbai, pov = "low50ahc_dis", by = "disad_hh", weight = "gs_new
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -964,14 +971,21 @@ data <- list(sheet = "33 Disability adj",
                            "Since 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities.",
                            "Therefore, care needs to be taken when considering long-term trends.",
                            "5. Since the last break in the methodology caused a large change in the size of the disabled population, the estimated numbers in poverty before and after the break cannot be directly compared and no three-year averaged data is available during the break.",
-                           "6. Data on disability is available from 1995/96."))
+                           "6. Data on disabled children is available from 1995/96."))
 
 # Create new worksheet
 createWideSpreadsheet(data)
 
 # mark missing data ("--")
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 35)
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 74)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 35)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 74)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 11)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 24)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 37)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 50)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 63)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 76)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 89)
 
 ## 34 Ethnicity (5-year average) ------------------------------------------------------------------------
 

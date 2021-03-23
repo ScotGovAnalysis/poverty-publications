@@ -19,12 +19,12 @@ persistenttables[["source"]] <- "Source: Understanding Society Survey"
 
 # Scotland table ----
 persistenttables[["tableScotland"]] <- data %>%
-  filter(nation == "Scotland") %>%
-  mutate(type = str_c(housingcosts, group)) %>%
-  select(Period, value, type) %>%
-  spread(type, value)
+  filter(nation == "Scotland",
+         housingcosts == "AHC") %>%
+  select(Period, value, group) %>%
+  spread(group, value)
 
-# Table 1 ----
+# Table 1 & 2 ------------------------------------------------------------------
 data_pp <- data %>%
   filter(group == "pp") %>%
   select(-group) %>%
@@ -42,7 +42,7 @@ persistenttables[["table2"]] <- data_pp %>%
   spread(nation, value) %>%
   select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-# Table 2 ----
+# Table 3 & 4 ------------------------------------------------------------------
 data_ch <- data %>%
   filter(group == "ch") %>%
   select(-group) %>%
@@ -60,7 +60,7 @@ persistenttables[["table4"]] <- data_ch %>%
   spread(nation, value) %>%
   select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-# Table 3 ----
+# Table 5 & 6 ------------------------------------------------------------------
 data_wa <- data %>%
   filter(group == "wa") %>%
   select(-group) %>%
@@ -78,7 +78,7 @@ persistenttables[["table6"]] <- data_wa %>%
   spread(nation, value) %>%
   select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-# Table 4 ----
+# Table 7 & 8 ------------------------------------------------------------------
 data_pn <- data %>%
   filter(group == "pn") %>%
   select(-group) %>%
@@ -96,7 +96,7 @@ persistenttables[["table8"]] <- data_pn %>%
   spread(nation, value) %>%
   select(Period, Scotland, England, Wales, "Northern Ireland", UK)
 
-# Table 10 sample size
+# Table 10 sample size ---------------------------------------------------------
 persistenttables[["table10"]] <- data %>%
   filter(housingcosts == "sample",
          nation == "Scotland") %>%

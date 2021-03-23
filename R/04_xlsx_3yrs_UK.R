@@ -1,7 +1,7 @@
 
 # Create spreadsheet for 3-year averaged data
 
-source("R/00_functions.R")
+source("R/00_functions.R", encoding = "UTF-8")
 source("R/00_strings.R")
 
 filename <- "output/UK comparisons.xlsx"
@@ -427,12 +427,212 @@ data <- list(file = filename,
 # Create new worksheet
 createWideSpreadsheet(data)
 
+# 8 Food security --------------------------------------------------------------
+
+pp <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)") %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newpp)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newpp),
+            composition = roundpct(number / max(population)),
+            group = "All people") %>%
+  select(gvtregn, group, foodsec, composition)
+
+pp_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)") %>%
+  mutate(population = sum(gs_newpp)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newpp),
+            composition = roundpct(number / max(population)),
+            group = "All people",
+            gvtregn = "All") %>%
+  select(gvtregn, group, foodsec, composition)
+
+pp_rel <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahc == 1) %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newpp)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newpp),
+            composition = roundpct(number / max(population)),
+            group = "People in relative poverty") %>%
+  select(gvtregn, group, foodsec, composition)
+
+pp_rel_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahc == 1) %>%
+  mutate(population = sum(gs_newpp)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newpp),
+            composition = roundpct(number / max(population)),
+            group = "People in relative poverty",
+            gvtregn = "All") %>%
+  select(gvtregn, group, foodsec, composition)
+
+pp_abs <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahcabs == 1) %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newpp)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newpp),
+            composition = roundpct(number / max(population)),
+            group = "People in absolute poverty") %>%
+  select(gvtregn, group, foodsec, composition)
+
+pp_abs_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahcabs == 1) %>%
+  mutate(population = sum(gs_newpp)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newpp),
+            composition = roundpct(number / max(population)),
+            group = "People in absolute poverty",
+            gvtregn = "All") %>%
+  select(gvtregn, group, foodsec, composition)
+
+ch <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)") %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newch)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newch),
+            composition = roundpct(number / max(population)),
+            group = "All children") %>%
+  select(gvtregn, group, foodsec, composition)
+
+ch_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)") %>%
+  mutate(population = sum(gs_newch)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newch),
+            composition = roundpct(number / max(population)),
+            group = "All children",
+            gvtregn = "All") %>%
+  select(gvtregn, group, foodsec, composition)
+
+ch_rel <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahc == 1) %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newch)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newch),
+            composition = roundpct(number / max(population)),
+            group = "Children in relative poverty") %>%
+  select(gvtregn, group, foodsec, composition)
+
+ch_rel_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahc == 1) %>%
+  mutate(population = sum(gs_newch)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newch),
+            composition = roundpct(number / max(population)),
+            group = "Children in relative poverty",
+            gvtregn = "All") %>%
+  select(gvtregn, group, foodsec, composition)
+
+ch_abs <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahcabs == 1) %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newch)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newch),
+            composition = roundpct(number / max(population)),
+            group = "Children in absolute poverty") %>%
+  select(gvtregn, group, foodsec, composition)
+
+ch_abs_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         low60ahcabs == 1) %>%
+  mutate(population = sum(gs_newch)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newch),
+            composition = roundpct(number / max(population)),
+            group = "Children in absolute poverty",
+            gvtregn = "All") %>%
+  select(gvtregn, group, foodsec, composition)
+
+data <- bind_rows(pp, pp_all, pp_rel, pp_rel_all, pp_abs, pp_abs_all,
+                  ch, ch_all, ch_rel, ch_rel_all, ch_abs, ch_abs_all) %>%
+  ungroup() %>%
+  mutate(gvtregn = factor(gvtregn,
+                          levels = c("All", "England", "Scotland", "Wales",
+                                     "Northern Ireland"),
+                          ordered = TRUE)) %>%
+  rename(Region = gvtregn)
+
+table1 <- filter(data, group == "All people") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
+table2 <- filter(data, group == "People in relative poverty") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
+table3 <- filter(data, group == "People in absolute poverty") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
+table4 <- filter(data, group == "All children") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
+table5 <- filter(data, group == "Children in relative poverty") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
+table6 <- filter(data, group == "Children in absolute poverty") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
+data <- list(file = filename,
+             sheet = "8 Food security",
+             sheettitle = "8. Household food security",
+             dfs = list(table1, table2, table3, table4, table5, table6),
+             formats = c("pct", "pct","pct","pct","pct","pct"),
+             totalrow = TRUE,
+             titles = c("Household food security for all people",
+                        "Household food security for people in relative poverty",
+                        "Household food security for people in absolute poverty",
+                        "Household food security for all children",
+                        "Household food security for children in relative poverty",
+                        "Household food security for children in absolute poverty"),
+             subtitles = c("Composition of people by level of household food security, 2019/20",
+                           "Composition of people in relative poverty after housing costs by level of household food security, 2019/20",
+                           "Composition of people in absolute poverty after housing costs by level of household food security, 2019/20",
+                           "Composition of children by level of household food security, 2019/20",
+                           "Composition of children in relative poverty after housing costs by level of household food security, 2019/20",
+                           "Composition of children in absolute poverty after housing costs by level of household food security, 2019/20"),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset"
+)
+
+# Create new worksheet
+createWideSpreadsheet(data)
+
 # TOC --------------------------------------------------------------------------
 
-headings <- list(location = c(0, 4, 8),
+headings <- list(location = c(0, 4, 8, 10),
                  titles = c("Headline poverty measures - after housing costs",
                             "Headline poverty measures - before housing costs",
-                            "Material deprivation"))
+                            "Material deprivation",
+                            "Household food security"))
 
 createContentSheet(filename, headings)
 

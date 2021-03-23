@@ -2,7 +2,7 @@
 
 library(tidyverse)
 
-source("R/00_functions.R")
+source("R/00_functions.R", encoding = "UTF-8")
 source("R/00_strings.R")
 
 filename <- "output/All three-year average.xlsx"

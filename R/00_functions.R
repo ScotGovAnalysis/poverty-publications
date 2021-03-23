@@ -204,7 +204,7 @@ getfoodsec <- function(househol) {
 
   househol %>%
     filter(hhstat == 1) %>%
-    mutate(foodsec_score = ifelse(is.na(foodq1), NA, 0),
+    mutate(foodsec_score = 0,
            foodsec_score = case_when(foodq1 %in% c(1, 2) ~ foodsec_score + 1,
                                      TRUE ~ foodsec_score),
            foodsec_score = case_when(foodq2 %in% c(1, 2) ~ foodsec_score + 1,
@@ -606,7 +606,7 @@ roundpop <- function(x) {
 }
 
 roundpct <- function(x) {
-  ifelse(!is.na(x), round2(x, 4), NA)
+  ifelse(!is.na(x), round2(x, 7), NA)
 }
 
 roundall <- function(df) {
@@ -950,8 +950,8 @@ createContentSheet <- function(filename, headings){
                "After-housing-costs measures describe disposable household income",
                "after housing costs are paid for. They therefore better describe",
                "what is available for food, bills and leisure every week or month.",
-               "The poverty characteristics tables are therefore only available",
-               "for poverty after housing costs.")
+               "The poverty characteristics tables are only available for poverty",
+               "after housing costs.")
 
   text_hc <- data.frame(text_hc)
 
@@ -980,7 +980,25 @@ createContentSheet <- function(filename, headings){
 
   writeData(wb, "Contents", text_rev, startRow = 31, startCol = 4,
             colNames = FALSE)
-  addStyle(wb, "Contents", rows = 31:39, cols = 4, style = noteStyle)
+  addStyle(wb, "Contents", rows = 31:37, cols = 4, style = noteStyle)
+
+  # 2nd column - note on rounding
+  text_rnd <- c("Proportions are rounded to five decimal places. However, the precision of poverty",
+                "rate estimates for the whole Scottish population is usually the central estimate",
+                "plus or minus two percentage points, or plus or minus four percentage points for",
+                "the Scottish child population. Precision is lower for smaller groups.",
+                "Population numbers are rounded to the nearest 10,000 people. Annual GBP amounts are",
+                "rounded to the nearest £100. Weekly GBP amounts are rounded to the nearest £1.")
+
+  text_rnd <- data.frame(text_rnd)
+
+  writeData(wb, "Contents", "Rounding", startRow = 39,
+            startCol = 4)
+  addStyle(wb, "Contents", rows = 39, cols = 4, style = titleStyle)
+
+  writeData(wb, "Contents", text_rnd, startRow = 40, startCol = 4,
+            colNames = FALSE)
+  addStyle(wb, "Contents", rows = 40:45, cols = 4, style = noteStyle)
 
 
   setColWidths(wb, "Contents", 1, widths = 7)

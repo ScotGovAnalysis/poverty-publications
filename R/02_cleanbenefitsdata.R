@@ -14,9 +14,9 @@ files_benefits <- readRDS("data/files_benefits.rds")
 benefits_clean <- vector("list", length(years))
 
 # Variable changes -------------------------------------------------------------
-# label changes in 9697
+# label changes in 9697 (12 = AA, previously: 11 = AA)
 
-# From 9495 to 9697 ------------------------------------------------------------
+# From 9495 to 9596 ------------------------------------------------------------
 for (year in years[1:2]) {
 
   nextdataset <- files_benefits[[year]]
@@ -24,9 +24,7 @@ for (year in years[1:2]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(benefit = ifelse(benefit == 12, 13,
-                            ifelse(benefit == 11, 12, benefit))) %>%
-    filter(benefit %in% c(1, 2, 12, 96, 97)) %>%
+    filter(benefit %in% c(1, 2, 11)) %>%
     select(sernum, benamt) %>%
     group_by(sernum) %>%
     summarise(benamt = sum(benamt),
@@ -35,8 +33,29 @@ for (year in years[1:2]) {
   benefits_clean[[year]] <- nextdataset
 }
 
-# From 9697 to latest year -----------------------------------------------------
-for (year in years[3:length(years)]) {
+# From 9697 to 1213 ------------------------------------------------------------
+for (year in years[3:19]) {
+
+  nextdataset <- files_benefits[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(year = year) %>%
+    filter(benefit %in% c(1, 2, 12)) %>%
+    select(sernum, benamt) %>%
+    group_by(sernum) %>%
+    summarise(benamt = sum(benamt),
+              year = year)
+
+  benefits_clean[[year]] <- nextdataset
+
+  remove(nextdataset)
+
+}
+
+# From 1314 to latest year -----------------------------------------------------
+for (year in years[20:length(years)]) {
 
   nextdataset <- files_benefits[[year]]
 

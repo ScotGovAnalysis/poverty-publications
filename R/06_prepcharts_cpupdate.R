@@ -24,7 +24,7 @@ cp_data$rel <- getpovby(hbai, pov = "low60ahc", weight = "gs_newch") %>%
          label = fmtpct(y),
          tooltip = str_c(x, ": ", fmtpct(rate)),
          y3 = get3yrcentavg(y)) %>%
-  mutate_at(vars(y3, y), ~round2(., 4)) %>%
+  mutate_at(vars(y3, y), ~roundpct(.)) %>%
   select(x, y, y3, tooltip, label)
 
 # Abs pov ----------------------------------------------------------------------
@@ -37,7 +37,7 @@ cp_data$abs <- getpovby(hbai, pov = "low60ahcabs", weight = "gs_newch") %>%
          label = fmtpct(y),
          tooltip = str_c(x, ": ", fmtpct(rate)),
          y3 = get3yrcentavg(y)) %>%
-  mutate_at(vars(y3, y), ~round2(., 4)) %>%
+  mutate_at(vars(y3, y), ~roundpct(.)) %>%
   select(x, y, y3, tooltip, label)
 
 # Mat dep ----------------------------------------------------------------------
@@ -59,7 +59,7 @@ cp_data$md <- getpovby(hbai, pov = "cmdahc", weight = "gs_newch") %>%
          tooltip = case_when(yearn == 17 & type == "cmdahc" ~ str_c("Old methodology ", tooltip),
                              yearn == 17 & type == "cmdahc_new" ~ str_c("New methodology ", x, ": ", fmtpct(y)),
                            TRUE ~ tooltip)) %>%
-  mutate_at(vars(y, y3), ~round2(., 4)) %>%
+  mutate_at(vars(y, y3), ~roundpct(.)) %>%
   select(x, y, y3, tooltip, label)
 
 # Pers pov ---------------------------------------------------------------------
@@ -78,8 +78,8 @@ cp_data$pers <- persistent %>%
          tooltip = str_c(period, ": ", fmtpct(y)),
          label = fmtpct(y),
          y3 = get3yrcentavg(y),
-         y = round2(y, 4),
-         y3 = round2(y3, 4))
+         y = roundpct(y),
+         y3 = roundpct(y3))
 
 saveRDS(cp_data, "data/cp_data.rds")
 rm(list = ls())

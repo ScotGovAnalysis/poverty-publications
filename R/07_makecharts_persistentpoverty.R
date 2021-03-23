@@ -17,7 +17,7 @@ data <- data %>%
                          levels = c("pp", "ch", "wa", "pn"),
                          labels = c("All individuals", "Children", "Working-age adults", "Pensioners")))
 
-# UK nations AHC and BHC
+# UK nations AHC and BHC -------------------------------------------------------
 
 persistentcharts[["chart01"]] <- data %>%
   filter(group == "All individuals",
@@ -89,6 +89,16 @@ persistentcharts[["chart08"]] <- data %>%
   select(-group, -housingcosts) %>%
   mutate(nation = factor(nation, levels = c("Scotland", "England", "Wales", "Northern Ireland")),
          key = nation) %>%
+  persistentchart()
+
+# Scotland chart AHC (for briefing only) ---------------------------------------
+
+persistentcharts[["Scotland"]] <- data %>%
+  filter(nation == "Scotland",
+         housingcosts == "AHC",
+         nation != "Total") %>%
+  select(-nation, -housingcosts) %>%
+  mutate(key = group) %>%
   persistentchart()
 
 saveRDS(persistentcharts, "data/persistentcharts.rds")

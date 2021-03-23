@@ -11,7 +11,7 @@ hbai <- readRDS("data/tidyhbai.rds") %>%
 adult <- readRDS("data/tidyadult.rds") %>%
   filter(gvtregn == "Scotland") %>%
   mutate(yearn = factor(year, levels = labels$years$years,
-                       labels = labels$years$numbered),
+                        labels = labels$years$numbered),
          yearn = as.numeric(yearn))
 
 povertychartdata <- list()
@@ -87,36 +87,6 @@ povertychartdata$abspov <- rbind(bhc, ahc) %>%
                           " (", x, ")"))
 
 # In-work poverty --------------------------------------------------------------
-# ch <- getpovby(hbai, pov = "low60bhc", weight = "gs_newch", by = "workinghh")
-# wa <- getpovby(hbai, pov = "low60bhc", weight = "gs_newwa", by = "workinghh")
-#
-# bhc <- rbind(ch, wa) %>%
-#   mutate(key = "Before housing costs")
-#
-# ch <- getpovby(hbai, pov = "low60ahc", weight = "gs_newch", by = "workinghh")
-# wa <- getpovby(hbai, pov = "low60ahc", weight = "gs_newwa", by = "workinghh")
-#
-# ahc <- rbind(ch, wa) %>%
-#   mutate(key = "After housing costs")
-#
-# povertychartdata$workpov <- rbind(bhc, ahc) %>%
-#   group_by(weight, key, groupingvar) %>%
-#   get3yrtable() %>%
-#   samplesizecheck() %>%
-#   filter(groupingvar == "Someone in paid work") %>%
-#   mutate_at(vars(contains("composition")), list(~roundpct(.))) %>%
-#   select(yearn, number, composition, weight, key) %>%
-#   mutate(x = factor(yearn,
-#                     levels = labels$years$numbered,
-#                     labels = labels$years$periods,
-#                     ordered = TRUE),
-#          x = fct_drop(x),
-#          y = composition,
-#          label = fmtpct(y),
-#          tooltip = paste0(key, ": ",  fmtpct(y),
-#                           " (", x, ")"))
-
-# In-work poverty --------------------------------------------------------------
 
 ch_all <- getpovby(hbai, pov = "low60ahc", weight = "gs_newch") %>%
   rename(povrate = rate) %>% select(yearn, povrate, weight)
@@ -145,9 +115,9 @@ povertychartdata$workpov <- rbind(ch, wa) %>%
          x = fct_drop(x),
          y = povrate,
          ymax = ifelse(composition == 1, NA, rate_working),
-         label = fmtpct(round2(y, 2)),
-         tooltip = paste0(x, "\n In workless households: ", fmtpct(round2(1 - composition, 2)),
-                          "\nIn working households: ",  fmtpct(round2(composition, 2))),
+         label = fmtpct(y),
+         tooltip = paste0(x, "\n In workless households: ", fmtpct(1 - composition),
+                          "\nIn working households: ",  fmtpct(composition)),
          tooltip = ifelse(composition == 1, paste0(x, "\n Work status not available"), tooltip)) %>%
   arrange(weight, yearn)
 
@@ -170,7 +140,7 @@ abspp <- getpovby(hbai, pov = "low60ahcabs", weight = "gs_newpp", by = "foodsec"
   mutate(x = "People in absolute poverty",
          key = groupingvar,
          y = composition) %>%
-    select(number, x, y, key, weight)
+  select(number, x, y, key, weight)
 
 relch <- getpovby(hbai, pov = "low60ahc", weight = "gs_newch", by = "foodsec") %>%
   filter(yearn >= 26,
@@ -216,7 +186,7 @@ totch <- hbai %>%
   rename(key = foodsec)
 
 povertychartdata$foodsec <- rbind(totpp, totch, relpp, abspp, relch, absch) %>%
-  mutate(tooltip = paste0(key, " food security: ",  fmtpct(y)),
+  mutate(tooltip = paste0(key, " food security: ",  fmtpct(y), " of ", tolower(x)),
          x = factor(x, levels = c("All people",
                                   "People in relative poverty",
                                   "People in absolute poverty",
@@ -286,9 +256,9 @@ povertychartdata$age3 <- rbind(rel1, rel2, rel3) %>%
   mutate(x = case_when(x == "wgt0_4" ~ "0-4",
                        x == "wgt5_12" ~ "5-12",
                        x == "wgt13plus" ~ "13-19"),
-         tooltip = paste0(fmtpct(round2(y, 2)), " (", x, ")")) %>%
+         tooltip = paste0(fmtpct(y), " (", x, ")")) %>%
   rbind(rel0) %>%
-  mutate(label = fmtpct(round2(y, 2)),
+  mutate(label = fmtpct(y),
          x = factor(x, levels = as.character(x)),
          number = fmtpop(round2(number, -4)))
 
@@ -327,7 +297,7 @@ povertychartdata$gender_ages <- hbai %>%
             ratio = older / all,
             sample = n()) %>%
   group_by(sexhd) %>%
-  summarise(older = fmtpct(round2(mean(ratio), 2)))
+  summarise(older = fmtpct(mean(ratio)))
 
 ## marital status --------------------------------------------------------------
 povertychartdata$marital <- getpovby(adult, weight = "adultwgt",
@@ -490,7 +460,7 @@ povertychartdata$cmd <- rbind(ahc, bhc) %>%
          label = fmtpct(y),
          tooltip = ifelse(is.na(y), "Missing",
                           paste0(key, ": ",  fmtpct(y),
-                          " (", x, ")")))
+                                 " (", x, ")")))
 
 ## pensioners ------------------------------------------------------------------
 povertychartdata$pndep <- getpovby(hbai, pov = "mdpn", weight = "wgt65") %>%
@@ -568,8 +538,8 @@ cmd6 <- getpriorityrate(hbai, pov = "cmdahc", by = "ethgrphh_2f",
                         class = "Minority ethnic")
 
 povertychartdata$priority <- rbind(rel, rel1, rel2, rel3, rel4, rel5, rel6,
-                                        abs, abs1, abs2, abs3, abs4, abs5, abs6,
-                                        cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6) %>%
+                                   abs, abs1, abs2, abs3, abs4, abs5, abs6,
+                                   cmd, cmd1, cmd2, cmd3, cmd4, cmd5, cmd6) %>%
   mutate(x = factor(groupingvar,
                     levels = c("All children",
                                "In household with disabled person(s)",
@@ -618,7 +588,7 @@ povertychartdata$medians <- rbind(bhc, ahc) %>%
          y = pp,
          label = stringi::stri_enc_toutf8(paste0("£", round2(y, 0))),
          tooltip = stringi::stri_enc_toutf8(paste0(key, ": £", round2(y, 0),
-                          " (", x, ")")))
+                                                   " (", x, ")")))
 
 ## decile points ---------------------------------------------------------------
 povertychartdata$deciles <- hbai %>%
@@ -628,15 +598,26 @@ povertychartdata$deciles <- hbai %>%
   filter(x != "10") %>%
   group_by(x) %>%
   mutate(value = round2(value, 2)) %>%
-  filter(yearn >= 22) %>%
+  filter(yearn >= 23) %>%
   mutate(key = factor(yearn,
-                    levels = labels$years$numbered,
-                    labels = labels$years$formatted,
-                    ordered = TRUE),
+                      levels = labels$years$numbered,
+                      labels = labels$years$formatted,
+                      ordered = TRUE),
          key = fct_drop(key),
          y = round2(value, 2),
          tooltip = stringi::stri_enc_toutf8(paste0("Decile ", x, ": ",  paste0("£", round2(y, 0)),
-                          " (", key, ")")))
+                                                   " (", key, ")")))
+## income growth ---------------------------------------------------------------
+povertychartdata$growth <- hbai %>%
+  group_by(yearn) %>%
+  getdecptsbhc() %>%
+  gather(x, value, -yearn) %>%
+  filter(x != "10") %>%
+  group_by(x) %>%
+  filter(yearn == max(yearn) | yearn == max(yearn) - 3) %>%
+  summarise(y = roundpct(value[2] / value[1] - 1),
+            label = fmtpct(y),
+         tooltip = stringi::stri_enc_toutf8(paste0("Decile ", max(x), ": ", fmtpct(y))))
 
 ## distribution ----------------------------------------------------------------
 povertychartdata$distribution <- hbai %>%
@@ -688,7 +669,7 @@ povertychartdata$sources <- df %>%
   filter(Decile != "All") %>%
   mutate(x = Decile,
          y = value,
-         tooltip = paste0(key, ": ", fmtpct(y)))
+         tooltip = paste0(key, ": ", fmtpct(y), " of decile ", x, " income"))
 
 ## palma -----------------------------------------------------------------------
 palma_bhc <- hbai %>%
@@ -697,7 +678,6 @@ palma_bhc <- hbai %>%
   mutate(Palma = share[10] / sum(share[1:4])) %>%
   group_by(Decile) %>%
   mutate(Palma = get3yraverage(Palma),
-         Palma = roundpct(Palma),
          key = "Before housing costs")
 
 palma_ahc <- hbai %>%
@@ -706,16 +686,15 @@ palma_ahc <- hbai %>%
   mutate(Palma = share[10] / sum(share[1:4])) %>%
   group_by(Decile) %>%
   mutate(Palma = get3yraverage(Palma),
-         Palma = roundpct(Palma),
          key = "After housing costs")
 
 povertychartdata$palma <- rbind(palma_bhc, palma_ahc) %>%
   ungroup() %>%
   filter(Decile == 10,
          yearn >= 3) %>%
-  mutate(Palma = roundpct(Palma)) %>%
   select(yearn, Palma, key) %>%
-  mutate(x = factor(yearn,
+  mutate(Palma = roundpct(Palma),
+         x = factor(yearn,
                     levels = labels$years$numbered,
                     labels = labels$years$periods,
                     ordered = TRUE),
@@ -729,21 +708,19 @@ gini_bhc <- hbai %>%
   group_by(yearn) %>%
   summarise(Gini = gini(s_oe_bhc, weights = gs_newpp)) %>%
   mutate(Gini = get3yraverage(Gini),
-         Gini = roundpct(Gini),
          key = "Before housing costs")
 
 gini_ahc <- hbai %>%
   group_by(yearn) %>%
   summarise(Gini = gini(s_oe_ahc, weights = gs_newpp)) %>%
   mutate(Gini = get3yraverage(Gini),
-         Gini = roundpct(Gini),
          key = "After housing costs")
 
 povertychartdata$gini <- rbind(gini_bhc, gini_ahc) %>%
-  mutate(Gini = roundpct(Gini)) %>%
   filter(yearn >= 3) %>%
   select(yearn, Gini, key) %>%
-  mutate(x = factor(yearn,
+  mutate(Gini = roundpct(Gini),
+         x = factor(yearn,
                     levels = labels$years$numbered,
                     labels = labels$years$periods,
                     ordered = TRUE),

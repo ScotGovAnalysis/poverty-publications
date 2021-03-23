@@ -8,7 +8,7 @@ hbai <- readRDS("data/tidyhbai.rds") %>%
 
 povertytables <- list()
 
-# table 1 - BHC poverty thresholds ----
+# table 1 - BHC poverty thresholds ---------------------------------------------
 
 latesthbai_1 <- filter(hbai, yearn == max(yearn))
 latesthbai_2 <- filter(hbai, yearn == max(yearn) - 1)
@@ -33,7 +33,7 @@ povertytables$table1 <- df %>%
   mutate_at(vars(starts_with("annual")), ~comma2(., 100, prefix = "£")) %>%
   head(4L)
 
-# table 2 - equivalence scale
+# table 2 - equivalence scale --------------------------------------------------
 
 povertytables$table2 <- data.frame( " " = c("First adult",
                           "Spouse",

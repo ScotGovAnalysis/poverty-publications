@@ -358,7 +358,7 @@ povertycharts$chart20 <- linechart(data, recession = FALSE) +
 ## chart21 gender pn -----------------------------------------------------------
 data <-  filter(povertychartdata$gender,
                 key %in% c("Single male pensioner",
-                            "Single female pensioner"))
+                           "Single female pensioner"))
 
 povertycharts$chart21 <- linechart(data, recession = FALSE) +
   scale_y_continuous(limits = c(0.07, 0.54)) +
@@ -410,7 +410,7 @@ povertycharts$chart26 <- linechart(data, recession = FALSE) +
   disabilitybreaks() +
   addsource() +
   addlabels() +
-  addnames(up = c(-0.05, -0.06))
+  addnames(up = c(-0.05, -0.07))
 
 # Income inequality ------------------------------------------------------------
 
@@ -450,11 +450,11 @@ povertycharts$chart30 <- ggplot(data,
 
   geom_bar_interactive(aes(tooltip = tooltip,
                            data_id = tooltip),
-           position = 'dodge',
-           colour = "white",
-           stat = "identity") +
+                       position = 'dodge',
+                       colour = "white",
+                       stat = "identity") +
 
-  scale_fill_manual(values = rev(SGblues)) +
+  scale_fill_manual(values = rev(SGblues[1:5])) +
 
   scale_x_discrete(labels = c("1st", "2nd", "3rd", "4th", "5th", "6th", "7th",
                               "8th", "9th"),
@@ -471,7 +471,39 @@ povertycharts$chart30 <- ggplot(data,
 
   addsource()
 
-## chart31 distribution --------------------------------------------------------
+## chart31 income growth ------------------------------------------------------
+
+data <- povertychartdata$growth
+povertycharts$chart31 <- ggplot(data,
+                                aes(x = x, y = y,
+                                    label = label)) +
+
+  geom_bar_interactive(aes(tooltip = tooltip,
+                           data_id = tooltip),
+                       position = 'dodge',
+                       fill = SGblue,
+                       colour = "white",
+                       stat = "identity") +
+  geom_text(aes(y = ifelse(y < 0, y - 0.009, y + 0.009)),
+            colour = SGgreys[1]) +
+
+  scale_x_discrete(labels = c("1st", "2nd", "3rd", "4th", "5th", "6th", "7th",
+                              "8th", "9th"),
+                   expand = c(0.1, 0.1)) +
+
+  scale_y_continuous(labels = percent_format(1),
+                     limits = c(-0.1, 0.1)) +
+
+  theme(axis.line.y = element_line(),
+        axis.text.y = element_text(hjust = 1,
+                                   margin = margin(0, 3, 0, 0, "pt")),
+        axis.ticks.length = unit(2, "pt"),
+        axis.ticks.y = element_line(),
+        axis.title = element_blank()) +
+
+  addsource()
+
+## chart32 distribution --------------------------------------------------------
 
 data <- povertychartdata$distribution %>%
   filter(income > 0,
@@ -481,7 +513,7 @@ decilepts <- povertychartdata$distdecs
 povthreshold <- povertychartdata$distthresh$povthresh
 Scotmedian <- povertychartdata$distthresh$Scotmedian
 
-povertycharts$chart31 <- ggplot(data = data,
+povertycharts$chart32 <- ggplot(data = data,
                                 mapping = aes(x = income, weight = gs_newpp)) +
   geom_density(colour = NA,
                fill = SGmix[1],
@@ -547,10 +579,10 @@ povertycharts$chart31 <- ggplot(data = data,
 
   addsource()
 
-## chart32 sources -------------------------------------------------------------
+## chart33 sources -------------------------------------------------------------
 data <- povertychartdata$sources
 
-povertycharts$chart32 <- ggplot(data,
+povertycharts$chart33 <- ggplot(data,
                                 aes(x = x, y = y, fill = key, width = 1)) +
 
   geom_bar_interactive(aes(tooltip = tooltip,
@@ -563,8 +595,8 @@ povertycharts$chart32 <- ggplot(data,
 
   scale_y_continuous(labels = percent_format(1)) +
   scale_x_discrete(breaks = c(seq(1, 10, 1)),
-                     labels = c("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
-                     expand = c(0.05, 0.05)) +
+                   labels = c("1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"),
+                   expand = c(0.05, 0.05)) +
 
   theme(axis.line = element_line(),
         axis.text.y = element_text(hjust = 1,

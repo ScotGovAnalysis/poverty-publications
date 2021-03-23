@@ -618,7 +618,7 @@ rel_pp <- getpovby(hbai, by = "dispp_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc", by = "dispp_hh") %>%
   group_by(groupingvar) %>%
@@ -628,7 +628,7 @@ sev_pp <- getpovby(hbai, pov = "low50ahc", by = "dispp_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ch <- getpovby(hbai, by = "disch_hh") %>%
   group_by(groupingvar) %>%
@@ -638,7 +638,7 @@ rel_ch <- getpovby(hbai, by = "disch_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc", by = "disch_hh") %>%
   group_by(groupingvar) %>%
@@ -648,7 +648,7 @@ sev_ch <- getpovby(hbai, pov = "low50ahc", by = "disch_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ad <- getpovby(hbai, by = "disad_hh") %>%
   group_by(groupingvar) %>%
@@ -658,7 +658,7 @@ rel_ad <- getpovby(hbai, by = "disad_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc", by = "disad_hh") %>%
   group_by(groupingvar) %>%
@@ -668,7 +668,7 @@ sev_ad <- getpovby(hbai, pov = "low50ahc", by = "disad_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -741,16 +741,23 @@ data <- list(sheet = "18 Disability",
                            "Since 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities.",
                            "Therefore, care needs to be taken when considering long-term trends.",
                            "4. Since the last break in the methodology caused a large change in the size of the disabled population, the estimated numbers in poverty before and after the break cannot be directly compared and no three-year averaged data is available during the break.",
-                           "5. Data on disability is available from 1995/96.",
-                           "6. Previously, we reported on disabled family members, not household members.",
-                           "Therefore, these estimates are not directly comparable with the estimates reported in previous publications."))
+                           "5. Previously, we reported on disabled family members, not household members.",
+                           "Therefore, these estimates are not directly comparable with the estimates reported in previous publications.",
+                           "6. Data on disabled children is available from 1995/96."))
 
 # Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
 
 # mark missing data ("--")
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 35)
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 74)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 35)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 74)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 11)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 24)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 37)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 50)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 63)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 76)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 89)
 
 ## 19 Disability with benefits removed from income --------------------------------
 
@@ -762,7 +769,7 @@ rel_pp <- getpovby(hbai, pov = "low60ahc_dis", by = "dispp_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc_dis", by = "dispp_hh") %>%
   group_by(groupingvar) %>%
@@ -772,7 +779,7 @@ sev_pp <- getpovby(hbai, pov = "low50ahc_dis", by = "dispp_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ch <- getpovby(hbai, pov = "low60ahc_dis", by = "disch_hh") %>%
   group_by(groupingvar) %>%
@@ -782,7 +789,7 @@ rel_ch <- getpovby(hbai, pov = "low60ahc_dis", by = "disch_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc_dis", by = "disch_hh") %>%
   group_by(groupingvar) %>%
@@ -792,7 +799,7 @@ sev_ch <- getpovby(hbai, pov = "low50ahc_dis", by = "disch_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 rel_ad <- getpovby(hbai, pov = "low60ahc_dis", by = "disad_hh") %>%
   group_by(groupingvar) %>%
@@ -802,7 +809,7 @@ rel_ad <- getpovby(hbai, pov = "low60ahc_dis", by = "disad_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc_dis", by = "disad_hh") %>%
   group_by(groupingvar) %>%
@@ -812,7 +819,7 @@ sev_ad <- getpovby(hbai, pov = "low50ahc_dis", by = "disad_hh") %>%
   mutate(year = factor(yearn,
                        levels = labels$years$numbered,
                        labels = labels$years$periods)) %>%
-  filter(yearn >= 4)
+  filter(yearn >= 3)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -887,16 +894,23 @@ data <- list(sheet = "19 Disability adj",
                            "Since 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities.",
                            "Therefore, care needs to be taken when considering long-term trends.",
                            "5. Since the last break in the methodology caused a large change in the size of the disabled population, the estimated numbers in poverty before and after the break cannot be directly compared and no three-year averaged data is available during the break.",
-                           "6. Data on disability is available from 1995/96.",
-                           "7. Previously, we reported on disabled family members, not household members.",
-                           "Therefore, these estimates are not directly comparable with the estimates reported in previous publications."))
+                           "6. Previously, we reported on disabled family members, not household members.",
+                           "Therefore, these estimates are not directly comparable with the estimates reported in previous publications.",
+                           "7. Data on disabled children is available from 1995/96."))
 
 # Create spreadsheet and new worksheet
 createWideSpreadsheet(data)
 
 # mark missing data ("--")
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 35)
-mark_missing(data, ncols = 2, nrows = 6, xlscol = 18, xlsrow = 74)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 35)
+mark_missing(data, ncols = 2, nrows = 6, xlscol = 19, xlsrow = 74)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 11)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 24)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 37)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 50)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 63)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 76)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 3, xlsrow = 89)
 
 ## 20 Ethnicity ----------------------------------------------------------------
 

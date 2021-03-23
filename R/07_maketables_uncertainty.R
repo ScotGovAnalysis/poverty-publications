@@ -44,7 +44,7 @@ data <- rbind(relahc, relbhc,
   filter(thresh == 60 | is.na(thresh)) %>%
 
   mutate_at(vars(contains("num")), ~fmtpop(round2(., -4))) %>%
-  mutate_at(vars(contains("rate")), ~round2(., 2)) %>%
+  mutate_at(vars(contains("rate")), ~round2(., 1)) %>%
   mutate(Group = word(group, 1),
          Group = ifelse(Group == "Working-age", "Working-age adults", Group),
          Group = ifelse(Group == "Lowinc", "Children", Group),
