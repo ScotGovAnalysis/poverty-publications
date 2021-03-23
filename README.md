@@ -44,37 +44,37 @@ Tidy datasets are now available to produce reports and spreadsheets.
   * website/uncertainty.Rmd
   * website/contact.Rmd
 
-* Run last line of R/08_create_website.R again, inspect website, make required changes to the .Rmd files, and repeat until happy
+* Run last line of R/08_create_website.R again, inspect website, make required changes to the commentary in the .Rmd files, and repeat until happy
 
 # List of scripts
 
 ### Helpers
 
-* R/00_colours.R
+* R/00_colours.R (colour palettes)
 * R/00_functions.R
-* R/00_functions_rmd.R
-* R/00_strings.R
+* R/00_functions_rmd.R (functions required to run Rmd files)
+* R/00_strings.R (list of formatted years and periods, categories, etc.)
 
 ### Data prep<a name="dataprep"></a>
 
 * R/01_importSASfiles.R - takes a very long time to run, maybe do at night; script not included on GitHub
-* R/01_importpersistentpovertydata.R - depends on persistent poverty data being supplied in a certain format; script not included on GitHub
+* R/01_importpersistentpovertydata.R - requires persistent poverty data being supplied in the typical format; script not included on GitHub
 * R/02_cleanadultdata.R
 * R/02_cleanbenefitsdata.R
 * R/02_cleanchilddata.R
 * R/02_cleanhbaidata.R
 * R/02_cleanhouseholdata.R
-* R/03_maketidydatasets.R
+* R/03_maketidydatasets.R - combines various HBAI and FRS datasets into two tidy datasets: one adult-level and one benefit unit-level
 
 ### Create spreadsheets
 
-* R/04_xlsx_1yr_part1.R
+* R/04_xlsx_1yr_part1.R - single year data
 * R/04_xlsx_1yr_part2.R
-* R/04_xlsx_3yrs_part1.R
+* R/04_xlsx_3yrs_part1.R - three-year averaged data
 * R/04_xlsx_3yrs_part2.R
 * R/04_xlsx_3yrs_part3.R
 * R/04_xlsx_3yrs_part4.R
-* R/04_xlsx_3yrs_UK.R
+* R/04_xlsx_3yrs_UK.R - UK comparisons for briefing (not requried for website)
 * R/05_xlsx_run_all.R - runs all xlsx (R/04_...) scripts and copies spreadsheets (for publication) into website folder
 
 ### Create charts and tables included in reports
@@ -100,7 +100,7 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
 ### Rmd files
 
-These will be compiled into html pages.
+These will be compiled into seven html pages.
 
 * index.Rmd
 * \_poverty_chapters/\_chapter01.Rmd
@@ -134,7 +134,7 @@ These will be compiled into html pages.
 * \_site.yml
 * \_footer.html
 * \_navbar.html
-* \_template.html
+* \_template.html - this pandoc template differs from the default in how the main html blocks (nav, main, footer) are configured
 
 ### Images and spreadsheets
 
