@@ -1,7 +1,7 @@
 ---
 title: "Accessibility"
 lang: "en"
-description: "Accessibility information for the content of the https://data.gov.scot/poverty webpages, including the official poverty statistics for Scotland."
+description: "Accessibility information for the content of the data.gov.scot\/poverty webpages, including the official poverty statistics for Scotland."
 ---
 
 ```{r setup, include = FALSE}

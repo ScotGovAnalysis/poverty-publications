@@ -4,22 +4,22 @@ lang: "en"
 description: "Data download for the official poverty and income inequality statistics in Scotland"
 ---
 
-The data used to produce the charts of the main report and the Child Poverty summary is available for download below. The files also contain further poverty and child poverty analysis which is not shown in the charts of the main report.
+The data used to produce the charts of the main report and the child poverty summary is available for download below. The files also contain further poverty and child poverty analysis which is not shown in the charts of the main report.
 
 ## Poverty and child poverty data
 
 Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately:
 
-- [**all data (xlsx, 220 KB)**](xls/All three-year average.xlsx) - all data from the main report except for Figure 30, plus additional poverty and child poverty breakdowns
+- [**all data (xlsx, 250 KB)**](xls/All three-year average.xlsx) - all data from the main report except for the data in Figures 30-32, plus additional poverty and child poverty breakdowns
 - [confidence intervals](uncertainty.html) - measurement uncertainty information for the headline estimates
 
-In addition, the estimates of the headline indicators based on single years of data are also available. These are used in the [Child poverty summary](cpupdate.html) alongside the trend data, in Figure 30 of the main report, but otherwise not used in the charts:
+In addition, estimates of the headline indicators and household income based on single years of data are also available. These are used in the [child poverty summary](cpupdate.html) alongside the trend data, as well as in Figures 30 and 31 of the main report. They are not used in any other charts:
 
-- [single-year poverty and income data (xlsx, 60 KB)](xls/All single year.xlsx)
+- [single-year poverty and income data (xlsx, 70 KB)](xls/All single year.xlsx)
 
 ## Persistent poverty data
 
-Tables of the persistent poverty estimates are included in the [Persistent Poverty report](persistent.html).
+Tables of the persistent poverty estimates are included in the [persistent poverty report](persistent.html).
 
 
 

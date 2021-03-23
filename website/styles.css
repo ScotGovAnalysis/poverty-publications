@@ -1,3 +1,6 @@
+main {
+  overflow-x: hidden;
+}
 
 body {
     font-family: Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -103,7 +106,7 @@ nav:before {
 
 /* hide navbar (and show button menu) on smaller screens -------------------- */
 
-@media (max-width: 1200px) {
+@media (max-width: 992px) {
     .navbar-header {
         float: none;
     }
@@ -144,6 +147,7 @@ nav:before {
 @media (max-width: 768px) {
   .navbar-fixed-top {
     position: relative;
+    margin-top: -69px;
   }
 }
 
@@ -235,7 +239,7 @@ a:focus {
   margin-bottom: 0;
 }
 
-/* Visible to screenreaders only */
+/* Visible to screenreaders only -------------------------------------------- */
 
 .visually-hidden {
       position: absolute;
@@ -355,6 +359,7 @@ footer{
 
 
 /* print styles ------------------------------------------------------------- */
+
 @media print {
 
   /* remove navbar, table of contents, back-to-top link, footer */
@@ -392,7 +397,7 @@ footer{
     margin: 2cm 1cm 1cm 1cm;
   }
   figure {
-    max-width: 50%;
+    max-width: 60%;
     page-break-inside: avoid;
   }
 
@@ -431,8 +436,9 @@ footer{
   /* format headings and text */
   body {
     font-size: 12px;
-    margin-top: 6px;
+    margin-top: -12px;
     margin-bottom: 6px;
+    padding: 0 !important;
   }
   p {
     font-size: 12px;
@@ -442,7 +448,6 @@ footer{
   }
   h1 {
     font-size: 28px;
-    margin-top: -74px;
     margin-bottom: 12px;
   }
   h2 {
@@ -455,7 +460,9 @@ footer{
     font-size: 12px;
     text-decoration: underline;
   }
-
+  table {
+    font-size: 12px;
+  }
 
   figcaption {
     font-size: 12px;
