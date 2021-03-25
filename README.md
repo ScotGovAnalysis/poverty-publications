@@ -21,7 +21,7 @@ The following R files are missing from the github repository, because they conta
 * Run all [Data prep](#dataprep) scripts.
 * Make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. 
 
-Tidy datasets are now available to produce reports and spreadsheets.
+Tidy datasets are now available in the data folder to produce reports and spreadsheets.
 
 ### 2. Create everything
 
@@ -73,6 +73,8 @@ Tidy datasets are now available to produce reports and spreadsheets.
 * R/04_xlsx_3yrs_part4.R
 * R/04_xlsx_3yrs_UK.R - UK comparisons for briefing (not included as not required for website)
 * R/05_xlsx_run_all.R - runs all xlsx (R/04_...) scripts and copies spreadsheets (for publication) into website folder
+
+Spreadsheets are saved in output folder
 
 ### Create charts and tables included in reports
 
