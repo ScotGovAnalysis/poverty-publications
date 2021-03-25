@@ -121,40 +121,42 @@ povertychartdata$workpov <- rbind(ch, wa) %>%
          tooltip = ifelse(composition == 1, paste0(x, "\n Work status not available"), tooltip)) %>%
   arrange(weight, yearn)
 
-#View(povertychartdata$workpov)
-
 ## food security ---------------------------------------------------------------
-relpp <- getpovby(hbai, pov = "low60ahc", weight = "gs_newpp", by = "foodsec") %>%
-  filter(yearn >= 26,
-         groupingvar != "(Missing)",
-         groupingvar != "All") %>%
+relpp <- filter(hbai,
+                foodsec != "(Missing)",
+                yearn >= 26) %>%
+  getpovby(pov = "low60ahc", weight = "gs_newpp", by = "foodsec") %>%
+  filter(groupingvar != "All") %>%
   mutate(x = "People in relative poverty",
          key = groupingvar,
          y = composition) %>%
   select(number, x, y, key, weight)
 
-abspp <- getpovby(hbai, pov = "low60ahcabs", weight = "gs_newpp", by = "foodsec") %>%
-  filter(yearn >= 26,
-         groupingvar != "(Missing)",
-         groupingvar != "All") %>%
+abspp <- filter(hbai,
+                foodsec != "(Missing)",
+                yearn >= 26) %>%
+  getpovby(pov = "low60ahcabs", weight = "gs_newpp", by = "foodsec") %>%
+  filter(groupingvar != "All") %>%
   mutate(x = "People in absolute poverty",
          key = groupingvar,
          y = composition) %>%
   select(number, x, y, key, weight)
 
-relch <- getpovby(hbai, pov = "low60ahc", weight = "gs_newch", by = "foodsec") %>%
-  filter(yearn >= 26,
-         groupingvar != "(Missing)",
-         groupingvar != "All") %>%
+relch <- filter(hbai,
+                foodsec != "(Missing)",
+                yearn >= 26) %>%
+  getpovby(pov = "low60ahc", weight = "gs_newch", by = "foodsec") %>%
+  filter(groupingvar != "All") %>%
   mutate(x = "Children in relative poverty",
          key = groupingvar,
          y = composition) %>%
   select(number, x, y, key, weight)
 
-absch <- getpovby(hbai, pov = "low60ahcabs", weight = "gs_newch", by = "foodsec") %>%
-  filter(yearn >= 26,
-         groupingvar != "(Missing)",
-         groupingvar != "All") %>%
+absch <- filter(hbai,
+                foodsec != "(Missing)",
+                yearn >= 26) %>%
+  getpovby(pov = "low60ahcabs", weight = "gs_newch", by = "foodsec") %>%
+  filter(groupingvar != "All") %>%
   mutate(x = "Children in absolute poverty",
          key = groupingvar,
          y = composition) %>%

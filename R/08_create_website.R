@@ -1,6 +1,8 @@
 
 # Run code once all micro-data is updated and R/03_maketidydatasets.R runs ok
 
+Sys.time()
+
 # Make spreadsheets (takes a few minutes)
 source("R/05_xlsx_run_all.R")
 
@@ -22,3 +24,7 @@ rmarkdown::clean_site(input = "./website")
 rmarkdown::render_site(input = "./website",
                        output_format = 'bookdown::html_document2',
                        encoding = 'UTF-8')
+
+Sys.time()
+
+

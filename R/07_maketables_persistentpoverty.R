@@ -3,10 +3,12 @@
 library(tidyverse)
 library(scales)
 
+source("R/00_functions.R")
+
 data <- readRDS("data/persistentpoverty.rds")
 
 data <- data %>%
-  mutate_if(is.numeric, ~round(., 2)) %>%
+  mutate_if(is.numeric, ~round2(., 2)) %>%
   mutate(group = factor(group, levels = c("pp", "ch", "wa", "pn")),
          value = ifelse(housingcosts == "sample", comma(value, 1),
                         percent(value, 1))) %>%

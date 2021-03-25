@@ -7,6 +7,10 @@ source("R/00_strings.R")
 filename <- "output/UK comparisons.xlsx"
 
 hbai <- readRDS("data/tidyhbai.rds")
+persistent <- readRDS("data/persistentpoverty.rds") %>%
+  mutate_if(is.numeric, ~round2(., 2)) %>%
+  mutate(group = factor(group, levels = c("pp", "ch", "wa", "pn"))) %>%
+  rename(Period = period)
 
 # 1 Relative AHC ---------------------------------------------------------------
 pp <- getpovby(hbai, pov = "low60ahc", by = "gvtregn") %>%
@@ -427,7 +431,407 @@ data <- list(file = filename,
 # Create new worksheet
 createWideSpreadsheet(data)
 
-# 8 Food security --------------------------------------------------------------
+# 8 Latest AHC -----------------------------------------------------------------
+
+# Rel AHC
+pp <- getpovby(hbai, pov = "low60ahc", by = "gvtregn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+ch <- getpovby(hbai, pov = "low60ahc", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+wa <- getpovby(hbai, pov = "low60ahc", by = "gvtregn", weight = "gs_newwa") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+pn <- getpovby(hbai, pov = "low60ahc", by = "gvtregn", weight = "gs_newpn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+relahc <- rbind(pp, ch, wa, pn)  %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         group = case_when(weight == "gs_newpp" ~ "People",
+                           weight == "gs_newch" ~ "Children",
+                           weight == "gs_newwa" ~ "Working-age adults",
+                           weight == "gs_newpn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                           "Working-age adults", "Pensioners"))) %>%
+  roundall() %>%
+  select(Region, rate, group) %>%
+  spread(group, rate)
+
+# In-work AHC
+df <- hbai %>%
+  filter(low60ahc == 1,
+         yearn >= max(yearn) - 2) %>%
+  mutate(workinghh = factor(workinghh, levels = labels$workinghh$labels,
+                            labels = labels$workinghh$codes))
+
+ch <- getpovby(df, pov = "workinghh", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+wa <- getpovby(df, pov = "workinghh", by = "gvtregn", weight = "gs_newwa") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+workahc <- rbind(ch, wa) %>%
+  mutate(Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         group = case_when(weight == "gs_newpp" ~ "People",
+                           weight == "gs_newch" ~ "Children",
+                           weight == "gs_newwa" ~ "Working-age adults",
+                           weight == "gs_newpn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners"))) %>%
+  roundall() %>%
+  select(Region, rate, group) %>%
+  spread(group, rate) %>%
+  mutate(People = NA,
+         Pensioners = NA) %>%
+  select(Region, People, Children, "Working-age adults", Pensioners)
+
+# Abs AHC
+pp <- getpovby(hbai, pov = "low60ahcabs", by = "gvtregn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+ch <- getpovby(hbai, pov = "low60ahcabs", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+wa <- getpovby(hbai, pov = "low60ahcabs", by = "gvtregn", weight = "gs_newwa") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+pn <- getpovby(hbai, pov = "low60ahcabs", by = "gvtregn", weight = "gs_newpn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+absahc <- rbind(pp, ch, wa, pn)  %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         group = case_when(weight == "gs_newpp" ~ "People",
+                           weight == "gs_newch" ~ "Children",
+                           weight == "gs_newwa" ~ "Working-age adults",
+                           weight == "gs_newpn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners"))) %>%
+  roundall() %>%
+  select(Region, rate, group) %>%
+  spread(group, rate)
+
+# Pers AHC
+
+persahc <- persistent %>%
+  filter(housingcosts == "AHC",
+         Period == max(Period)) %>%
+  mutate(group = case_when(group == "pp" ~ "People",
+                           group == "ch" ~ "Children",
+                           group == "wa" ~ "Working-age adults",
+                           group == "pn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners")),
+         Region = ifelse(nation == "Total", "UK", nation),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, value, group) %>%
+  spread(group, value)
+
+# Child AHC
+
+chrel <- getpovby(hbai, pov = "low60ahc", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  roundall() %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(group = "Relative",
+         Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                   "Wales", "Northern Ireland"))) %>%
+  select(Region, group, rate)
+
+chabs <- getpovby(hbai, pov = "low60ahcabs", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  roundall() %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(group = "Absolute",
+         Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, group, rate)
+
+chmd <- getpovby(hbai, pov = "cmdahc", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  roundall() %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(group = "Low income & material deprivation",
+         Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, group, rate)
+
+chpers <- persistent %>%
+  filter(housingcosts == "AHC",
+         group == "ch",
+         Period == max(Period)) %>%
+  mutate(Region = ifelse(nation == "Total", "UK", nation),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         rate = value) %>%
+  select(Region, rate) %>%
+  mutate(group = "Persistent")
+
+chall <- rbind(chrel, chabs, chmd, chpers) %>%
+  mutate(group = factor(group, levels = c("Relative", "Absolute",
+                                          "Low income & material deprivation",
+                                          "Persistent"))) %>%
+  spread(group, rate)
+
+data <- list(file = filename,
+             sheet = "8 Latest AHC",
+             sheettitle = "8. Latest estimates after housing costs",
+             dfs = list(chall, relahc, workahc, absahc, persahc),
+             formats = c("pct", "pct","pct","pct","pct"),
+             totalrow = TRUE,
+             titles = c("Child poverty target measures",
+                        "Relative poverty",
+                        "Share of those in poverty who live in working households",
+                        "Absolute poverty",
+                        "Persistent poverty"),
+             subtitles = c("Three-year averages, 2017-20, except for persistent poverty, 2015-2019",
+                           "Three-year averages, 2017-20",
+                           "Three-year averages, 2017-20",
+                           "Three-year averages, 2017-20",
+                           "2015-19"),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset"
+)
+
+# Create new worksheet
+createWideSpreadsheet(data)
+
+wb <- loadWorkbook(data$file)
+addStyle(wb, sheet = data$sheet, style = createStyle(wrapText = TRUE),
+         rows = 1:100, cols = 5, stack = TRUE)
+addStyle(wb, sheet = data$sheet, style = createStyle(fgFill = "#dce6f1"),
+         rows = c(10, 21, 32, 43, 54), cols = 2:6, stack = TRUE, gridExpand = TRUE)
+saveWorkbook(wb, filename, overwrite = TRUE)
+
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 5, xlsrow = 8)
+mark_missing(data, ncols = 1, nrows = 2, xlscol = 5, xlsrow = 11)
+mark_missing(data, ncols = 1, nrows = 5, xlscol = 3, xlsrow = 30)
+mark_missing(data, ncols = 1, nrows = 5, xlscol = 6, xlsrow = 30)
+
+# 9 Latest BHC -----------------------------------------------------------------
+
+# Rel bhc
+pp <- getpovby(hbai, pov = "low60bhc", by = "gvtregn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+ch <- getpovby(hbai, pov = "low60bhc", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+wa <- getpovby(hbai, pov = "low60bhc", by = "gvtregn", weight = "gs_newwa") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+pn <- getpovby(hbai, pov = "low60bhc", by = "gvtregn", weight = "gs_newpn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+relbhc <- rbind(pp, ch, wa, pn)  %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         group = case_when(weight == "gs_newpp" ~ "People",
+                           weight == "gs_newch" ~ "Children",
+                           weight == "gs_newwa" ~ "Working-age adults",
+                           weight == "gs_newpn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners"))) %>%
+  roundall() %>%
+  select(Region, rate, group) %>%
+  spread(group, rate)
+
+# In-work bhc
+df <- hbai %>%
+  filter(low60bhc == 1,
+         yearn >= max(yearn) - 2) %>%
+  mutate(workinghh = factor(workinghh, levels = labels$workinghh$labels,
+                            labels = labels$workinghh$codes))
+
+ch <- getpovby(df, pov = "workinghh", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+wa <- getpovby(df, pov = "workinghh", by = "gvtregn", weight = "gs_newwa") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+workbhc <- rbind(ch, wa) %>%
+  mutate(Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         group = case_when(weight == "gs_newpp" ~ "People",
+                           weight == "gs_newch" ~ "Children",
+                           weight == "gs_newwa" ~ "Working-age adults",
+                           weight == "gs_newpn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners"))) %>%
+  roundall() %>%
+  select(Region, rate, group) %>%
+  spread(group, rate) %>%
+  mutate(People = NA,
+         Pensioners = NA) %>%
+  select(Region, People, Children, "Working-age adults", Pensioners)
+
+# Abs bhc
+pp <- getpovby(hbai, pov = "low60bhcabs", by = "gvtregn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+ch <- getpovby(hbai, pov = "low60bhcabs", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+wa <- getpovby(hbai, pov = "low60bhcabs", by = "gvtregn", weight = "gs_newwa") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+pn <- getpovby(hbai, pov = "low60bhcabs", by = "gvtregn", weight = "gs_newpn") %>%
+  group_by(groupingvar) %>%
+  get3yrtable()
+
+absbhc <- rbind(pp, ch, wa, pn)  %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         group = case_when(weight == "gs_newpp" ~ "People",
+                           weight == "gs_newch" ~ "Children",
+                           weight == "gs_newwa" ~ "Working-age adults",
+                           weight == "gs_newpn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners"))) %>%
+  roundall() %>%
+  select(Region, rate, group) %>%
+  spread(group, rate)
+
+# Pers bhc
+
+persbhc <- persistent %>%
+  filter(housingcosts == "BHC",
+         Period == max(Period)) %>%
+  mutate(group = case_when(group == "pp" ~ "People",
+                           group == "ch" ~ "Children",
+                           group == "wa" ~ "Working-age adults",
+                           group == "pn" ~ "Pensioners"),
+         group = factor(group, levels = c("People", "Children",
+                                          "Working-age adults", "Pensioners")),
+         Region = ifelse(nation == "Total", "UK", nation),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, value, group) %>%
+  spread(group, value)
+
+# Child bhc
+
+chrel <- getpovby(hbai, pov = "low60bhc", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  roundall() %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(group = "Relative",
+         Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, group, rate)
+
+chabs <- getpovby(hbai, pov = "low60bhcabs", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  roundall() %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(group = "Absolute",
+         Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, group, rate)
+
+chmd <- getpovby(hbai, pov = "cmdbhc", by = "gvtregn", weight = "gs_newch") %>%
+  group_by(groupingvar) %>%
+  get3yrtable() %>%
+  roundall() %>%
+  filter(yearn == max(yearn)) %>%
+  mutate(group = "Low income & material deprivation",
+         Region = ifelse(groupingvar == "All", "UK", groupingvar),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland"))) %>%
+  select(Region, group, rate)
+
+chpers <- persistent %>%
+  filter(housingcosts == "BHC",
+         group == "ch",
+         Period == max(Period)) %>%
+  mutate(Region = ifelse(nation == "Total", "UK", nation),
+         Region = factor(Region, levels = c("UK", "England", "Scotland",
+                                            "Wales", "Northern Ireland")),
+         rate = value) %>%
+  select(Region, rate) %>%
+  mutate(group = "Persistent")
+
+chall <- rbind(chrel, chabs, chmd, chpers) %>%
+  mutate(group = factor(group, levels = c("Relative", "Absolute",
+                                          "Low income & material deprivation",
+                                          "Persistent"))) %>%
+  spread(group, rate)
+
+data <- list(file = filename,
+             sheet = "9 Latest BHC",
+             sheettitle = "9. Latest estimates before housing costs",
+             dfs = list(chall, relbhc, workbhc, absbhc, persbhc),
+             formats = c("pct", "pct","pct","pct","pct"),
+             totalrow = TRUE,
+             titles = c("Child poverty target measures",
+                        "Relative poverty",
+                        "Share of those on poverty who live in working households",
+                        "Absolute poverty",
+                        "Persistent poverty"),
+             subtitles = c("Three-year averages, 2017-20, except for persistent poverty, 2015-2019",
+                           "Three-year averages, 2017-20",
+                           "Three-year averages, 2017-20",
+                           "Three-year averages, 2017-20",
+                           "2015-19"),
+             source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset"
+)
+
+# Create new worksheet
+createWideSpreadsheet(data)
+
+wb <- loadWorkbook(data$file)
+addStyle(wb, sheet = data$sheet, style = createStyle(wrapText = TRUE),
+         rows = 1:100, cols = 5, stack = TRUE)
+addStyle(wb, sheet = data$sheet, style = createStyle(fgFill = "#dce6f1"),
+         rows = c(10, 21, 32, 43, 54), cols = 2:6, stack = TRUE, gridExpand = TRUE)
+saveWorkbook(wb, filename, overwrite = TRUE)
+
+mark_missing(data, ncols = 1, nrows = 5, xlscol = 3, xlsrow = 30)
+mark_missing(data, ncols = 1, nrows = 5, xlscol = 6, xlsrow = 30)
+
+# 10 Food security -------------------------------------------------------------
 
 pp <- hbai %>%
   filter(yearn >= 26,
@@ -448,7 +852,7 @@ pp_all <- hbai %>%
   summarise(number = sum(gs_newpp),
             composition = roundpct(number / max(population)),
             group = "All people",
-            gvtregn = "All") %>%
+            gvtregn = "UK") %>%
   select(gvtregn, group, foodsec, composition)
 
 pp_rel <- hbai %>%
@@ -472,7 +876,7 @@ pp_rel_all <- hbai %>%
   summarise(number = sum(gs_newpp),
             composition = roundpct(number / max(population)),
             group = "People in relative poverty",
-            gvtregn = "All") %>%
+            gvtregn = "UK") %>%
   select(gvtregn, group, foodsec, composition)
 
 pp_abs <- hbai %>%
@@ -496,7 +900,7 @@ pp_abs_all <- hbai %>%
   summarise(number = sum(gs_newpp),
             composition = roundpct(number / max(population)),
             group = "People in absolute poverty",
-            gvtregn = "All") %>%
+            gvtregn = "UK") %>%
   select(gvtregn, group, foodsec, composition)
 
 ch <- hbai %>%
@@ -518,7 +922,7 @@ ch_all <- hbai %>%
   summarise(number = sum(gs_newch),
             composition = roundpct(number / max(population)),
             group = "All children",
-            gvtregn = "All") %>%
+            gvtregn = "UK") %>%
   select(gvtregn, group, foodsec, composition)
 
 ch_rel <- hbai %>%
@@ -542,7 +946,7 @@ ch_rel_all <- hbai %>%
   summarise(number = sum(gs_newch),
             composition = roundpct(number / max(population)),
             group = "Children in relative poverty",
-            gvtregn = "All") %>%
+            gvtregn = "UK") %>%
   select(gvtregn, group, foodsec, composition)
 
 ch_abs <- hbai %>%
@@ -566,14 +970,39 @@ ch_abs_all <- hbai %>%
   summarise(number = sum(gs_newch),
             composition = roundpct(number / max(population)),
             group = "Children in absolute poverty",
-            gvtregn = "All") %>%
+            gvtregn = "UK") %>%
+  select(gvtregn, group, foodsec, composition)
+
+hh <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         benunit == 1) %>%
+  group_by(gvtregn) %>%
+  mutate(population = sum(gs_newbu)) %>%
+  group_by(gvtregn, foodsec) %>%
+  summarise(number = sum(gs_newbu),
+            composition = roundpct(number / max(population)),
+            group = "All households") %>%
+  select(gvtregn, group, foodsec, composition)
+
+hh_all <- hbai %>%
+  filter(yearn >= 26,
+         foodsec != "(Missing)",
+         benunit == 1) %>%
+  mutate(population = sum(gs_newbu)) %>%
+  group_by(foodsec) %>%
+  summarise(number = sum(gs_newbu),
+            composition = roundpct(number / max(population)),
+            group = "All households",
+            gvtregn = "UK") %>%
   select(gvtregn, group, foodsec, composition)
 
 data <- bind_rows(pp, pp_all, pp_rel, pp_rel_all, pp_abs, pp_abs_all,
-                  ch, ch_all, ch_rel, ch_rel_all, ch_abs, ch_abs_all) %>%
+                  ch, ch_all, ch_rel, ch_rel_all, ch_abs, ch_abs_all,
+                  hh, hh_all) %>%
   ungroup() %>%
   mutate(gvtregn = factor(gvtregn,
-                          levels = c("All", "England", "Scotland", "Wales",
+                          levels = c("UK", "England", "Scotland", "Wales",
                                      "Northern Ireland"),
                           ordered = TRUE)) %>%
   rename(Region = gvtregn)
@@ -602,29 +1031,40 @@ table6 <- filter(data, group == "Children in absolute poverty") %>%
   select(-group) %>%
   spread(foodsec, composition)
 
+table7 <- filter(data, group == "All households") %>%
+  select(-group) %>%
+  spread(foodsec, composition)
+
 data <- list(file = filename,
-             sheet = "8 Food security",
-             sheettitle = "8. Household food security",
-             dfs = list(table1, table2, table3, table4, table5, table6),
-             formats = c("pct", "pct","pct","pct","pct","pct"),
+             sheet = "10 Food security",
+             sheettitle = "10. Household food security",
+             dfs = list(table1, table2, table3, table4, table5, table6, table7),
+             formats = c("pct", "pct","pct","pct","pct","pct", "pct"),
              totalrow = TRUE,
              titles = c("Household food security for all people",
                         "Household food security for people in relative poverty",
                         "Household food security for people in absolute poverty",
                         "Household food security for all children",
                         "Household food security for children in relative poverty",
-                        "Household food security for children in absolute poverty"),
+                        "Household food security for children in absolute poverty",
+                        "Household food security - all households"),
              subtitles = c("Composition of people by level of household food security, 2019/20",
                            "Composition of people in relative poverty after housing costs by level of household food security, 2019/20",
                            "Composition of people in absolute poverty after housing costs by level of household food security, 2019/20",
                            "Composition of children by level of household food security, 2019/20",
                            "Composition of children in relative poverty after housing costs by level of household food security, 2019/20",
-                           "Composition of children in absolute poverty after housing costs by level of household food security, 2019/20"),
+                           "Composition of children in absolute poverty after housing costs by level of household food security, 2019/20",
+                           "Composition of households by level of household food security, 2019/20"),
              source = "Source: Scottish Government analysis of the Family Resources Survey, Households Below Average Incomes dataset"
 )
 
 # Create new worksheet
 createWideSpreadsheet(data)
+
+wb <- loadWorkbook(data$file)
+addStyle(wb, sheet = data$sheet, style = createStyle(fgFill = "#dce6f1"),
+         rows = c(10, 21, 32, 43, 54, 65, 74), cols = 2:6, stack = TRUE, gridExpand = TRUE)
+saveWorkbook(wb, filename, overwrite = TRUE)
 
 # TOC --------------------------------------------------------------------------
 
@@ -632,7 +1072,7 @@ headings <- list(location = c(0, 4, 8, 10),
                  titles = c("Headline poverty measures - after housing costs",
                             "Headline poverty measures - before housing costs",
                             "Material deprivation",
-                            "Household food security"))
+                            "Latest estimates"))
 
 createContentSheet(filename, headings)
 
