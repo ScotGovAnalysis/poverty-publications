@@ -71,7 +71,7 @@ Tidy datasets are now available to produce reports and spreadsheets.
 * R/04_xlsx_3yrs_part2.R
 * R/04_xlsx_3yrs_part3.R
 * R/04_xlsx_3yrs_part4.R
-* R/04_xlsx_3yrs_UK.R - UK comparisons for briefing (not requried for website)
+* R/04_xlsx_3yrs_UK.R - UK comparisons for briefing (not included as not required for website)
 * R/05_xlsx_run_all.R - runs all xlsx (R/04_...) scripts and copies spreadsheets (for publication) into website folder
 
 ### Create charts and tables included in reports
