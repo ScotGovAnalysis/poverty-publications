@@ -8,30 +8,30 @@ The estimates in this publication are derived from the Understanding Society sur
 
 ### Comparison with other sources
 
-Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](https://data.gov.scot/poverty) come from a different source – `r abbr("DWP", "Department for Work and Pensions")`’s Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). This is the best source of household income data available in the `r abbr("UK", "United Kingdom")`. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
+Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](./) come from a different source – `r abbr("DWP", "Department for Work and Pensions")`’s Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). This is the best source of household income data available in the `r abbr("UK", "United Kingdom")`. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
 
 The `r abbr("FRS", "Family Resourcse Survey")` and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.
 
 ### Housing costs
 
-This publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is principally to take into account variations in housing costs that themselves do not correspond to comparable variations in the quality of housing. 
+This publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is to take into account variations in housing costs. 
 
 ### Time periods {#periods}
 
 This publication presents persistent poverty rates for six overlapping periods: 
 
-* 2010-2011 to 2013-2014 (referred to as 2010-2014)
-* 2011-2012 to 2014-2015 (referred to as 2011-2015)
-* 2012-2013 to 2015-2016 (referred to as 2012-2016)
-* 2013-2014 to 2016-2017 (referred to as 2013-2017)
-* 2014-2015 to 2017-2018 (referred to as 2014-2018)
-* 2015-2016 to 2018-2019 (referred to as 2015-2019)
+* 2010-2011 to 2013-2014 (2010-2014)
+* 2011-2012 to 2014-2015 (2011-2015)
+* 2012-2013 to 2015-2016 (2012-2016)
+* 2013-2014 to 2016-2017 (2013-2017)
+* 2014-2015 to 2017-2018 (2014-2018)
+* 2015-2016 to 2018-2019 (2015-2019)
 
 Persistent poverty statistics are based on tracking an individual over a four-year period. Each set of results are therefore based on four waves of the Understanding Society survey. This publication presents persistent poverty statistics based on waves 2-5, waves 3-6, waves 4-7, waves 5-8, waves 6-9, and waves 7-10. Each wave of interviews is conducted over a two-year period as shown in the table below.
 
 An individual is in persistent poverty if they are in relative poverty for at least three years in any four-year period. This means that the same individual can be in persistent poverty in all, any or none of the time periods covered in this publication.
 
-```{r table}
+```{r table9}
 
 caption <- "Data collection years covered in each persistent poverty reporting period"
 df <- data.frame(Wave = c(1:10),
@@ -58,7 +58,8 @@ kable(df,
                                       "hover",
                                       "responsive",
                                       "condensed"),
-                full_width = F, position = "left") 
+                full_width = F, position = "left")  %>%
+  add_a11y()
 ```
 
 There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper [Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)](https://www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.
@@ -74,6 +75,24 @@ The figures are estimates based on sample surveys and are therefore subject to s
 As with most longitudinal surveys, attrition reduces the Understanding Society sample size over time. As well as attrition reducing the sample size, we have missing data for many of the variables we are using in the analysis. We exclude individuals with missing data from relevant analysis, but include individuals whenever we can. Weights have been applied which adjust for unequal selection probabilities, differential non-response, and potential sampling error.
 
 Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.
+
+### Sample sizes
+
+```{r table10}
+
+caption <- "Sample sizes for Scotland"
+data <- persistenttables[["table10"]]
+pers_source <- persistenttables[["source"]]
+
+kableExtra::kable(data, caption = caption, align = c('lrrrr'), 
+                  col.names = c("Period", "People", "Children", 
+                                "Working-age adults", "Pensioners")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = pers_source, general_title = "") %>%
+  add_a11y()
+
+```
 
 ### Age groups
 

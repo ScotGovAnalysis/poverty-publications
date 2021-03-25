@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+   <meta charset="utf-8" />
+   <meta name="generator" content="pandoc" />
+   <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+      <meta name="description" content="Accessibility information for the content of the data.gov.scot/poverty webpages, including the official poverty statistics for Scotland." />
+                  <title>Accessibility</title>
+      <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+   <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+   <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+   <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+   <script src="site_libs/navigation-1.1/tabsets.js"></script>
+      <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+      ul.task-list{list-style: none;}
+               </style>
+                     <link rel="stylesheet" href="styles.css" type="text/css" />
+         <style>
+      .main-container {
+      max-width: 940px;
+      margin-left: auto;
+      margin-right: auto;
+      }
+      img {
+      max-width:100%;
+      }
+      .tabbed-pane {
+      padding-top: 12px;
+      }
+      .html-widget {
+      margin-bottom: 20px;
+      }
+      button.code-folding-btn:focus {
+      outline: none;
+      }
+      summary {
+      display: list-item;
+      }
+      pre code {
+      padding: 0;
+      }
+   </style>
+         <style>
+      .dropdown-submenu {
+      position: relative;
+      }
+      .dropdown-submenu>.dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-top: -6px;
+      margin-left: -1px;
+      border-radius: 0 6px 6px 6px;
+      }
+      .dropdown-submenu:hover>.dropdown-menu {
+      display: block;
+      }
+      .dropdown-submenu>a:after {
+      display: block;
+      content: " ";
+      float: right;
+      width: 0;
+      height: 0;
+      border-color: transparent;
+      border-style: solid;
+      border-width: 5px 0 5px 5px;
+      border-left-color: #cccccc;
+      margin-top: 5px;
+      margin-right: -10px;
+      }
+      .dropdown-submenu:hover>a:after {
+      border-left-color: #adb5bd;
+      }
+      .dropdown-submenu.pull-left {
+      float: none;
+      }
+      .dropdown-submenu.pull-left>.dropdown-menu {
+      left: -100%;
+      margin-left: 10px;
+      border-radius: 6px 0 6px 6px;
+      }
+   </style>
+   <script>
+      // manage active state of menu based on current page
+      $(document).ready(function () {
+      // active menu anchor
+      href = window.location.pathname
+      href = href.substr(href.lastIndexOf('/') + 1)
+      if (href === "")
+        href = "index.html";
+      var menuAnchor = $('a[href="' + href + '"]');
+
+      // mark it active
+      menuAnchor.tab('show');
+
+      // if it's got a parent navbar menu mark it active as well
+      menuAnchor.closest('li.dropdown').addClass('active');
+
+      // Navbar adjustments
+      var navHeight = $(".navbar").first().height() + 1;
+      var style = document.createElement('style');
+      var pt = "padding-top: " + navHeight + "px; ";
+      var mt = "margin-top: -" + navHeight + "px; ";
+      var css = "";
+      // offset scroll position for anchor links (for fixed navbar)
+      for (var i = 1; i <= 6; i++) {
+      css += ".section h" + i + "{ " + pt + mt + "}\n";
+      }
+      style.innerHTML = "body {" + pt + "padding-bottom: 0; }\n" + css;
+      document.head.appendChild(style);
+      });
+   </script>
+      <!-- tabsets -->
+   <style>
+      .tabset-dropdown > .nav-tabs {
+      display: inline-table;
+      max-height: 500px;
+      min-height: 44px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      }
+      .tabset-dropdown > .nav-tabs > li.active:before {
+      content: "";
+      font-family: 'Glyphicons Halflings';
+      display: inline-block;
+      padding: 10px;
+      border-right: 1px solid #ddd;
+      }
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+      content: "&#xe258;";
+      border: none;
+      }
+      .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+      content: "";
+      font-family: 'Glyphicons Halflings';
+      display: inline-block;
+      padding: 10px;
+      border-right: 1px solid #ddd;
+      }
+      .tabset-dropdown > .nav-tabs > li.active {
+      display: block;
+      }
+      .tabset-dropdown > .nav-tabs > li > a,
+      .tabset-dropdown > .nav-tabs > li > a:focus,
+      .tabset-dropdown > .nav-tabs > li > a:hover {
+      border: none;
+      display: inline-block;
+      border-radius: 4px;
+      background-color: transparent;
+      }
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+      display: block;
+      float: none;
+      }
+      .tabset-dropdown > .nav-tabs > li {
+      display: none;
+      }
+   </style>
+   <!-- code folding -->
+         </head>
+<body>
+      
+   <!-- Navbar -->
+   <nav id = "nav" role = "navigation" class="navbar navbar-default navbar-fixed-top">
+     <div class="container">
+   
+       <!-- Insert skip link to beginning of navigation bar -->
+       <a class="skiplink" href="#maincontent">Skip to main content</a>
+   
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+           <span class="visually-hidden">Website navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="./">
+             <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+             Poverty
+         </a>
+       </div>
+       <div id="navbar" class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+           <li>
+             <a href="persistent.html">
+               <span class = "glyphicon glyphicon-stats" aria-hidden="true"></span>
+               Persistent poverty
+             </a>
+           </li>
+           <li>
+             <a href="cpupdate.html">
+               <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+               Child poverty summary
+             </a>
+           </li>
+           <li>
+             <a href="download.html">
+               <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+               Data
+             </a>
+           </li>
+           <li>
+            <a href="https://gov.scot/" id="sglogo"><img src="img/sglogo.svg" style="height: 42px; width: 224px;" alt="Scottish Government website"></a>
+           </li>
+         </ul>
+   
+       </div><!--/.nav-collapse -->
+     </div><!--/.container -->
+   </nav>
+      <main id="maincontent">
+            <div class="container-fluid main-container">
+                                                   <div id="header">
+                                                                        <h1 class="title toc-ignore">Accessibility</h1>
+                                                                                                                           </div>
+                                                                           <p>This website is run by the Scottish Government. We want it to be accessible and usable for as many people as possible.</p>
+<div id="feedback" class="section level2">
+<h2>Feedback</h2>
+<p><a href="#contact">Contact us</a> if you:</p>
+<ul>
+<li>Cannot access any part of this site or want to report an accessibility problem.</li>
+<li>Need information on this website in a different format. Such as accessible PDF, large print, easy read, audio recording or braille. We’ll consider your request and get back to you as soon as we can.</li>
+</ul>
+<div id="enforcement" class="section level3">
+<h3>Enforcement</h3>
+<p>If you’re not happy with how we respond to your feedback, contact the <a href="https://www.equalityadvisoryservice.com/">Equality Advisory and Support Service</a>. They are an independent advice service. They will advise you on what to do next.</p>
+</div>
+</div>
+<div id="compliance" class="section level2">
+<h2>Compliance</h2>
+<p>Scottish Government is committed to making its websites accessible, in accordance with the <a href="https://www.legislation.gov.uk/uksi/2018/952/regulation/4/made">Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018</a>.</p>
+<p>This accessibility statement applies to the <a href="./">data.gov.scot/poverty</a> webpages.</p>
+<div id="compliance-status" class="section level3">
+<h3>Compliance status</h3>
+<p>We believe that this website is compliant with the regulations. This is based on a non-expert assessment using <a href="https://www.w3.org/WAI/WCAG21/quickref/"><abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1 success criteria and techniques</a>.</p>
+</div>
+<div id="potentially-non-accessible-content" class="section level3">
+<h3>Potentially non-accessible content</h3>
+<p>The content listed below is compliant with the regulations, and yet may not be fully accessible:</p>
+<ul>
+<li>Some links to external research lead to pdf documents which may not be fully accessible, and no other format is available.</li>
+<li>Data for download is available in xlsx format only, but can on request be made available in another format.</li>
+<li>The data for download contains some complex tables.</li>
+<li>The charts may be difficult to explore in detail using screen readers and other assistive tools.</li>
+<li>Some of the text is complex.</li>
+</ul>
+</div>
+</div>
+<div id="preparation-of-statement" class="section level2">
+<h2>Preparation of statement</h2>
+<p>This statement was prepared on 18 March 2021.</p>
+</div>
+<div id="contact" class="section level2">
+<h2>Contact</h2>
+<p>For enquiries about these reports please contact us.</p>
+<div id="email" class="section level3">
+<h3>Email</h3>
+<p><a href="mailto:social-justice-analysis@gov.scot" class="email">social-justice-analysis@gov.scot</a></p>
+</div>
+<div id="address" class="section level3">
+<h3>Address</h3>
+<p>The Scottish Government<br>
+Communities Analysis Division<br>
+Area 2H North<br>
+Victoria Quay<br>
+Edinburgh EH6 6QQ</p>
+</div>
+<div id="phone" class="section level3">
+<h3>Phone</h3>
+<p>0131 244 5851<br></p>
+</div>
+</div>
+                                    </div>
+   </main>
+      
+   <!-- Footer -->
+   <footer class="ds_site-footer ds_reversed">
+   
+     <!-- Back-to-top button -->
+     <button onclick="topFunction()" id="myBtn" title="Back to top">Top</button>
+     <script>
+       var mybutton = document.getElementById("myBtn");
+       window.onscroll = function() {scrollFunction()};
+       function scrollFunction() {
+         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+           mybutton.style.display = "block";
+         } else {
+           mybutton.style.display = "none";
+         }
+       }
+       function topFunction() {
+         document.body.scrollTop = 0;
+         document.documentElement.scrollTop = 0;
+       }
+     </script>
+     <!-- Back-to-top button end -->
+   
+      <div class="ds_wrapper">
+         <div class="ds_site-footer__content">
+            <!-- Items -->
+            <ul class="ds_site-footer__site-items">
+               <li class="ds_site-items__item">
+                  <a href="accessibility.html">Accessibility</a>
+               </li>
+               <li class="ds_site-items__item">
+                  <a href="contact.html">Contact</a>
+               </li>
+            </ul>
+            <!-- Copyright statement -->
+            <div class="ds_site-footer__copyright">
+               <p>All content is available under the <a href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/">Open Government Licence v3.0</a>, except for logos and where otherwise stated.</p>
+               <p>© Crown Copyright</p>
+            </div>
+         </div>
+      </div>
+   </footer>
+      <script>
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+      
+   </script>
+   <!-- tabsets -->
+   <script>
+      $(document).ready(function () {
+        window.buildTabsets("TOC");
+      });
+
+      $(document).ready(function () {
+        $('.tabset-dropdown > .nav-tabs > li').click(function () {
+          $(this).parent().toggleClass('nav-tabs-open');
+        });
+      });
+   </script>
+      <!-- code folding -->
+         </body>
+</html>

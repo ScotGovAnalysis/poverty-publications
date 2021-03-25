@@ -2,17 +2,25 @@
 
 Published on `r params$pub_day`
 
-This publication presents three-year averaged estimates of the percentage of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
+This report presents three-year averaged estimates of the proportion of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
 
-The latest estimates relate to the period between April 2017 and March 2020, before the first `r abbr("UK", "United Kingdom")`-wide lockdown due to the coronavirus (COVID-19) pandemic. Therefore, these statistics do not yet tell us anything about the impact of the pandemic on poverty and income inequality.
+The latest estimates are from the period between April 2017 and March 2020. This was before the first `r abbr("UK", "United Kingdom")`-wide lockdown due to the coronavirus (COVID-19) pandemic. Therefore, these statistics do not yet tell us anything about the impact of the pandemic on poverty and income inequality.
 
 ## Key trends
 
-* Relative poverty had been falling slightly between the nineties and the lowest point in this time series in 2009-12. It then started to rise again but appears now stable.
+* Relative poverty appears now stable after a recent small rise. Previously, it had been falling slowly since the nineties.
 * Income inequality continues to fluctuate.
 * Median household incomes continue to rise.
 
 ```{r}
+
+rateA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "After housing costs") %>% select(label) %>% pull()
+rateB <- filter(data$palma, yearn == max(yearn), key == "Before housing costs") %>%
+  mutate(y = fmtpct(round2(y - 1, 2))) %>% select(y) %>% pull()
+
+incB <- filter(data$medians, yearn == max(yearn), key == "Before housing costs") %>%
+  select(label) %>% pull()
 
 div(class = "row fluid-row",
      
@@ -20,12 +28,13 @@ div(class = "row fluid-row",
           div(class = "panel panel-default",
               div(class = "panel-heading",
                   div(class = "panel-title",
-                     "Relative poverty no longer rising")),
+                     "Relative poverty stable")),
               div(class = "panel-body",
                   a(href = "#relative-poverty",
                     img(src = "img/chart0a.png", 
-                        alt = "Relative poverty section")),
-                  create_html(paste0("19% of people were living in relative poverty after housing costs in ", params$data_period, ". Overall, the poverty rate appears to have stopped rising."))))),
+                        alt = "Relative poverty section",
+                        style = "width: 216px")),
+                  create_html(paste0(rateA, " of people were living in relative poverty after housing costs in ", params$data_period, ". Overall, the poverty rate appears to have stopped rising."))))),
      
      div(class = "col-md-4", 
           div(class = "panel panel-default",
@@ -35,8 +44,9 @@ div(class = "row fluid-row",
               div(class = "panel-body",
                   a(href = "#palma",
                     img(src = "img/chart0b.png", 
-                        alt = "Income inequality section")),
-                  create_html(paste0("The top 10% of the population had 24% more income in ", params$data_period, " than the bottom 40% combined."))))),
+                        alt = "Income inequality section",
+                        style = "width: 216px")),
+                  create_html(paste0("The top 10% of the population had ", rateB," more income in ", params$data_period, " than the bottom 40% combined."))))),
      
      div(class = "col-md-4",
          div(class = "panel panel-default",
@@ -44,10 +54,11 @@ div(class = "row fluid-row",
                  div(class = "panel-title",
                     "Household incomes continue to rise")),
              div(class = "panel-body",
-                 a(href = "#household-income-trends",
+                 a(href = "#income-trends",
                    img(src = "img/chart0c.png", 
-                        alt = "Household income section")),
-                 create_html(paste0("Median income before housing costs in Scotland in ", params$data_period, " was £517 a week, continuing the rising trend.")))))
+                        alt = "Household income section",
+                        style = "width: 216px")),
+                 create_html(paste0("Median income before housing costs in Scotland in ", params$data_period, " was ", incB," a week, continuing the rising trend.")))))
      
  )
  

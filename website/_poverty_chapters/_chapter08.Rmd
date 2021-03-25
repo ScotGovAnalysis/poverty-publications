@@ -1,6 +1,6 @@
 ## Data source
 
-All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). `r abbr("UK", "United Kingdom")` figures are published by `r abbr("DWP", "Department for Work and Pensions")` in [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](https://data.gov.scot/poverty). For the `r abbr("UK", "United Kingdom")` figures, as well as more detail about the way these figures are collected and calculated, see the `r abbr("DWP", "Department for Work and Pensions")` website.
+All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset, which is produced from the Family Resources Survey (FRS). `r abbr("UK", "United Kingdom")` figures are published by `r abbr("DWP", "Department for Work and Pensions")` in [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](./). For the `r abbr("UK", "United Kingdom")` figures, as well as more detail about the way these figures are collected and calculated, see the `r abbr("DWP", "Department for Work and Pensions")` website.
 
 ### What does `r abbr("HBAI", "Households Below Average Income")` measure?
 
@@ -8,7 +8,13 @@ Households Below Average Income (HBAI) uses household disposable incomes, adjust
 
 The unit of analysis is the individual, so the populations and percentages in the tables are numbers and percentages of individuals - both adults and children.
 
+Data is collected during the financial year, so between April and March of the following year. Statistics are usually published in March, a year after the end of the data collection.
+
 The living standards of an individual depend not only on his or her own income, but also on the income of others in the household. Consequently, the analyses are based on total household income: the equivalised income of a household is taken to represent the income level of every individual in the household. Equivalisation, a technique that allows comparison of incomes between households of different sizes and compositions, is explained in the [Definitions section](#equivalisation). Thus, all members of any one household will appear at the same point in the income distribution.
+
+### Revision of the data
+
+In 2021, previously published datasets underwent a minor methodological revision to capture all income from child maintenance. This led to small changes in household income and small adjustments to some poverty estimates. Therefore, some poverty and income estimates that were published in 2021 may not exactly match previously published estimates for 1994/95 to 2019/20. The revision did not affect any trends in poverty or household income.
 
 ### Population coverage
 
@@ -16,7 +22,7 @@ The Family Resources Survey is a survey of private households. This means that p
 
 ### Reliability of estimates
 
-The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](https://www.gov.scot/publications/confidence-intervals-for-poverty-statistics/) presented are available.
+The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](uncertainty.html) presented are available.
 
 The method used to calculate these confidence intervals changed in 2015/16. Information on this can be found in `r abbr("DWP", "Department for Work and Pensions")`'s [statistical notice (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
 
@@ -32,4 +38,4 @@ It could be argued that the costs of housing faced by different households at a 
 
 Conversely, any income measure which does not deduct housing costs may overstate the living standards of individuals whose housing costs are high relative to the quality of their accommodation. Growth over time in income before housing costs could also overstate improvements in living standards for low income groups in receipt of housing benefit, and whose rents have risen in real terms. This is because housing benefit may also rise to offset the higher rents (for a given quality of accommodation) and would be counted as an income rise, although there would be no associated increase in the standard of living.
 
-Therefore, this publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is principally to take into account variations in housing costs that themselves do not correspond to comparable variations in the quality of housing.
+Therefore, this publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC).

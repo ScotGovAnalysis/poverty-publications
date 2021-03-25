@@ -4,18 +4,20 @@ Statistics in this report are based on data from the Family Resources Survey. Th
 
 ### Income and poverty measures
 
-The Scottish Government uses a range of indicators to measure different aspects of poverty. The most commonly used poverty indicator in Scotland for showing trends is relative poverty after housing costs. It is complemented in this report by other poverty measures, such as absolute poverty, material deprivation, and food insecurity. These are included in additional tabs throughout the report.
+The Scottish Government measures different aspects of poverty with different indicators. The most commonly used poverty indicator in Scotland for showing trends is relative poverty after housing costs. Other poverty measures in this report are absolute poverty, material deprivation, and degrees of household food security. These are included in additional charts throughout the report.
 
-Unless otherwise stated, these statistics are based on net income (adjusted for household size). Net income is income after taxes and includes social security payments. All incomes are in `r params$data_year` prices (real prices). Figures in this publication are rounded to the nearest pound (weekly incomes), a hundred pound (annual incomes), percentage point or 10,000 people. Poverty is measured at the household level. If the household income is below the poverty threshold, all people within the household are considered to be in poverty.
+Unless otherwise stated, these statistics are based on net income and adjusted for household size. Net income is income from earnings, social security payments and other sources minus taxes. All incomes are in `r params$data_year` prices (real prices). Estimates in this publication are rounded to the nearest £1 for weekly incomes, £100 for annual incomes, 1% for proportions and ratios, and 10,000 for populations. Poverty is defined at the household level. If the household income is below the poverty threshold, all people within the household are in poverty.
 
 ### Survey data
 
-The estimates presented in this publication are based on a sample survey and are therefore subject to sampling error. None of the latest changes in the estimated numbers and percentages of people presented in this report are statistically significant. 
+The estimates in this publication are based on a sample survey and are therefore subject to sampling variation.
 
-For example, the child poverty rates for Scotland can vary within a typical uncertainty range of up to plus or minus three percentage points, or plus or minus 40,000 children. In time series, looking at longer term trends offers a better indication of significant change, or differences between groups.
+For example, the child poverty rates for Scotland can vary within a typical uncertainty range of plus or minus three percentage points, or plus or minus 40,000 children. This means that the proportion of children in relative poverty is likely to be somewhere between 21% and 28%. And the number of children in relative povery after housing costs is likely to be somewhere between 200,000 and 280,000 children. Poverty rates and numbers shown in this report give the central estimates only.
+
+None of the latest changes in the estimated poverty rates in the Poverty and Child poverty sections of this report are statistically significant. It is therefore better to look at longer-term trends to confirm that a change over time is real, or that differences between groups are consistent.
 
 ### Three-year averages
 
-Data is presented as three-year rolling (overlapping) averages of each estimate.
+The poverty and income estimates are shown as three-year rolling (overlapping) averages, unless stated otherwise. Taking the average over three years reduces fluctuation due to sampling variation and shows trends and differences between groups more clearly.
 
-Using three-year averages ensures the statistics are usable and understandable, and that they are comparable with poverty and income statistics reported by the Department for Work and Pensions. Three-year averages are best used when focusing on trends over time, as in this publication. Single-year estimates are also available in the associated tables.
+Single-year estimates are also available in the [associated tables](download.html).

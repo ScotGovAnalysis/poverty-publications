@@ -1,0 +1,162 @@
+---
+title: "Measurement uncertainty"
+lang: "en"
+description: "Measurement uncertainty for the official poverty statistics in Scotland"
+output:
+  bookdown::html_document2:
+    toc: yes
+    toc_depth: 2
+    toc_float:
+      collapsed: yes
+      smooth_scroll: no
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+
+```
+
+```{r}
+
+library(tidyverse)
+library(htmltools)
+library(kableExtra)
+
+source("R/00_functions_rmd.R")
+
+data <- readRDS("data/uncertainty.rds")
+
+```
+
+The poverty estimates in the [Poverty and Income Inequality in Scotland report](index.html) are based on the Family Resources Survey (FRS). This is a sample survey, and therefore there is some degree of uncertainty around the estimates produced. For example, when it is reported that 19% of individuals are living in relative poverty after housing costs, then this should be understood not as an exact figure but as a best estimate within a range.
+
+## Uncertainty
+
+Two different random samples from one population give slightly different results. These results are different again from the results that would be obtained if the whole population was surveyed. The level of uncertainty around a survey estimate can be calculated and is commonly referred to as sampling error.
+
+We calculate this by exploring how an estimate would change if we were to draw many survey samples for the same time period instead of just one. This allows us to define a range around the estimate (known as a “confidence interval”) and to state how likely it is that the real value that the survey is trying to measure lies within that range. Confidence intervals are typically set up so that we can be 95% sure that the true value lies within the range. In this case, we call it a “95% confidence interval”.
+
+Confidence intervals provide a guide to how robust the estimates are. Tables 1 to 4 below provide confidence limits around the key poverty estimates.
+
+For instance, Table 1 shows that the best estimate for the number of individuals in relative poverty after housing costs in 2017-20 was 19.35%, with a lower confidence limit of 17.42% and an upper confidence limit of 21.33%. This means that we can be 95% confident that the percentage of individuals in relative poverty lies between 17.42% and 21.33%. Similarly, the lower confidence limit for the number of people in relative poverty was 930,000, and the upper confidence limit was 1,140,000. So we can be 95% confident that the true number lies between those two figures.
+
+## Change over time
+
+When the confidence interval is wider than the magnitude of change between years, caution should be exercised when making year on year comparisons.
+
+When calculating the difference in poverty rates between two years, the same methodology can be used to calculate a 95% confidence interval for this change. So if the range of likely values for the year on year change is either entirely greater or less than zero, that is that confidence interval does not contain zero, then the change in the latest year is 95% certain to be greater or less than zero. This is the approach used in the publication of poverty statistics to determine if a change is statistically significant.
+
+None of the recent changes of the headline poverty estimates included in the tables below were statistically significant.
+
+## Bootstrapping
+
+The methodology used to calculate confidence intervals is called bootstrapping.
+
+In the bootstrap, multiple new samples (resamples) of the dataset are created, with some samples containing multiple copies of one case with no copies of other cases. Exploring how an estimate would change if we were to draw many survey samples for the same time period instead of just one sample allows us to generate confidence intervals around the estimate.
+
+The bootstrapping method used was improved for 2015/16. Resamples are now created by simulating stratified cluster sampling – the method used to draw the original `r abbr("FRS", "Family Resources Survey")` sample – and creating a unique set of grossing factors for each resample. 
+
+In the past, multiple samples were created using a simpler technique of creating simple random samples and re-using the original `r abbr("HBAI", "Households Below Average Incomes")` grossing factors. 
+
+More information on this change can be found in the [`r abbr("DWP", "Department for Work and Pensions")` statistical notice (pdf)](https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
+
+## Rounding
+
+In the tables below, proportions are rounded to one decimal point in order to demonstrate the range within which the central estimates sit. In the reference tables (see [Data](download.html)), proportions are available with five decimal points. Please note that using decimal points when talking about poverty rates may imply accuracy that the data cannot provide. To avoid this, we refer to full percentages in the commentary for the report, such as 19%.
+
+Population estimates are rounded to the nearest 10,000 individuals, the same as in the reference tables and in the commentary of the report.
+
+## Describing the data 
+
+We advise to use full percentages when talking about poverty rates, and to mention the level of uncertainty around them. For example, 19% of people (+/- 2 percentage points) were in relative poverty after housing costs, or 24% of children (+/- 4 percentage points) were in relative poverty after housing costs. 
+
+## Tables
+
+```{r table1}
+caption <- "Relative poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
+source <- "DWP analysis of the Family Resources Survey"
+
+kable(data$relahc, caption = caption,
+      align = c("lrr")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = source,
+           general_title = "")
+
+```
+
+
+```{r table2}
+caption <- "Relative poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
+source <- "DWP analysis of the Family Resources Survey"
+
+kable(data$relbhc, caption = caption,
+      align = c("lrr")) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = source,
+           general_title = "")
+
+```
+
+
+```{r table3}
+caption <- "Absolute poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
+source <- "DWP analysis of the Family Resources Survey"
+
+kable(data$absahc, caption = caption,
+      align = c("lrr")) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = source,
+           general_title = "")
+
+```
+
+
+```{r table4}
+caption <- "Absolute poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
+source <- "DWP analysis of the Family Resources Survey"
+
+kable(data$absbhc, caption = caption,
+      align = c("lrr")) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = source,
+           general_title = "")
+
+```
+
+```{r table5}
+caption <- "Children in combined low income and material deprivation - central estimates and 95% confidence intervals, Scotland 2017-20"
+source <- "DWP analysis of the Family Resources Survey"
+
+kable(data$cmd, caption = caption,
+      align = c("lrr")) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = source,
+           general_title = "")
+
+```
+
+An after-housing-costs table for children in combined low income and material deprivation is not available. Confidence intervals are expected to be similar to the before-housing-costs measure.
+
+```{r table6}
+caption <- "Pensioners aged 65 and over - central estimates and 95% confidence intervals, Scotland 2017-20"
+source <- "DWP analysis of the Family Resources Survey"
+
+kable(data$pmd, caption = caption,
+      align = c("lrr")) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
+                full_width = F, position = "left")  %>%
+  footnote(general = source,
+           general_title = "")
+
+```

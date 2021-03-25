@@ -26,7 +26,7 @@ Income is net of:
 - maintenance and child support payments made
 - parental contributions to students living away from home
 
-Income after housing costs (AHC) is derived by deducting a [measure of housing costs](#housing-costs) from the above income measure.
+Income after housing costs (AHC) is derived by deducting a [measure of housing costs](#housing-costs-1) from the above income measure.
 
 ### Housing costs
 
@@ -34,17 +34,11 @@ Housing costs include the following: rent (gross of housing benefit); water rate
 
 ### Income sources
 
-The analysis on income sources is the only analysis in this report not using net income. This analysis is based on income before taxes from employment or self-employment, social security payments, investment, occupational pensions and other income. In some cases, income from self-employment was negative in a year, for example, when someone in self-employment made a loss. In these cases, total income from earnings was reset to zero.
+The analysis on income sources is the only analysis in this report not using net income. This analysis is based on income before taxes from employment or self-employment, social security payments, investment, occupational pensions and other income. In some cases, income from self-employment was negative in a year, for example, when someone in self-employment made a loss. In these cases, total income from earnings was set to zero. Negative investment income was also set to zero.
 
 ### Real prices
 
 Unless otherwise stated, all figures relating to income are in `r params$data_year` prices. Values from previous years are uprated to account for inflation using a variant of the Consumer Price Index (CPI). This follows a change in methodology for 2014/15. Prior to this the Retail Price Index (RPI) was used.
-
-This change followed an announcement by the National Statistician that, in accordance with the Statistics and Registration Service Act 2007, the RPI and its derivatives had been assessed against the Code of Practice for Official Statistics and found not to meet the required standard for designation as National Statistics.
-
-Following a subsequent review the National Statistician, John Pullinger, wrote to the Chair of the `r abbr("UK", "United Kingdom")` Statistics Authority, Sir Andrew Dilnot, setting out his view that RPI "is not a good measure of inflation" and that future usage is strongly discouraged in favour of alternative measures.
-
-This led to a change in `r abbr("HBAI", "Households Below Average Income")` methodology in 2014/15 and the Scottish Government adopted the change in deflator to allow consistent poverty estimates for Scotland and the `r abbr("UK", "United Kingdom")`.
 
 Full details can be found at this link: [Methodological changes to poverty statistics (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
 
@@ -72,6 +66,7 @@ kable(povertytables[["table2"]],
                                       "condensed"),
                 full_width = F, position = "left") %>%
   add_a11y("col")
+
 ```
 
 The construction of household equivalence values from these scales is quite straightforward. For example, the `r abbr("BHC", "Before Housing Costs")` equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:
@@ -86,13 +81,29 @@ Further information on equivalisation can be found in the [methodology report](h
 
 Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the `r abbr("UK", "United Kingdom")` median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
 
-For a couple with no children, the `r abbr("UK", "United Kingdom")` median income before housing vosts in `r params$data_period` was £517 per week, which had increased by £6 in real terms since 2015-18. After housing costs, the `r abbr("UK", "United Kingdom")` median increased by £5 to £464 per week compared to 2015-18.
+```{r}
+
+incB <- filter(data$medians, yearn == max(yearn), key == "Before housing costs") %>%
+  select(label) %>% pull()
+
+incB_1 <- filter(data$medians, yearn == max(yearn) - 1, key == "Before housing costs") %>%
+  select(label) %>% pull()
+
+incA <- filter(data$medians, yearn == max(yearn), key == "After housing costs") %>%
+  select(label) %>% pull()
+
+incA_1 <- filter(data$medians, yearn == max(yearn) - 1, key == "After housing costs") %>%
+  select(label) %>% pull()
+
+```
+
+For a couple with no children, the `r abbr("UK", "United Kingdom")` median income before housing costs in `r params$data_period` was `r incB` per week, compared to `r incB_1` in the previous period. After housing costs, the `r abbr("UK", "United Kingdom")` median also increased from `r incA_1` in the previous period to `r incA` per week.
 
 Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
 
 ### Relative and absolute poverty
 
-* Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
+* Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation-adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
 * Relative poverty - individuals living in households whose equivalised income is below 60 percent of median income in the same year. This is a measure of whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole.
 
 ### Child material deprivation
@@ -105,9 +116,9 @@ A prevalence weighted approach has been used, in combination with a relative low
 
 #### Changes to measuring material deprivation in 2010/11
 
-The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the `r abbr("UK", "United Kingdom")` believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11 four new questions about additional items were included in the `r abbr("FRS", "Family Resources Survey")` to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
+The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the `r abbr("UK", "United Kingdom")` believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11, four new questions about additional items were included in the `r abbr("FRS", "Family Resources Survey")` to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
 
-In the 2010/11 `r abbr("FRS", "Family Resources Survey")`, both the new and the old questions were asked. As such, estimates are presented based on both sets of questions for this year.
+In the 2010/11 `r abbr("FRS", "Family Resources Survey")`, both the new and the old questions were asked. As such, single-year estimates are presented based on both sets of questions for this year.
 
 For further information about material deprivation see the `r abbr("DWP", "Department for Work and Pensions")` [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
 
@@ -134,15 +145,18 @@ A [technical note giving a full explanation of the pensioner material deprivatio
 
 The Family Resources Survey collected household food security information for the first time in 2019/20. The questions were adopted from the [United States Department of Agriculture's Adult Food Security Survey Module (pdf)](https://www.ers.usda.gov/media/8279/ad2012.pdf), using a 30-day reference period, and using the same food security levels ("high", "marginal", "low", "very low"). 
 
+The food security analysis in this report excludes [shared households](#shared-households), such as a house shared by a group of professionals. These respondents may not have insight into the food security status of others in their household and may not regularly share financial information.
+
 Previously, data on household food insecurity in Scotland had been collected by the Scottish Health Survey. The measure in this report is different from the one from the Scottish Health Survey, because it is based on different questions, which are asked in a different context, using a different sample of the population, and refer to a different period of time. Therefore, these measures cannot be directly compared.
 
 ### Dependent children
 
-In this publication, 'child' refers to a dependent child. A dependent child is a person either aged 0-15, or aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
+In this publication, 'child' refers to a dependent child. A dependent child is a person aged 0-15, or a person aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
 
-### Single mothers
+### Single parents
 
-Family types are becoming increasingly complex. In this publication, 'single mothers' refers to a situation where the primary residence of a dependent child is in a household with one adult, who is female. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Currently, some, but not all income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
+Family types are becoming increasingly complex. In this publication, 'single parents' and 'single mothers' refer to a situation where the primary residence of a dependent child is in a household with one adult. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
 
+### Shared households
 
-
+A shared household is a household where the household reference person is unclear or arbitrary, such as a group of students, unrelated adults etc., where the household is being shared on an equal basis. Households where adult children are living with their parents or where there are lodgers, but the owner lives in the household, are both not considered shared households for the purposes of this definition.

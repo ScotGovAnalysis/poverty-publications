@@ -2,7 +2,7 @@
 
 ### Tables and further analysis
 
-This publication contains the headline poverty, child poverty and household income statistics. [Associated tables](https://data.gov.scot/poverty/download.html) are available for download and contain:
+This publication contains the headline poverty, child poverty and household income statistics. [Associated tables](download.html) are available for download and contain:
 
 - all estimates used in the charts
 - additional estimates, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only (where available)
@@ -18,11 +18,11 @@ More information on [local poverty and income analysis from alternative data sou
 
 ### Persistent poverty
 
-[New figures on persistent poverty](https://data.gov.scot/poverty/persistent.html) were published on `r params$pub_day`.
+[New figures on persistent poverty](persistent.html) were published on `r params$pub_day`.
 
 Persistent poverty identifies the number of individuals living in relative poverty for 3 or more of the last 4 years. It therefore identifies people who have been living in poverty for a significant period of time, the rationale being that this is more damaging than brief periods spent with a low income, with the impacts affecting an individual through their lifetime.
 
-One of the four [statutory child poverty target measures](https://data.gov.scot/poverty/cpupdate.html) is persistent child poverty after housing costs.
+One of the four [statutory child poverty target measures](cpupdate.html) is persistent child poverty after housing costs.
 
 These figures come from the Understanding Society survey which tracks individuals over time. The persistent poverty figures are not directly comparable to the figures in this publication as they use different income definitions and cover different time periods, but they provide useful additional information on poverty in Scotland.
 
@@ -42,7 +42,7 @@ These figures come from the Understanding Society survey which tracks individual
 
 #### Persistent Poverty in Scotland
 
-- [Latest report](https://data.gov.scot/poverty/persistent.html)
+- [Latest report](persistent.html)
 - [2010-2018 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
 - [2010-2017 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
 - [2010-2016 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)

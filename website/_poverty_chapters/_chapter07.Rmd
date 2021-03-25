@@ -3,63 +3,70 @@
 ### Income trends
 
 ```{r}
-keymessage <- "Median weekly household income growing"
+keymessage <- "Median weekly household income continues to grow"
 message(keymessage)
+
+incB <- filter(data$medians, yearn == max(yearn), key == "Before housing costs") %>%
+  select(label) %>% pull()
+incA <- filter(data$medians, yearn == max(yearn), key == "After housing costs") %>%
+  select(label) %>% pull()
+  
 ```
 
-In `r params$data_period`, median household income before housing costs was £517 per week. Median income has increased slowly but steadily since the recovery after the last recession, and has reached its highest level since reporting began.
+In `r params$data_period`, median household income before housing costs was `r incB` per week. Median income has increased slowly but steadily since the recovery after the last recession, and has reached its highest level since reporting began.
 
-Following the same trend, median income after housing costs was £464 per week in `r params$data_period`, also at its highest level since reporting began.
+Following the same trend, median income after housing costs was `r incA` per week in `r params$data_period`, also at its highest level since reporting began.
 
-Median incomes rose for all age groups: children, working-age adults and pensioners, but very little for working-age adults. This data can be found in the associated tables.
-
-
-```{r chart28}
-title <- str_c("Figure 28: ", keymessage)
-subtitle <- str_c("Median weekly household income in ", params$data_year, 
-                  " prices, Scotland")
-interactive(povertycharts[["chart28"]], title = title,
-            subtitle = subtitle)
-```
-
-```{r}
-keymessage <- "Lower incomes increasing more than higher incomes"
-message(keymessage)
-```
-
-The next chart shows how weekly equivalised incomes before housing costs have changed from 2013-16 to `r params$data_period` across the different income deciles. The bottom five decile points saw small increases compared to the previous period, whereas the top three decile points saw small decreases.
-
-Over the last four years shown in the chart, middle income households saw the largest relative and absolute increases in their household income.
-
-`r infobox("Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the income distribution.")`
-
+Median incomes rose for all age groups between `r params$data_year` and the previous year: children, working-age adults and pensioners, but most for working-age adults. This data can be found in the associated tables. In the three-year averaged data shown here, the effect of the large increase in the latest year is much reduced by falling working-age income in the two previous years. 
 
 ```{r chart29}
 title <- str_c("Figure 29: ", keymessage)
-subtitle <- str_c("Weekly household income before housing costs at each decile point in ",
-params$data_year," prices, Scotland")
-interactive(povertycharts[["chart29"]], height = 3.5, title = title,
-            subtitle = subtitle)
+subtitle <- str_c("Median weekly household income in ", params$data_year, 
+                  " prices, Scotland")
+interactive(povertycharts$chart29, title = title, subtitle = subtitle)
 ```
 
-After housing costs data is available in the associated tables.
+```{r}
+keymessage <- "Middle incomes increasing the most over the last three years"
+message(keymessage)
+```
+
+Figure 30 shows inflation-adjusted weekly equivalised incomes before housing costs across the different income deciles for the last four years, using individual years of data. From year to year, the decile points fluctuate slightly, partly because of actual fluctuations in the income distribution, and partly due to the particular survey samples in each year. 
+
+`r infobox("Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the population.")`
+
+```{r chart30}
+title <- str_c("Figure 30: ", keymessage)
+subtitle <- str_c("Weekly household income before housing costs at each decile point in ",
+params$data_year," prices, Scotland")
+interactive(povertycharts$chart30, title = title, subtitle = subtitle)
+```
+
+Figure 31 shows how the income decile points changed during the latest three-year period, between 2016/17 and 2019/20. Lower and middle decile points saw the largest increases, with almost no change in decile point 8, and decreasing incomes at the top and bottom decile points.
+
+```{r chart31}
+title <- str_c("Figure 31: ", keymessage)
+subtitle <- str_c("Change in weekly household income before housing costs at each decile point between 2016/17 and 2019/20 in ",
+params$data_year," prices, Scotland")
+interactive(povertycharts$chart31, title = title, subtitle = subtitle)
+```
+
+After-housing-costs data is available in the associated tables.
 
 ### Income distribution
 
-The next chart shows the distribution of weekly income before housing costs across Scotland in `r params$data_period` with relative poverty threshold, UK median income, and income decile groups. Incomes of £0 and below and those above £1,200 are excluded from this chart.
+Figure 32 shows the distribution of weekly income before housing costs across Scotland in `r params$data_period` with relative poverty threshold, UK median income, and Scottish income decile groups. Incomes of £0 and below and those above £1,400 are excluded from this chart.
 
 Many people have household incomes near the poverty threshold. This means that small movements in the overall distribution can sometimes lead to sizeable movements in poverty rates.
 
 Decile groups are groups of the population defined by the decile points. The first decile group is the ten percent of the population with the lowest incomes. The second decile group contains individuals with incomes above the lowest decile point but below the second decile point.
 
-
-```{r chart30}
-keymessage <- "add key message"
-title <- str_c("Figure 30: ", keymessage)
+```{r chart32}
+keymessage <- "Many people have incomes just above the poverty line."
+title <- str_c("Figure 32: ", keymessage)
 subtitle <- str_c("Equivalised weekly household income distribution before housing costs, Scotland ", 
                  params$data_period)
-interactive(povertycharts[["chart30"]], title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart32, title = title, subtitle = subtitle)
 ```
 
 ### Poverty thresholds
@@ -97,11 +104,11 @@ kable(povertytables[["table1"]],
 
 ```
 
-An after housing costs table is available in the associated tables.
+An after-housing-costs table is available in the associated tables.
 
 ### Income sources
 
-The chart below shows the different sources of gross income by decile, ranking the population by income and dividing it into ten equal-sized groups. Income components are considered before tax; this is therefore a different definition of household income from that used elsewhere in this report.
+Figure 33 shows the different sources of gross income by decile, ranking the population by income and dividing it into ten equal-sized groups. Income components are considered before tax; this is therefore a different definition of household income from that used elsewhere in this report.
 
 ```{r}
 keymessage <- "Earnings and social security payments main household income sources"
@@ -110,15 +117,13 @@ message(keymessage)
 
 Higher income households receive a large proportion of their income from earnings, and lower income households receive more of their income from social security payments. Social security payments include the state pension.
 
-Earnings account for around 45% of gross income for those in the first two deciles compared to over 80% for those in the top three deciles.
+Earnings account for less than half of gross income for those in the first three deciles compared to over 80% for those in the top three deciles.
 
-The proportion of household income from earnings exceeds that from social security payments for around 80% of the population (those above the 2nd percentile point).
+Except for the people in the second income decile, earnings are the main income source.
 
-
-```{r chart31}
-title <- str_c("Figure 31: ", keymessage)
+```{r chart33}
+title <- str_c("Figure 33: ", keymessage)
 subtitle <- str_c("Income sources as a percentage of gross income by income decile, Scotland ", 
                  params$data_period)
-interactive(povertycharts[["chart31"]], height = 5.5, title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart33, height = 4.5, title = title, subtitle = subtitle)
 ```

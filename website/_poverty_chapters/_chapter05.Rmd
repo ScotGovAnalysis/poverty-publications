@@ -2,63 +2,133 @@
 
 ### Age
 
+Poverty is measured at a household level. Everyone in the same household is considered either in poverty or not in poverty. This makes it difficult to measure the poverty rate by age or gender of an individual person if they share the households with others. 
+
+The age analysis includes adults in both, single- and multi-person households. But the trend shown in Figure 18, that the youngest adults have the highest poverty rates, holds true for single-adult households as well.
+
 ```{r}
-keymessage <- "Relative poverty rates higher for the youngest adults"
+keymessage <- "Relative poverty rates highest for the youngest adults"
 message(keymessage)
+
+rate_16_24 <- filter(data$age, yearn == max(yearn), key == "16-24") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+rate_65 <- filter(data$age, yearn == max(yearn), key == "65+") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+rate_0_4 <- filter(data$age3, x == "0-4") %>% select(label)
+rate_5_12 <- filter(data$age3, x == "5-12") %>% select(label)
+rate_13_19 <- filter(data$age3, x == "13-19") %>% select(label)
+
+
+num_16_24 <- filter(data$age, yearn == max(yearn), key == "16-24") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_65 <- filter(data$age, yearn == max(yearn), key == "65+") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_0_4 <- filter(data$age3, x == "0-4") %>% select(number) %>% pull()
+num_5_12 <- filter(data$age3, x == "5-12") %>% select(number) %>% pull()
+num_13_19 <- filter(data$age3, x == "13-19") %>% select(number) %>% pull()
+
 ```
 
-some stats
+In the last 15 years, the youngest adults (16-24 year olds) have been consistently more likely to be in relative poverty compared to older adults.
 
-`r infobox("Note that poverty is a household measure. Everyone in the same household is considered either in poverty or not in poverty. Therefore, the poverty status of an adult depends on the whole household.")`
+In `r params$data_period`, `r rate_16_24` of adults aged 16-24 were in relative poverty after housing costs (`r num_16_24` adults each year), compared to `r rate_65` of adults aged 65 and older (`r num_65` adults). The age groups in between all had similar poverty rates between 17% and 19%. 
 
 ```{r chart18}
 title <- str_c("Figure 18: ", keymessage)
 subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart18"]], title = title, subtitle = subtitle)
+interactive(povertycharts$chart18, title = title, subtitle = subtitle)
+```
+
+Figure 19 shows the latest estimates for adults, and also includes children. It shows that not only do the youngest adults have the highest poverty rates, but also the youngest children.
+
+In `r params$data_period`, `r rate_0_4` of children aged four and under were in relative poverty after housing costs (`r num_0_4` children each year). This compares to `r rate_5_12` (`r num_5_12` children) of the five to twelve year-olds, and `r rate_13_19` (`r num_13_19`) of teenagers.
+
+`r infobox("Some 16 to 19 year-olds are considered dependent children, and others are considered adults. The '13-19' category includes 16 to 19 year-old dependent children. The '16-24' category includes 16 to 19 year-old adults. The term 'dependent child' is explained in the [Definitions](#dependent-children) section.")` 
+
+```{r chart19}
+keymessage <- "The youngest adults and the youngest children have the highest poverty rates"
+title <- str_c("Figure 19: ", keymessage)
+subtitle <- paste0("Proportion of children and adults in relative poverty after housing costs, Scotland ", params$data_period)
+interactive(povertycharts$chart19, title = title, subtitle = subtitle)
 ```
 
 ### Gender
 
-Income is measured at a household level, which makes it difficult to measure the poverty rate for individual adults living with a partner. For those women and men who live in households with other adults, all adults will either be above or below the poverty threshold. In the analysis below, we therefore only include single adult households (with or without dependent children).
+```{r}
+rate_all <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "After housing costs") %>% select(label) %>% pull()
+rate_single <- filter(data$gender, yearn == max(yearn), groupingvar == "All") %>% 
+  select(label) %>% pull()
+```
 
-#### Working-age adults
+Poverty is measured at a household level. This means that men and women in the same household are both either in poverty or not in poverty. In the analysis below, we therefore only include single adult households (with or without dependent children).
+
+In `r params$data_period`, the relative poverty rate after housing costs for all single adults (working-age and pensioners) was `r rate_single`, higher than for the total population (`r rate_all`).
+
+#### Single working-age adults and gender
 
 ```{r}
 keymessage <- "Relative poverty rates highest for single mothers but gap is smaller than it used to be"
 message(keymessage)
+
+rate_singlemother <- filter(data$gender, yearn == max(yearn), key == "Single mother") %>% 
+  select(label) %>% pull()
+rate_singlewoman <- filter(data$gender, yearn == max(yearn), key == "Single woman, no children") %>% 
+  select(label) %>% pull()
+rate_singleman <- filter(data$gender, yearn == max(yearn), key == "Single man, no children") %>% 
+  select(label) %>% pull()
+
+num_singlemother <- filter(data$gender, yearn == max(yearn), key == "Single mother") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_singlewoman <- filter(data$gender, yearn == max(yearn), key == "Single woman, no children") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_singleman <- filter(data$gender, yearn == max(yearn), key == "Single man, no children") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+
 ```
 
-In `r params$data_period`, the relative poverty rate after housing costs for single working-age adults was 32%, higher than for the total working-age adult population (19%).
-
-The poverty rate was highest for single women with children (39%). The poverty rate for single women without children was 28%, and for single men (with or without children) was 34%.
+The poverty rate was highest for single women with children (`r rate_singlemother`, `r num_singlemother` single mothers each year). The poverty rate for single women without children was `r rate_singlewoman` (`r num_singlewoman` women), and for single men without children was `r rate_singleman` (`r num_singleman` men). Estimates for single fathers are not available due to small sample sizes.
 
 Until 2010-13, the gap in poverty rates between these groups had narrowed, but in recent years it widened again.
 
-`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#dependent-children).\n\nEstimates for single fathers are not available due to small sample sizes.")`
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#dependent-children).")`
 
-```{r chart19}
-title <- str_c("Figure 19: ", keymessage)
+```{r chart20}
+title <- str_c("Figure 20: ", keymessage)
 subtitle <- "Proportion of single working-age adults in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart19"]], height = 5, title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart20, height = 4.5, title = title, subtitle = subtitle)
 ```
 
-#### Pensioners
+#### Single pensioners and gender
 
 ```{r}
 keymessage <- "Relative poverty rates higher for single female pensioners than male"
 message(keymessage)
+
+rate_fem <- filter(data$gender, yearn == max(yearn), key == "Single female pensioner") %>% 
+  select(label) %>% pull()
+rate_man <- filter(data$gender, yearn == max(yearn), key == "Single male pensioner") %>% 
+  select(label) %>% pull()
+
+num_fem <- filter(data$gender, yearn == max(yearn), key == "Single female pensioner") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_man <- filter(data$gender, yearn == max(yearn), key == "Single male pensioner") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+
+rate_men80 <- filter(data$gender_ages, sexhd == 1) %>% select(older) %>% pull()
+rate_women80 <- filter(data$gender_ages, sexhd == 2) %>% select(older) %>% pull()
 ```
 
-In `r params$data_period`, 18% of single female pensioners and 15% of single male pensioners were in relative poverty after housing costs. In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
+In `r params$data_period`, `r rate_fem`  of single female pensioners (`r num_fem` women each year) and `r rate_man` of single male pensioners were in relative poverty after housing costs. Note that there were too few single male pensioners in poverty in the sample to produce a robust estimate of their population.
 
-Some of the difference in pensioner poverty between genders may be due to different age profiles. For example, in `r params$data_period`, 40% of female single pensioners were aged over 80 compared with 31% of male single pensioners. Older pensioners may have different sources of income which may result in them having lower incomes.
+In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners, with this gap only recently widening and closing again.
 
-```{r chart20}
-title <- str_c("Figure 20: ", keymessage)
+Some of the difference in pensioner poverty between genders may be due to different age profiles. For example, in `r params$data_period`, `r rate_women80` of female single pensioners were aged 80 or older compared with `r rate_men80` of male single pensioners. Older pensioners may have different sources of income which may result in them having lower incomes.
+
+```{r chart21}
+title <- str_c("Figure 21: ", keymessage)
 subtitle <- "Proportion of single pensioners in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart20"]], height = 5, title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart21, height = 4.5, title = title, subtitle = subtitle)
 ```
 
 ### Marital status
@@ -66,19 +136,41 @@ interactive(povertycharts[["chart20"]], height = 5, title = title,
 ```{r}
 keymessage <- "Relative poverty rates highest for singles, divorced & separated, and lowest for married adults"
 message(keymessage)
+
+rate_single <- filter(data$marital, yearn == max(yearn), key == "Single") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+rate_divorced <- filter(data$marital, yearn == max(yearn), key == "Divorced") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+rate_married <- filter(data$marital, yearn == max(yearn), key == "Married") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+rate_widowed <- filter(data$marital, yearn == max(yearn), key == "Widowed") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+rate_cohab <- filter(data$marital, yearn == max(yearn), key == "Cohabiting") %>% 
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+
+num_single <- filter(data$marital, yearn == max(yearn), key == "Single") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_divorced <- filter(data$marital, yearn == max(yearn), key == "Divorced") %>% 
+   mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_married <- filter(data$marital, yearn == max(yearn), key == "Married") %>% 
+   mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_widowed <- filter(data$marital, yearn == max(yearn), key == "Widowed") %>% 
+   mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_cohab <- filter(data$marital, yearn == max(yearn), key == "Cohabiting") %>% 
+   mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+
 ```
 
-In `r params$data_period`, the relative poverty rate after housing costs was highest for single adults (27%, 260,000 adults each year) and divorced (or separated) adults (26%, 90,000). Married adults were the least likely to be in poverty (13%, 270,000), and widowed and cohabiting adults were in the middle (17% and 20%; 50,000 and 120,000).
+In `r params$data_period`, the relative poverty rate after housing costs was highest for single adults (`r rate_single`, `r num_single` adults each year) and divorced (or separated) adults (`r rate_divorced`, `r num_divorced`). Married adults were the least likely to be in poverty (`r rate_married`, `r num_married`), and widowed and cohabiting adults were in the middle (`r rate_widowed` and `r rate_cohab`; `r num_widowed` and `r num_cohab`).
 
 Poverty among widowed and divorced/separated adults largely decreased over the long term, whereas the trend for singles, cohabiting and married adults was broadly flat over time.
 
-`r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner.\n\nThe 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart.\n\nThe 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
+`r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner. The 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart. The 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
 
-```{r chart21}
-title <- str_c("Figure 21: ", keymessage)
+```{r chart22}
+title <- str_c("Figure 22: ", keymessage)
 subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart21"]], height = 5, title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart22, height = 4.5, title = title, subtitle = subtitle)
 ```
 
 ### Ethnicity
@@ -88,98 +180,171 @@ Ethnicity data relates to all people in a household and is based on the ethnicit
 ```{r}
 keymessage <- "Relative poverty rates higher for ethnic minorities"
 message(keymessage)
+
+rate_asian <- filter(data$ethnic, x == "Asian or Asian British") %>% 
+  select(label) %>% pull()
+rate_mixed <- filter(data$ethnic, x == "Mixed, Black or Black British, and Other") %>% 
+  select(label) %>% pull()
+rate_brits <- filter(data$ethnic, x == "White - British") %>% 
+  select(label) %>% pull()
+rate_white <- filter(data$ethnic, x == "White - Other") %>% 
+  select(label) %>% pull()
+num_asian <- filter(data$ethnic, x == "Asian or Asian British") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_brits <- filter(data$ethnic, x == "White - British") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_white <- filter(data$ethnic, x == "White - Other") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+
+age_white <- filter(data$ethnic_ages, ethgrphh == "White - Other") %>% 
+  select(age) %>% pull()
+age_brits <- filter(data$ethnic_ages, ethgrphh == "White - British") %>% 
+  select(age) %>% pull()
+age_asian <- filter(data$ethnic_ages, ethgrphh == "Asian or Asian British") %>% 
+  select(age) %>% pull()
+age_mixed <- filter(data$ethnic_ages, ethgrphh == "Mixed, Black or Black British, and Other") %>% 
+  select(age) %>% pull()
+
 ```
 
-In 2014-19, people from non-white minority ethnic groups were more likely to be in relative poverty after housing costs compared to those from the 'White - British' and 'White - Other' groups.
+In `r params$data_period_5`, people from non-white minority ethnic groups were more likely to be in relative poverty after housing costs compared to those from the 'White - British' and 'White - Other' groups.
 
-The poverty rate was 39% for the 'Asian or Asian British' ethnic groups, and 38% for 'Mixed, Black or Black British and Other' ethnic groups.
+The poverty rate was `r rate_asian` for the 'Asian or Asian British' ethnic groups (`r num_asian` people each year), and `r rate_mixed` for 'Mixed, Black or Black British and Other' ethnic groups (no population estimate available due to the small sample).
 
-The poverty rate amongst the 'White - Other' group was 25% (80,000 people) and that of the 'White - British' group was 18% (860,000 people).
+The poverty rate amongst the 'White - Other' group was `r rate_white` (`r num_white` people) and that of the 'White - British' group was `r rate_brits` (`r num_brits` people).
 
-`r infobox("This analysis doesn't take into account differences in the age profiles of the ethnic groups.\n\nFor the 'White - British' ethnic group the median average age of the highest income earner was 50 compared with a median age of 36 for the 'White - Other' ethnic group, 39 for 'Asian or Asian British' and and 40 for 'Mixed, Black, Black British or Other' ethnic groups.\n\nOlder people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups.")`
+`r infobox(paste0("This analysis doesn't take into account differences in the age profiles of the ethnic groups.\n\nFor the 'White - British' ethnic group the median average age of the highest income earner was ", age_brits, ", compared with a median age of ", age_white, " for the 'White - Other' ethnic group, ", age_asian, " for 'Asian or Asian British' and ", age_mixed, " for 'Mixed, Black, Black British or Other' ethnic groups.\n\nOlder people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups."))`
 
-```{r chart22}
-title <- str_c("Figure 22: ", keymessage)
+```{r chart23}
+title <- str_c("Figure 23: ", keymessage)
 subtitle <- str_c("Proportion of people in relative poverty after housing costs, Scotland ", 
                   params$data_period_5)
-interactive(povertycharts[["chart22"]], title = title,
+interactive(povertycharts$chart23, title = title,
             subtitle = subtitle)
 ```
 
 #### More information on ethnicity data
 
-The above chart shows an ethnicity breakdown based on an average of data from the past five financial years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more [detailed ethnicity breakdown using ten years of data](https://www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
+Figure 23 shows an ethnicity breakdown based on an average of data from the past five years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more [detailed ethnicity breakdown using ten years of data](https://www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
 
-Due to the small sample sizes for some of the ethnic groups, and the fact that ethnic composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by ethnicity, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of people in poverty is not available for some ethnic groups due to small sample sizes.
+Due to the small sample sizes for some of the ethnic groups, and the fact that ethnic composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series has not been produced for poverty rates by ethnicity, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of people in poverty is not available for some ethnic groups due to small sample sizes.
 
 ### Religion
 
-Data on religion is available for adults only, so this analysis doesn't include children in a household.
+Data on religion is available for adults only, so this analysis does not include children.
 
 ```{r}
 keymessage <- "Relative poverty rates higher for Muslims"
 message(keymessage)
+
+rate_all <- filter(data$religion, x == "All") %>% 
+  select(label) %>% pull()
+
+rate_muslim <- filter(data$religion, x == "Muslim") %>% 
+  select(label) %>% pull()
+rate_cos <- filter(data$religion, x == "Church of Scotland") %>% 
+  select(label) %>% pull()
+rate_cath <- filter(data$religion, x == "Roman Catholic") %>% 
+  select(label) %>% pull()
+rate_other <- filter(data$religion, x == "Other Christian") %>% 
+  select(label) %>% pull()
+
+num_muslim <- filter(data$religion, x == "Muslim") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_cos <- filter(data$religion, x == "Church of Scotland") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_cath <- filter(data$religion, x == "Roman Catholic") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_other <- filter(data$religion, x == "Other Christian") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+
+age_cos <- filter(data$religion_ages, religsc == "Church of Scotland") %>% 
+  select(age) %>% pull()
+age_muslim <- filter(data$religion_ages, religsc == "Muslim") %>% 
+  select(age) %>% pull()
+age_none <- filter(data$religion_ages, religsc == "No religion") %>% 
+  select(age) %>% pull()
+
 ```
 
-In 2014-19, Muslim adults were more likely to be in relative poverty (49%) than adults overall (18%), after housing costs were taken into account.
+In `r params$data_period_5`, Muslim adults were more likely to be in relative poverty (`r rate_muslim`, `r num_muslim` each year) than adults overall (`r rate_all`), after housing costs were taken into account.
 
-Of adults belonging to the Church of Scotland, 15% were in relative poverty after housing costs (180,000 adults each year), compared to 19% of Roman Catholic adults (120,000 adults) and adults of other Christian denominations (also 19%; 70,000 adults).
+Of adults belonging to the Church of Scotland, `r rate_cos` were in relative poverty after housing costs (`r num_cos` adults each year), compared to `r rate_cath` of Roman Catholic adults (`r num_cath` adults) and adults of other Christian denominations (`r rate_other`; `r num_other` adults).
 
-`r infobox("This analysis doesn't take into account differences in the age profiles of the religions.\n\nFor adults belonging to the Church of Scotland, the median average age was 61. In contrast, the median age was 35 for Muslim adults, and 40 for adults belonging to no religion.\n\nOlder people have a lower poverty rate, so age profile partly explains the lower poverty rate for people belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups.")`
+`r infobox(paste0("This analysis doesn't take into account differences in the age profiles of the religions.\n\nFor adults belonging to the Church of Scotland, the median average age was ", age_cos , ". In contrast, the median age was ", age_muslim, " for Muslim adults, and ", age_none, " for adults belonging to no religion.\n\nOlder adults have a lower poverty rate, so age profile partly explains the lower poverty rate for adults belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups."))`
 
-```{r chart23}
-title <- str_c("Figure 23: ", keymessage)
+```{r chart24}
+title <- str_c("Figure 24: ", keymessage)
 subtitle <- str_c("Proportion of adults in relative poverty after housing costs, Scotland ", 
                   params$data_period_5)
-interactive(povertycharts[["chart23"]], title = title, subtitle = subtitle)
+interactive(povertycharts$chart24, title = title, subtitle = subtitle)
 ```
 
 #### More information on religion data
 
-The above chart shows an average for data from the past five financial years.
+Figure 24 shows an average for data from the past five financial years.
 
-Due to the small sample sizes for some of the religious groups, and the fact that religious composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series hasn't been produced for poverty rates by religion, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of adults in poverty is not available for some religious groups due to small sample sizes.
+Due to the small sample sizes for some of the religious groups, and the fact that religious composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. A time series has not been produced for poverty rates by religion, as this uncertainty in the data will obscure any long-term trends. Similarly, the estimated number of adults in poverty is not available for some religious groups due to small sample sizes.
 
 ### Disability
 
 ```{r}
 keymessage <- "Relative poverty rates higher where a household member is disabled"
 message(keymessage)
+
+rate_dis <- filter(data$disability, yearn == max(yearn), key == "In household with disabled person(s)") %>% 
+  select(label) %>% pull()
+rate_nodis <- filter(data$disability, yearn == max(yearn), key == "In household with no disabled person(s)") %>% 
+  select(label) %>% pull()
+
+num_dis <- filter(data$disability, yearn == max(yearn), key == "In household with disabled person(s)") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_nodis <- filter(data$disability, yearn == max(yearn), key == "In household with no disabled person(s)") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+
 ```
 
 Poverty rates remain higher for households in which somebody is disabled compared to those where no-one is disabled. The gap between the two groups has remained fairly steady over the last few years.
 
-In `r params$data_period`, the poverty rate after housing costs for people in households with a disabled person was 23% (490,000 people each year). This compares with 17% (530,000 people) in a household without disabled household members.
+In `r params$data_period`, the poverty rate after housing costs for people in households with a disabled person was `r rate_dis` (`r num_dis` people each year). This compares with `r rate_nodis` (`r num_nodis` people) in a household without disabled household members.
 
-```{r chart24}
-title <- str_c("Figure 24: ", keymessage)
+```{r chart25}
+title <- str_c("Figure 25: ", keymessage)
 subtitle <- "Proportion of people in relative poverty after housing costs, Scotland"
-interactive(povertycharts[["chart24"]], height = 3.5,  title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart25, title = title, subtitle = subtitle)
 ```
 
 `r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.\n\nMore detail can be found on pages 34-36 in the [2015/16 Households Below Average Incomes technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
 
 #### Additional living costs of disabled people
 
-The relative poverty measure doesn't take into account the fact that additional living costs may be incurred due to the illness or disability in question. The analysis shown in the next chart attempts to make an adjustment to the poverty rates to partly account for additional living costs for those households where someone is in receipt of disability benefits.
+Some illnesses and disabilities incur additional living costs. The poverty measure does not normally consider this. However, the analysis shown in Figure 26 uses an adjusted poverty rate that partly accounts for additional living costs for those households where someone receives disability benefits.
 
 ```{r}
-keymessage <- "Relative poverty rates, with disability benefits removed from household income, higher where a household member is disabled"
+keymessage <- "Relative poverty rates, with disability benefits removed from household income, are higher where a household member is disabled"
 message(keymessage)
+
+rate_dis <- filter(data$disability2, yearn == max(yearn), key == "In household with disabled person(s)") %>% 
+  select(label) %>% pull()
+rate_nodis <- filter(data$disability2, yearn == max(yearn), key == "In household with no disabled person(s)") %>% 
+  select(label) %>% pull()
+
+num_dis <- filter(data$disability2, yearn == max(yearn), key == "In household with disabled person(s)") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
+num_nodis <- filter(data$disability2, yearn == max(yearn), key == "In household with no disabled person(s)") %>% 
+  mutate(num = fmtpop(round2(number, -4))) %>% select(num) %>% pull()
 ```
 
-Whilst it is recognised that there are additional costs associated with disability, research shows that these vary greatly in level and nature, and there is no general agreement on how to measure these costs.
+Research shows that additional costs associated with disability vary greatly in level and nature. There is no general agreement on how to measure these costs.
 
-Analysis on this page excludes Disability Living Allowance, Attendance Allowance and Personal Independence Payments from total household income. These benefits are paid as a contribution towards the additional living costs for disabled people. If this income is excluded from total household income, then we are able to compare households with and without a disabled household member on a more like for like basis.
+The analysis in Figure 26 excludes Disability Living Allowance, Attendance Allowance and Personal Independence Payments from total household income. These benefits are paid as a contribution towards the additional living costs for disabled people. If this income is excluded from total household income, then we are able to compare households with and without a disabled household member on a more like for like basis.
 
-In `r params$data_period`, as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability related benefits are not included in the household income. After housing costs, the poverty rate was 29% (620,000 people each year) for people living with a disabled household member, and 16% (500,000 people) for those without.
+In `r params$data_period`, as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability-related benefits are not included in the household income. After housing costs, the poverty rate was `r rate_dis` (`r num_dis` people each year) for people living with a disabled household member, and `r rate_nodis` (`r num_nodis` people) for those without.
 
-```{r chart25}
-title <- str_c("Figure 25: ", keymessage)
+```{r chart26}
+title <- str_c("Figure 26: ", keymessage)
 subtitle <- "Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland"
-interactive(povertycharts[["chart25"]], height = 4,  title = title,
-            subtitle = subtitle)
+interactive(povertycharts$chart26, height = 3.8, title = title, subtitle = subtitle)
 ```
 
-`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now move down the income distribution, which lowers the median income and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold.\n\nAs a result, the poverty rate for households without a disabled person is slightly lower.")`
+`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now have a lower income, which lowers the median and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold. As a result, the poverty rate for households without a disabled person is slightly lower.")`

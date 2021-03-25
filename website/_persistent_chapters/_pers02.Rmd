@@ -1,6 +1,6 @@
 ## What you need to know
 
-Poverty can be measured in a number of different ways, each of which can tell us something different about poverty. One of the most common measures is relative (income) poverty which identifies people living in households with an equivalised income below 60% of the UK median household income. It therefore measures whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole. Statistics on relative poverty in Scotland can be found in the [Poverty and Income Inequality in Scotland](https://data.gov.scot/poverty/) report.
+Poverty can be measured in a number of different ways, each of which can tell us something different about poverty. One of the most common measures is relative (income) poverty which identifies people living in households with an equivalised income below 60% of the UK median household income. It therefore measures whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole. Statistics on relative poverty in Scotland can be found in the [Poverty and Income Inequality in Scotland](./) report.
 
 **Persistent poverty identifies individuals who live in relative poverty for three or more of the last four years.** 
 
@@ -18,4 +18,4 @@ Surveys gather information from a sample rather than from the whole population. 
 
 Work is ongoing to improve the income estimates and impute missing data, and therefore the estimates presented here will continue to be subject to routine revisions, as with figures based on longitudinal data in general.
 
-`r infobox("The statistics presented below are subject to a degree of error. This means that implied changes over the years and between countries may not be significant and instead be within a given error range. More information can be found in the [Methodology](#methodology) section.")`
+`r infobox("The statistics presented below are subject to a degree of uncertainty. This means that implied changes over the years and between countries may not be statistically significant and instead be within a given error range. More information can be found in the [Methodology](#methodology) section.")`

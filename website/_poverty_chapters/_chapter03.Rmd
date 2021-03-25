@@ -2,25 +2,36 @@
 
 ### All individuals {.tabset}
 
-The most commonly used poverty indicator in Scotland is relative poverty after housing costs. It is complemented in this report by other poverty measures, which are shown in the additional tabs below.
+The most commonly used poverty indicator in Scotland is relative poverty after housing costs. Alongside this key indicator, we also included other poverty measures, which are shown in the additional tabs below.
 
 #### Relative poverty
 
 ```{r}
-keymessage <- "Relative poverty rate for all individuals no longer rising"
+keymessage <- "Relative poverty rate for all individuals stable"
 message(keymessage)
+
+rateA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "After housing costs") %>% select(label) %>% pull()
+numberA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = round2(number, -4)/1E6) %>% pull()
+rateB <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "Before housing costs") %>% select(label) %>% pull()
+numberB <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "Before housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
 ```
 
-It is estimated that 19% of Scotland's population (1.02 million people each year) were living in relative poverty after housing costs in `r params$data_period`. Before housing costs, 17% of the population (900,000 people) were living in poverty.
+It is estimated that `r rateA` of Scotland's population (`r numberA` million people each year) were living in relative poverty after housing costs in `r params$data_period`. Before housing costs, `r rateB` of the population (`r numberB` people) were living in poverty.
 
-Relative poverty is a measure of whether the income of the poorest households are keeping pace with middle income households across the UK.
+Relative poverty is a measure of whether the lowest-income households are keeping pace with middle income households across the UK.
 
 The proportion of people in relative poverty after housing costs had been falling slightly between the late nineties and the lowest point in this time series in 2009-12. After that, it started to rise again up until now, where the rise appears to have stopped. Before housing costs poverty looks similar, with the all-time low slightly later, in 2011-14.
 
 ```{r, chart01}
 title <- str_c("Figure 1: ", keymessage)
 subtitle <- "Proportion of people in relative poverty, Scotland"
-interactive(povertycharts[["chart01"]], height = 3.5, title = title, subtitle = subtitle)
+interactive(povertycharts$chart01, title = title, subtitle = subtitle)
 ```
 
 #### Absolute poverty 
@@ -28,120 +39,203 @@ interactive(povertycharts[["chart01"]], height = 3.5, title = title, subtitle = 
 ```{r}
 keymessage <- "Absolute poverty rate for all individuals stable"
 message(keymessage)
+
+rateA <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "After housing costs") %>% select(label) %>% pull()
+numberA <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+rateB <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "Before housing costs") %>% select(label) %>% pull()
+numberB <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpp", 
+                key == "Before housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
 ```
 
-It is estimated that 17% of Scotland's population (910,000 people each year) were living in absolute poverty after housing costs in `r params$data_period`. After a long decline since the beginning of this time series in the mid-nineties, absolute poverty rates have stagnated since 2006-09.
+It is estimated that `r rateA` of the population (`r numberA` people each year) were living in absolute poverty after housing costs in `r params$data_period`. After a long decline since the beginning of this time series in the mid-nineties, absolute poverty rates have stagnated in the last decade.
 
-Before housing costs, 14% of Scotland's population (770,000 people each year) were in absolute poverty. The trend is similar to the after housing costs measure, although the downward trend started to stagnate a few years later.
+Before housing costs, `r rateB` of the population (`r numberB` people each year) were in absolute poverty. The trend is similar to the after housing costs measure, although the downward trend started to stagnate a few years later.
 
 The gap between the before and after housing costs measure had widened in 2008-11, but has remained steady since.
 
-Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the relative poverty threshold in 2010/11.
+Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the inflation-adjusted relative poverty threshold in 2010/11.
 
 ```{r chart02}
 title <- str_c("Figure 2: ", keymessage)
 subtitle <- "Proportion of people in absolute poverty, Scotland"
-interactive(povertycharts[["chart02"]], height = 4.5, title = title, 
+interactive(povertycharts$chart02, height = 4.5, title = title, 
             subtitle = subtitle)
 ```
 
 #### Food security
 
 ```{r}
-keymessage <- "People in poverty often lack food security"
+keymessage <- "People in poverty often live in households that lack food security"
 message(keymessage)
+
+rateH_all <- filter(data$foodsec, x == "All people", 
+                    key == "High") %>%
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+
+rateL_all <- filter(data$foodsec, x == "All people", 
+                    key == "High") %>%
+  mutate(y = fmtpct(round2(1 - y, 2))) %>% select(y) %>% pull()
+
+rateH_rel <- filter(data$foodsec, x == "People in relative poverty", 
+                    key == "High") %>%
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+
+rateH_abs <- filter(data$foodsec, x == "People in absolute poverty", 
+                    key == "High") %>%
+  mutate(y = fmtpct(round2(y, 2))) %>% select(y) %>% pull()
+
 ```
 
-add stats here, i.e. xx% of people lived in households with high food security etc.
+Food security is measured at a household level. The person in the household who knows most about buying and preparing food responds to the questions about food security. Note that not everyone in the household may experience this in the same way. For example, a parent may have worried about running out of food or reduced their own meal sizes, but protected their young children from this experience. 
 
-`r infobox("Food security questions were newly added to the Family Resources Survey in 2019/20. They ask about whether people were worried about running out of food, had to reduce meal sizes or skip meals. More information can be found in the [Definitions](#food-security-2) section.")`
+In `r params$data_year`, `r rateH_all` of the population lived in households with high food security. This means that `r rateL_all` of people lived in households with marginal, low or very low food security.
 
+People in poverty were less likely to experience high food security: just `r rateH_rel` of those in relative poverty, and `r rateH_abs` of those in absolute poverty lived in high food security households.
+
+`r infobox("Household food security questions were newly added to the Family Resources Survey in 2019/20. They ask about whether people were worried about running out of food, had to reduce meal sizes or skip meals. More information can be found in the [Definitions](#food-security-2) section.")`
 
 ```{r chart03}
 title <- str_c("Figure 3: ", keymessage)
-subtitle <- str_c("Levels of food security of all people and those in poverty after housing costs, Scotland ", params$data_year, " (fake data!)")
-interactive(povertycharts[["chart03"]], title = title, subtitle = subtitle)
+subtitle <- str_c("Levels of household food security of all people and those in poverty after housing costs, Scotland ", params$data_year)
+interactive(povertycharts$chart03, title = title, subtitle = subtitle)
 ```
 
 ### Working-age adults {.tabset}
+
+Working-age adults are defined as all adults up to the state pension age. Women's state pension age reached 65 in November 2018, aligning it with men's state pension age. Since December 2018, the state pension age for both men and women has started to increase to reach 67 between 2026 and 2028.
 
 #### Relative poverty 
 
 ```{r}
 keymessage <- "Relative poverty rate for working-age adults stable"
 message(keymessage)
+
+rateA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% select(label) %>% pull()
+numberA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+rateB <- filter(data$relpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "Before housing costs") %>% select(label) %>% pull()
+numberB <- filter(data$relpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "Before housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
 ```
 
-Relative poverty for working-age adults has been broadly stable since reporting began. Relative poverty in `r params$data_period` was estimated to be 19% after housing costs, and 16% before housing costs.
+Relative poverty for working-age adults has been broadly stable since the nineties, when reporting began. The relative poverty rate in `r params$data_period` was estimated to be `r rateA` after housing costs, and `r rateB` before housing costs.
 
-In `r params$data_period`, there were 640,000 working-age adults in poverty after housing costs, compared to 530,000 before housing costs.
-
-Working-age adults are defined as all adults up to the state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
+In `r params$data_period`, there were `r numberA` working-age adults in poverty after housing costs, and `r numberB` before housing costs.
 
 ```{r chart04}
 title <- str_c("Figure 4: ", keymessage)
 subtitle <- "Proportion of working-age adults in relative poverty, Scotland"
-interactive(povertycharts[["chart04"]], title = title, subtitle = subtitle)
+interactive(povertycharts$chart04, title = title, subtitle = subtitle)
 ```
+
+Having paid work is an effective way out of poverty, and those families where all adults are in full-time work have a low poverty risk. But having a job is not always enough, for example when it does not pay well, or when someone is unable to work enough hours.
+
+```{r}
+keymessage <- "Most working-age adults in poverty live in working households"
+message(keymessage)
+
+rateA <- filter(data$workpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% 
+  mutate(label = fmtpct(round2(composition, 2))) %>% 
+  select(label) %>% pull()
+numberA <- filter(data$workpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+
+```
+
+In `r params$data_period`, `r rateA` of working-age adults (`r numberA` working-age adults each year) in relative poverty after housing costs were living in a household where someone was in paid work.
+
+The share of working-age adults in poverty who lived in working households continuously increased since 2011-14, reflecting high employment rates, and now appears largely stable.
+
+`r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment. They do not include unpaid work such as caring for your children or other family members. In-work poverty refers to the share of children in poverty who live in households where at least one member of the household is in either full or part-time paid work.")`
+
+```{r chart05}
+title <- str_c("Figure 5: ", keymessage)
+subtitle <- "Working-age adults in relative poverty after housing costs by household work status, Scotland"
+interactive(povertycharts$chart05, title = title, subtitle = subtitle)
+```
+
+Before-housing-costs data looks similar, and the analysis is available in the associated tables. 
 
 #### Absolute poverty
 
 ```{r}
 keymessage <- "Absolute poverty rate for working-age adults stable"
 message(keymessage)
+
+rateA <- filter(data$abspov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% select(label) %>% pull()
+numberA <- filter(data$abspov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+rateB <- filter(data$abspov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "Before housing costs") %>% select(label) %>% pull()
+numberB <- filter(data$abspov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "Before housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
 ```
 
-Absolute poverty amongst working-age adults remained broadly stable during the last fifteen years. In `r params$data_period`, 17% of working-age adults were in absolute poverty after housing costs, and 14% before housing costs.
+Absolute poverty amongst working-age adults remained broadly stable during the last fifteen years. In `r params$data_period`, `r rateA` of working-age adults were in absolute poverty after housing costs, and `r rateB` before housing costs.
 
-This means that in `r params$data_period`, there were 580,000 working-age adults each year in absolute poverty after housing costs, compared to 460,000 before housing costs.
-
-Working-age adults are considered to be in poverty when they live in a household which is in poverty.
-
-```{r chart05}
-title <- str_c("Figure 5: ", keymessage)
-subtitle <- "Proportion of working-age adults in absolute poverty, Scotland"
-interactive(povertycharts[["chart05"]], height = 4.5, title = title, 
-            subtitle = subtitle)
-```
-
-#### In-work poverty
-
-```{r}
-keymessage <- "Share of working-age adults in poverty who live in working households now stable"
-message(keymessage)
-```
-
-In `r params$data_period`, 60% of working-age adults in relative poverty after housing costs as well as before housing costs were living in working households. This represents 380,000 working-age adults in poverty after housing costs, and 310,000 working-age adults before housing costs.
-
-In-work poverty for working-age adults continuously increased since 2011-14, and in the most recent period, it continued to be at its highest since reporting began.
-
-`r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment only. In-work poverty refers to people living in households where at least one member of the household is in either full or part-time paid work, but where the household income is below the relative poverty threshold.")`
+This means that in `r params$data_period`, there were `r numberA` working-age adults each year in absolute poverty after housing costs, compared to `r numberB` before housing costs.
 
 ```{r chart06}
 title <- str_c("Figure 6: ", keymessage)
-subtitle <- "Proportion of working-age adults in relative poverty who live in a working household, Scotland"
-interactive(povertycharts[["chart06"]], height = 3.5, title = title, subtitle = subtitle)
+subtitle <- "Proportion of working-age adults in absolute poverty, Scotland"
+interactive(povertycharts$chart06, height = 4.5, title = title, 
+            subtitle = subtitle)
 ```
 
 ### Pensioners {.tabset}
+
+Pensioners are adults who have reached their state pension age.
 
 #### Relative poverty
 
 ```{r}
 keymessage <- "Relative poverty rate for pensioners stable"
 message(keymessage)
+
+rateA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "After housing costs") %>% select(label) %>% pull()
+numberA <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+rateB <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "Before housing costs") %>% select(label) %>% pull()
+numberB <- filter(data$relpov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "Before housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+
+rate_wa <- filter(data$relpov, yearn == max(yearn), weight == "gs_newwa", 
+                key == "After housing costs") %>% select(label) %>% pull()
+
+rate_ch <- filter(data$relpov, yearn == max(yearn), weight == "gs_newch", 
+                key == "After housing costs") %>% select(label) %>% pull()
 ```
 
-Relative poverty after housing costs for pensioners was 15% in `r params$data_period` (150,000 pensioners each year). Before housing costs, 18% of pensioners (180,000 pensioners) were in relative poverty.
+The relative poverty rate after housing costs for pensioners was `r rateA` in `r params$data_period`, or `r numberA` pensioners each year. The poverty rate has been consistently below that for working-age adults (`r rate_wa`) and children (`r rate_ch`).
 
-Relative pensioner poverty showed a long decline until 2008-11, was then largely stable between until 2013-16 before it started to rise again in 2013-16 (before housing costs) and 2014-17 (after housing costs). In the latest period, relative pensioner poverty may have stopped rising.
+Before housing costs, `r rateB` of pensioners (`r numberB` pensioners) were in relative poverty.
 
-The majority of pensioners own their home. Examining pensioners' income after deducting housing costs allows for more meaningful comparisons of income between working-age adults and pensioners, or for pensioners over time.
+Relative pensioner poverty after housing costs showed a long decline until 2011-14, was then largely stable for a few years before it started to rise again. In recent years, relative pensioner poverty is largely stable.
+
+The majority of pensioners own their home. It is therefore more meaningful to use the after-housing-costs poverty measure for comparing the standard of living between pensioners and other age groups.
 
 ```{r chart07}
 title <- str_c("Figure 7: ", keymessage)
 subtitle <- "Proportion of pensioners in relative poverty, Scotland"
-interactive(povertycharts[["chart07"]], title = title, subtitle = subtitle)
+interactive(povertycharts$chart07, title = title, subtitle = subtitle)
 ```
 
 #### Absolute poverty
@@ -149,18 +243,28 @@ interactive(povertycharts[["chart07"]], title = title, subtitle = subtitle)
 ```{r}
 keymessage <- "Absolute poverty rate for pensioners stable"
 message(keymessage)
+
+rateA <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "After housing costs") %>% select(label) %>% pull()
+numberA <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "After housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+rateB <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "Before housing costs") %>% select(label) %>% pull()
+numberB <- filter(data$abspov, yearn == max(yearn), weight == "gs_newpn", 
+                key == "Before housing costs") %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+
 ```
 
-Absolute poverty after housing costs for pensioners was 12% (130,000 pensioners each year) in `r params$data_period`. Before housing costs, it was 14% (150,000 pensioners).
+Absolute poverty after housing costs for pensioners was `r rateA` (`r numberA` pensioners each year) in `r params$data_period`. Before housing costs, it was `r rateB` (`r numberB` pensioners).
 
-Absolute poverty has remained broadly stable since 2008-11 following a continuous decrease since reporting began.
-
-Pensioners are defined as all those adults above state pension age. State pension age is currently 65 for men, and since November 2018 also for women.
+Absolute poverty has remained broadly stable since 2008-11 following a continuous decrease since the nineties, when reporting began.
 
 ```{r chart08}
 title <- str_c("Figure 8: ", keymessage)
 subtitle <- "Proportion of pensioners in absolute poverty, Scotland"
-interactive(povertycharts[["chart08"]], height = 4.5, title = title, 
+interactive(povertycharts$chart08, height = 4.5, title = title, 
             subtitle = subtitle)
 ```
 
@@ -169,21 +273,26 @@ interactive(povertycharts[["chart08"]], height = 4.5, title = title,
 ```{r}
 keymessage <- "Pensioners in material deprivation broadly stable"
 message(keymessage)
+
+rate <- filter(data$pndep, yearn == max(yearn)) %>% select(label) %>% pull()
+number <- filter(data$pndep, yearn == max(yearn)) %>% select(number) %>% 
+  mutate(number = comma(round2(number, -4))) %>% pull()
+
 ```
 
-In `r params$data_period`, 5% of pensioners (50,000 pensioners each year) were in material deprivation.
+In `r params$data_period`, `r rate` of pensioners (`r number` pensioners each year) were in material deprivation.
 
-This data has been collected since 2009.
-
-Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure, in that is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation prevent access to goods and services, rather than solely low income.
+Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure. It does not only consider low income. It also captures other barriers to accessing goods and services, such as poor health, disability and social isolation.
 
 More information about pensioner material deprivation can be found in the [Definitions section](#pensioner-material-deprivation).
 
-Pensioner material deprivation is included for pensioners aged 65 or over.
+Pensioner material deprivation is included for all pensioners aged 65 or over. There were some pensioners in the analysis who were younger than 65; these were not included. Therefore, this measure looks at a slightly smaller group of people than the other measures in the Pensioners section.
+
+This data has been collected since 2009.
 
 ```{r chart09}
 title <- str_c("Figure 9: ", keymessage)
-subtitle <- "Proportion of pensioners in material deprivation, Scotland"
-interactive(povertycharts[["chart09"]], title = title, subtitle = subtitle)
+subtitle <- "Proportion of pensioners aged 65 and over in material deprivation, Scotland"
+interactive(povertycharts$chart09, title = title, subtitle = subtitle)
 ```
 
