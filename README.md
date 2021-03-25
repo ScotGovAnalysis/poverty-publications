@@ -25,10 +25,7 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
 ### 2. Create everything
 
-**Run 08_create_website.R to create all spreadsheets and the website.**
-
-Alternatively, all scripts from R/04_... to R_07_... can also be run individually.
-
+* Run 08_create_website.R to create all spreadsheets and the website. Alternatively, all scripts from R/04_... to R_07_... can also be run individually.
 * Look at (local version of) website: website/\_site/index.html
 * Check and update all commentary in:
 
