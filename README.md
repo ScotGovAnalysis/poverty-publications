@@ -1,10 +1,8 @@
 # About
 
-This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent Poverty in Scotland" report, the accompanying associated and supplementary tables, and the infographic child poverty update. It produces a folder website/\_site with all files for a website, including downloadable spreadsheets, to be hosted on data.gov.scot/poverty.
+This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent Poverty in Scotland" report, a child poverty summary and the accompanying reference tables. It produces a folder website/\_site with all files for the website (including downloadable spreadsheets) hosted on data.gov.scot/poverty.
 
-# Folder structure
-
-
+Running this project requires access to restricted Scottish Government datasets, which is only available to a small number of individuals who are responsible for producing the annual poverty reports. However, we hope that the code may still be useful.
 
 # Workflow
 
@@ -16,9 +14,9 @@ The following R files are missing from the github repository, because they conta
 * R/01_importpersistentpovertydata.R
 * R/09_backup.R
 
-### 1. New data arrives in the SOCJUST SAS library
+### 1. Import data and prepare datasets
 
-* Ensure the inflation_index file in the SOCJUST SAS library is up to date
+* Ensure the inflation_index file in the SOCJUST SAS library is up to date (DWP provide latest CPIH inflators)
 * In R/00_strings.R, add latest year and period values to labels\[\["years"]].
 * Run all [Data prep](#dataprep) scripts.
 * Make sure 02_clean...data.R and 03_maketidydatasets.R scripts return no errors. 
@@ -29,7 +27,7 @@ Tidy datasets are now available to produce reports and spreadsheets.
 
 **Run 08_create_website.R to create all spreadsheets and the website.**
 
-(Alternatively, all scripts from R/04_... to R_07_... can also be run individually.)
+Alternatively, all scripts from R/04_... to R_07_... can also be run individually.
 
 * Look at (local version of) website: website/\_site/index.html
 * Check and update all commentary in:
@@ -43,6 +41,8 @@ Tidy datasets are now available to produce reports and spreadsheets.
   * website/accessibility.Rmd
   * website/uncertainty.Rmd
   * website/contact.Rmd
+
+  Most of the figures in the commentary are automatically produced; however, the text is not.
 
 * Run last line of R/08_create_website.R again, inspect website, make required changes to the commentary in the .Rmd files, and repeat until happy
 
