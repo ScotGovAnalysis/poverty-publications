@@ -1,5 +1,11 @@
 **A Scottish Government Official Statistics publication**
 
+<div class = "pdf">
+  <p style = "margin-bottom: 0;">
+    <a href="javascript:window.print();">Print page or download as PDF</a>
+  </p>
+</div>
+
 Published on `r params$pub_day`
 
 This publication presents estimates of the proportion of people, children, working-age adults and pensioners living in persistent poverty in Scotland and in the other countries in the UK. The estimates are used to monitor progress in reducing poverty.
