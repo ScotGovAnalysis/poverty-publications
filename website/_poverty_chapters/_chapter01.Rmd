@@ -1,10 +1,8 @@
-**A Scottish Government National Statistics publication**
+<button onclick = "window.print();" class = "btn pdf" >
+  Print or save as PDF
+</button>
 
-<div class = "pdf">
-  <p style = "margin-bottom: 0;">
-    <a href="javascript:window.print();">Print page or download as PDF</a>
-  </p>
-</div>
+**A Scottish Government National Statistics publication**
 
 Published on `r params$pub_day`
 
@@ -14,8 +12,12 @@ The latest estimates are from the period between April 2017 and March 2020. This
 
 ```{r}
 
-infobox(c("Revision on 14 June 2021:", "* Figures 15-17 now include the previously missing '3 or more children' category.",
-        "* Reference tables now include the previously missing table 24 'Relative child poverty by number of children in the household'."))
+infobox(c("Revision on 14 June 2021:", 
+          "* Figures 15-17 now include the previously missing '3 or more children' category.",
+          "* Reference tables now include the previously missing table 24 'Relative child poverty by number of children in the household'.",
+          "",
+          "Revision on 22 October 2021:",
+          "* We have corrected an incorrect reference period in the subtitle for Table 41 in the reference tables."))
 
 ```
 
