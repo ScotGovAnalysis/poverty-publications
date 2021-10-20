@@ -56,13 +56,11 @@ theme_set(mytheme)
 
 ```
 
-**Published on 25 March 2021. Next update: March 2022**
+<button onclick = "window.print();" class = "btn pdf" >
+  Print or save as PDF
+</button>
 
-<div class = "pdf">
-  <p style = "margin-bottom: 0;">
-    <a href="javascript:window.print();">Print page or download as PDF</a>
-  </p>
-</div>
+**Published on 25 March 2021. Next update: March 2022**
 
 The Child Poverty Act 2017 contains four income-based targets to reduce child poverty in Scotland by 2030. The charts show the interim and final targets and the latest poverty estimates and trends. Note that the dots and labels show single-year estimates and the lines show the three-year averages. Single-year estimates give the latest best estimates, and three-year averages show trends more accurately.
 
