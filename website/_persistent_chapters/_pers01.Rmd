@@ -1,10 +1,8 @@
-**A Scottish Government Official Statistics publication**
+<button onclick = "window.print();" class = "btn pdf" >
+  Print or save as PDF
+</button>
 
-<div class = "pdf">
-  <p style = "margin-bottom: 0;">
-    <a href="javascript:window.print();">Print page or download as PDF</a>
-  </p>
-</div>
+**A Scottish Government Official Statistics publication**
 
 Published on `r params$pub_day`
 
