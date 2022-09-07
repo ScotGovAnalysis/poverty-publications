@@ -127,9 +127,6 @@ These will be compiled into seven html pages.
 
 * img/sglogo.svg
 * img/badge.png
-* img/chart0a.png
-* img/chart0b.png
-* img/chart0c.png
 
 Note that the spreadsheets are created in step 2.
 
