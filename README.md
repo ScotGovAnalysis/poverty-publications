@@ -1,6 +1,6 @@
 # About
 
-This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent Poverty in Scotland" report, a child poverty summary and the accompanying reference tables. It produces a folder website/\_site with all files for the website (including downloadable spreadsheets) hosted on data.gov.scot/poverty.
+This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent Poverty in Scotland" report, a child poverty summary and the accompanying reference tables. It produces a folder website/\_site with all files for the website (including downloadable spreadsheets) hosted on data.gov.scot/poverty/2022.
 
 Running this project requires access to restricted Scottish Government datasets, which is only available to a small number of individuals who are responsible for producing the annual poverty reports. However, we hope that the code may still be useful.
 
