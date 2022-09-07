@@ -1,0 +1,126 @@
+## Data source
+
+This section provides key information on the data source and methodology used to produce persistent poverty statistics.
+
+The estimates in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.
+
+The Understanding Society survey has longitudinal information about over 2,100 individuals in Scotland in `r params$data_year`. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Detailed information on the method used to calculate persistent poverty estimates can be found on the [`r abbr("UK", "United Kingdom")` government webpages](https://www.gov.uk/government/collections/income-dynamics-statistics).
+
+Surveys gather information from a sample rather than from the whole population. Results from sample surveys are always estimates, not precise figures. This means that they are subject to a margin of error which can affect how changes in the numbers should be interpreted, especially in the short-term. Year-on-year movements should be treated with caution. We are unable to calculate sampling uncertainties for these statistics, but please note that small changes are unlikely to be statistically significant.
+
+### Other sources
+
+Poverty estimates presented in the [Poverty and Income Inequality in Scotland report](../2021) come from a different source – `r abbr("DWP", "Department for Work and Pensions")`’s Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). This is the best source of household income data available in the `r abbr("UK", "United Kingdom")`. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.
+
+The `r abbr("FRS", "Family Resources Survey")` and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.
+
+### Time periods {#periods}
+
+This publication presents persistent poverty rates for seven overlapping periods, each consisting of four two-year periods (waves): 
+
+* 2010-2014: Jan 2010 - Dec 2011 (Wave 2) to Jan 2013 - Dec 2014 (Wave 5)
+* 2011-2015: Jan 2011 - Dec 2012 (Wave 3) to Jan 2014 - Dec 2015 (Wave 6)
+* 2012-2016: Jan 2012 - Dec 2013 (Wave 4) to Jan 2015 - Dec 2016 (Wave 7)
+* 2013-2017: Jan 2013 - Dec 2014 (Wave 5) to Jan 2016 - Dec 2017 (Wave 8)
+* 2014-2018: Jan 2014 - Dec 2015 (Wave 6) to Jan 2017 - Dec 2018 (Wave 9)
+* 2015-2019: Jan 2015 - Dec 2016 (Wave 7) to Jan 2018 - Dec 2019 (Wave 10)
+* 2016-2020: Jan 2016 - Dec 2017 (Wave 8) to Jan 2019 - Dec 2020 (Wave 11)
+
+Persistent poverty statistics are based on tracking an individual over a four-year period. Each set of results are therefore based on four waves of the Understanding Society survey. This publication presents persistent poverty statistics based on waves 2-5, waves 3-6, waves 4-7, waves 5-8, waves 6-9, waves 7-10, and waves 8-11. Each wave of interviews is conducted over a two-year period, and each individual is interviewed once every year.
+
+An individual is in persistent poverty if they are in relative poverty for at least three years in any four-year period. This means that the same individual can be in persistent poverty in all, any or none of the time periods covered in this publication.
+
+There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper [Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)](https://www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11) for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.
+
+### Population coverage 
+
+Understanding Society is a survey of private households (although it does collect information from households about their children if a child has moved into an institution). This means that people who were in residential institutions, such as nursing homes, barracks, prisons or university halls of residence at the start of the survey are excluded from the scope of the analysis presented here.
+
+### Reliability of estimates {#uncertainty}
+
+The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations.
+
+As with most longitudinal surveys, attrition reduces the Understanding Society sample size over time. As well as attrition reducing the sample size, we have missing data for many of the variables we are using in the analysis. We exclude individuals with missing data from relevant analysis, but include individuals whenever we can. Weights have been applied which adjust for unequal selection probabilities, differential non-response, and potential sampling error.
+
+Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.
+
+### COVID-19 impact {#corona-impact}
+
+The COVID-19 pandemic and subsequent policy announcements resulted in several changes to Understanding Society Wave 11 fieldwork, data collection, and processing. These are detailed in the [Background information and methodology section of the `r abbr("ONS", "Office for National Statistics")` report](https://www.gov.uk/government/statistics/income-dynamics-2010-to-2020/income-dynamics-background-information-and-methodology). Key points to note are:     
+
+-	Wave 11 fieldwork was conducted from January 2019 to December 2020. The first `r abbr("UK", "United Kingdom")`-wide lockdown began in March 2020.    
+-	Understanding Society moved to a web-first approach, with telephone interviews used as follow-up. While response rates held up well overall, the shift in mode was associated with lower response rates for some groups. Weights have been adjusted accordingly.    
+-	Changes were made to the Understanding Society questionnaire at the end of July 2020 to capture support available to employees and the self-employed via the Coronavirus Job Retention Scheme (CJRS or ‘furlough’), and the Self-Employment Income Support Scheme (SEISS) respectively.   
+-	No obvious changes in rates of persistent poverty have been observed (as we might expect for a four-year measure), nor in rates of poverty entry and exit.
+-	It is important to note that for various reasons, not least fieldwork timings and gaps in data mentioned above, that attributing any observed changes to the pandemic is beyond the scope of these statistics.
+
+### Age groups
+
+Whether an individual is counted as a child, working-age adult or pensioner is determined by their age during the first survey period. So, for example, an individual aged 15 in 2011 and aged 19 in 2015 will be counted as a child for the 2011-15 period.
+
+## Definitions
+
+### Measures of income 
+
+The income used to determine persistent poverty in this publication includes:
+
+* Labour income – usual pay and self-employment earnings. Includes income from second jobs.
+* Miscellaneous income – educational grants, payments from family members and any other regular payment
+* Private benefit income – includes trade union/friendly society payments, maintenance or alimony and sickness or accident insurance
+* Investment income – private pensions/annuities, rents received, income from savings and investments
+* Pension income – occupational pensions income
+* State support – tax credits and all state benefits including State Pension
+
+Income is net of the following items:
+
+* income tax payments;
+* National Insurance contributions;
+* domestic rates / council tax;
+
+Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation). 
+
+Income after housing costs (AHC) is derived by deducting a measure of housing costs derived from mortgage and rents from the above income measure. 
+
+### Equivalisation 
+
+Equivalisation is the process by which household income is adjusted to make it comparable across households of different size and composition. This reflects the fact that a bigger household requires more money than a smaller one to achieve the same standard of living. Further information on equivalisation can be found on the [Scottish Government poverty methodology webpages](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/)
+
+### Housing costs
+
+This publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC). This is to take into account variations in housing costs. Housing costs include the following: rent (gross of housing benefit); water rates; mortgage interest payments; structural insurance premiums; ground rent and service charges.
+
+## More information
+
+### Further analysis
+
+The headline poverty and income inequality statistics can be found in the latest [Poverty and Income Inequality in Scotland report](../2021). Further analysis published throughout the year are available on the [Scottish Government poverty analysis website](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](contact.html).
+
+### `r abbr("UK", "United Kingdom")` Government websites
+
+- [Income dynamics publication](https://www.gov.uk/government/collections/income-dynamics-statistics) (contains figures comparable with those found in this publication)
+- [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2), Department for Work and Pensions (methodology and `r abbr("UK", "United Kingdom")` estimates)
+
+### Previous reports
+
+Previous Persistent Poverty in Scotland reports are available:
+
+- [2010-2019 report](../2021/persistent.html)
+- [2010-2018 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
+- [2010-2017 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
+- [2010-2016 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
+- [2010-2015 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+
+## Official Statistics
+
+Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
+
+### Access source data
+
+The data collected for this statistical bulletin cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the University of Essex, Institute for Social and Economic Research) are making the data available through the [`r abbr("UK", "United Kingdom")` Data Service](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=6614).
+
+### Crown Copyright
+
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+

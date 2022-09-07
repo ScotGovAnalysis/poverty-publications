@@ -9,6 +9,8 @@ output:
     toc_float:
       collapsed: yes
       smooth_scroll: no
+params:
+  data_period: "2018-21"
 ---
 
 ```{r setup, include = FALSE}
@@ -26,9 +28,8 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 
 library(tidyverse)
 library(htmltools)
-library(kableExtra)
 
-source("R/00_functions_rmd.R")
+source("R/00_functions.R")
 
 data <- readRDS("data/uncertainty.rds")
 
@@ -74,89 +75,95 @@ Population estimates are rounded to the nearest 10,000 individuals, the same as 
 
 ## Describing the data 
 
-We advise to use full percentages when talking about poverty rates, and to mention the level of uncertainty around them. For example, 19% of people (+/- 2 percentage points) were in relative poverty after housing costs, or 24% of children (+/- 4 percentage points) were in relative poverty after housing costs. 
+We advise to use full percentages when talking about poverty rates, and to mention the level of uncertainty around them. For example, 19% of people (+/- 2 percentage points) were in relative poverty after housing costs in 2017-20, or 24% of children (+/- 4 percentage points) were in relative poverty after housing costs in 2017-20. 
 
 ## Tables
 
 ```{r table1}
-caption <- "Relative poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
-source <- "DWP analysis of the Family Resources Survey"
 
-kable(data$relahc, caption = caption,
-      align = c("lrr")) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
-                full_width = F, position = "left")  %>%
-  footnote(general = source,
-           general_title = "")
+fign <- 1
+caption <- paste0("Relative poverty after housing costs - central estimates and 95% confidence intervals, Scotland ", params$data_period)
+source <- "Source: DWP analysis of the Family Resources Survey"
+
+datatable(data = data$relahc,
+          id = paste0("table-", fign),
+          caption = paste0("Table ", fign, ": ", caption),
+          source = source,
+          options = list(rowHeaders = TRUE))
 
 ```
 
 
 ```{r table2}
-caption <- "Relative poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
-source <- "DWP analysis of the Family Resources Survey"
 
-kable(data$relbhc, caption = caption,
-      align = c("lrr")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
-                full_width = F, position = "left")  %>%
-  footnote(general = source,
-           general_title = "")
+fign <- fign + 1
+caption <- paste0("Relative poverty before housing costs - central estimates and 95% confidence intervals, Scotland ", params$data_period)
+source <- "Source: DWP analysis of the Family Resources Survey"
+
+datatable(data = data$relbhc,
+          id = paste0("table-", fign),
+          caption = paste0("Table ", fign, ": ", caption),
+          source = source,
+          options = list(rowHeaders = TRUE))
 
 ```
 
 
 ```{r table3}
-caption <- "Absolute poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
-source <- "DWP analysis of the Family Resources Survey"
 
-kable(data$absahc, caption = caption,
-      align = c("lrr")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
-                full_width = F, position = "left")  %>%
-  footnote(general = source,
-           general_title = "")
+fign <- fign + 1
+caption <- paste0("Absolute poverty after housing costs - central estimates and 95% confidence intervals, Scotland ", params$data_period)
+source <- "Source: DWP analysis of the Family Resources Survey"
+
+datatable(data = data$absahc,
+          id = paste0("table-", fign),
+          caption = paste0("Table ", fign, ": ", caption),
+          source = source,
+          options = list(rowHeaders = TRUE))
 
 ```
 
 
 ```{r table4}
-caption <- "Absolute poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2017-20"
-source <- "DWP analysis of the Family Resources Survey"
 
-kable(data$absbhc, caption = caption,
-      align = c("lrr")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
-                full_width = F, position = "left")  %>%
-  footnote(general = source,
-           general_title = "")
+fign <- fign + 1
+caption <- paste0("Absolute poverty before housing costs - central estimates and 95% confidence intervals, Scotland ", params$data_period)
+source <- "Source: DWP analysis of the Family Resources Survey"
+
+datatable(data = data$absbhc,
+          id = paste0("table-", fign),
+          caption = paste0("Table ", fign, ": ", caption),
+          source = source,
+          options = list(rowHeaders = TRUE))
 
 ```
 
 ```{r table5}
-caption <- "Children in combined low income and material deprivation - central estimates and 95% confidence intervals, Scotland 2017-20"
-source <- "DWP analysis of the Family Resources Survey"
 
-kable(data$cmd, caption = caption,
-      align = c("lrr")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
-                full_width = F, position = "left")  %>%
-  footnote(general = source,
-           general_title = "")
+fign <- fign + 1
+caption <- paste0("Children in combined low income and material deprivation - central estimates and 95% confidence intervals, Scotland ", params$data_period)
+source <- "Source: DWP analysis of the Family Resources Survey"
+
+datatable(data = data$cmd,
+          id = paste0("table-", fign),
+          caption = paste0("Table ", fign, ": ", caption),
+          source = source,
+          options = list(rowHeaders = TRUE))
 
 ```
 
 An after-housing-costs table for children in combined low income and material deprivation is not available. Confidence intervals are expected to be similar to the before-housing-costs measure.
 
 ```{r table6}
-caption <- "Pensioners aged 65 and over - central estimates and 95% confidence intervals, Scotland 2017-20"
-source <- "DWP analysis of the Family Resources Survey"
 
-kable(data$pmd, caption = caption,
-      align = c("lrr")) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "responsive"),
-                full_width = F, position = "left")  %>%
-  footnote(general = source,
-           general_title = "")
+fign <- fign + 1
+caption <- paste0("Pensioners aged 65 and over - central estimates and 95% confidence intervals, Scotland ", params$data_period)
+source <- "Source: DWP analysis of the Family Resources Survey"
+
+datatable(data = data$pmd,
+          id = paste0("table-", fign),
+          caption = paste0("Table ", fign, ": ", caption),
+          source = source,
+          options = list(rowHeaders = TRUE))
 
 ```

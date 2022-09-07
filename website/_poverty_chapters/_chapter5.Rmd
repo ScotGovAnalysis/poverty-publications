@@ -1,0 +1,280 @@
+## Data source
+
+All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset, which is produced from the Family Resources Survey (FRS). `r abbr("UK", "United Kingdom")` figures are published by `r abbr("DWP", "Department for Work and Pensions")` in [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](./). For the `r abbr("UK", "United Kingdom")` figures, as well as more detail about the way these figures are collected and calculated, see the `r abbr("DWP", "Department for Work and Pensions")` website.
+
+### What does `r abbr("HBAI", "Households Below Average Income")` measure?
+
+Households Below Average Income (HBAI) uses household disposable incomes, adjusted for the household size and composition, as a proxy for material living standards. More precisely, it is a proxy for the level of consumption of goods and services that people could attain given the disposable income of the household in which they live.
+
+The unit of analysis is the individual, so the populations and percentages in the tables are numbers and percentages of individuals - both adults and children.
+
+Data is collected during the financial year, so between April and March of the following year. Statistics are usually published in March, a year after the end of the data collection.
+
+The living standards of an individual depend not only on his or her own income, but also on the income of others in the household. Consequently, the analyses are based on total household income: the equivalised income of a household is taken to represent the income level of every individual in the household. Equivalisation, a technique that allows comparison of incomes between households of different sizes and compositions, is explained in the [Definitions section](#equivalisation-definition). Thus, all members of any one household will appear at the same point in the income distribution.
+
+### Revision of the data
+
+In 2021, previously published datasets underwent a minor methodological revision to capture all income from child maintenance. This led to small changes in household income and small adjustments to some poverty estimates. Therefore, some poverty and income estimates that were published in 2021 and after may not exactly match previously published estimates for 1994/95 to 2019/20. The revision did not affect any trends in poverty or household income.
+
+### Population coverage
+
+The Family Resources Survey is a survey of private households. This means that people in residential institutions, such as nursing homes, barracks, prisons or university halls of residence, and also homeless people are excluded from the scope of the analysis presented here. The area of Scotland north of the Caledonian Canal was included in the `r abbr("FRS", "Family Resources Survey")` for the first time in the 2001/02 survey year, and from the 2002/03 survey year, the `r abbr("FRS", "Family Resources Survey")` was extended to include a 100 percent boost of the Scottish sample. This has increased the sample size available for analysis at the Scottish level. In 2002/03, the sample size was around five thousand. However, following cost savings introduced to the `r abbr("FRS", "Family Resources Survey")` in 2010, the sample size in Scotland has reduced. It was just over 2,800 households in `r params$data_year`. For further information see the `r abbr("DWP", "Department for Work and Pensions")` [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+
+### Reliability of estimates
+
+The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](uncertainty.html) presented are available.
+
+The method used to calculate these confidence intervals changed in 2015/16. Information on this can be found in `r abbr("DWP", "Department for Work and Pensions")`'s [statistical notice (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
+
+The [Family Resources Survey publication](https://www.gov.uk/government/collections/family-resources-survey--2#background-information-and-guidance) contains information on topics such as sample design, non-response biases, weighting; item non-response, imputation and editing; accuracy of income data.
+
+### Detailed methodology
+
+More detailed information on definitions and methodology can be found on the Scottish Government's [poverty methodology pages](https://www.gov.scot/publications/poverty-in-scotland-methodology/) and in `r abbr("DWP", "Department for Work and Pensions")`'s [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+
+### Housing costs
+
+It could be argued that the costs of housing faced by different households at a given time do not always match the true value of the housing that they actually enjoy, and that housing costs should therefore be deducted from any definition of disposable income. However, any measure of income defined in this way would understate the relative standard of living of those individuals who were actually benefiting from a better quality of housing by paying more for better accommodation. Income growth over time would also understate improvements in living standards where higher costs reflected improvements in the quality of housing.
+
+Conversely, any income measure which does not deduct housing costs may overstate the living standards of individuals whose housing costs are high relative to the quality of their accommodation. Growth over time in income before housing costs could also overstate improvements in living standards for low income groups in receipt of housing benefit, and whose rents have risen in real terms. This is because housing benefit may also rise to offset the higher rents (for a given quality of accommodation) and would be counted as an income rise, although there would be no associated increase in the standard of living.
+
+Therefore, this publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC).
+
+## Definitions
+
+### Household income
+
+The income measure used in `r abbr("HBAI", "Households Below Average Income")` is weekly net (disposable) equivalised household income. This comprises total income from all sources of all household members including dependants. An adjustment is made to sample cases at the top of the income distribution to correct for volatility in the highest incomes captured in the survey.
+
+Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation).
+
+Income before housing costs (BHC) includes the following main components: 
+
+- net earnings
+- profit or loss from self-employment (after income tax and National Insurance contributions)
+- all `r abbr("UK", "United Kingdom")` and Scottish social security payments, including housing and council tax benefits, tax credits, and the state pension
+- occupational and private pension income
+- investment income
+- maintenance payments
+- top-up loans and parental contributions for students, educational grants and payments
+- the cash value of certain forms of income in kind such as free school meals, free welfare milk and free school milk and free TV licences for the over 75s (where data is available)
+
+Income is net of: 
+
+- income tax payments
+- National Insurance contributions
+- contributions to occupational, stakeholder and personal pension schemes
+- council tax
+- maintenance and child support payments made
+- parental contributions to students living away from home
+
+Income after housing costs (AHC) is derived by deducting a [measure of housing costs](#housing-costs-definition) from the above income measure.
+
+### Housing costs {#housing-costs-definition}
+
+Housing costs include the following: rent (gross of housing benefit); water rates; mortgage interest payments; structural insurance premiums; ground rent and service charges.
+
+### Income sources
+
+The analysis on income sources is the only analysis in this report not using net income. This analysis is based on income before taxes from employment or self-employment, social security payments, investment, occupational pensions and other income. In some cases, income from self-employment was negative in a year, for example, when someone in self-employment made a loss. In these cases, total income from earnings was set to zero. Negative investment income was also set to zero.
+
+### Real prices
+
+Unless otherwise stated, all figures relating to income are in `r params$data_year` prices. Values from previous years are uprated to account for inflation using a variant of the Consumer Price Index (CPI). This follows a change in methodology for 2014/15. Prior to this the Retail Price Index (RPI) was used.
+
+Full details can be found at this link: [Methodological changes to poverty statistics (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
+
+### Equivalisation {#equivalisation-definition}
+
+Equivalisation is the process by which household income is adjusted to take into account variations in the size and composition of the households in which individuals live. This reflects the common sense notion that, in order to enjoy a comparable standard of living, a household of, for example, three adults will need a higher income than a single person living alone. The process of adjusting income in this way is known as equivalisation and is needed in order to make sensible income comparisons between households.
+
+Equivalence scales conventionally take an adult couple without children as the reference point, with an equivalence value of one. The process then increases relatively the income of single person households (since their incomes are divided by a value of less than one) and reduces relatively the incomes of households with three or more persons, which have an equivalence value of greater than one.
+
+Consider a single person, a couple with no children, and a couple with two children aged fourteen and ten, all having unadjusted weekly household incomes of £200 (Before Housing Costs). The process of equivalisation, as conducted in `r abbr("HBAI", "Households Below Average Income")`, gives an equivalised income of £299 to the single person, £200 to the couple with no children, but only £131 to the couple with children.
+
+The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and the companion scale for income After Housing Costs (AHC). 
+
+```{r table2}
+
+subtitle <- "Modified OECD equivalence scales, rescaled to a couple without children"
+  
+datatable(data = povertytables$equivalence,
+          id = "table-a",
+          caption = paste0("Table A: ", subtitle),
+          source = "Source: Family Resources Survey",
+          options = list(rowHeaders = TRUE))
+
+```
+
+The construction of household equivalence values from these scales is quite straightforward. For example, the `r abbr("BHC", "Before Housing Costs")` equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:
+
+0.67 + 0.33 + 0.33 + 0.33 + 0.20 = 1.86
+
+This is made up of 0.67 for the first adult, 0.33 for their spouse, the other adult and the fourteen year old child and 0.20 for the ten year old child. The total income for the household would then be divided by 1.86 in order to arrive at the measure of equivalised household income used in `r abbr("HBAI", "Households Below Average Income")` analysis.
+
+Further information on equivalisation can be found in the [methodology report](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
+
+### Poverty measurement
+
+Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the `r abbr("UK", "United Kingdom")` median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
+
+```{r}
+
+incA <- filter(htmltables$inc_3, Measure == "After housing costs")[[params$data_period]]
+incB <- filter(htmltables$inc_3, Measure == "Before housing costs")[[params$data_period]]
+incA_1 <- filter(povertytables$medians$ahc, Group == "All people")[[length(povertytables$medians$bhc) - 1]]
+incB_1 <- filter(povertytables$medians$bhc, Group == "All people")[[length(povertytables$medians$bhc) - 1]]
+
+```
+
+For a couple with no children, the `r abbr("UK", "United Kingdom")` median income before housing costs in `r params$data_period` was `r incB` per week, compared to £`r incB_1` in the previous period. After housing costs, the `r abbr("UK", "United Kingdom")` median also increased from £`r incA_1` in the previous period to `r incA` per week.
+
+Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
+
+### Relative and absolute poverty
+
+* Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation-adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
+* Relative poverty - individuals living in households whose equivalised income is below 60 percent of median income in the same year. This is a measure of whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole.
+
+### Child material deprivation {#child-material-deprivation-definition}
+
+A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (pdf, McKay, S. and Collard, S. (2004))](https://www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
+
+These questions are used as an additional way of measuring living standards for children and their households.
+
+A prevalence weighted approach has been used, in combination with a relative low income threshold. The income threshold is 70 percent of the median income. Prevalence weighting is a technique of scoring deprivation in which more weight in the deprivation measure is given to households lacking those items that most in the population already have. This means a greater importance, when an item is lacked, is assigned to those items that are more commonly owned in the population.
+
+#### Changes to measuring material deprivation in 2010/11
+
+The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the `r abbr("UK", "United Kingdom")` believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11, four new questions about additional items were included in the `r abbr("FRS", "Family Resources Survey")` to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
+
+In the 2010/11 `r abbr("FRS", "Family Resources Survey")`, both the new and the old questions were asked. As such, single-year estimates are presented based on both sets of questions for this year.
+
+For further information about material deprivation see the `r abbr("DWP", "Department for Work and Pensions")` [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+
+### Pensioner material deprivation {#pensioner-material-deprivation-definition}
+
+A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
+
+* Legard, R., Gray, M. and Blake, M. (2008), [Cognitive testing: older people and the `r abbr("FRS", "Family Resources Survey")` material deprivation questions, Department for Work and Pensions Working Paper Number 55 (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf)
+* McKay, S. (2008), [Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54 (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf)
+
+Together, these questions form the best discriminator between those pensioner households that are deprived and those that are not.
+
+Where they do not have a good or service, pensioner households are asked whether this is because they do not have the money for this, it is not a priority on their current income, their health / disability prevents them, it is too much trouble or tiring, they have no one to do this with or help them, it is not something they want, it is not relevant to them, or any other reason. Where a pensioner lacks one of the material deprivation items for one of the following reasons - they do not have the money for this, it is not a priority for them on their current income, their health / disability prevents them, it is too much trouble or tiring, they have no one to do this with or help them, or any other reason - they are counted as being deprived for that item.
+
+The exception to this is for the question on whether they could cover an unexpected expense, where the follow up question was asked to explore how those who responded 'yes' would cover this cost. Options were: use own income but cut back on essentials, use own income but not need to cut back on essentials, use savings; use a form of credit, get money from friends or family, or any other reason. Pensioners are counted as materially deprived for this item if and only if they responded 'no' to the initial question.
+
+The same prevalence weighted approach has been used to that for children, in determining a deprivation score. Prevalence weighting is a technique of scoring deprivation in which more weight in the deprivation measure is given to households lacking those items that most already have. This means a greater importance, when an item is lacked, is assigned to those items that are more commonly owned in the pensioner population.
+
+For children, material deprivation is presented as an indicator in combination with a low income threshold. However for pensioners, the concept of material deprivation is broad and very different from low income; therefore, it is appropriate to present it as a separate measure.
+
+A [technical note giving a full explanation of the pensioner material deprivation measure](https://www.gov.uk/government/statistics/households-below-average-income-hbai-technical-note-on-pensioner-material-deprivation) is available for download.
+
+### Food security
+
+The Family Resources Survey collected household food security information for the first time in 2019/20. The questions were adopted from the [United States Department of Agriculture's Adult Food Security Survey Module (pdf)](https://www.ers.usda.gov/media/8279/ad2012.pdf), using a 30-day reference period, and using the same food security levels ("high", "marginal", "low", "very low"). 
+
+The food security analysis in this report excludes [shared households](#shared-households-definition), such as a house shared by a group of professionals. These respondents may not have insight into the food security status of others in their household and may not regularly share financial information.
+
+Previously, data on household food insecurity in Scotland had been collected by the Scottish Health Survey. The measure in this report is different from the one from the Scottish Health Survey, because it is based on different questions, which are asked in a different context, using a different sample of the population, and refer to a different period of time. Therefore, these measures cannot be directly compared.
+
+### Dependent children {#dependent-children-definition}
+
+In this publication, 'child' refers to a dependent child. A dependent child is a person aged 0-15, or a person aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
+
+### Single parents
+
+Family types are becoming increasingly complex. In this publication, 'single parents' and 'single mothers' refer to a situation where the primary residence of a dependent child is in a household with one adult. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
+
+### Shared households {#shared-households-definition}
+
+A shared household is a household where the household reference person is unclear or arbitrary, such as a group of students, unrelated adults etc., where the household is being shared on an equal basis. Households where adult children are living with their parents or where there are lodgers, but the owner lives in the household, are both not considered shared households for the purposes of this definition.
+
+## Find more information
+
+### Tables and further analysis
+
+This analytical report contains poverty, child poverty and household income time series. [Associated tables](download.html) are available for download and contain:
+
+- all estimates used in the charts
+- additional estimates, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only (where available)
+- additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics
+
+Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](contact.html).
+
+### Local poverty analysis
+
+The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
+
+More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
+
+### Persistent poverty
+
+[New figures on persistent poverty](persistent.html) were published on `r params$pub_day`.
+
+Persistent poverty identifies the number of individuals living in relative poverty for 3 or more of the last 4 years. It therefore identifies people who have been living in poverty for a significant period of time, the rationale being that this is more damaging than brief periods spent with a low income, with the impacts affecting an individual through their lifetime.
+
+One of the four statutory child poverty target measures is persistent child poverty after housing costs.
+
+These figures come from the Understanding Society survey which tracks individuals over time. The persistent poverty figures are not directly comparable to the figures in this publication as they use different income definitions and cover different time periods, but they provide useful additional information on poverty in Scotland.
+
+### Previous reports
+
+Previously published Poverty and Income Inequality in Scotland and Persistent Poverty in Scotland reports are available. Note that [the latest Poverty and Income Inequality in Scotland National Statistics](../2021) were published in 2021, while the [latest Persistent Poverty in Scotland Offical Statistics](../2022/persistent.html) were published in 2022.
+
+#### Poverty and Income Inequality in Scotland
+
+- [2017-20 report](../2021)
+- [2016-19 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
+- [2015-18 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
+- [2014-17 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
+- [2015/16 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)
+- [2014/15 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/)
+- [2013/14 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/)
+- [2012/13 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/)
+- [2011/12 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
+- [2010/11 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
+
+#### Persistent Poverty in Scotland
+
+- [Latest report](../2022/persistent.html)
+- [2010-2019 report](../2021/persistent.html)
+- [2010-2018 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
+- [2010-2017 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
+- [2010-2016 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
+- [2010-2015 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+
+### Scottish Government websites
+
+Further analysis based on the `r abbr("FRS", "Family Resources Survey")` and `r abbr("HBAI", "Households Below Average Income")` datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
+
+- [Poverty and income inequality analysis](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
+- [Confidence limits surrounding Scotland's key poverty estimates](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/)
+- [Child poverty analysis](https://www.gov.scot/collections/child-poverty-statistics/)
+- [Wealth analysis](https://www.gov.scot/collections/wealth-statistics/)
+- [Scottish Index of Multiple Deprivation](https://www.gov.scot/simd)
+- [Further information on all Scottish Government statistics](https://www.gov.scot/about/how-government-is-run/statistics-and-research/)
+- [Scottish Government approach to tackling poverty](https://www.gov.scot/policies/poverty-and-social-justice/)
+
+
+## National Statistics
+
+**This report is not designated as official statistics of any kind.** It was produced to show what the estimates would look like if the most recent year was included. However, the most recent data collection was severely impacted by the COVID-19 pandemic, and we consider the Scottish data as unreliable.
+
+Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
+
+Statistics assessed, or subject to assessment, by the `r abbr("UK", "United Kingdom")` Statistics Authority carry the National Statistics label, a stamp of assurance that the statistics have been produced and explained to high standards and that they serve the public good.
+
+The designation of the Poverty and Income Inequality in Scotland Official Statistics report as National Statistics was confirmed in May 2012 following a compliance check by the Office for Statistics Regulation.
+
+### Access source data
+
+The data collected for this report cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the `r abbr("UK", "United Kingdom")` Department for Work and Pensions) are making the data available through the [`r abbr("UK", "United Kingdom")` Data Service](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=5828).
+
+### Crown Copyright
+
+You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+
+
+

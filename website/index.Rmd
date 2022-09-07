@@ -1,7 +1,7 @@
 ---
-title: "Poverty and Income Inequality in Scotland `r params$data_period`" 
+title: "Poverty and Income Inequality in Scotland `r params$data_period` - analytical report" 
 lang: "en"
-description: "Official Statistics and analysis relating to poverty, household income, and income inequality in Scotland, including child poverty statistics, pensioner poverty, poverty for equality groups, and household income and income inequality statistics. The estimates are used to monitor progress in reducing poverty, child poverty and income inequality."
+description: "Analysis relating to poverty, household income, and income inequality in Scotland, including child poverty statistics, pensioner poverty, poverty for equality groups, and household income and income inequality statistics."
 output:
   bookdown::html_document2:
     toc: yes
@@ -11,20 +11,11 @@ output:
       smooth_scroll: no
 
 params:
-  pub_day: "25 March 2021"
-  data_period: "2017-20"
-  data_period_5: "2015-20"
-  data_year: "2019/20"
+  pub_day: "31 March 2022"
+  data_period: "2018-21"
+  data_period_5: "2016-21"
+  data_year: "2020/21"
 ---
-
-<!-- Include National Statistics badge the top of the document -->
-  
-<script>
-  $(document).ready(function(){
-    $head = $('#header');
-    $head.prepend('<img src=\"img/badge.png\" alt=\"National Statistics logo\" id=\"badge\" style=\"height: 70px; width: 70px;\"/>')
-    });
-</script>
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -48,11 +39,10 @@ library(xml2)
 
 source("R/00_colours.R")
 source("R/00_functions.R")
-source("R/00_functions_rmd.R")
 
 povertycharts <- readRDS("data/povertycharts.rds")
-povertytables <- readRDS("data/povertytables.rds")
-data <- readRDS("data/povertychartdata.rds")
+htmltables <- readRDS("data/povertyhtmltables.rds")
+povertytables <- readRDS("data/tables.rds")
 
 # Theme ------------------------------------------------------------------------
 
@@ -83,39 +73,13 @@ mytheme <- theme_grey() +
 
 theme_set(mytheme)
 
+chapters <- c("_poverty_chapters/_chapter0.Rmd", 
+              "_poverty_chapters/_chapter1.Rmd", 
+              "_poverty_chapters/_chapter2.Rmd",
+              "_poverty_chapters/_chapter3.Rmd",
+              "_poverty_chapters/_chapter4.Rmd",
+              "_poverty_chapters/_chapter5.Rmd")
 ```
 
-
-```{r child = "_poverty_chapters/_chapter01.Rmd"}
+```{r load_chapters, child = chapters}
 ```
-
-```{r child = "_poverty_chapters/_chapter02.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter03.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter04.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter05.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter06.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter07.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter08.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter09.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter10.Rmd"}
-```
-
-```{r child = "_poverty_chapters/_chapter11.Rmd"}
-```
-

@@ -7,7 +7,7 @@ years = c("9495", "9596", "9697", "9798", "9899",
           "0405", "0506", "0607", "0708", "0809",
           "0910", "1011", "1112", "1213", "1314",
           "1415", "1516", "1617", "1718", "1819",
-          "1920")
+          "1920", "2021")
 
 files_househol <- readRDS("data/files_househol.rds")
 househol_clean <- vector("list", length(years))
@@ -16,6 +16,8 @@ househol_clean <- vector("list", length(years))
 # urinds from 0405
 # foodqs from 1920
 # imds from 1920
+# council areas changes (merges etc.) in 1996/97
+# no laua from 2021
 
 # 9495 to 0304 -----------------------------------------------------------------
 for (year in years[1:10]) {
@@ -39,9 +41,11 @@ for (year in years[1:10]) {
            foodq8a = NA,
            foodq8b = NA,
            foodq8c = NA,
+           laua = NA,
            year = year) %>%
     select(year, sernum, urinds, imds, hhstat, foodq1, foodq2, foodq3, foodq4a,
-           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c)
+           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c,
+           lac, laua)
 
   househol_clean[[year]] <- nextdataset
 }
@@ -67,15 +71,17 @@ for (year in years[11:25]) {
            foodq8a = NA,
            foodq8b = NA,
            foodq8c = NA,
-           year = year) %>%
+           year = year,
+           laua = NA) %>%
     select(year, sernum, urinds, imds, hhstat, foodq1, foodq2, foodq3, foodq4a,
-           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c)
+           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c,
+           laua, lac)
 
   househol_clean[[year]] <- nextdataset
 }
 
-# 1920 to latest year ----------------------------------------------------------
-for (year in years[26:length(years)]) {
+# 1920 ----------------------------------------------------------
+for (year in years[26:26]) {
 
   nextdataset <- files_househol[[year]]
 
@@ -84,7 +90,26 @@ for (year in years[26:length(years)]) {
   nextdataset <- nextdataset %>%
     mutate(year = year) %>%
     select(year, sernum, urinds, imds, hhstat, foodq1, foodq2, foodq3, foodq4a,
-           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c)
+           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c,
+           laua, lac)
+
+  househol_clean[[year]] <- nextdataset
+  remove(nextdataset)
+}
+
+# 2021 to latest year ----------------------------------------------------------
+for (year in years[27:length(years)]) {
+
+  nextdataset <- files_househol[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(year = year,
+           lac = NA) %>%
+    select(year, sernum, urinds, imds, hhstat, foodq1, foodq2, foodq3, foodq4a,
+           foodq4b, foodq4c, foodq5, foodq6, foodq7, foodq8a, foodq8b, foodq8c,
+           laua, lac)
 
   househol_clean[[year]] <- nextdataset
   remove(nextdataset)

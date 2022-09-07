@@ -1,0 +1,148 @@
+## Child poverty {.tabset}
+
+Children are more likely to be in poverty across all measures compared to adults.
+
+`r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#dependent-children-definition).")`
+
+### Relative poverty
+
+```{r}
+htmltools::h4("Relative poverty",
+              class = 'prntonly')
+```
+
+```{r chart10}
+
+id <- 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of children in relative poverty, Scotland"
+
+interactive(povertycharts[[paste0("child_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+Having paid work is an effective way out of poverty, and those families where all adults are in full-time work have a low poverty risk. But having a job is not always enough, for example when it does not pay well, or when someone is unable to work enough hours.
+
+While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
+
+`r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment. They do not include unpaid work such as caring for your children or other family members. In-work poverty refers to the share of children in poverty who live in households where at least one member of the household is in either full or part-time paid work.")`
+
+```{r chart11}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Children in relative poverty after housing costs by household work status, Scotland, Scotland"
+
+interactive(povertycharts[[paste0("child_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+Before-housing-costs data looks similar, and the analysis is available in the associated tables.
+
+### Absolute poverty
+
+```{r}
+htmltools::h4("Absolute poverty",
+              class = 'prntonly')
+```
+
+```{r chart12}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of children in absolute poverty, Scotland"
+
+interactive(povertycharts[[paste0("child_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Material deprivation
+
+```{r}
+htmltools::h4("Material deprivation",
+              class = 'prntonly')
+```
+
+Combined low income and child material deprivation is an additional way of measuring living standards. It is about households who cannot afford basic goods and activities that are seen as necessities in society.
+
+More detail on this can be found in the [Definitions section](#child-material-deprivation-definition).
+
+```{r chart13}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of children in combined low income and material deprivation, Scotland"
+
+interactive(povertycharts[[paste0("child_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+`r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. This is shown as a break in the chart.")`

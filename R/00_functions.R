@@ -1,10 +1,11 @@
-﻿
+
 library(tidyverse)
 library(openxlsx)
 library(haven)
 library(stringr)
 library(Hmisc)
 library(scales)
+library(htmltools)
 
 # Data analysis ----------------------------------------------------------------
 
@@ -40,13 +41,16 @@ getpovby <- function(df,
       group_by(yearn, groupingvar) %>%
       mutate(population = sum(weightvar),
              sample = sum(weightvar > 0, na.rm = TRUE)) %>%
-      group_by(yearn, povvar, groupingvar) %>%
+      group_by(yearn, povvar, groupingvar, .drop = FALSE) %>%
       summarise(number = sum(weightvar),
-                population = max(population),
-                sample = max(sample),
+                population = population[1],
+                sample = sample[1],
                 povsample = sum(weightvar > 0, na.rm = TRUE)) %>%
       filter(povvar == 1) %>%
-      mutate(rate = number / population,
+      mutate(sample = ifelse(is.na(sample), 0, sample),
+             number = ifelse(is.na(number), 0, number),
+             population = ifelse(is.na(population), 0, population),
+             rate = ifelse(population > 0, number / population, NA),
              composition = number / sum(number)) %>%
       ungroup() %>%
       select(yearn, groupingvar, number, rate, composition,
@@ -187,6 +191,17 @@ getheadlines <- function(df, pov = "low60ahc", threeyr = FALSE) {
 
   sample <- rbind(sample_pp, sample_ch, sample_wa, sample_pn)
   list(rates = rates, comps = comps, numbers = numbers, sample = sample)
+}
+
+summarise_data <- function(df) {
+
+  df %>%
+    group_by(groupingvar) %>%
+    get3yrtable() %>%
+    samplesizecheck() %>%
+    roundall() %>%
+    mutate(year = get_periods(yearn))
+
 }
 
 getpriorityrate <- function(df, pov, by, class) {
@@ -540,7 +555,7 @@ splitntranspose <- function(df, measure){
 
 getpersistentpoverty <- function(df) {
 
-  names(df)[1] <- "nation"
+  names(df) <- c("nation", periods)
 
   df %>%
     filter_at(1, all_vars(. %in% c("Total", "England", "Scotland", "Wales",
@@ -548,12 +563,22 @@ getpersistentpoverty <- function(df) {
     gather(period, value, -nation)
 }
 
+get_entry_exits <- function(df) {
+
+  names(df) <- c("nation", periods)
+
+  df %>%
+    filter_at(1, all_vars(. %in% c("Total", "England", "Scotland", "Wales",
+                                   "Northern Ireland"))) %>%
+    pivot_longer(2:(length(periods) + 1), names_to = "period")
+}
+
 get3yrtable <- function(df) {
 
   df %>%
     mutate_at(vars(c(contains("rate")), contains("num"), contains("comp")),
-              get3yraverage) %>%
-    mutate_at(vars(contains("sample")), get3yrtotal) %>%
+              analysistools::getrollingmean, 3) %>%
+    mutate_at(vars(contains("sample")), analysistools::getrollingtotal, 3) %>%
     filter(!is.na(sample)) %>%
     ungroup()
 }
@@ -568,13 +593,316 @@ get5yrtable <- function(df) {
     ungroup()
 }
 
-samplesizecheck <- function(df) {
+samplesizecheck <- function(df, suppressed = NA) {
   df %>%
-    mutate(number = ifelse(povsample >= 100, number, NA),
-           rate = ifelse(sample >= 100, rate, NA))
+    mutate(number = ifelse(povsample >= 100, number, suppressed),
+           rate = ifelse(sample >= 100, rate, suppressed))
 }
 
+getlongformat <- function(df, weight = "gs_newpp", pov = "low60ahc", by = NULL,
+                          get5yr = FALSE) {
+
+  df <- df %>%
+    group_by(yearn) %>%
+    getpovby(pov = pov, weight = weight, by = by)
+
+  if (!"groupingvar" %in% colnames(df)) {
+    df <- df %>%
+      mutate(groupingvar = case_when(weight == "gs_newpp" ~ "People",
+                                     weight == "gs_newch" ~ "Children",
+                                     weight == "gs_newwa" ~ "Working Age Adults",
+                                     weight == "gs_newpn" ~ "Pensioners",
+                                     weight == "gs_newad" ~ "Adults"),
+             groups = NA)
+  }
+  if (get5yr) {
+    df <- df %>%
+      group_by(groupingvar) %>%
+      get5yrtable() %>%
+      filter(yearn >= 5) %>%
+      mutate(DateCode = factor(yearn, levels = labels$years$numbered,
+                               labels = labels$years$long5yrperiods))
+  } else {
+    df <- df %>%
+      group_by(groupingvar) %>%
+      get3yrtable() %>%
+      filter(yearn >= 3) %>%
+      mutate(DateCode = factor(yearn, levels = labels$years$numbered,
+                               labels = labels$years$longperiods))
+  }
+
+  df <- df %>%
+    roundall() %>%
+    mutate(rate = 100 * rate) %>%
+    samplesizecheck("*") %>%
+    mutate(GeographyCode = "S92000003",
+           HousingCosts = case_when(grepl("ahc", type) ~ "After Housing Costs",
+                               grepl("bhc", type) ~ "Before Housing Costs"),
+           Ratio = rate,
+           Count = number,
+           group = case_when(weight == "gs_newpp" ~ "People",
+                             weight == "gs_newch" ~ "Children",
+                             weight == "childwgt" ~ "Children",
+                             weight == "gs_newwa" ~ "Working Age Adults",
+                             weight == "gs_newpn" ~ "Pensioners",
+                             weight == "gs_newad" ~ "Adults",
+                             weight == "adultwgt" ~ "Adults")) %>%
+    select(GeographyCode, DateCode, Ratio, Count, HousingCosts, groupingvar, group) %>%
+    gather(Measurement, Value, -GeographyCode, -DateCode, -HousingCosts, -groupingvar, -group) %>%
+    mutate(Units = case_when(Measurement == "Count" ~ group,
+                             Measurement == "Ratio" ~ paste0("Percentage Of ", group))) %>%
+    select(GeographyCode, DateCode, Measurement, Units, Value, HousingCosts, groupingvar) %>%
+    mutate(Ethnicity = "All",
+           Religion  = "All",
+           Age = "All",
+           FamilyType = "All",
+           FamilyEmploymentStatus = "All",
+           WorkStatus = "All",
+           TypeOfTenure = "All",
+           UrbanRuralClassification = "All",
+           MaritalStatus = "All",
+           SingleParenthood = "All",
+           NumberOfChildrenInHousehold = "All",
+           HouseholdTypeGender = "All",
+           HouseholdDisabilityStatus = "All",
+           AgeOfYoungestChild = "All",
+           AgeOfMother = "All",
+           IndicatorPoverty = pov) %>%
+    filter(groupingvar != "(Missing)")
+
+if (weight == "gs_newpn") {
+  df <- df %>% select(GeographyCode, DateCode, Measurement, Units, Value,
+                      HousingCosts, IndicatorPoverty, groupingvar)
+} else if (weight == "gs_newwa") {
+  df <- df %>% select(GeographyCode, DateCode, Measurement, Units, Value,
+                      HousingCosts, IndicatorPoverty, groupingvar,
+                      FamilyEmploymentStatus, WorkStatus)
+} else if ((weight == "gs_newad" & by != "singlehh") | weight == "adultwgt") {
+  df <- df %>% select(GeographyCode, DateCode, Measurement, Units, Value,
+                      HousingCosts, IndicatorPoverty, groupingvar, FamilyType,
+                      Age, Religion, MaritalStatus)
+} else if (weight == "gs_newad" & by == "singlehh") {
+  df <- df %>% select(GeographyCode, DateCode, Measurement, Units, Value,
+                      HousingCosts, IndicatorPoverty, groupingvar,
+                      HouseholdTypeGender)
+} else if (weight == "gs_newpp") {
+  df <- df %>% select(GeographyCode, DateCode, Measurement, Units, Value,
+                      HousingCosts, IndicatorPoverty, groupingvar, Ethnicity,
+                      TypeOfTenure, UrbanRuralClassification,
+                      NumberOfChildrenInHousehold, HouseholdDisabilityStatus)
+} else if (weight == "gs_newch" | weight == "childwgt") {
+  df <- df %>% select(GeographyCode, DateCode, Measurement, Units, Value,
+                      HousingCosts, IndicatorPoverty, groupingvar, Ethnicity,
+                      TypeOfTenure, UrbanRuralClassification,
+                      NumberOfChildrenInHousehold, HouseholdDisabilityStatus,
+                      Age, WorkStatus, SingleParenthood, AgeOfYoungestChild,
+                      AgeOfMother, FamilyEmploymentStatus)
+}
+
+  df
+}
+
+getbreakdowns <- function(measure) {
+
+  all <- list()
+
+  if (!measure %in% c("cmdahc", "cmdbhc")) {
+
+    # Pensioners
+    pn <- getlongformat(hbai, weight = "gs_newpn", pov = measure)
+
+    # Adults
+    newfambu <- getlongformat(hbai, weight = "gs_newad", pov = measure, by = "newfambu") %>%
+      mutate(FamilyType = groupingvar)
+    ageband <- getlongformat(adult, weight = "adultwgt", pov = measure, by = "ageband") %>%
+      mutate(Age = groupingvar)
+    marital <- getlongformat(adult, pov = measure, weight = "adultwgt", by = "marital") %>%
+      mutate(MaritalStatus = groupingvar)
+    religsc <- getlongformat(adult, pov = measure, weight = "adultwgt",
+                             by = "religsc", get5yr = TRUE) %>%
+      filter(DateCode == levels(labels$years$long5yrperiods)[22],
+             groupingvar != "All") %>%
+      mutate(Religion = groupingvar)
+
+    # Working-age adults
+    ecobu <- getlongformat(hbai, weight = "gs_newwa", pov = measure, by = "ecobu") %>%
+      mutate(FamilyEmploymentStatus = groupingvar)
+    workinghh <- getlongformat(hbai, weight = "gs_newwa", pov = measure, by = "workinghh") %>%
+      mutate(WorkStatus = groupingvar)
+
+    # Single adults
+    singlehh <- filter(hbai, singlehh != "(Missing)") %>%
+      getlongformat(weight = "gs_newad", pov = measure, by = "singlehh") %>%
+      mutate(HouseholdTypeGender = groupingvar)
+
+    # People
+    tenhbai <- getlongformat(hbai, weight = "gs_newpp", pov = measure, by = "tenhbai") %>%
+      mutate(TypeOfTenure = groupingvar)
+    urinds <- getlongformat(hbai, weight = "gs_newpp", pov = measure, by = "urinds") %>%
+      mutate(UrbanRuralClassification = groupingvar)
+    depchldh <- hbai %>%
+      mutate(depchldh = case_when(depchldh == "1 child in the household" ~ "One",
+                                  depchldh == "2 children in the household" ~ "Two",
+                                  depchldh == "3 or more children in the household" ~ "Three or more",
+                                  depchldh == "No children in the household" ~ "None")) %>%
+      getlongformat(weight = "gs_newpp", pov = measure, by = "depchldh") %>%
+      mutate(NumberOfChildrenInHousehold = groupingvar)
+    dispp_hh <- getlongformat(hbai, pov = measure, weight = "gs_newpp", by = "dispp_hh") %>%
+      mutate(Value = ifelse(DateCode %in% labels$years$longperiods[19:20] &
+                              grepl("disabled", groupingvar, fixed = TRUE) &
+                              Measurement == "Count", "-", Value)) %>%
+      mutate(HouseholdDisabilityStatus = groupingvar)
+
+    disch_hh <- getlongformat(hbai, pov = measure, weight = "gs_newpp", by = "disch_hh") %>%
+      mutate(Value = ifelse(DateCode %in% labels$years$longperiods[19:20] &
+                              grepl("disabled", groupingvar, fixed = TRUE) &
+                              Measurement == "Count", "-", Value)) %>%
+      mutate(HouseholdDisabilityStatus = groupingvar)
+
+    disad_hh <- getlongformat(hbai, pov = measure, weight = "gs_newpp", by = "disad_hh")  %>%
+      mutate(Value = ifelse(DateCode %in% labels$years$longperiods[19:20] &
+                              grepl("disabled", groupingvar, fixed = TRUE) &
+                              Measurement == "Count", "-", Value)) %>%
+      mutate(HouseholdDisabilityStatus = groupingvar)
+
+    ethgrphh <- getlongformat(hbai, pov = measure, weight = "gs_newpp",
+                              by = "ethgrphh", get5yr = TRUE) %>%
+      filter(DateCode == levels(labels$years$long5yrperiods)[22],
+             groupingvar != "All") %>%
+      mutate(Ethnicity = groupingvar)
+
+    all$pn <- pn
+    all$sa <- singlehh
+    all$ad <- rbind(newfambu, ageband, marital, religsc)
+    all$wa <- rbind(ecobu, workinghh)
+    all$pp <- rbind(depchldh, tenhbai, urinds, dispp_hh, disch_hh, disad_hh,
+                    ethgrphh)
+  }
+
+
+  # Children
+  loneparenthh <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "loneparenthh") %>%
+    mutate(SingleParenthood = groupingvar)
+  ecobu_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "ecobu") %>%
+    mutate(FamilyEmploymentStatus = groupingvar)
+  workinghh_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "workinghh") %>%
+    mutate(WorkStatus = groupingvar)
+  tenhbai_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "tenhbai") %>%
+    mutate(TypeOfTenure = groupingvar)
+  urinds_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "urinds") %>%
+    mutate(UrbanRuralClassification = groupingvar)
+  depchldh_ch <- hbai %>%
+    mutate(depchldh = case_when(depchldh == "1 child in the household" ~ "One",
+                                depchldh == "2 children in the household" ~ "Two",
+                                depchldh == "3 or more children in the household" ~ "Three or more",
+                                depchldh == "No children in the household" ~ "None")) %>%
+    getlongformat(pov = measure, weight = "gs_newch", by = "depchldh") %>%
+    mutate(NumberOfChildrenInHousehold = groupingvar) %>%
+    filter(NumberOfChildrenInHousehold != "None")
+  dispp_hh_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "dispp_hh") %>%
+    mutate(Value = ifelse(DateCode %in% labels$years$longperiods[19:20] &
+                            grepl("disabled", groupingvar, fixed = TRUE) &
+                            Measurement == "Count", "-", Value)) %>%
+    mutate(HouseholdDisabilityStatus = groupingvar)
+  disch_hh_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "disch_hh") %>%
+    mutate(Value = ifelse(DateCode %in% labels$years$longperiods[19:20] &
+                            grepl("disabled", groupingvar, fixed = TRUE) &
+                            Measurement == "Count", "-", Value)) %>%
+    mutate(HouseholdDisabilityStatus = groupingvar)
+  disad_hh_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch", by = "disad_hh")  %>%
+    mutate(Value = ifelse(DateCode %in% labels$years$longperiods[19:20] &
+                            grepl("disabled", groupingvar, fixed = TRUE) &
+                            Measurement == "Count", "-", Value)) %>%
+    mutate(HouseholdDisabilityStatus = groupingvar)
+  # skipped characteristics in time series, therefore starting in 2006/07
+  babyhh <- filter(hbai, yearn >= 12) %>%
+    getlongformat(pov = measure, weight = "gs_newch", by = "babyhh") %>%
+    mutate(AgeOfYoungestChild = groupingvar,
+           AgeOfYoungestChild = case_when(groupingvar == "Youngest child in household is 1 or older" ~ "Youngest child in household is one or older",
+                                          groupingvar == "Youngest child in household is younger than 1" ~ "Youngest child in household is younger than one",
+                                          TRUE ~ groupingvar))
+  # skipped characteristics in time series, therefore starting in 2006/07
+  youngmumhh <- filter(hbai, yearn >= 12) %>%
+    getlongformat(pov = measure, weight = "gs_newch", by = "youngmumhh") %>%
+    mutate(AgeOfMother = groupingvar)
+
+  # skipped characteristics in time series, therefore starting in 2006/07
+  ageband_ch <- filter(child, yearn >= 12) %>%
+    getlongformat(weight = "childwgt", pov = measure, by = "ageband") %>%
+    mutate(Age = groupingvar)
+
+  ethgrphh_ch <- getlongformat(hbai, pov = measure, weight = "gs_newch",
+                               by = "ethgrphh", get5yr = TRUE) %>%
+    filter(DateCode == levels(labels$years$long5yrperiods)[22],
+           groupingvar != "All") %>%
+    mutate(Ethnicity = groupingvar)
+
+  all$ch <- rbind(loneparenthh, depchldh_ch, ecobu_ch, workinghh_ch, tenhbai_ch,
+                  urinds_ch, babyhh, youngmumhh, dispp_hh_ch, disch_hh_ch,
+                  disad_hh_ch, ethgrphh_ch, ageband_ch)
+
+  all
+}
+
+get_disability_type_composition <- function(df, variable, weight) {
+
+  df$var <- df[[variable]]
+  df$wgt <- df[[weight]]
+
+  df %>%
+    filter(discor == "Disabled") %>%
+    group_by(yearn, var) %>%
+    summarise(number = sum(wgt, na.rm = TRUE),
+              sample = n()) %>%
+    group_by(yearn) %>%
+    summarise(composition = number[1] / sum(number),
+              number = number[1],
+              sample_type = sample[1],
+              sample = sum(sample),
+              type = case_when(variable == "disd01" ~ "Vision",
+                               variable == "disd02" ~ "Hearing",
+                               variable == "disd03" ~ "Mobility",
+                               variable == "disd04" ~ "Dexterity",
+                               variable == "disd05" ~ "Learning",
+                               variable == "disd06" ~ "Memory",
+                               variable == "disd07" ~ "Mental health",
+                               variable == "disd08" ~ "Stamina/breathing/fatigue",
+                               variable == "disd09" ~ "Social/behavioural",
+                               variable == "disd10" ~ "Other",
+                               variable == "discor" ~ "All")) %>%
+    ungroup()
+}
+
+get_disability_types <- function(df, weight) {
+
+  rbind(get_disability_type_composition(df = df, weight = weight, variable = "disd01"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd02"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd03"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd04"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd05"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd06"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd07"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd08"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd09"),
+        get_disability_type_composition(df = df, weight = weight, variable = "disd10"),
+        get_disability_type_composition(df = df, weight = weight, variable = "discor"))
+
+}
+
+
 # Utils ------------------------------------------------------------------------
+
+get_periods <- function(yearn) {
+
+  factor(yearn, levels = labels$years$numbered, labels = labels$years$periods)
+
+}
+
+get_years <- function(yearn) {
+
+  factor(yearn, levels = labels$years$numbered, labels = labels$years$formatted)
+
+}
 
 decode <- function(x, search, replace, default = NULL) {
   # build a nested ifelse function by recursion
@@ -660,63 +988,12 @@ get5yrtotal <- function(x) {
 
 # Spreadsheet functions --------------------------------------------------------
 
-getSheetTitles <- function(filename = filename, sheetname){
+create_worksheet <- function(sheet_no, file, tables, headers, titles) {
 
-  wb <- loadWorkbook(filename)
-  read.xlsx(wb, sheet = sheetname, startRow = 3, colNames = FALSE,
-                   cols = 2, rows = 3) %>% pull()
-}
+  mysheet <- as.character(sheet_no)
+  headerrows = length(headers)
 
-insertValues <- function(vector, location) {
-  for (i in 0:(length(location) - 1)) {
-    vector <- append(vector, c(" ", " "), after = (location[i + 1] + i))
-  }
-  vector
-}
-
-getHeadings <- function(sheetlinks, headings) {
-  b <- rep(FALSE, length(sheetlinks))
-  for (i in seq_along(sheetlinks)) {
-    if (sheetlinks[i] == " " & sheetlinks[i + 1] == " ") {
-      b[i + 1] <- TRUE
-    }
-  }
-  b[which(b)] <- headings
-  b[which(b == "FALSE")] <- " "
-  b
-}
-
-# firstup <- function(x) {
-#   substr(x, 1, 1) <- toupper(substr(x, 1, 1))
-#   x
-# }
-
-shortenTitle <- function(title) {
-  if (endsWith(title, ")")) {
-    str_split(title, " \\(")[[1]][1]
-  } else {title}
-}
-
-createWideSpreadsheet <- function(data) {
-
-  file <- data[["file"]]
-  mysheet <- data[["sheet"]]
-  sheettitle <- data[["sheettitle"]]
-  dfs <- data[["dfs"]]
-  formats <- data[["formats"]]
-  titles <- data[["titles"]]
-  subtitles <- data[["subtitles"]]
-  source <- data[["source"]]
-  footnotes <- data[["footnotes"]]
-  totalrow <- data[["totalrow"]]
-
-  if (length(dfs) == length(formats) &
-      length(dfs) == length(titles) &
-      length(dfs) == length(subtitles)) {} else {
-        warning("Number of datasets and titles don't match!")
-      }
-
-  # Open / create workbook
+  # Open / create workbook and worksheet
   if (file.exists(file)) {
     wb <- loadWorkbook(file)
     if (mysheet %in% getSheetNames(file)) {
@@ -726,141 +1003,116 @@ createWideSpreadsheet <- function(data) {
     wb <- createWorkbook()
   }
 
+  # New worksheet
   addWorksheet(wb = wb, sheetName = mysheet, gridLines = FALSE)
 
-  # Styles for Excel outputs
-  options("openxlsx.borderStyle" = "thin")
-  options("openxlsx.borderColour" = "black")
-  titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
-                            wrapText = FALSE, halign = "left")
-  subtitleStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
-                               wrapText = FALSE, halign = "left")
-  headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 10,
-                             halign = "right", border = "bottom",
-                             wrapText = FALSE)
-  popStyle <- createStyle(numFmt = "#,##0", halign = "right")
-  popStyle_underline <- createStyle(numFmt = "#,##0", halign = "right",
-                                    border = "bottom")
-  pctStyle <- createStyle(numFmt = "0%", halign = "right")
-  pctStyle_underline <- createStyle(numFmt = "0%", halign = "right",
-                                    border = "bottom")
-  GBPStyle <- createStyle(numFmt = "#,##0", halign = "right")
-  GBPStyle_underline <- createStyle(numFmt = "#,##0", halign = "right",
-                                    border = "bottom")
-  sourceStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
-                             wrapText = FALSE, halign = "left")
-  footnoteHeaderStyle <- createStyle(fontName = "Segoe UI Semibold",
-                                     fontSize = 11, textDecoration = "BOLD",
-                                     wrapText = FALSE, halign = "left")
-  footnoteStyle <- createStyle(fontName = "Segoe UI", fontSize = 11,
-                               wrapText = FALSE, halign = "left")
-  firstRow <- 5
-  firstCol <- 2
-  titlerows <- 2
-  sourcerows <- 1
+  # write worksheet title, add number
+  writeData(wb, mysheet, paste0(sheet_no, " ", headers[1]))
 
-  # Sheet title
-  writeData(wb, mysheet, x = sheettitle, startCol = firstCol, startRow = 3)
-  addStyle(wb, mysheet, style = titleStyle, rows = 3, cols = firstCol)
-
-  # loop through all tables in this sheet to write tables and add styles
-  for (i in seq_along(dfs)) {
-
-    datarows <- dim(dfs[[i]])[1] + 1
-    datacols <- dim(dfs[[i]])[2]
-    tablerows <- titlerows + datarows + sourcerows
-
-    # write table
-    writeData(wb, mysheet, x = titles[i], startCol = firstCol,
-              startRow = firstRow)
-    writeData(wb, mysheet, x = subtitles[i], startCol = firstCol,
-              startRow = firstRow + 1)
-    writeData(wb, mysheet, x = dfs[[i]], startCol = firstCol,
-              startRow = firstRow + 2, keepNA = TRUE, na.string = "..",
-              headerStyle = headerStyle)
-    writeData(wb, mysheet, x = source, startCol = firstCol,
-              startRow = firstRow + tablerows - 1)
-
-    # add styles
-    if (formats[i] %in% c("pct", "percent", "rate", "comp", "composition")) {
-      if (is.null(totalrow)) {
-        format_top <- pctStyle
-      } else {
-        format_top <- pctStyle_underline
-      }
-      format_main <- pctStyle
-      format_bottom <- pctStyle_underline
-    } else if (formats[i] %in% c("pop", "number", "population", "num")) {
-      if (is.null(totalrow)) {
-        format_top <- popStyle
-      } else {
-        format_top <- popStyle_underline
-      }
-      format_main <- popStyle
-      format_bottom <- popStyle_underline
-    } else if (formats[i] %in% c("pounds", "pound", "GBP", "gbp")) {
-      if (is.null(totalrow)) {
-        format_top <- GBPStyle
-      } else {
-        format_top <- GBPStyle_underline
-      }
-      format_main <- GBPStyle
-      format_bottom <- GBPStyle_underline
+  # write remaining worksheet header (notes, source)
+  if (headerrows > 1) {
+    writeData(wb, mysheet, startRow = 2, headers[2:headerrows])
     }
 
-    # add styles
-    addStyle(wb, mysheet, style = titleStyle, rows = firstRow, cols = firstCol)
-    addStyle(wb, mysheet, style = subtitleStyle, rows = firstRow + 1,
-             cols = firstCol)
-    addStyle(wb, mysheet, style = format_top, rows = firstRow + 3,
-             cols = firstCol:(datacols + 1), stack = TRUE)
-    addStyle(wb, mysheet, style = format_main, cols = firstCol:(datacols + 1),
-             rows = (firstRow + 4):(firstRow + datarows + 1), gridExpand = TRUE,
-             stack = TRUE)
-    addStyle(wb, mysheet, style = format_bottom, rows = firstRow + datarows + 1,
-             cols = firstCol:(datacols + 1))
-    addStyle(wb, mysheet, style = sourceStyle, rows = firstRow + tablerows - 1,
-             cols = firstCol)
+  # format worksheet header
+  addStyle(wb, mysheet, createStyle(fontSize = 13, textDecoration = "bold"),
+           rows = 1, cols = 1)
+  addStyle(wb, mysheet, createStyle(wrapText = TRUE),
+           rows = 2:headerrows, cols = 1)
 
-    firstRow = firstRow + tablerows + 2
+  # get first row of first table (first table title)
+  first_row <- 1 + headerrows
+
+  # loop through tables for this worksheet
+  for (i in 1:length(tables)) {
+
+    table <- tables[[i]]
+    tablerows <- dim(table)[1] + 1
+
+    # write title (with table number added)
+    writeData(wb, mysheet, paste0(sheet_no, letters[i], " ", titles[i]), startRow = first_row)
+
+    # write table (marked up properly as table)
+    writeDataTable(wb, mysheet, table,
+                   startRow = first_row + 1,
+                   withFilter = FALSE, firstColumn = TRUE, bandedRows = FALSE,
+                   tableStyle = "TableStyleLight1",
+                   tableName = paste0("Table", sheet_no, letters[i]),
+                   keepNA = TRUE, na.string = "[u]")
+
+    # format title
+    addStyle(wb, mysheet, rows = first_row, cols = 1,
+             style = createStyle(textDecoration = "bold", halign = "left"))
+    setRowHeights(wb, mysheet, rows = first_row, 30)
+
+    # format table header
+    addStyle(wb, mysheet, rows = first_row + 1, cols = 2:length(table),
+             gridExpand = TRUE, stack = TRUE,
+             style = createStyle(wrapText = TRUE, halign = "right"))
+
+    # identify number format
+    if (any(table[, 2:length(table)] <= 2, na.rm = TRUE)) {numformat <- "0%"} else {numformat <- "#,##0"}
+
+    # format table body
+    addStyle(wb, mysheet,
+             rows = (first_row + 2):(first_row + 2 + tablerows),
+             cols = 2:length(table),
+             gridExpand = TRUE, stack = TRUE,
+             style = createStyle(numFmt = numformat, halign = "right"))
+
+    setColWidths(wb, mysheet, cols = 1, widths = 70)
+
+    # move to next sub-table on this worksheet
+    first_row <- first_row + tablerows + 1
+
   }
 
-  # add footnotes
-  if (is.vector(footnotes)) {
-    writeData(wb, mysheet, x = "Notes", startCol = firstCol, startRow = firstRow)
-    writeData(wb, mysheet, x = footnotes, startCol = firstCol,
-              startRow = firstRow + 1)
-    addStyle(wb, mysheet, style = footnoteHeaderStyle,
-             rows = firstRow, cols = firstCol)
-    addStyle(wb, mysheet, style = footnoteStyle, cols = firstCol,
-             rows = (firstRow + 1):(firstRow + 1 + length(footnotes)))
-  }
+  # right align all columns except for 1st
+  addStyle(wb, mysheet, rows = 3:100, cols = 2:length(table),
+           gridExpand = TRUE, stack = TRUE,
+           style = createStyle(halign = "right"))
+  addStyle(wb, mysheet, rows = 1:200, cols = 1,
+           gridExpand = TRUE, stack = TRUE,
+           style = createStyle(halign = "left"))
 
-  setColWidths(wb, mysheet, cols = firstCol, widths = 40)
+  # Save spreadsheet
   saveWorkbook(wb, file, overwrite = TRUE)
 }
 
-createContentSheet <- function(filename, headings){
+
+createContentSheet <- function(filename, title, toptext, headings = NULL) {
 
   wb <- loadWorkbook(filename)
 
-  # get sheet names and titles
+  # get sheet names
   sheets <- names(wb)
   sheets <- sheets[!sheets == "Contents"]
-  titles <- sapply(sheets, getSheetTitles, filename = filename)
-  titles <- titles[!titles == "Tables"]
+  sheets <- sheets[!sheets == "Readme"]
 
-  # remove content in () from titles
-  titles <- sapply(titles, shortenTitle)
+  # get worksheet titles
+  titles <- vector(length = length(sheets))
+  for (i in 1:length(sheets)) {
+    titles[i] <-  read.xlsx(wb, sheet = sheets[i], startRow = 1, colNames = FALSE,
+                            cols = 1, rows = 1) %>% pull()
+  }
+
+  # remove heading markers from titles
+  titles <- sapply(titles, function(x) str_remove(x, "H1-"))
 
   # create hyperlinks to sheets
   sheetlinks <- sapply(seq_along(sheets),
-                       function(i) makeHyperlinkString(sheets[[i]],
-                                                       text = titles[[i]],
-                                                       col = 1))
+                       function(x) makeHyperlinkString(sheets[[x]],
+                                                       text = titles[[x]]))
 
-  # insert spaces for headers
-  sheetlinks <- insertValues(sheetlinks, headings$location)
+  sheetlinks <- sapply(seq_along(sheets),
+                       function(x) paste0('=HYPERLINK("#',
+                                          sheets[[x]],
+                                          '!A1", "',
+                                          titles[[x]],
+                                          '")'))
+
+  # insert spaces for the headers
+  sheetlinks <- insertSpaces(sheetlinks, headings$location)
 
   # create new worksheet
   if ("Contents" %in% getSheetNames(filename)) {removeWorksheet(wb, "Contents")}
@@ -869,219 +1121,192 @@ createContentSheet <- function(filename, headings){
   # define styles
   titleStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 14,
                             wrapText = FALSE, halign = "left")
-  headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 12,
-                            wrapText = FALSE, halign = "left")
-  noteStyle <- createStyle(fontName = "Segoe UI", fontSize = 12, halign = "left")
+  noteStyle <- createStyle(fontName = "Segoe UI", fontSize = 12, halign = "left",
+                           wrapText = TRUE)
+  headerStyle <- createStyle(fontName = "Segoe UI Semibold", fontSize = 12, halign = "left")
   tocStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
                           fontColour = "blue", textDecoration = "underline",
                           halign = "left")
-  backButtonStyle <- createStyle(fontName = "Segoe UI", fontSize = 10,
-                                 fontColour = "blue",
-                                 textDecoration = c("underline", "bold"),
-                                 halign = "left", valign = "center")
 
-  # 1st column - title
-  writeData(wb, "Contents", "Tables", startRow = 2, startCol = 2)
-  addStyle(wb, "Contents", rows = 2, cols = 2, style = titleStyle)
+  # write title
+  writeData(wb, "Contents", title, startRow = 1, startCol = 1)
+  addStyle(wb, "Contents", rows = 1, cols = 1, style = titleStyle)
 
-  # 1st column - note
-  note1 <- c("This workbook contains data used in the charts and tables in the Poverty and Income",
-             "Inequality in Scotland report, published on 25 March 2021, and additional analysis.")
-  note2 <- "https://data.gov.scot/poverty"
-  names(note2) <- "The report is available here: data.gov.scot/poverty"
-  class(note2) <- "hyperlink"
+  # add note
+  writeData(wb, "Contents", toptext, startRow = 2, startCol = 1)
+  addStyle(wb, "Contents", rows = 2:(length(toptext) + 1), cols = 1, style = noteStyle)
 
-  writeData(wb, "Contents", note1, startRow = 3, startCol = 2)
-  writeData(wb, "Contents", note2, startRow = 5, startCol = 2)
-  addStyle(wb, "Contents", rows = 3:5, cols = 2, style = noteStyle)
-
-  # 1st column - headers
-  writeData(wb, "Contents", getHeadings(sheetlinks, headings$titles),
-            startRow = 6, startCol = 2)
-  addStyle(wb, "Contents", rows = 6:(length(sheetlinks) + 6), cols = 2,
-            style = headerStyle)
-
-  # 1st column - list of sheets
-  writeFormula(wb, "Contents", startRow = 6, startCol = 3, x = sheetlinks)
-  addStyle(wb, "Contents", rows = 6:(length(sheetlinks) + 6), cols = 3,
+  # add list of sheets
+  writeFormula(wb, "Contents", startRow = length(toptext) + 2, startCol = 1, x = sheetlinks)
+  addStyle(wb, "Contents", rows = (length(toptext) + 2):(length(sheetlinks) + length(toptext) + 2),
+           cols = 1,
            style = tocStyle)
 
-  # 2nd column - contact information
-  email <- "mailto:social-justice-analysis@gov.scot"
-  names(email) <- "social-justice-analysis@gov.scot"
-  class(email) <- "hyperlink"
+  # add headers
+  pos <- grep("blank", sheetlinks)
 
-  writeData(wb, "Contents", "Contact", startRow = 2,
-            startCol = 4)
-  addStyle(wb, "Contents", rows = 2, cols = 4, style = titleStyle)
+  for (i in 1:length(pos)) {
+    writeData(wb, "Contents", x = headings$titles[i],
+              startRow = length(toptext) + 1 + pos[i],
+              startCol = 1)
+    addStyle(wb, "Contents", rows = length(toptext) + 1 + pos[i], cols = 1,
+             style = headerStyle)
+    setRowHeights(wb, "Contents", rows = length(toptext) + 1 + pos[i], heights = 30)
+  }
 
-  writeData(wb, "Contents", "Maike Waldmann", startRow = 3, startCol = 4)
-  writeData(wb, "Contents", "Scottish Government", startRow = 4, startCol = 4)
-  writeData(wb, "Contents", "Communities Analysis Division", startRow = 5,
-            startCol = 4)
-  writeData(wb, "Contents", email, startRow = 6, startCol = 4)
-  addStyle(wb, "Contents", rows = 3:6, cols = 4, style = noteStyle)
-
-  # 2nd column - note on sample sizes
-  text <- c("Some estimates are unavailable due to small sample size and marked '..'.",
-            "For population estimates, the sample of the underlying population has to",
-            "be at least 100 cases, for example 100 interviewed people, or 100",
-            "interviewed households (depending on the question).",
-            "For estimated proportions, the sample of the base has to be at least 100.",
-            "For example, if there were 100 German households in the Scottish sample,",
-            "and 19 of them were in poverty, we could produce an estimate of the",
-            "proportion of German households in Scotland who are in poverty.",
-            "However, we could not produce a population estimate of German households",
-            "in poverty, as this would be based on only 19 households.",
-            "Estimates of amounts, such as median incomes, are based on at least 50 cases.")
-
-  text <- data.frame(text)
-
-  writeData(wb, "Contents", "Note on sample sizes", startRow = 8,
-            startCol = 4)
-  addStyle(wb, "Contents", rows = 8, cols = 4, style = titleStyle)
-
-  writeData(wb, "Contents", text, startRow = 9, startCol = 4, colNames = FALSE)
-  addStyle(wb, "Contents", rows = 9:19, cols = 4, style = noteStyle)
-
-  # 2nd column - note on housing costs
-  text_hc <- c("The most commonly used poverty indicator in Scotland is relative",
-               "poverty after housing costs.",
-               "After-housing-costs measures describe disposable household income",
-               "after housing costs are paid for. They therefore better describe",
-               "what is available for food, bills and leisure every week or month.",
-               "The poverty characteristics tables are only available for poverty",
-               "after housing costs.")
-
-  text_hc <- data.frame(text_hc)
-
-  writeData(wb, "Contents", "Note on poverty and housing costs", startRow = 21,
-            startCol = 4)
-  addStyle(wb, "Contents", rows = 21, cols = 4, style = titleStyle)
-
-  writeData(wb, "Contents", text_hc, startRow = 22, startCol = 4,
-            colNames = FALSE)
-  addStyle(wb, "Contents", rows = 22:28, cols = 4, style = noteStyle)
-
-  # 2nd column - note on revision
-  text_rev <- c("In 2021, previously published datasets underwent a minor",
-                "methodological revision to capture all income from child maintenance.",
-                "This led to small changes in household income and small adjustments",
-                "to some poverty estimates. Therefore, some poverty and income",
-                "estimates that were published in 2021 may not exactly match",
-                "previously published estimates for 1994/95 to 2019/20. The revision",
-                "did not affect any trends in poverty or household income.")
-
-  text_rev <- data.frame(text_rev)
-
-  writeData(wb, "Contents", "Data revision", startRow = 30,
-            startCol = 4)
-  addStyle(wb, "Contents", rows = 30, cols = 4, style = titleStyle)
-
-  writeData(wb, "Contents", text_rev, startRow = 31, startCol = 4,
-            colNames = FALSE)
-  addStyle(wb, "Contents", rows = 31:37, cols = 4, style = noteStyle)
-
-  # 2nd column - note on rounding
-  text_rnd <- c("Proportions are rounded to five decimal places. However, the precision of poverty",
-                "rate estimates for the whole Scottish population is usually the central estimate",
-                "plus or minus two percentage points, or plus or minus four percentage points for",
-                "the Scottish child population. Precision is lower for smaller groups.",
-                "Population numbers are rounded to the nearest 10,000 people. Annual GBP amounts are",
-                "rounded to the nearest £100. Weekly GBP amounts are rounded to the nearest £1.")
-
-  text_rnd <- data.frame(text_rnd)
-
-  writeData(wb, "Contents", "Rounding", startRow = 39,
-            startCol = 4)
-  addStyle(wb, "Contents", rows = 39, cols = 4, style = titleStyle)
-
-  writeData(wb, "Contents", text_rnd, startRow = 40, startCol = 4,
-            colNames = FALSE)
-  addStyle(wb, "Contents", rows = 40:45, cols = 4, style = noteStyle)
-
-
-  setColWidths(wb, "Contents", 1, widths = 7)
-  setColWidths(wb, "Contents", 2, widths = 3)
-  setColWidths(wb, "Contents", 3:4, widths = 85)
+  setColWidths(wb, "Contents", 1, widths = 105)
 
   # move contents sheet to first position
   order <- worksheetOrder(wb)
   worksheetOrder(wb) <- c(order[length(order)], order[1:(length(order) - 1)])
 
-  # add back button to each sheet
-  for (sheet in sheets) {
-    writeFormula(wb, sheet, startRow = 1, startCol = 2,
-                 x = makeHyperlinkString("Contents", row = 2, col = 1,
-                                         text = "Back to Contents"))
-    addStyle(wb, sheet, rows = 1, cols = 2, style = backButtonStyle)
-    setRowHeights(wb, sheet, rows = 1, heights = 33)
-  }
-
   saveWorkbook(wb, filename, overwrite = TRUE)
-
 }
 
-mark_missing <- function(data = data, ncols, nrows, xlscol, xlsrow) {
-  sheetname <- data[["sheet"]]
-  filename <- data[["file"]]
+createReadmeSheet <- function(filename, notes, title = "Readme") {
+
   wb <- loadWorkbook(filename)
 
-  df <- data.frame(matrix("--", nrows, ncols))
-  startcell <- c(xlscol, xlsrow)
+  # create new worksheet
+  if (title %in% getSheetNames(filename)) {removeWorksheet(wb, title)}
+  addWorksheet(wb, title, gridLines = FALSE)
 
-  writeData(
-    wb,
-    sheetname,
-    x = df,
-    xy = startcell,
-    colNames = FALSE
-  )
+  # define styles
+  titleStyle <- createStyle(fontName = "Segoe UI ", fontSize = 14,
+                            textDecoration = "bold")
+
+  headerStyle <- createStyle(fontName = "Segoe UI", fontSize = 12,
+                             textDecoration = "bold")
+
+  noteStyle <- createStyle(fontName = "Calibri", fontSize = 12, halign = "left",
+                           wrapText = TRUE)
+
+  # write text
+  startrow <- 1
+
+  for (i in 1:length(notes)) {
+
+    # write header
+    writeData(wb, title, x = names(notes)[i], startRow = startrow, startCol = 1)
+    addStyle(wb, title, rows = startrow, cols = 1, style = headerStyle)
+    setRowHeights(wb, title, rows = startrow, heights = 30)
+
+    # write note
+    writeData(wb, title, notes[[i]], startRow = startrow + 1, startCol = 1)
+    addStyle(wb, title, cols = 1, style = noteStyle,
+             rows = (startrow + 1):(startrow + 1 + length(notes[[i]])))
+
+    # move to next note
+    startrow = startrow + length(notes[[i]]) + 1
+
+  }
+
+  addStyle(wb, title, rows = 1, cols = 1, style = titleStyle)
+  setColWidths(wb, title, 1, widths = 85)
+
+  # move Readme sheet to first position
+  order <- worksheetOrder(wb)
+  worksheetOrder(wb) <- c(order[length(order)], order[1:(length(order) - 1)])
 
   saveWorkbook(wb, filename, overwrite = TRUE)
 }
 
-# wrap_text <- function(data = data, rows, cols) {
-#   filename <- data[["file"]]
-#   sheetname <- data[["sheet"]]
-#   wb <- loadWorkbook(filename)
-#   addStyle(wb, sheetname, rows = rows, cols = cols,
-#            style = createStyle(wrapText = TRUE), gridExpand = TRUE,
-#            stack = TRUE)
-# }
+insertSpaces <- function(vector, location) {
+  for (i in 1:(length(location))) {
+    vector <- append(vector, "blank", after = (location[i] + i - 1))
+  }
+  vector
+}
+
+
+
+mark_missing <- function(filename, mark_list) {
+
+  wb <- loadWorkbook(filename)
+  sheets <- names(mark_list)
+
+  for (i in 1:length(sheets)) {
+
+    markers <- mark_list[[i]]$markers
+    ranges <- mark_list[[i]]$ranges
+
+    for (j in 1:length(ranges)) {
+      mark_range(wb = wb, sheetname = sheets[i], range = ranges[j],
+                 marker = markers[j])
+    }
+  }
+  saveWorkbook(wb, filename, overwrite = TRUE)
+}
+
+col_to_int <- function(cellref) {
+
+  col <- sub('[[:digit:]]+','', cellref)
+  x1 <- strsplit(col, "")[[1]][1]
+  x2 <- strsplit(col, "")[[1]][2]
+
+  out <- which(LETTERS == toupper(x1))
+
+  if (!is.na(x2)) {out <- out * 26 + which(LETTERS == toupper(x2))}
+
+  return(out)
+}
+cell_to_coord <- function(cellref) {
+
+  x1 <- col_to_int(cellref)
+  x2 <- sub('[[:alpha:]]+','', cellref)
+  x2 <- as.numeric(x2)
+  return(c(x1, x2))
+
+}
+range_to_coord <- function(range) {
+  cell1 <- str_split(range, ":")[[1]][1]
+  cell2 <- str_split(range, ":")[[1]][2]
+
+  coord1 <- cell_to_coord(cell1)
+  coord2 <- cell_to_coord(cell2)
+  return(list(coord1, coord2))
+}
+mark_range <- function(wb, sheetname, range, marker) {
+
+  coords <- range_to_coord(range)
+  ncols <- abs(coords[[2]][1] - coords[[1]][1]) + 1
+  nrows <- abs(coords[[2]][2] - coords[[1]][2]) + 1
+
+  df <- data.frame(matrix(marker, nrows, ncols), stringsAsFactors = FALSE)
+
+  writeData(wb, sheetname, x = df, xy = coords[[1]], colNames = FALSE)
+}
 
 # Chart functions --------------------------------------------------------------
 
-linechart <- function(df, ...){
+linechart <- function(df, ...) {
 
   ggplot(data = df,
-         aes(x = x,
-             y = y,
-             group = key,
-             colour = key,
-             linetype = key,
-             label = label)) +
-
-    addxlabels() +
+         aes(x = x, y = y, group = key, colour = key, fill = key,
+             tooltip = tooltip, data_id = data_id)) +
+    scale_x_discrete() +
     addrecessionbar(...) +
-
-    geom_point_interactive(aes(tooltip = tooltip,
-                               data_id = tooltip),
-                           show.legend = FALSE,
+    geom_point_interactive(show.legend = FALSE,
                            size = 6,
                            colour = "white",
                            alpha = 0.01) +
 
-    geom_line(lineend = "round",
-                          show.legend = FALSE) +
+    # line ends at second to last data point
+    geom_line(data = arrange(df, desc(x)) %>% group_by(key) %>% slice(2:n()),
+              aes(linetype = key), lineend = "round", show.legend = FALSE) +
 
-    geom_point(data = filter(df, x == min(x)),
-               size = 2,
+    # points at first and second-to-last data point
+    geom_point(data = arrange(df, desc(x)) %>%
+                 group_by(key) %>%
+                 slice(2:n()) %>%
+                 filter(x == min(x) | x == max(x)),
+               size = 2, show.legend = FALSE) +
+
+    # points for final data point
+    geom_point(data = df %>% filter(x == max(x)), size = 2, shape = 15,
                show.legend = FALSE) +
 
-    geom_point(data = filter(df, x == max(x)),
-               size = 2,
-               show.legend = FALSE)
+    theme(axis.text.y = element_blank())
 }
 
 linechart_small <- function(df, yrange = c(0.1, 0.35), col = SGblue){
@@ -1092,21 +1317,20 @@ linechart_small <- function(df, yrange = c(0.1, 0.35), col = SGblue){
              group = key,
              label = label)) +
 
-    geom_line(data = df,
-              size = 1.2,
-              lineend = "round",
-              show.legend = FALSE,
-              colour = col) +
+    # line ends at second to last data point
+    geom_line(data = arrange(df, desc(x)) %>% group_by(key) %>% slice(2:n()),
+              lineend = "round", show.legend = FALSE, size = 1.2, colour = col) +
 
-    geom_point(data = filter(df, x == min(x)),
-               size = 3,
-               show.legend = FALSE,
-               colour = col) +
+    # points at first and second-to-last data point
+    geom_point(data = arrange(df, desc(x)) %>%
+                 group_by(key) %>%
+                 slice(2:n()) %>%
+                 filter(x == min(x) | x == max(x)),
+               size = 3, show.legend = FALSE, colour = col) +
 
-    geom_point(data = filter(df, x == max(x)),
-               size = 3,
-               show.legend = FALSE,
-               colour = col) +
+    # points for final data point
+    geom_point(data = df %>% filter(x == max(x)), size = 3, shape = 15,
+               show.legend = FALSE, colour = col) +
 
     geom_text(data = filter(df, x == min(x)),
               show.legend = FALSE,
@@ -1125,14 +1349,14 @@ linechart_small <- function(df, yrange = c(0.1, 0.35), col = SGblue){
     scale_y_continuous(limits = yrange) +
 
     scale_x_discrete(drop = FALSE,
-                     breaks = c("1994-97", "2017-20"),
+                     breaks = c("1994-97", "2018-21"),
                      expand = c(0.4, 0.45)) +
 
     theme(axis.text = element_text(size = 16))
 
 }
 
-barchart <- function(df, palette = SGmix) {
+barchart <- function(df, palette = SGmix6) {
 
   ggplot(data = df,
          aes(x = x, y = y, group = x, fill = x, label = label)) +
@@ -1163,31 +1387,41 @@ barchart <- function(df, palette = SGmix) {
 
 persistentchart <- function(df) {
 
-  ggplot(data = df,
-         mapping = aes(x = key,
-                       y = value,
-                       fill = period,
-                       group = period,
-                       label = percent2(value))) +
-
-    geom_bar_interactive(aes(tooltip = str_c(percent2(value), " (",
-                                             period, ")"),
-                             data_id = paste(key, period, value)),
-                         stat = "identity",
-                         position = "dodge",
-                         colour = "white") +
-
-    scale_fill_manual(values = rev(SGblues)) +
-    scale_y_continuous(limits = c(0, 0.23)) +
-    scale_alpha_manual(values = c("0" = 0, "1" = 1)) +
-
-    geom_text(aes(alpha = ifelse(period == max(period), "1", "0")),
-              vjust = -0.5,
-              position = position_dodge(1),
-              colour = SGblues[1],
-              show.legend = FALSE) +
-
-    labs(caption = "Source: Understanding Society Survey")
+  df %>%
+    ggplot(aes(x = x, y = y, group = key, colour = key, label = labels,
+               tooltip = tooltip, data_id = data_id)) +
+    scale_x_discrete(limits = periods,
+                     breaks = c("2010-2014", "", "2012-2016", "", "2014-2018",
+                                "", "2016-2020"),
+                     expand = expansion(add = c(3, 1))) +
+    scale_y_continuous(limits = c(0, .2)) +
+    geom_point_interactive(show.legend = FALSE,
+                           size = 6,
+                           colour = "white",
+                           alpha = 0.01) +
+    geom_line(lineend = "round", show.legend = FALSE) +
+    geom_point(data = filter(df, x == min(x) | x == max(x)), size = 2,
+               show.legend = FALSE) +
+    labs(caption = "Source: Understanding Society Survey") +
+    addscales() +
+    geom_text_repel(data = filter(df, x == min(x)),
+                    aes(x = x, y = y, label = labels),
+                    direction = "y",
+                    nudge_x = -0.5,
+                    hjust = 1,
+                    point.padding = 0.2,
+                    box.padding = 0.2,
+                    show.legend = FALSE,
+                    min.segment.length = 10) +
+    geom_text_repel(data = filter(df, x == max(x)),
+                    aes(x = x, y = y, label = labels),
+                    direction = "y",
+                    nudge_x = +0.5,
+                    hjust = 0,
+                    point.padding = 0.2,
+                    box.padding = 0.2,
+                    show.legend = FALSE,
+                    min.segment.length = 10)
 }
 
 # Add annotations for recession and welfare reform
@@ -1277,28 +1511,10 @@ right <-  geom_text_repel(data = filter(df, x == max(x)),
 list(left, right)
 }
 
-addnames <- function(df = data, up = 0) {
-
-  geom_text(data = filter(df, x == min(x)),
-                  mapping = aes(x = x, y = y + up, label = key),
-                  show.legend = FALSE,
-                  hjust = 0)
-}
-
-addxlabels <- function(){
-
-  scale_x_discrete(drop = FALSE,
-                   limits = levels(labels$years$periods),
-                   breaks = c("1994-97", "", "", "", "", "",
-                              "2000-03", "", "", "", "", "",
-                              "2006-09", "", "", "", "", "",
-                              "2012-15", "", "", "", "", "2017-20"),
-                   expand = c(0.1, 0.1))
-}
-
-addscales <- function(palette = SGmix){
+addscales <- function(palette = SGmix6){
 
   list(scale_color_manual(values = palette),
+       scale_fill_manual(values = palette),
        scale_size_manual(values = c(1.2, 1)))
 }
 
@@ -1326,23 +1542,23 @@ addinterimtarget <- function(target){
                   stroke = 1,
                   fill = SGoranges[2])
 
-  c <- geom_text(data = tail(data, 1L),
-                 aes(x = 30.2, y = target - 0.05,
-                       label = percent2(target)),
+  c <- geom_text(aes(x = 33, y = target,
+                       label = fmtpct(target)),
                  colour = SGgreys[1],
                  size = 5)
 
   d <- geom_point_interactive(aes(x = "2023/24",
                                   y = target,
                                   tooltip = str_c("Interim target (2023/24): ",
-                                                  percent2(target)),
+                                                  fmtpct(target)),
                                   data_id = target),
                               size = 8,
                               colour = "white",
                               alpha = 0.01,
                               show.legend = FALSE)
 
-  list(a, b, c, d)
+   list(a, b, c, d)
+
 }
 
 addfinaltarget <- function(target){
@@ -1361,8 +1577,7 @@ addfinaltarget <- function(target){
                   stroke = 1,
                   fill = SGoranges[2])
 
-  c <- geom_text(data = tail(data, 1L),
-                   aes(x = 37.2, y = target - 0.04,
+  c <- geom_text(aes(x = 40, y = target,
                        label = percent2(target)),
                    colour = SGgreys[1],
                  size = 5)
@@ -1398,12 +1613,6 @@ addtargetbars <- function(){
   list(a, b, c)
 }
 
-addyaxis <- function(){
-
-  scale_y_continuous(limits = c(0, 0.53), labels = percent_format(1))
-
-}
-
 adddatalabels <- function(){
 
   a <- geom_text(data = head(data, 1L),
@@ -1421,4 +1630,323 @@ adddatalabels <- function(){
                   colour = SGgreys[1])
 
   list(a, b)
+}
+
+# html -------------------------------------------------------------------------
+
+infobox <- function(md) {
+  div(class = "infobox-text",
+      create_html(md))
+}
+
+message <- function(md) {
+  tags <- htmltools::tags
+  div(class = "message-text",
+      tags$strong(create_html(md)))
+}
+
+create_html <- function(md) {
+  htmltools::HTML(
+    markdown::markdownToHTML(
+      text = md, fragment.only = TRUE
+    )
+  )
+}
+
+abbr <- function(short, long) {
+  tags <- htmltools::tags
+  tags$abbr(title = long,
+            short)
+}
+
+interactive <- function(chart,
+                        title,
+                        subtitle,
+                        description = NULL,
+                        height = 3.5) {
+
+  id <- word(title, 1L, sep = ":")
+  id <- word(id, 2L)
+  id <- paste0("figure-", id)
+
+  subtitle <- str_wrap(subtitle, 85)
+  chart <- chart + labs(title = subtitle)
+  chart <- girafe(ggobj = chart, width = 1, height_svg = height, width_svg = 7)
+  chart <- girafe_options(chart, opts_toolbar(pngname = id))
+
+  # tidy up svg html
+  chart$elementId <- paste0(id, "_htmlwidget")
+  chart$x$html <- str_replace_all(chart$x$html, chart$x$uid, paste0(id, "_svg"))
+  chart$x$uid <- paste0(id, "_svg")
+
+  tags <- htmltools::tags
+
+  if (is.null(description)) {
+
+    tags$div(tags$figure(id = id,
+                         "aria-labelledby" = paste0(id, "_caption"),
+                         tags$figcaption(id = paste0(id, "_caption"),
+                                         title),
+                         chart))
+  } else {
+    tags$div(tags$div(id = paste0(id, "_description"),
+                      create_html(description)),
+             tags$figure(id = id,
+                         "aria-describedby" = paste0(id, "_description"),
+                         "aria-labelledby" = paste0(id, "_caption"),
+                         tags$figcaption(id = paste0(id, "_caption"),
+                                         title),
+                         chart))
+  }
+}
+
+tables_panel <- function(tables) {
+  tags$div(class = "accordion",
+           tags$button(id = paste0("accordion-button-", fign),
+                       class = "btn collapsed accordion-header noprint",
+                       "data-toggle" = "collapse",
+                       "data-target" = paste0("#accordion-panel-", fign),
+                       "aria-controls" = paste0("accordion-panel-", fign),
+                       "Show / hide data tables"),
+           tags$div(id = paste0("accordion-panel-", fign),
+                    class = "collapse accordion-panel",
+                    tables)
+  )
+}
+
+make4panels <- function(title_tl, subtitle_tl, text_tl, chart_tl, desc_tl,
+                        title_tr, subtitle_tr, text_tr, chart_tr, desc_tr,
+                        title_bl, subtitle_bl, text_bl, chart_bl, desc_bl,
+                        title_br, subtitle_br, text_br, chart_br, desc_br) {
+
+  tags <- htmltools::tags
+
+  chart_tl <- girafe(ggobj = chart_tl)
+  chart_tr <- girafe(ggobj = chart_tr)
+  chart_bl <- girafe(ggobj = chart_bl)
+  chart_br <- girafe(ggobj = chart_br)
+
+  div(class = "row fluid-row",
+
+      div(class = "col-md-6",
+
+          div(class = "panel panel-default",
+              div(class = "panel-heading",
+                  h2(class = "panel-title", title_tl),
+                  p(subtitle_tl)),
+              tags$figure(role = "figure",
+                          class = "panel-body",
+                          style = "max-width: 438px;",
+                          "aria-label" = desc_tl,
+                          tags$figcaption(text_tl),
+                          chart_tl)),
+
+          div(class = "panel panel-default",
+              div(class = "panel-heading",
+                  h2(class = "panel-title", title_bl),
+                  p(subtitle_bl)),
+              tags$figure(role = "figure",
+                          class = "panel-body",
+                          style = "max-width: 438px;",
+                          "aria-label" = desc_bl,
+                          tags$figcaption(text_bl),
+                          chart_bl))),
+
+      div(class = "col-md-6",
+
+          div(class = "panel panel-default",
+              div(class = "panel-heading",
+                  h2(class = "panel-title", title_tr),
+                  p(subtitle_tr)),
+              tags$figure(role = "figure",
+                          class = "panel-body",
+                          style = "max-width: 438px;",
+                          "aria-label" = desc_tr,
+                          tags$figcaption(text_tr),
+                          chart_tr)),
+
+          div(class = "panel panel-default",
+              div(class = "panel-heading",
+                  h2(class = "panel-title", title_br),
+                  p(subtitle_br)),
+              tags$figure(role = "figure",
+                          class = "panel-body",
+                          style = "max-width: 438px;",
+                          "aria-label" = desc_br,
+                          tags$figcaption(text_br),
+                          chart_br))) )
+}
+
+# Create accessible (= marked up correctly), responsive html table
+
+#'//////////////////////////////////////////////////////////////////////////////
+#' FILE: datatable.R
+#' AUTHOR: David Ruvolo
+#' CREATED: 2019-12-05
+#' MODIFIED: 2021-04-18
+#' PURPOSE: build datatable function and helpers
+#' STATUS: working
+#' PACKAGES: htmltools
+#' COMMENTS:
+#'      The datatable function generates an html table from a dataset.
+#'      This func returns a shiny tagList object which can be used in shiny
+#'      applications, markdown documents, or written to an html file. The
+#'      datatable function takes the following arguments.
+#'
+#'      ARGUMENTS:
+#'      - data: the input dataset
+#'      - id: an identifier for the table ideal for styling specific tables
+#'            or for use in js
+#'      - caption: a title for the table (recommended for accessible tables)
+#'      - options:
+#'          - responsive: a logical arg for turning on/off the rendering of
+#'                      additional elements for responsive tables (i.e., span).
+#'                      (Default = FALSE)
+#'          - rowHeaders: a bool that renders the first cell of every row
+#'              as a row header. This is useful for datasets where all data
+#'              in a row is related, e.g., patient data. If set to TRUE,
+#'              the data must be organized so that the row header is the
+#'              first column.
+#'          - `asHTML`: a logical argument used to render cell text as html
+#'               elements (default = FALSE)
+#'
+#'      ABOUT:
+#'      The datatable function requires two helper functions: 1) to generate the
+#'      table header and another used 2) to generate the table body. The func
+#'      build_header() renders the <thead> element according to the input data.
+#'      The build_body functions renders the table's <tbody> based on the input
+#'      and the options. This function uses a nested lapplys to iterate each row
+#'      and cell. If the responsive opt is TRUE, then the function will return
+#'      a <span> element with the current cell's column name. <span> has
+#'      the class `hidden-colname` that hides/shows the element based on screen
+#'      size (see datatable.css). Role attributes are added in the event
+#'      the display properties are altered in css.
+#'//////////////////////////////////////////////////////////////////////////////
+
+#' @name datatable_helpers
+#' @description object containing the datatable helper functions
+datatable_helpers <- list()
+
+#' @name build_header
+#' @description generate the table header markup
+#'
+#' @param data input database (from `datatable`)
+#' @param options internal configuration object (from `datatable`)
+datatable_helpers$build_header <- function(data, options) {
+  columns <- colnames(data)
+  cells <- lapply(seq_len(length(columns)), function(n) {
+
+    # define cell content: as html or text
+    if (isTRUE(options$asHTML)) {
+      cell_value <- htmltools::HTML(columns[n])
+    } else {
+      cell_value <- columns[n]
+    }
+
+    # build header
+    cell <- htmltools::tags$th(scope = "col", cell_value)
+    cell
+  })
+
+  # return header
+  htmltools::tags$thead(
+    htmltools::tags$tr(role = "row", cells)
+  )
+}
+
+#' @name build_body
+#' @description generate the markup for the table body
+
+#' @param data input dataset (from `datatable`)
+#' @param options internal configuration object (from `datatable`)
+#'
+#' @return shiny.tag object
+datatable_helpers$build_body <- function(data, options) {
+  body <- lapply(seq_len(NROW(data)), function(row) {
+    cells <- lapply(seq_len(NCOL(data)), function(col) {
+
+      # process options: render as html or escape?
+      if (isTRUE(options$asHTML)) {
+        cell_value <- htmltools::HTML(data[row, col])
+      } else {
+        cell_value <- data[row, col]
+      }
+
+      # process options$rowHeaders (this generates the cell)
+      if (isTRUE(options$rowHeaders) && col == 1) {
+        cell <- htmltools::tags$th(role = "rowheader")
+      } else {
+        cell <- htmltools::tags$td(role = "cell")
+      }
+
+      # process options: responsive and rowHeaders
+      if (isTRUE(options$responsive)) {
+        cell$children <- list(
+          htmltools::tags$span(
+            class = "hidden-colname",
+            `aria-hidden` = "true",
+            colnames(data)[col]
+          ),
+          cell_value
+        )
+      } else {
+        cell$children <- list(
+          cell_value
+        )
+      }
+      cell
+    })
+    htmltools::tags$tr(role = "row", cells)
+  })
+  htmltools::tags$tbody(body)
+}
+
+
+#' @name datatable
+#'
+#' @description generate a responsive datatable
+#'
+#' @param data input dataset
+#' @param id a unique identifier for the table
+#' @param caption an optional caption to render
+#' @param options a list containing additional parameters for configuring
+#'          the table output
+#'
+#' @section Options
+#'
+#' `responsive`: If TRUE (default), the table markup will be generated for
+#'      responsiveness
+#' `rowHeaders`: If TRUE (default), the first value in each row is considered
+#'      as a row header (required for responsive tables)
+#' `asHTML`: if TRUE, all values will be treated as HTML and rendered
+#'      accordingly
+#'
+#' @return a shiny.tag object
+datatable <- function(
+  data,
+  id = NULL,
+  caption = NULL,
+  source = NULL,
+  options = list(responsive = TRUE, rowHeaders = TRUE, asHTML = FALSE)
+) {
+
+  # render table and table elements
+  tbl <- htmltools::tags$table(
+    class = "table",
+    datatable_helpers$build_header(data, options),
+    datatable_helpers$build_body(data, options)
+  )
+
+  # add id, caption
+  if (!is.null(id)) tbl$attribs$id <- id
+  if (!is.null(caption)) {
+    tbl$children <- list(
+      htmltools::tags$caption(caption,
+                              htmltools::tags$br(),
+                              htmltools::tags$span(source)),
+      tbl$children
+    )
+  }
+
+  return(tbl)
 }

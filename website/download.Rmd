@@ -4,22 +4,46 @@ lang: "en"
 description: "Data download for the official poverty and income inequality statistics in Scotland"
 ---
 
-The data used to produce the charts of the main report and the child poverty summary is available for download below. The files also contain further poverty and child poverty analysis which is not shown in the charts of the main report.
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
 
-## Poverty and child poverty data
+knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
+```
 
-Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately:
-
-- [**all data (xlsx, 250 KB)**](xls/All three-year average.xlsx) - all data from the main report except for the data in Figures 30-32, plus additional poverty and child poverty breakdowns
-- [confidence intervals](uncertainty.html) - measurement uncertainty information for the headline estimates
-
-In addition, estimates of the headline indicators and household income based on single years of data are also available. These are used in the [child poverty summary](cpupdate.html) alongside the trend data, as well as in Figures 30 and 31 of the main report. They are not used in any other charts:
-
-- [single-year poverty and income data (xlsx, 70 KB)](xls/All single year.xlsx)
+```{r}
+source("R/00_functions.R")
+```
 
 ## Persistent poverty data
 
-Tables of the persistent poverty estimates are included in the [persistent poverty report](persistent.html).
+The data used to produce the charts of the Persistent Poverty in Scotland report is available for download below:
+
+- [all data, XLSX format (10 KB)](xls/data2022_persistent.xlsx)
+- [all data, ODS format (40 KB)](xls/data2022_persistent.ods)
+
+## Poverty and child poverty data
+
+`r message("These are not official statistics.\n\nThe latest estimates are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland.\n\nPlease refer to [Poverty and Income Inequality in Scotland 2017-20](../2021) for the latest National Statistics on poverty and income inequality.")`
+
+The data used to produce the charts of the main report is available for download below. The files also contain further poverty and child poverty analysis which is not shown in the charts of the main report.
+
+All estimates used in the main report except for the data in Figure 24, plus additional poverty and child poverty breakdowns, are available for download. Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately:
+
+- [all data, XLSX format (800 KB)](xls/data2022.xlsx)
+- [all data, ODS format (280 KB)](xls/data2022.ods)
+
+Measurement uncertainty information for the headline estimates:
+
+- [confidence intervals](uncertainty.html)
+
+In addition, estimates of the headline indicators and household income based on single years of data are also available. These are used in Figure 24 of the main report. They are not used in any other charts:
+
+- [single-year poverty and income data, XLSX format (240 KB)](xls/data2022_1yr.xlsx)
+- [single-year poverty and income data, ODS format (60 KB)](xls/data2022_1yr.ods)
 
 
 

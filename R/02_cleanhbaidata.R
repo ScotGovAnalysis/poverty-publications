@@ -20,8 +20,10 @@ files_hbai <- readRDS("data/files_hbai.rds")
 # kid16_19 was kid16_18 until 0506
 # mdpn new in 0910
 # mdchnew in 1011 only
-# ethgrphh new in 1213, not needed before as we don't do the time series
+# ethgrphh categories changed in 1213 and a few times before
 # discorabflg and discorkid new in 1213; previously, discorabflg = disabflg, discorkid = diskid;
+# kid16_19 changed to kid16plus 2021
+# hhshare new from 2021, before: hhstat (from 9697)
 
 # 9495 to 9596 -----------------------------------------------------------------
 for (year in years[1:2]) {
@@ -31,14 +33,14 @@ for (year in years[1:2]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdpn = NA,
+    mutate(mdpn = NA,
            mdch = NA,
            mdchnew = NA,
            ptentyp2 = NA,
            ecobu = NA,
            kidecobu = NA,
            chbenhh = NA,
+           hhshare = NA,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_18) %>%
@@ -58,7 +60,7 @@ for (year in years[1:2]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh)
+           ethgrphh, hhshare)
 
   hbai_clean[[year]] <- nextdataset
 
@@ -71,12 +73,12 @@ for (year in years[3:6]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdpn = NA,
+    mutate(mdpn = NA,
            mdch = NA,
            mdchnew = NA,
            ptentyp2 = NA,
            chbenhh = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_18) %>%
@@ -96,7 +98,7 @@ for (year in years[3:6]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -111,11 +113,11 @@ for (year in years[7:9]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdpn = NA,
+    mutate(mdpn = NA,
            mdch = NA,
            mdchnew = NA,
            ptentyp2 = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_18) %>%
@@ -135,7 +137,7 @@ for (year in years[7:9]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -150,10 +152,10 @@ for (year in years[10]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdpn = NA,
+    mutate(mdpn = NA,
            mdch = NA,
            mdchnew = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_18) %>%
@@ -173,7 +175,7 @@ for (year in years[10]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -187,9 +189,9 @@ for (year in years[11:12]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdpn = NA,
+    mutate(mdpn = NA,
            mdchnew = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_18) %>%
@@ -209,7 +211,7 @@ for (year in years[11:12]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -223,9 +225,9 @@ for (year in years[13:15]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdpn = NA,
+    mutate(mdpn = NA,
            mdchnew = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_19) %>%
@@ -245,7 +247,7 @@ for (year in years[13:15]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -259,8 +261,8 @@ for (year in years[16]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdchnew = NA,
+    mutate(mdchnew = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_19) %>%
@@ -280,7 +282,7 @@ for (year in years[16]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -294,7 +296,7 @@ for (year in years[17]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
+    mutate(hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_19) %>%
@@ -314,7 +316,7 @@ for (year in years[17]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
@@ -328,8 +330,8 @@ for (year in years[18]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(ethgrphh = NA,
-           mdchnew = NA,
+    mutate(mdchnew = NA,
+           hhshare = hhstat,
            discorabflg = disabflg,
            discorkid = diskid,
            kid16plus = kid16_19) %>%
@@ -349,14 +351,15 @@ for (year in years[18]) {
            ecobu, kidecobu, newfambu, ptentyp2,
            sexhd, sexsp, agehd, agesp,
            discorabflg, discorkid,
-           ethgrphh,
+           ethgrphh, hhshare,
            esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
            esmischh, espribhh, inchilhh, chbenhh)
 
   hbai_clean[[year]] <- nextdataset
 }
-# 1213 to latest year ----------------------------------------------------------
-for (year in years[19:length(years)]) {
+
+# 1213 to 1920 -----------------------------------------------------------------
+for (year in years[19:26]) {
 
 nextdataset <- files_hbai[[year]]
 
@@ -364,6 +367,7 @@ colnames(nextdataset) <- tolower(colnames(nextdataset))
 
 nextdataset <- nextdataset %>%
   mutate(mdchnew = NA,
+         hhshare = hhstat,
          kid16plus = kid16_19) %>%
   select(sernum, benunit, gvtregn,
          gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
@@ -381,13 +385,47 @@ nextdataset <- nextdataset %>%
          ecobu, kidecobu, newfambu, ptentyp2,
          sexhd, sexsp, agehd, agesp,
          discorabflg, discorkid,
-         ethgrphh,
+         ethgrphh, hhshare,
          esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
          esmischh, espribhh, inchilhh, chbenhh)
 
 hbai_clean[[year]] <- nextdataset
 remove(nextdataset)
 }
+
+# 2021 to latest year ----------------------------------------------------------
+for (year in years[27:length(years)]) {
+
+  nextdataset <- files_hbai[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(mdchnew = NA) %>%
+    select(sernum, benunit, gvtregn,
+           gs_newch, gs_newwa, gs_newpn, gs_newad, gs_newpp, gs_newbu,
+           depchldb, depchldh,
+           adultb, adulth,
+           kid0_1, kid2_4, kid5_7, kid8_10, kid11_12, kid13_15, kid16plus,
+           mdch, mdchnew, mdpn,
+           low50ahc, low60ahc, low70ahc,
+           low50bhc, low60bhc, low70bhc,
+           s_oe_ahc, s_oe_bhc,
+           mdoeahc, mdoebhc,
+           ahcdef, bhcdef, eqoahchh, eqobhchh,
+           esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
+           esmischh, espribhh, inchilhh, chbenhh, esginchh,
+           ecobu, kidecobu, newfambu, ptentyp2,
+           sexhd, sexsp, agehd, agesp,
+           discorabflg, discorkid,
+           ethgrphh, hhshare,
+           esgjobhh, esgrsehh, esbenihh, esgocchh, esginvhh,
+           esmischh, espribhh, inchilhh, chbenhh)
+
+  hbai_clean[[year]] <- nextdataset
+  remove(nextdataset)
+}
+
 
 for (year in years) {
   hbai_clean[[year]]$year <- year

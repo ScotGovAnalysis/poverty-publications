@@ -1,0 +1,24 @@
+Published on `r params$pub_day`
+
+`r message("These are not official statistics.\n\nThe latest estimates are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland.\n\nPlease refer to [Poverty and Income Inequality in Scotland 2017-20](https://data.gov.scot/poverty/2021) for the latest National Statistics on poverty and income inequality.")`
+
+This report shows what the poverty and income statistics would look like if we included the unreliable latest data point.
+
+<button onclick = "window.print();" class = "btn noprint" >
+  Print or save as PDF
+</button>
+<button onclick="location.href='download.html'" class = "btn noprint">
+  Download tables
+</button>
+<br>
+
+## What you need to know
+
+This report includes three-year averaged estimates of the proportion of people, children, working-age adults and pensioners in Scotland living in poverty, and measures of household income and income inequality. 
+
+The analysis is based on data from the Family Resources Survey. This survey has been the main source of information on household income and poverty in Scotland since 1994/95.
+
+The Scottish Government measures different aspects of poverty with different indicators. The most commonly used poverty indicator in Scotland for showing trends is relative poverty after housing costs. Other poverty measures in this report are absolute poverty, and material deprivation.
+
+The estimates in this publication are based on a sample survey and are therefore subject to sampling variation. The poverty and income estimates are shown as three-year rolling (overlapping) averages, unless stated otherwise. Taking the average over three years reduces fluctuation due to sampling variation and shows trends and differences between groups more clearly.
+

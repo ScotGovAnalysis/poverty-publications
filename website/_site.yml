@@ -1,3 +1,4 @@
+
 name: "Poverty and Income Inequality in Scotland"
 output:
   bookdown::html_document2:
@@ -6,7 +7,6 @@ output:
     number_sections: false
     mathjax: NULL
     template: _template.html
-    css: styles.css
+    css: styles22.css
     includes:
       after_body: _footer.html
-

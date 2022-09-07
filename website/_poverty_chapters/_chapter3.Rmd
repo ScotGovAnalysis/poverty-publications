@@ -1,0 +1,284 @@
+## Equality analysis
+
+Poverty is measured at a household level. Everyone in the same household is considered either in poverty or not in poverty. This makes it difficult to measure the poverty risk by individual characteristics such as age or gender for people who share the households with others. For gender, we therefore only look at households with a single adult. For age and marital status, we include everyone in the analysis, but keep in mind that the poverty risk is also influenced by others in the household.
+
+### Age
+
+The age analysis includes adults in both, single- and multi-person households. But the trend shown in Figure `r fign + 1`, that the youngest adults have the highest poverty rates, holds true for single-adult households as well.
+
+```{r chart18}
+
+id <- 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Gender
+
+Poverty is measured at a household level. This means that men and women in the same household are both either in poverty or not in poverty. In the analysis below, we therefore only include single adult households (with or without dependent children).
+
+#### Single working-age adults and gender
+
+`r infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#dependent-children-definition).")`
+
+```{r chart20}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of single working-age adults in relative poverty after housing costs, Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+#### Single pensioners and gender
+
+```{r chart21}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of single pensioners in relative poverty after housing costs, Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Marital status
+
+`r infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner. The 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart. The 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement.")`
+
+```{r chart22}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Ethnicity
+
+Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.
+
+Figure `r fign + 1` shows an ethnicity breakdown based on averages of data from five years. This enables us to report on ethnic groups with smaller sample sizes to some extent.
+
+Due to the small sample sizes for some of the ethnic groups, and the fact that ethnic composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. The chart shows how the fluctuations may obscure any long-term trends.
+
+```{r chart23}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty after housing costs (five-year averages), Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_age")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Median age of household head in each group, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table3 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "c"),
+                            caption = paste0("Table ", fign, "c: Number of families in each group in the combined five-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2, table3))
+
+```
+
+A more [detailed ethnicity breakdown using ten years of data](https://www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
+
+### Religion
+
+Data on religion is available for adults only, so this analysis does not include children.
+
+Figure `r fign + 1` shows a religion breakdown based on averages of data from five years. This enables us to report on religious groups with smaller sample sizes.
+
+Due to the small sample sizes for some of the religious groups, and the fact that religious composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty will be fairly large. Although the observed pattern for Muslims is relatively marked compared to other groups, they do represent the smallest group and the associated measurement uncertainty will be very large.
+
+Note that for some groups, religion is closely linked to ethnicity. The likelihood of certain cultural groups to experience poverty will be strongly influenced by historical factors which largely reflect the community’s migration history. These include low qualifications or lack of fluency in the English language, which are likely to become less of a barrier over time or across generations. More information is available in [this blog post](http://csi.nuff.ox.ac.uk/?p=270) and associated working paper. Therefore, any interpretation of differences must also take into account compositional and contextual changes, such as age, number of children and labour market opportunities.
+
+
+```{r chart24}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs (five-year averages), Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_age")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Median adult age in each group, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table3 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "c"),
+                            caption = paste0("Table ", fign, "c: Number of families in each group in the combined five-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2, table3))
+
+```
+
+### Disability
+
+```{r chart25}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty after housing costs, Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities. Due to these changes, care needs to be taken when considering long-term trends.\n\nMore detail can be found on pages 34-36 in the [2015/16 Households Below Average Incomes technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
+
+#### Additional living costs of disabled people
+
+Some illnesses and disabilities incur additional living costs. The poverty measure does not normally consider this. However, the analysis shown in Figure `r fign + 1` uses an adjusted poverty rate that partly accounts for additional living costs for those households where someone receives disability benefits.
+
+Research shows that additional costs associated with disability vary greatly in level and nature. There is no general agreement on how to measure these costs.
+
+The analysis in Figure `r fign + 1` excludes Disability Living Allowance, Attendance Allowance and Personal Independence Payments from total household income. These benefits are paid as a contribution towards the additional living costs for disabled people. If this income is excluded from total household income, then we are able to compare households with and without a disabled household member on a more like for like basis.
+
+```{r chart26}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland"
+
+interactive(povertycharts[[paste0("equality_", id)]], title = title, 
+            subtitle = subtitle, height = 3.8)
+
+table1 <- datatable(data = htmltables[[paste0("equality_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("equality_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now have a lower income, which lowers the median and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold. As a result, the poverty rate for households without a disabled person is slightly lower.")`

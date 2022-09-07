@@ -1,0 +1,301 @@
+## Poverty
+
+### All individuals {.tabset}
+
+The most commonly used poverty indicator in Scotland is relative poverty after housing costs. Alongside this key indicator, we also included other poverty measures, which are shown in the additional tabs below.
+
+#### Relative poverty
+
+```{r}
+htmltools::h4("Relative poverty",
+              class = 'prntonly')
+```
+
+Relative poverty is a measure of whether the lowest-income households are keeping pace with middle income households across the UK.
+
+```{r, chart01}
+
+keymessage <- "The most recent estimate is unreliable - do not use"
+
+id <- 1
+fign <- 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+#### Absolute poverty
+
+```{r}
+htmltools::h4("Absolute poverty",
+              class = 'prntonly')
+```
+
+Absolute poverty is a measure of whether the incomes of the poorest households are keeping pace with inflation, and is based on a fixed poverty threshold, the inflation-adjusted relative poverty threshold in 2010/11.
+
+```{r chart02}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in absolute poverty, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Working-age adults {.tabset}
+
+Working-age adults are defined as all adults up to the state pension age. Women's state pension age reached 65 in November 2018, aligning it with men's state pension age. Since December 2018, the state pension age for both men and women has started to increase to reach 67 between 2026 and 2028.
+
+#### Relative poverty 
+
+```{r}
+htmltools::h4("Relative poverty",
+              class = 'prntonly')
+```
+
+```{r chart04}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of working-age adults in relative poverty, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+Having paid work is an effective way out of poverty, and those families where all adults are in full-time work have a low poverty risk. But having a job is not always enough, for example when it does not pay well, or when someone is unable to work enough hours.
+
+`r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment. They do not include unpaid work such as caring for your children or other family members. In-work poverty refers to the share of children in poverty who live in households where at least one member of the household is in either full or part-time paid work.")`
+
+```{r chart05}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Working-age adults in relative poverty after housing costs by household work status, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+Before-housing-costs data looks similar, and the analysis is available in the associated tables. 
+
+#### Absolute poverty
+
+```{r}
+htmltools::h4("Absolute poverty",
+              class = 'prntonly')
+```
+
+```{r chart06}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of working-age adults in absolute poverty, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Pensioners {.tabset}
+
+Pensioners are adults who have reached their state pension age.
+
+#### Relative poverty
+
+```{r}
+htmltools::h4("Relative poverty",
+              class = 'prntonly')
+```
+
+The majority of pensioners own their home. It is therefore more meaningful to use the after-housing-costs poverty measure for comparing the standard of living between pensioners and other age groups.
+
+```{r chart07}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of pensioners in relative poverty, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+#### Absolute poverty
+
+```{r}
+htmltools::h4("Absolute poverty",
+              class = 'prntonly')
+```
+
+```{r chart08}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of pensioners in absolute poverty, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle, height = 4.5)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+#### Material deprivation
+
+```{r}
+htmltools::h4("Material deprivation",
+              class = 'prntonly')
+```
+
+Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure. It does not only consider low income. It also captures other barriers to accessing goods and services, such as poor health, disability and social isolation.
+
+More information about pensioner material deprivation can be found in the [Definitions section](#pensioner-material-deprivation-definition).
+
+Pensioner material deprivation is included for all pensioners aged 65 or over. There were some pensioners in the analysis who were younger than 65; these were not included. Therefore, this measure looks at a slightly smaller group of people than the other measures in the Pensioners section.
+
+This data has been collected since 2009.
+
+```{r chart09}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of pensioners aged 65 and over in material deprivation, Scotland"
+
+interactive(povertycharts[[paste0("pov_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("pov_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("pov_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+

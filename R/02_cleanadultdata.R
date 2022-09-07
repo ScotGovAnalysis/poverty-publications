@@ -9,7 +9,7 @@ years <- c("9495", "9596", "9697", "9798", "9899",
            "0405", "0506", "0607", "0708", "0809",
            "0910", "1011", "1112", "1213", "1314",
            "1415", "1516", "1617", "1718", "1819",
-           "1920")
+           "1920", "2021")
 
 files_adult <- readRDS("data/files_adult.rds")
 adult_clean <- vector("list", length(years))
@@ -38,8 +38,9 @@ for (year in years[1:2]) {
            r14 = NA,
            marital = ms,
            hdage = NA,
-           year = year) %>%
-    select(year, sernum, benunit,
+           year = year,
+           hrpid = NA) %>%
+    select(year, sernum, benunit, hrpid,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -75,8 +76,9 @@ for (year in years[3]) {
            r12 = NA,
            r13 = NA,
            r14 = NA,
-           year = year) %>%
-    select(year, sernum, benunit,
+           year = year,
+           hrpid = NA) %>%
+    select(year, sernum, benunit, hrpid,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -85,8 +87,30 @@ for (year in years[3]) {
 
 }
 
-# 9798 to 0910 -----------------------------------------------------------------
-for (year in years[4:16]) {
+# 9798 to 9899 -----------------------------------------------------------------
+for (year in years[4:5]) {
+
+  nextdataset <- files_adult[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(religsc = NA,
+           penflag = ifelse(sex == 2 & age >= 60, 1,
+                            ifelse(sex == 1 & age >= 65, 1, 2)),
+           year = year,
+           hrpid = NA) %>%
+    select(year, sernum, benunit, hrpid,
+           age, hdage, sex, marital, empstatc, penflag, religsc,
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14)
+
+  adult_clean[[year]] <- nextdataset
+
+}
+
+# 9900 to 0910 -----------------------------------------------------------------
+for (year in years[6:16]) {
 
   nextdataset <- files_adult[[year]]
 
@@ -97,7 +121,7 @@ for (year in years[4:16]) {
            penflag = ifelse(sex == 2 & age >= 60, 1,
                             ifelse(sex == 1 & age >= 65, 1, 2)),
            year = year) %>%
-    select(year, sernum, benunit,
+    select(year, sernum, benunit, hrpid,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -116,7 +140,7 @@ for (year in years[17]) {
   nextdataset <- nextdataset %>%
     mutate(religsc = NA,
            year = year) %>%
-    select(year, sernum, benunit,
+    select(year, sernum, benunit, hrpid,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)
@@ -134,7 +158,7 @@ for (year in years[18:length(years)]) {
 
   nextdataset <- nextdataset %>%
     mutate(year = year) %>%
-    select(year, sernum, benunit,
+    select(year, sernum, benunit, hrpid,
            age, hdage, sex, marital, empstatc, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
            r08, r09, r10, r11, r12, r13, r14)

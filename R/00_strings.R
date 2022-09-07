@@ -6,39 +6,39 @@ library(tidyverse)
 labels <- list()
 
 # Years -------------------------------------------------------------------------------------------
-labels[["years"]] <- data.frame(numbered = seq(1, 26, 1),
+labels[["years"]] <- data.frame(numbered = seq(1, 27, 1),
                                 years = c("9495", "9596", "9697", "9798", "9899",
                                           "9900", "0001", "0102", "0203", "0304",
                                           "0405", "0506", "0607", "0708", "0809",
                                           "0910", "1011", "1112", "1213", "1314",
                                           "1415", "1516", "1617", "1718", "1819",
-                                          "1920"),
+                                          "1920", "2021"),
                                 formatted = c("1994/95", "1995/96", "1996/97", "1997/98", "1998/99",
                                               "1999/00", "2000/01", "2001/02", "2002/03", "2003/04",
                                               "2004/05", "2005/06", "2006/07", "2007/08", "2008/09",
                                               "2009/10", "2010/11", "2011/12", "2012/13", "2013/14",
                                               "2014/15", "2015/16", "2016/17", "2017/18", "2018/19",
-                                              "2019/20"),
+                                              "2019/20", "2020/21"),
                                 periods = c(NA, NA, "1994-97", "1995-98", "1996-99",
                                             "1997-00", "1998-01", "1999-02", "2000-03",
                                             "2001-04", "2002-05", "2003-06", "2004-07",
                                             "2005-08", "2006-09", "2007-10", "2008-11",
                                             "2009-12", "2010-13", "2011-14", "2012-15",
                                             "2013-16", "2014-17", "2015-18", "2016-19",
-                                            "2017-20"),
+                                            "2017-20", "2018-21"),
                                 longperiods = c(NA, NA, "1994/95-1996/97", "1995/96-1997/98", "1996/97-1998/99",
                                                 "1997/98-1999/00", "1998/99-2000/01", "1999/00-2001/02", "2000/01-2002/03",
                                                 "2001/02-2003/04", "2002/03-2004/05", "2003/04-2005/06", "2004/05-2006/07",
                                                 "2005/06-2007/08", "2006/07-2008/09", "2007/08-2009/10", "2008/09-2010/11",
                                                 "2009/10-2011/12", "2010/11-2012/13", "2011/12-2013/14", "2012/13-2014/15",
                                                 "2013/14-2015/16", "2014/15-2016/17", "2015/16-2017/18", "2016/17-2018/19",
-                                                "2017/18-2019/20"),
+                                                "2017/18-2019/20", "2018/19-2020/21"),
                                 period5yr = c(NA, NA, NA, NA, "1994-99",
                                               "1995-00", "1996-01", "1997-02", "1998-03", "1999-04",
                                               "2000-05", "2001-06", "2002-07", "2003-08", "2004-09",
                                               "2005-10", "2006-11", "2007-12", "2008-13", "2009-14",
                                               "2010-15", "2011-16", "2012-17", "2013-18", "2014-19",
-                                              "2015-20"))
+                                              "2015-20", "2016-21"))
 
 # Years expanded (for cp update)
 labels[["years_exp"]] <- data.frame(years_exp = c("9495", "9596", "9697", "9798",
@@ -223,8 +223,9 @@ labels[["childno"]] <- labels[["childno"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
 # Number of children (child poverty tables)-------------------------------------
-labels[["childno_ch"]] <- data.frame(codes = c(1:10),
-                                  labels = c("1-2 children in the household",
+labels[["childno_ch"]] <- data.frame(codes = c(0:10),
+                                  labels = c("No children in the household",
+                                             "1-2 children in the household",
                                              "1-2 children in the household",
                                              "3 or more children in the household",
                                              "3 or more children in the household",
@@ -250,7 +251,7 @@ labels[["dispp"]] <- data.frame(codes = c(0, 1),
                                            "In household with disabled person(s)"))
 
 # Ethnic group -----------------------------------------------------------------
-labels[["ethnic"]] <- data.frame(codes = c(1:24),
+labels[["ethnic1213"]] <- data.frame(codes = c(1:24),
                                   labels = c("White - British",
                                              "White - Other",
                                              "White - Other",
@@ -276,7 +277,85 @@ labels[["ethnic"]] <- data.frame(codes = c(1:24),
                                              "Mixed, Black or Black British, and Other",
                                              "Mixed, Black or Black British, and Other"))
 
-labels[["ethnic"]] <- labels[["ethnic"]] %>%
+labels[["ethnic1213"]] <- labels[["ethnic1213"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
+
+labels[["ethnic1112"]] <- data.frame(codes = c(1:18),
+                                     labels = c("White - British",
+                                                "White - Other",
+                                                "White - Other",
+                                                "White - Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other"))
+
+labels[["ethnic1112"]] <- labels[["ethnic1112"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
+
+labels[["ethnic0203"]] <- data.frame(codes = c(1:16),
+                                     labels = c("White - British",
+                                                "White - Other",
+                                                "White - Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other"))
+
+labels[["ethnic0203"]] <- labels[["ethnic0203"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
+
+labels[["ethnic0102"]] <- data.frame(codes = c(1:15),
+                                     labels = c("White - British",
+                                                "White - Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other"))
+
+labels[["ethnic0102"]] <- labels[["ethnic0102"]] %>%
+  mutate(labels = fct_reorder(labels, codes))
+
+labels[["ethnic9495"]] <- data.frame(codes = c(1:9),
+                                     labels = c("White - British",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Mixed, Black or Black British, and Other",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Asian or Asian British",
+                                                "Mixed, Black or Black British, and Other"))
+
+labels[["ethnic9495"]] <- labels[["ethnic9495"]] %>%
   mutate(labels = fct_reorder(labels, codes))
 
 # Ethnic group (2-fold for 3-year averages) ------------------------------------
@@ -334,3 +413,91 @@ labels[["foodsecurity"]] <- data.frame(codes = c(1:4),
 
 labels[["foodsecurity"]] <- labels[["foodsecurity"]] %>%
   mutate(labels = fct_reorder(labels, codes))
+
+# Council areas ----------------------------------------------------------------
+labels[["laua"]] <- data.frame(codes = c(212000033, 212000034, 212000041,
+                                         212000035, 212000005, 212000006,
+                                         212000042, 212000008, 212000045,
+                                         212000010, 212000011, 212000036,
+                                         212000014, 212000047, 212000046,
+                                         212000017, 212000018, 212000019,
+                                         212000020, 212000021, 212000044,
+                                         212000023, 212000048, 212000038,
+                                         212000026, 212000027, 212000028,
+                                         212000029, 212000030, 212000039,
+                                         212000040, 212000013,
+
+                                         # new GSS codes added in 04/2019
+                                         212000049, 212000050),
+
+                               names = c("Aberdeen City",
+                                         "Aberdeenshire",
+                                         "Angus",
+                                         "Argyll and Bute",
+                                         "Clackmannanshire",
+                                         "Dumfries and Galloway",
+                                         "Dundee City",
+                                         "East Ayrshire",
+                                         "East Dunbartonshire",
+                                         "East Lothian",
+                                         "East Renfrewshire",
+                                         "City of Edinburgh",
+                                         "Falkirk",
+                                         "Fife",
+                                         "Glasgow City",
+                                         "Highland",
+                                         "Inverclyde",
+                                         "Midlothian",
+                                         "Moray",
+                                         "North Ayrshire",
+                                         "North Lanarkshire",
+                                         "Orkney Islands",
+                                         "Perth and Kinross",
+                                         "Renfrewshire",
+                                         "Scottish Borders",
+                                         "Shetland Islands",
+                                         "South Ayrshire",
+                                         "South Lanarkshire",
+                                         "Stirling",
+                                         "West Dunbartonshire",
+                                         "West Lothian",
+                                         "Na h-Eileanan Siar",
+                                         "Glasgow City",
+                                         "North Lanarkshire"))
+
+labels[["lac"]] <- data.frame(codes = c(194, 195, 196, 287, 289, 291, 292, 293,
+                                        294, 295, 296, 387, 388, 389, 390, 391,
+                                        392, 393, 394, 395, 396, 494, 487, 488,
+                                        288, 493, 489, 490, 491, 290, 492, 495),
+                               names = c("Aberdeen City",
+                                         "Aberdeenshire",
+                                         "Angus",
+                                         "Argyll and Bute",
+                                         "Clackmannanshire",
+                                         "Dumfries and Galloway",
+                                         "Dundee City",
+                                         "East Ayrshire",
+                                         "East Dunbartonshire",
+                                         "East Lothian",
+                                         "East Renfrewshire",
+                                         "City of Edinburgh",
+                                         "Falkirk",
+                                         "Fife",
+                                         "Glasgow City",
+                                         "Highland",
+                                         "Inverclyde",
+                                         "Midlothian",
+                                         "Moray",
+                                         "North Ayrshire",
+                                         "North Lanarkshire",
+                                         "Orkney Islands",
+                                         "Perth and Kinross",
+                                         "Renfrewshire",
+                                         "Scottish Borders",
+                                         "Shetland Islands",
+                                         "South Ayrshire",
+                                         "South Lanarkshire",
+                                         "Stirling",
+                                         "West Dunbartonshire",
+                                         "West Lothian",
+                                         "Na h-Eileanan Siar"))

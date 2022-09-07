@@ -51,6 +51,16 @@ hbai <- hbai %>%
 
 # get flags for hhld characteristics -------------------------------------------
 
+## council ---------------------------------------------------------------------
+council <- househol %>% select(year, sernum, lac, laua) %>%
+  mutate(lac = factor(lac, levels = labels$lac$codes, labels = labels$lac$names),
+         laua = factor(laua, levels = labels$laua$codes, labels = labels$laua$names),
+         laua = case_when(!is.na(laua) ~ laua,
+                          !is.na(lac)  ~ lac)) %>%
+  select(-lac)
+
+hbai <- left_join(hbai, council, by = c("sernum", "year"))
+
 ## urban/rural -----------------------------------------------------------------
 urinds <- househol %>% select(year, sernum, urinds)
 
@@ -58,8 +68,8 @@ hbai <- left_join(hbai, urinds, by = c("sernum", "year"))
 
 ## household work status -------------------------------------------------------
 workinghh <- hbai %>%
-  mutate(working = ifelse(ecobu %in% labels[["economic"]]$codes[1:5],
-                          1, 0)) %>%
+  mutate(working = case_when(ecobu %in% labels[["economic"]]$codes[1:5] ~ 1,
+                             ecobu %in% labels[["economic"]]$codes[6:8] ~ 0)) %>%
   group_by(year, sernum) %>%
   summarise(workinghh = max(working))
 
@@ -71,6 +81,7 @@ disabledhh <- hbai %>%
   summarise(disch_hh = max(discorkid),
             disad_hh = max(discorabflg)) %>%
   mutate(disch_hh = ifelse(disch_hh > 0, 1, 0),
+         disch_hh = ifelse(year == "9495", NA, disch_hh),
          disad_hh = ifelse(disad_hh > 0, 1, 0),
          dispp_hh = ifelse(disch_hh + disad_hh > 0, 1, 0 ))
 
@@ -112,7 +123,8 @@ youngmumhh <- adult %>%
                  r08, r09, r10, r11, r12, r13, r14),
             any_vars(. %in% c(7, 8))) %>%
   # filter for mothers and by age
-  mutate(youngmum = ifelse(age < 25 & sex == 2, 1, 0)) %>%
+  mutate(youngmum = ifelse(age < 25 & sex == 2, 1, 0),
+         youngmum = ifelse(year %in% c("9495", "9596", "9697"), NA, youngmum )) %>%
   group_by(year, sernum) %>%
   summarise(youngmumhh = max(youngmum))
 
@@ -165,8 +177,11 @@ hbai <- hbai %>%
 ## food security ---------------------------------------------------------------
 foodsec <- getfoodsec(househol)
 hbai <- left_join(hbai, foodsec, by = c("sernum", "year")) %>%
-  mutate(foodsec = ifelse(yearn >= 26, foodsec, NA),
-         foodsec_score = ifelse(yearn >= 26, foodsec_score, NA))
+
+  # exclude shared (non-conventional) households (although might already been
+  # done in the DWP provided datasets - doesn't seem to make a difference)
+  mutate(foodsec = ifelse(yearn >= 26 & hhshare == 1, foodsec, NA),
+         foodsec_score = ifelse(yearn >= 26 & hhshare == 1, foodsec_score, NA))
 
 ## add factor labels -----------------------------------------------------------
 hbai <- hbai %>%
@@ -217,9 +232,22 @@ hbai <- hbai %>%
                             levels = labels[["regions"]]$codes,
                             labels = labels[["regions"]]$labels),
            ethgrphh_2f = ethgrphh,
-           ethgrphh = factor(ethgrphh,
-                             levels = labels[["ethnic"]]$codes,
-                             labels = labels[["ethnic"]]$labels),
+           ethgrphh = case_when(yearn >= 19 ~ factor(ethgrphh,
+                                                     levels = labels[["ethnic1213"]]$codes,
+                                                     labels = labels[["ethnic1213"]]$labels),
+                                yearn == 18 ~ factor(ethgrphh,
+                                                     levels = labels[["ethnic1112"]]$codes,
+                                                     labels = labels[["ethnic1112"]]$labels),
+                                yearn <= 17 ~ factor(ethgrphh,
+                                                     levels = labels[["ethnic0203"]]$codes,
+                                                     labels = labels[["ethnic0203"]]$labels),
+                                yearn == 8 ~ factor(ethgrphh,
+                                                    levels = labels[["ethnic0102"]]$codes,
+                                                    labels = labels[["ethnic0102"]]$labels),
+                                yearn <= 7 ~ factor(ethgrphh,
+                                                    levels = labels[["ethnic9495"]]$codes,
+                                                    labels = labels[["ethnic9495"]]$labels)),
+
            ethgrphh_2f = factor(ethgrphh_2f,
                                 levels = labels[["ethnic_2f"]]$codes,
                                 labels = labels[["ethnic_2f"]]$labels),
@@ -270,9 +298,14 @@ adult <- adult %>%
                              hdage == 5 ~ "55-64",
                              hdage == 6 ~ "65+"),
            ageband = ifelse(is.na(ageband), hdage, ageband),
-           ageband = factor(ageband))  %>%
+           ageband = factor(ageband),
+           yearn = factor(year, levels = labels$years$years,
+                          labels = labels$years$numbered),
+           yearn = as.numeric(yearn))  %>%
     mutate_at(vars(c("marital", "religsc", "ageband")), fct_explicit_na)
 
 saveRDS(adult, "data/tidyadult.rds")
 
 rm(list = ls())
+
+

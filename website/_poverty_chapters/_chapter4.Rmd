@@ -1,0 +1,142 @@
+## Income
+
+### Income inequality {.tabset}
+
+#### Palma
+
+```{r}
+htmltools::h4("Palma",
+              class = 'prntonly')
+```
+
+The Palma ratio of income inequality is the total income of the top ten percent of the population divided by the total income of the bottom forty percent of the population (written as a percentage). It is commonly used to estimate how much more income top-income households have compared to those at the bottom. 
+
+The Palma ratio is usually calculated from income before housing costs, but we have included it for after-housing-costs income as well. After-housing-costs incomes are distributed more unequally.
+
+```{r chart27}
+
+id <- 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Palma ratio of income inequality, Scotland"
+
+interactive(povertycharts[[paste0("inc_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+Income decile shares are also available in the associated tables.
+
+#### Gini
+
+```{r}
+htmltools::h4("Gini",
+              class = 'prntonly')
+```
+
+The Gini coefficient measures income inequality on a scale from 0% to 100%. A Gini of 100% means that only one person has an income, and everyone else has none. A Gini of 0% means that everyone has the same income. 
+
+```{r chart28}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Gini coefficient of income inequality, Scotland"
+
+interactive(povertycharts[[paste0("inc_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+### Income trends
+
+```{r chart29}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Median weekly household income in ", params$data_year, 
+                  " prices, Scotland")
+
+interactive(povertycharts[[paste0("inc_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+
+Figure `r fign + 1` shows inflation-adjusted weekly equivalised incomes before housing costs across the different income deciles for the last five years, using individual years of data.
+
+`r infobox("Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the population.")`
+
+```{r chart30}
+
+id <- id + 1
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Weekly household income before housing costs at each decile point in ",
+params$data_year," prices, Scotland")
+
+interactive(povertycharts[[paste0("inc_", id)]], title = title, 
+            subtitle = subtitle)
+
+table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Number of families in each group in the survey sample, Scotland"),
+                            source = "Source: Family Resources Survey",
+                            options = list(rowHeaders = TRUE))
+
+tables_panel(div(table1, table2))
+
+```
+

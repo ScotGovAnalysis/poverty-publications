@@ -1,0 +1,79 @@
+## Poverty exit and entry  
+
+People who are in persistent poverty stay below the poverty line for several years. But many people are in poverty only temporarily. More than a third of people in poverty move above the poverty line each year, exiting poverty. And a similar number of people who were not in poverty previously fall below the poverty line each year, newly entering poverty. Note that the share of those entering poverty is quite small, as it is a share of everyone previously not in poverty.
+
+The diagram below shows an example of the flows of individuals in and out of poverty each year. It uses the latest after-housing-costs estimates.
+
+
+```{r diagram}
+
+title <- "Diagram: poverty entry and exit"
+
+chart <- persistentcharts$sankey
+
+id <- paste0("diagram")
+
+# tidy up svg html
+chart$elementId <- paste0(id, "_htmlwidget")
+chart$x$uid <- paste0(id, "_svg")
+
+tags <- htmltools::tags
+
+tags$div(tags$figure(id = id,
+                     "aria-labelledby" = paste0(id, "_caption"),
+                     tags$figcaption(id = paste0(id, "_caption"),
+                                     title),
+                     chart))
+
+```
+
+
+Poverty exit and entry data for Scotland is only available for all people, and not for individual age groups. However, the `r abbr("DWP", "Department for Work and Pensions")` [Income Dynamics report](https://www.gov.uk/government/collections/income-dynamics-statistics#latest-release) includes estimates for children, working-age adults and pensioners in the `r abbr("UK", "United Kingdom")` overall. It also analyses what events are linked to poverty entry and exit, for example a change in earnings, or a change in household composition.
+
+### Exiting poverty {.tabset}
+
+- Between `r params$data_period_long`, an average of `r filter(persistenttables$table5, Period == params$data_period)[["After housing costs (AHC)"]]` of people per year who had been in poverty (after housing costs) in the previous year exited poverty.
+
+`r infobox("For an exit to occur, the individual must be in a household whose income is at least 10% above the poverty threshold, while in the previous wave they were in a household whose income was below the poverty threshold.")`
+
+```{r table5}
+
+fign <- 1 + fign
+
+title <- "Proportion of people exiting relative poverty, Scotland"
+
+table <- datatable(data = persistenttables$table5,
+                            id = paste0("table-", fign),
+                            caption = paste0("Table ", fign, ": ", title),
+                            source = persistenttables$source,
+                            options = list(rowHeaders = TRUE))
+tables_panel(table)
+
+```
+
+
+### Entering poverty {.tabset}
+
+- Between `r params$data_period_long`, an average of `r filter(persistenttables$table6, Period == params$data_period)[["After housing costs (AHC)"]]` of people per year who hadn't been in poverty (after housing costs) in the previous year entered poverty.
+
+`r infobox("For an entry to occur, the individual must be in a household whose income is at least 10 per cent below the poverty threshold, while in the previous wave they were in a household whose income was above the poverty threshold.")`
+
+
+```{r table6}
+fign <- 1 + fign
+
+title <- "Proportion of people entering relative poverty, Scotland"
+
+table <- datatable(data = persistenttables$table6,
+                            id = paste0("table-", fign),
+                            caption = paste0("Table ", fign, ": ", title),
+                            source = persistenttables$source,
+                            options = list(rowHeaders = TRUE))
+tables_panel(table)
+
+```
+
+
+
+
+
