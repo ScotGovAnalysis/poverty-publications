@@ -1,6 +1,6 @@
 # About
 
-This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland 2017-20" report, the "Persistent Poverty in Scotland" report, a child poverty summary and the accompanying reference tables. It produces a folder website/\_site with all files for the website (including downloadable spreadsheets) hosted on data.gov.scot/poverty.
+This repository contains the code for the annual Scottish Government "Poverty an Income Inequality in Scotland" report, the "Persistent Poverty in Scotland" report, a child poverty summary and the accompanying reference tables. It produces a folder website/\_site with all files for the website (including downloadable spreadsheets) hosted on data.gov.scot/poverty.
 
 Running this project requires access to restricted Scottish Government datasets, which is only available to a small number of individuals who are responsible for producing the annual poverty reports. However, we hope that the code may still be useful.
 
@@ -8,11 +8,7 @@ Running this project requires access to restricted Scottish Government datasets,
 
 ### 0. Files missing in github
 
-The following R files are missing from the github repository, because they contain absolute path names, which are potentially sensitive.
-
-* R/01_importSASfiles.R
-* R/01_importpersistentpovertydata.R
-* R/09_backup.R
+All data files have been removed. Also, absolute paths have been removed in R scripts.
 
 ### 1. Import data and prepare datasets
 
@@ -25,7 +21,7 @@ Tidy datasets are now available in the data folder to produce reports and spread
 
 ### 2. Create everything
 
-* Run 08_create_website.R to create all spreadsheets and the website. Alternatively, all scripts from R/04_... to R_07_... can also be run individually.
+* Run 07_run_all.R to create all spreadsheets and the website. Alternatively, all scripts can also be run individually and independently once previous scripts have been run before and produced the necessary intermediate datasets.
 * Look at (local version of) website: website/\_site/index.html
 * Check and update all commentary in:
 
@@ -41,7 +37,7 @@ Tidy datasets are now available in the data folder to produce reports and spread
 
   Most of the figures in the commentary are automatically produced; however, the text is not.
 
-* Run last line of R/08_create_website.R again, inspect website, make required changes to the commentary in the .Rmd files, and repeat until happy
+* Run step 8 (render website) in R/07_run_all.R again, inspect website, make required changes to the commentary in the .Rmd files, and repeat until happy.
 
 # List of scripts
 
@@ -49,7 +45,6 @@ Tidy datasets are now available in the data folder to produce reports and spread
 
 * R/00_colours.R (colour palettes)
 * R/00_functions.R
-* R/00_functions_rmd.R (functions required to run Rmd files)
 * R/00_strings.R (list of formatted years and periods, categories, etc.)
 
 ### Data prep<a name="dataprep"></a>
@@ -59,41 +54,42 @@ Tidy datasets are now available in the data folder to produce reports and spread
 * R/02_cleanadultdata.R
 * R/02_cleanbenefitsdata.R
 * R/02_cleanchilddata.R
+* R/02_cleanchldcaredata.R
 * R/02_cleanhbaidata.R
 * R/02_cleanhouseholdata.R
 * R/03_maketidydatasets.R - combines various HBAI and FRS datasets into two tidy datasets: one adult-level and one benefit unit-level
 
-### Create spreadsheets
+### aggregate data
 
-* R/04_xlsx_1yr_part1.R - single year data
-* R/04_xlsx_1yr_part2.R
-* R/04_xlsx_3yrs_part1.R - three-year averaged data
-* R/04_xlsx_3yrs_part2.R
-* R/04_xlsx_3yrs_part3.R
-* R/04_xlsx_3yrs_part4.R
-* R/04_xlsx_3yrs_UK.R - UK comparisons for briefing (not included as not required for website)
-* R/05_xlsx_run_all.R - runs all xlsx (R/04_...) scripts and copies spreadsheets (for publication) into website folder
-
-Spreadsheets are saved in output folder
+* R/04_aggregate_1yr_Scot.R
+* R/04_aggregate_3yrs_Scot.R
 
 ### Create charts and tables included in reports
 
-* R/06_prepcharts_cpupdate.R
-* R/06_prepcharts_poverty.R
-* R/07_maketables_persistentpoverty.R
-* R/07_makecharts_persistentpoverty.R
-* R/07_maketables_poverty.R
-* R/07_makecharts_cpupdate.R
-* R/07_makecharts_poverty.R
-* R/07_maketables_uncertainty.R
+* R/04_tables_persistent.R
+* R/04_tables_uncertainty.R
+* R/05_charts_3yrs_Scot.R
+* R/05_charts_cpupdate.R
+* R/05_charts_persistent.R 
+
+### Create spreadsheets
+
+* R/05_xlsx_1yr_Scot.R - single-year estimates
+* R/05_xlsx_3yrs_Scot.R - three-year averaged data
+* R/05_xlsx_persistent.R
+* R/05_xlsx_1yr_UK.R - UK comparisons for briefing (not included as not required for website)
+* R/05_xlsx_3yrs_UK.R - UK comparisons for briefing (not included as not required for website)
+* R/06_xlsx_postprocessing.R - VBA code to finalise spreadsheets
+
+Spreadsheets are saved in output folder.
 
 ### Create website
 
-* R/08_create_website.R - runs spreadsheets, charts and tables and then creates complete website in website/\_site
+* R/07_run_all.R - runs all previous scripts and then creates complete website in website/\_site.
 
 ### Backup
 
-* R/09_backup.R (not included) - backs up all R, Rmd, CSS files to restricted datashare folder
+Backups are now done in git in the restricted 'Poverty/Prerelease' datashare folder.
 
 # List of files in website folder
 
@@ -102,25 +98,17 @@ Spreadsheets are saved in output folder
 These will be compiled into seven html pages.
 
 * index.Rmd
-* \_poverty_chapters/\_chapter01.Rmd
-* \_poverty_chapters/\_chapter02.Rmd
-* \_poverty_chapters/\_chapter03.Rmd
-* \_poverty_chapters/\_chapter04.Rmd
-* \_poverty_chapters/\_chapter05.Rmd
-* \_poverty_chapters/\_chapter06.Rmd
-* \_poverty_chapters/\_chapter07.Rmd
-* \_poverty_chapters/\_chapter08.Rmd
-* \_poverty_chapters/\_chapter09.Rmd
-* \_poverty_chapters/\_chapter10.Rmd
-* \_poverty_chapters/\_chapter11.Rmd
+* \_poverty_chapters/\_chapter0.Rmd
+* \_poverty_chapters/\_chapter1.Rmd
+* \_poverty_chapters/\_chapter2.Rmd
+* \_poverty_chapters/\_chapter3.Rmd
+* \_poverty_chapters/\_chapter4.Rmd
+* \_poverty_chapters/\_chapter5.Rmd
 * persistent.Rmd
-* \_persistent_chapters/\_pers01.Rmd
-* \_persistent_chapters/\_pers02.Rmd
-* \_persistent_chapters/\_pers03.Rmd
-* \_persistent_chapters/\_pers04.Rmd
-* \_persistent_chapters/\_pers05.Rmd
-* \_persistent_chapters/\_pers06.Rmd
-* \_persistent_chapters/\_pers07.Rmd
+* \_persistent_chapters/\_pers0.Rmd
+* \_persistent_chapters/\_pers1.Rmd
+* \_persistent_chapters/\_pers2.Rmd
+* \_persistent_chapters/\_pers3.Rmd
 * accessibility.Rmd
 * contact.Rmd
 * cpupdate.Rmd
