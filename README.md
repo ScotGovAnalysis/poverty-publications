@@ -89,7 +89,7 @@ Spreadsheets are saved in output folder.
 
 ### Backup
 
-Backups are now done in git in the restricted 'Poverty/Prerelease' datashare folder.
+Backups are now done in git, with a remote repository in the restricted 'Poverty/Prerelease' datashare folder.
 
 # List of files in website folder
 
@@ -117,7 +117,7 @@ These will be compiled into seven html pages.
 
 ### Helper files for styles, site- and navbar configurations, and template
 
-* styles.css
+* styles22.css
 * \_site.yml
 * \_footer.html
 * \_navbar.html
