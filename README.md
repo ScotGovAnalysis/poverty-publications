@@ -59,7 +59,7 @@ Tidy datasets are now available in the data folder to produce reports and spread
 * R/02_cleanhouseholdata.R
 * R/03_maketidydatasets.R - combines various HBAI and FRS datasets into two tidy datasets: one adult-level and one benefit unit-level
 
-### aggregate data
+### Aggregate data
 
 * R/04_aggregate_1yr_Scot.R
 * R/04_aggregate_3yrs_Scot.R
@@ -133,6 +133,10 @@ These will be compiled into seven html pages.
 
 Note that the spreadsheets are created in step 2.
 
-* xls/All three-year average.xlsx
-* xls/All single year.xlsx
+* xls/data2022.xlsx
+* xls/data2022.ods
+* xls/data2022_1yr.xlsx
+* xls/data2022_1yr.ods
+* xls/data2022_persistent.xlsx
+* xls/data2022_persistent.ods
 
