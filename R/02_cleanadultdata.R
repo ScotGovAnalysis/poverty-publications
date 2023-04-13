@@ -3,13 +3,9 @@
 
 library(tidyverse)
 source("R/00_functions.R")
+source("R/00_strings.R")
 
-years <- c("9495", "9596", "9697", "9798", "9899",
-           "9900", "0001", "0102", "0203", "0304",
-           "0405", "0506", "0607", "0708", "0809",
-           "0910", "1011", "1112", "1213", "1314",
-           "1415", "1516", "1617", "1718", "1819",
-           "1920", "2021")
+years <- unique(labels$years$years)
 
 files_adult <- readRDS("data/files_adult.rds")
 adult_clean <- vector("list", length(years))
@@ -20,6 +16,11 @@ adult_clean <- vector("list", length(years))
 # marital new in 9697 (before: ms)
 # penflag from 1011 (before: fixed ages 60 f and 65 m)
 # religsc from 1112 - not needed before
+# sidqn from 1112
+# corign from 0809 (cat change in 1314)
+# corigoth from 1213
+# discora1 from 1213
+# intxcred from 0001
 
 # 9495 to 9596 -----------------------------------------------------------------
 for (year in years[1:2]) {
@@ -29,7 +30,11 @@ for (year in years[1:2]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(religsc = NA,
+    mutate(discora1 = NA,
+           religsc = NA,
+           sidqn = NA,
+           corign = NA,
+           corigoth = NA,
            penflag = ifelse(sex == 2 & age >= 60, 1,
                             ifelse(sex == 1 & age >= 65, 1, 2)),
            r11 = NA,
@@ -39,11 +44,15 @@ for (year in years[1:2]) {
            marital = ms,
            hdage = NA,
            year = year,
-           hrpid = NA) %>%
-    select(year, sernum, benunit, hrpid,
-           age, hdage, sex, marital, empstatc, penflag, religsc,
+           hrpid = NA,
+           seincam2 = incse1,
+           intxcred = NA) %>%
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1,
+           empstatc, empstati, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
-           r08, r09, r10, r11, r12, r13, r14)
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
 
   # recode relationship matrix
   for (i in c("r01", "r02", "r03", "r04", "r05", "r06", "r07", "r08", "r09", "r10")) {
@@ -69,7 +78,11 @@ for (year in years[3]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(religsc = NA,
+    mutate(discora1 = NA,
+           religsc = NA,
+           sidqn = NA,
+           corign = NA,
+           corigoth = NA,
            penflag = ifelse(sex == 2 & age >= 60, 1,
                             ifelse(sex == 1 & age >= 65, 1, 2)),
            r11 = NA,
@@ -77,11 +90,13 @@ for (year in years[3]) {
            r13 = NA,
            r14 = NA,
            year = year,
-           hrpid = NA) %>%
-    select(year, sernum, benunit, hrpid,
-           age, hdage, sex, marital, empstatc, penflag, religsc,
+           hrpid = NA,
+           intxcred = NA) %>%
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
-           r08, r09, r10, r11, r12, r13, r14)
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
 
   adult_clean[[year]] <- nextdataset
 
@@ -95,36 +110,100 @@ for (year in years[4:5]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(religsc = NA,
+    mutate(discora1 = NA,
+           religsc = NA,
+           sidqn = NA,
+           corign = NA,
+           corigoth = NA,
            penflag = ifelse(sex == 2 & age >= 60, 1,
                             ifelse(sex == 1 & age >= 65, 1, 2)),
            year = year,
-           hrpid = NA) %>%
-    select(year, sernum, benunit, hrpid,
-           age, hdage, sex, marital, empstatc, penflag, religsc,
+           hrpid = NA,
+           intxcred = NA) %>%
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
-           r08, r09, r10, r11, r12, r13, r14)
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
 
   adult_clean[[year]] <- nextdataset
 
 }
 
-# 9900 to 0910 -----------------------------------------------------------------
-for (year in years[6:16]) {
+# 9900 -------------------------------------------------------------------------
+for (year in years[6]) {
 
   nextdataset <- files_adult[[year]]
 
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(religsc = NA,
+    mutate(discora1 = NA,
+           religsc = NA,
+           sidqn = NA,
+           corign = NA,
+           corigoth = NA,
+           penflag = ifelse(sex == 2 & age >= 60, 1,
+                            ifelse(sex == 1 & age >= 65, 1, 2)),
+           year = year,
+           intxcred = NA) %>%
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
+
+  adult_clean[[year]] <- nextdataset
+
+}
+
+# 0001 to 0709 -----------------------------------------------------------------
+
+for (year in years[7:14]) {
+
+  nextdataset <- files_adult[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(discora1 = NA,
+           religsc = NA,
+           sidqn = NA,
+           corign = NA,
+           corigoth = NA,
            penflag = ifelse(sex == 2 & age >= 60, 1,
                             ifelse(sex == 1 & age >= 65, 1, 2)),
            year = year) %>%
-    select(year, sernum, benunit, hrpid,
-           age, hdage, sex, marital, empstatc, penflag, religsc,
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
-           r08, r09, r10, r11, r12, r13, r14)
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
+
+  adult_clean[[year]] <- nextdataset
+
+}
+
+# 0809 to 0910 -----------------------------------------------------------------
+for (year in years[15:16]) {
+
+  nextdataset <- files_adult[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(discora1 = NA,
+           religsc = NA,
+           sidqn = NA,
+           corigoth = NA,
+           penflag = ifelse(sex == 2 & age >= 60, 1,
+                            ifelse(sex == 1 & age >= 65, 1, 2)),
+           year = year) %>%
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
 
   adult_clean[[year]] <- nextdataset
 
@@ -138,19 +217,45 @@ for (year in years[17]) {
   colnames(nextdataset) <- tolower(colnames(nextdataset))
 
   nextdataset <- nextdataset %>%
-    mutate(religsc = NA,
+    mutate(discora1 = NA,
+           religsc = NA,
+           corigoth = NA,
+           sidqn = NA,
            year = year) %>%
-    select(year, sernum, benunit, hrpid,
-           age, hdage, sex, marital, empstatc, penflag, religsc,
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
-           r08, r09, r10, r11, r12, r13, r14)
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
 
   adult_clean[[year]] <- nextdataset
 
 }
 
-# 1112 to latest year ----------------------------------------------------------
-for (year in years[18:length(years)]) {
+# 1112 -------------------------------------------------------------------------
+for (year in years[18:18]) {
+
+  nextdataset <- files_adult[[year]]
+
+  colnames(nextdataset) <- tolower(colnames(nextdataset))
+
+  nextdataset <- nextdataset %>%
+    mutate(discora1 = NA,
+           year = year,
+           corigoth = NA) %>%
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
+           r01, r02, r03, r04, r05, r06, r07,
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
+
+  adult_clean[[year]] <- nextdataset
+
+  remove(nextdataset)
+}
+
+# 1213 to latest year ----------------------------------------------------------
+for (year in years[19:length(years)]) {
 
   nextdataset <- files_adult[[year]]
 
@@ -158,10 +263,11 @@ for (year in years[18:length(years)]) {
 
   nextdataset <- nextdataset %>%
     mutate(year = year) %>%
-    select(year, sernum, benunit, hrpid,
-           age, hdage, sex, marital, empstatc, penflag, religsc,
+    select(year, sernum, benunit, person, hrpid,
+           age, hdage, sex, sidqn, marital, corign, corigoth, discora1, empstatc, empstati, penflag, religsc,
            r01, r02, r03, r04, r05, r06, r07,
-           r08, r09, r10, r11, r12, r13, r14)
+           r08, r09, r10, r11, r12, r13, r14,
+           tothours, indinc, inearns, seincam2, ininv, inrpinc, inpeninc, indisben, inothben, intxcred)
 
   adult_clean[[year]] <- nextdataset
 
@@ -179,3 +285,5 @@ attr(adult_clean$benunit, "label") <- NULL
 # Save -------------------------------------------------------------------------
 saveRDS(adult_clean, "data/adult_clean.rds")
 rm(list = ls())
+
+cat("Adult dataset cleaned and saved", fill = TRUE)

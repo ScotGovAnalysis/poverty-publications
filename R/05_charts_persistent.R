@@ -1,8 +1,6 @@
 # load packages and data -------------------------------------------------------
 library(tidyverse)
-library(scales)
-library(ggiraph)
-library(ggrepel)
+library(highcharter)
 library(networkD3)
 
 source("R/00_functions.R")
@@ -13,45 +11,18 @@ persistentcharts <- list()
 source <- "Source: Understanding Society, 2010-2011 to 2019-2020"
 
 periods <- c("2010-2014", "2011-2015", "2012-2016", "2013-2017", "2014-2018",
-             "2015-2019", "2016-2020")
+             "2015-2019", "2016-2020", "2017-2021")
 
 alldata <- readRDS("data/persistentpoverty.rds") %>%
   filter(group %in% c("ch", "wa", "pn", "pp"),
          nation == "Scotland") %>%
-  mutate(y = ifelse(housingcosts == "sample", value, round(value, 2)),
+  mutate(y = ifelse(housingcosts == "sample", value, round2(value, 2)),
          x = factor(period, ordered = TRUE),
          group = factor(group,
-                         levels = c("pp", "ch", "wa", "pn"),
-                         labels = c("All individuals", "Children",
-                                    "Working-age adults", "Pensioners"))) %>%
+                        levels = c("pp", "ch", "wa", "pn"),
+                        labels = c("All individuals", "Children",
+                                   "Working-age adults", "Pensioners"))) %>%
   select(-nation)
-
-mytheme <- theme_grey() +
-  theme(text = element_text(colour = SGgreys[1], size = 14),
-        line = element_line(colour = SGgreys[1],
-                            linetype = 1,
-                            lineend = 2,
-                            size = 0.5),
-
-        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 12),
-        plot.caption = element_text(hjust = 1),
-        plot.title.position = "plot",
-
-        legend.position = "top",
-        legend.title = element_blank(),
-
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-
-        axis.line.x = element_line(),
-        axis.ticks.length = unit(2, "pt"),
-        axis.ticks.y = element_blank(),
-
-        axis.title = element_blank(),
-        axis.text.y = element_blank())
-
-theme_set(mytheme)
 
 # persistent poverty -----------------------------------------------------------
 
@@ -61,22 +32,35 @@ chartdata <- alldata %>%
                                labels = c("After housing costs",
                                           "Before housing costs"))) %>%
   group_by(group, housingcosts) %>%
-  mutate(key = housingcosts,
-         labels = case_when(period == min(period) ~ paste0(key, ": ", fmtpct(y)),
-                            period == max(period) ~ fmtpct(y)),
-         tooltip = paste0(key, ": ", fmtpct(y), " (", period, ")"),
-         data_id = paste(key, period))
+  mutate(key = housingcosts)
 
 
-persistentcharts$chart1 <- persistentchart(filter(chartdata, group == "All individuals"))
-persistentcharts$chart2 <- persistentchart(filter(chartdata, group == "Children"))
-persistentcharts$chart3 <- persistentchart(filter(chartdata, group == "Working-age adults"))
-persistentcharts$chart4 <- persistentchart(filter(chartdata, group == "Pensioners"))
+persistentcharts$chart1 <- chartdata %>%
+  filter(group == "All individuals") %>%
+  hc_line(persistent = TRUE) %>%
+  hc_xAxis(tickPositions = c(0, 2, 4, 7))
+
+persistentcharts$chart2 <- chartdata %>%
+  filter(group == "Children") %>%
+  hc_line(persistent = TRUE) %>%
+  hc_xAxis(tickPositions = c(0, 2, 4, 7))
+
+persistentcharts$chart3 <- chartdata %>%
+  filter(group == "Working-age adults") %>%
+  hc_line(persistent = TRUE) %>%
+  hc_xAxis(tickPositions = c(0, 2, 4, 7))
+
+persistentcharts$chart4 <- chartdata %>%
+  filter(group == "Pensioners") %>%
+  hc_line(persistent = TRUE) %>%
+  hc_xAxis(tickPositions = c(0, 2, 4, 7))
+
+
+persistentcharts <- lapply(persistentcharts, function(x) {
+  x %>% highcharter::hc_xAxis(tickInterval = 2)
+})
 
 # exit entry chart -------------------------------------------------------------
-
-my_color <- paste0("d3.scaleOrdinal() .domain(['Not in poverty', 'In poverty']) .range(['",
-                   SGblues[6], "', '", SGoranges[2], "'])")
 
 sankey_data <- readRDS("data/persistentpoverty.rds") %>%
   filter(group %in% c("exit", "entry"),
@@ -86,58 +70,58 @@ sankey_data <- readRDS("data/persistentpoverty.rds") %>%
 
 entry <- filter(sankey_data, group == "entry")$value
 exit <- filter(sankey_data, group == "exit")$value
+povrate <- 0.21
 
-nodes <- data.frame(name = c("Not in poverty", "In poverty", NA, NA),
-                    group = c(SGblues[6], SGoranges[2], SGblues[6], SGoranges[2]))
+persistentcharts$sankey <- highchart() %>%
+  hc_add_series(type = "sankey",
+                data = list(
+                  list(description = "Remaining in poverty",
+                       from = "In poverty",
+                       to = "in",
+                       weight = 100 * round2(povrate - povrate*exit, 2),
+                       custom = list(extraInformation = 'Remaining in poverty',
+                                     value = 100 - round2(exit, 2)*100)),
+                  list(description = "Exiting poverty",
+                       from = "In poverty",
+                       to = "out",
+                       weight = 100 * round2(povrate*exit, 2),
+                       custom = list(extraInformation = 'Exiting poverty',
+                                     value = round2(exit, 2)*100)),
+                  list(description = "Entering poverty",
+                       from = "Not in poverty",
+                       to = "in",
+                       weight = 100 * round2((1-povrate)*entry, 2),
+                       custom = list(extraInformation = 'Entering poverty',
+                                     value = round2(entry, 2)*100)),
+                  list(description = "Remaining out of poverty",
+                       from = "Not in poverty",
+                       to = "out",
+                       weight = 100 * round2((1-povrate) - (1-povrate)*entry, 2),
+                       custom = list(extraInformation = 'Remaining out of poverty',
+                                     value = 100 - round2(entry, 2) * 100))
+                ),
+                nodes = list(list(id = "Not in poverty",
+                                  color = SGblue),
+                             list(id = "In poverty",
+                                  color = SGorange),
+                             list(id = "in",
+                                  name = "In poverty",
+                                  color = SGorange),
+                             list(id = "out",
+                                  name = "Not in poverty",
+                                  color = SGblue)),
+                tooltip = list(
+                  nodeFormat = '{point.name}<br/>',
+                  headerFormat = '',
+                  pointFormat = '<b>{point.custom.extraInformation}:
+                  {point.custom.value}%</b><br/>')
+  ) %>%
+  hc_add_theme(my_theme) %>%
+  hc_size(width = 680, height = 300)
 
-links <- data.frame(source = c(name1 = 0, name2 = 0, name3 = 1, name4 = 1),
-                    target = c(2, 3, 2, 3),
-                    value = c(name5 = 0.80 - 0.80*entry, name6 = 0.80*entry,
-                              name7 = 0.20*exit, name8 = 0.20 - 0.20*exit),
-                    group = c(SGblues[6], SGblues[6], SGoranges[2], SGoranges[2]))
-
-sn <- sankeyNetwork(Links = links,
-                    Source = "source",
-                    Target = "target",
-                    Value = "value",
-                    LinkGroup = "group",
-
-                    Nodes = nodes,
-                    NodeID = "name",
-                    NodeGroup = "group",
-
-                    fontFamily = "Arial",
-                    fontSize = 16,
-                    nodeWidth = 40,
-                    nodePadding = 20,
-                    colourScale = my_color,
-                    height = 300,
-                    width = 650)
-
-# add node tooltips
-sn$x$nodes$tooltips <- c("Not in poverty", "Not in poverty", "In poverty", "In poverty")
-
-# add links tooltips
-sn$x$links$tooltips <- c(paste0("Not in poverty -> Not in poverty: ", fmtpct(1 - entry)),
-                         paste0("Not in poverty -> In poverty: ", fmtpct(entry)),
-                         paste0("In poverty -> Not in poverty: ", fmtpct(exit)),
-                         paste0("In poverty -> In poverty: ", fmtpct(1 - exit)))
-
-
-persistentcharts$sankey <- htmlwidgets::onRender(
-  sn,
-  '
-            function(el, x) {
-
-              d3.selectAll(".node, .link").select("title foreignObject body pre")
-                .text(function(d) { return d.tooltips; });
-              d3.selectAll(".node text").attr("font-weight", "bold");
-              d3.selectAll(".node text").style("fill", "#333333");
-            }
-            '
-)
 
 # save all ---------------------------------------------------------------------
 saveRDS(persistentcharts, "data/persistentcharts.rds")
 rm(list = ls())
 
+cat("Persistent poverty charts created", fill = TRUE)

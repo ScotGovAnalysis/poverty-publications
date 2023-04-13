@@ -11,12 +11,12 @@ output:
       smooth_scroll: no
       
 params:
-  pub_day: "31 March 2022"
-  pub_period: "2010-2020"
-  data_period_long: "2016 and 2020"
-  data_period: "2016-2020"
-  prev_period: "2015-2019"
-  data_year: "2019-2020"
+  pub_day: "23 March 2023"
+  pub_period: "2010-2021"
+  data_period_long: "2017 and 2021"
+  data_period: "2017-2021"
+  prev_period: "2016-2020"
+  data_year: "2020-2021"
 
 ---
 
@@ -33,46 +33,12 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 
 ```{r}
 library(tidyverse)
-library(scales)
-library(kableExtra)
-library(htmltools)
-library(ggiraph)
-library(xml2)
 
 source("R/00_colours.R")
 source("R/00_functions.R")
-#source("R/00_functions_rmd.R")
 
 persistentcharts <- readRDS("data/persistentcharts.rds")
 persistenttables <- readRDS("data/persistenttables.rds")
-
-mytheme <- theme_grey() +
-  theme(text = element_text(colour = SGgreys[1], size = 14),
-
-        line = element_line(colour = SGgreys[1],
-                            linetype = 1,
-                            lineend = 2,
-                            size = 0.5),
-
-        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 15),
-        plot.caption = element_text(hjust = 1),
-        plot.title.position = "plot",
-
-        legend.position = "top",
-        legend.title = element_blank(),
-
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-
-        axis.line.x = element_line(),
-        axis.ticks.length = unit(2, "pt"),
-        axis.ticks.y = element_blank(),
-
-        axis.title = element_blank(),
-        axis.text.y = element_blank())
-
-theme_set(mytheme)
 
 chapters <- c("_persistent_chapters/_pers0.Rmd", 
               "_persistent_chapters/_pers1.Rmd", 

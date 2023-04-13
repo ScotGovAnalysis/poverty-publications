@@ -10,7 +10,7 @@ output:
       collapsed: yes
       smooth_scroll: no
 params:
-  data_period: "2018-21"
+  data_period: "2019-22"
 ---
 
 ```{r setup, include = FALSE}
@@ -30,54 +30,109 @@ library(tidyverse)
 library(htmltools)
 
 source("R/00_functions.R")
-
 data <- readRDS("data/uncertainty.rds")
+
+data4text <- data$unformatted %>% 
+  filter(key == "ahc", type == "rel") 
+
+pp_rate_rounded <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(central_rate) %>% round2(., 0) %>% paste0("%")
+
+ch_rate_rounded <- data4text %>% 
+  filter(Group == "Children") %>% 
+  pull(central_rate) %>% round2(., 0) %>% paste0("%")
+
+pp_rate <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(central_rate) %>% paste0("%")
+pp_rate_l <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(lower_rate) %>% paste0("%")
+pp_rate_u <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(upper_rate) %>% paste0("%")
+  
+pp_num <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(central_num)
+pp_num_l <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(lower_num)
+pp_num_u <- data4text %>% 
+  filter(Group == "People") %>% 
+  pull(upper_num)
 
 ```
 
-The poverty estimates in the [Poverty and Income Inequality in Scotland report](index.html) are based on the Family Resources Survey (FRS). This is a sample survey, and therefore there is some degree of uncertainty around the estimates produced. For example, when it is reported that 19% of individuals are living in relative poverty after housing costs, then this should be understood not as an exact figure but as a best estimate within a range.
+The poverty estimates in the [Poverty and Income Inequality in Scotland report](index.html) are based on the Family Resources Survey (FRS). This is a sample survey, and therefore there is some degree of uncertainty around the estimates produced. For example, when it is reported that `r pp_rate_rounded` of individuals are living in relative poverty after housing costs, then this should be understood not as an exact figure but as a best estimate within a range.
 
-## Uncertainty
+## Why estimates are uncertain
 
 Two different random samples from one population give slightly different results. These results are different again from the results that would be obtained if the whole population was surveyed. The level of uncertainty around a survey estimate can be calculated and is commonly referred to as sampling error.
 
 We calculate this by exploring how an estimate would change if we were to draw many survey samples for the same time period instead of just one. This allows us to define a range around the estimate (known as a “confidence interval”) and to state how likely it is that the real value that the survey is trying to measure lies within that range. Confidence intervals are typically set up so that we can be 95% sure that the true value lies within the range. In this case, we call it a “95% confidence interval”.
 
-Confidence intervals provide a guide to how robust the estimates are. Tables 1 to 4 below provide confidence limits around the key poverty estimates.
+Confidence intervals provide a guide to how robust the estimates are. Tables 1 to 4 below provide 95% confidence limits around the key poverty estimates. For example, the proportion of individuals in relative poverty after housing costs in `r params$data_period` was `r pp_rate`, with a lower confidence limit of `r pp_rate_l` and an upper confidence limit of `r pp_rate_u`. This means that we can be 95% confident that the percentage of individuals in relative poverty lies between `r pp_rate_l` and `r pp_rate_u`. Similarly, the lower confidence limit for the number of people in relative poverty was `r pp_num_l`, and the upper confidence limit was `r pp_num_u`. So we can be 95% confident that the true number lies between those two figures.
 
-For instance, Table 1 shows that the best estimate for the number of individuals in relative poverty after housing costs in 2017-20 was 19.35%, with a lower confidence limit of 17.42% and an upper confidence limit of 21.33%. This means that we can be 95% confident that the percentage of individuals in relative poverty lies between 17.42% and 21.33%. Similarly, the lower confidence limit for the number of people in relative poverty was 930,000, and the upper confidence limit was 1,140,000. So we can be 95% confident that the true number lies between those two figures.
+We measure uncertainty in two different ways. Bootstrapping is more accurate, but takes more time to calculate. We also calculate indicative confidence intervals which we make available in all poverty charts. These are less accurate, but they sufficiently reflect how sample size and variation affect measurement uncertainty.
 
-## Change over time
+The tables below contain bootstrapped confidence intervals, whereas the charts in the report contain indicative confidence intervals.
 
-When the confidence interval is wider than the magnitude of change between years, caution should be exercised when making year on year comparisons.
+## Bootstrapped intervals
 
-When calculating the difference in poverty rates between two years, the same methodology can be used to calculate a 95% confidence interval for this change. So if the range of likely values for the year on year change is either entirely greater or less than zero, that is that confidence interval does not contain zero, then the change in the latest year is 95% certain to be greater or less than zero. This is the approach used in the publication of poverty statistics to determine if a change is statistically significant.
-
-None of the recent changes of the headline poverty estimates included in the tables below were statistically significant.
-
-## Bootstrapping
-
-The methodology used to calculate confidence intervals is called bootstrapping.
+The most accurate methodology used to calculate confidence intervals for poverty estimates is called bootstrapping.
 
 In the bootstrap, multiple new samples (resamples) of the dataset are created, with some samples containing multiple copies of one case with no copies of other cases. Exploring how an estimate would change if we were to draw many survey samples for the same time period instead of just one sample allows us to generate confidence intervals around the estimate.
 
-The bootstrapping method used was improved for 2015/16. Resamples are now created by simulating stratified cluster sampling – the method used to draw the original `r abbr("FRS", "Family Resources Survey")` sample – and creating a unique set of grossing factors for each resample. 
-
-In the past, multiple samples were created using a simpler technique of creating simple random samples and re-using the original `r abbr("HBAI", "Households Below Average Incomes")` grossing factors. 
+The bootstrapping method used was improved for 2015/16. Resamples are now created by simulating stratified cluster sampling – the method used to draw the original `r abbr("FRS", "Family Resources Survey")` sample – and creating a unique set of grossing factors for each resample. In the past, multiple samples were created using a simpler technique of creating simple random samples and re-using the original `r abbr("HBAI", "Households Below Average Incomes")` grossing factors. 
 
 More information on this change can be found in the [`r abbr("DWP", "Department for Work and Pensions")` statistical notice (pdf)](https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
 
-## Rounding
+## Indicative intervals {#indicative}
 
-In the tables below, proportions are rounded to one decimal point in order to demonstrate the range within which the central estimates sit. In the reference tables (see [Data](download.html)), proportions are available with five decimal points. Please note that using decimal points when talking about poverty rates may imply accuracy that the data cannot provide. To avoid this, we refer to full percentages in the commentary for the report, such as 19%.
+We also used simpler, and less accurate method for calculating 95% confidence intervals. These were used to show a measurement range in the poverty charts of the main report.
+
+Using Scotland data for two single-year periods and four three-year periods, we calculated simplified standard errors for a range of poverty indicators and groups (all people, children, working-age adults, pensioners). Simplified standard errors were calculated using a variance estimation method that accounts for the complex sampling design. However, the simplified method treats poverty rates as linear estimates, in effect assuming that the poverty line is not subject to measurement uncertainty.
+
+We compared the simplified standard errors to bootstrapped standard errors derived from `r abbr("DWP", "Department for Work and Penions")`'s bootstrapped confidence intervals. Since the simplified standard errors assume that the poverty line is not subject to measurement uncertainty, they underestimate overall measurement uncertainty, resulting in too narrow confidence intervals. To widen the confidence intervals, we use a correction factor based on the average difference between simplified and bootstrapped standard errors. Note that this difference was broadly within a similar range for all groups (all people, children, working-age adults, pensioners). After applying the correction factor, we obtain indicative confidence intervals.
+
+For three-year averages, we pooled the data to calculate standard errors. (Note that this is a different approach from calculating poverty rates for a three-year period – for that, we would take a simple mean of the three single-year estimates.) The pooling leads to a larger sample size, resulting in smaller standard errors.
+
+As an example, for 2017-20, the correction factor ranged from 1.2 to 1.8, with a mean of 1.5. 
+
+Note that our approach made the following assumptions:
+
+-	We assume that an average correction factor can sufficiently correct for the fact that we consider the poverty line not subject to measurement uncertainty.
+-	The average correction factor is based on large groups (all people, all children, all working-age adults, all pensioners in Scotland), but we assume that it applies to further disaggregations equally.
+-	In successive years, samples are not independent (half of the primary sampling units get reused), but we treat them as if they were, and we assume that the impact on standard errors is negligible.
+
+To mitigate the difference between (accurate) bootstrapped and (less accurate) simplified confidence intervals, we used correction factors of 1.5 for two-, three- and five-year averages, and 1.7 for single-year estimates. These correction factors are a pragmatic compromise, taking into account mean correction factors.
+
+Applying the correction factor widened the resulting confidence intervals, reflecting the fact that the poverty line itself is subject to measurement error as well. The widened confidence intervals can be obtained for any subgroup of the population, and they are indicative of measurement uncertainty around poverty estimates.
+
+We think that the resulting indicative confidence intervals are useful as an addition to trend charts in order to:
+
+-	visualise uncertainty for subgroups with varying sample sizes
+-	provide an understanding of ranges around central estimates
+-	provide clues as to whether trends and differences are likely to be meaningful or noise
+-	support a conversation about measurement uncertainty and other sources of error
+
+## Describing the data
+
+In the tables below, proportions are rounded to two decimal points in order to demonstrate the range within which the central estimates sit. In the reference tables (see [Data](download.html)), proportions are available with five decimal points. Please note that using decimal points when talking about poverty rates may imply accuracy that the data cannot provide. To avoid this, we refer to full percentages in the commentary for the report, such as `r pp_rate_rounded`.
+
+We advise to use full percentages when talking about poverty rates, and to mention that the rates have some uncertainty around them. There are different ways of describing the level of uncertainty. The most important thing is to keep in mind that there is some measurement uncertainty; it is less important (and quite difficult) to try and be very precise about it.
+
+In the charts of the main report, we include percentage ranges in the tooltips, such as 24% (19-30%). Alternatively, and to keep it more general, a rough +/- percentage point range can be given: `r pp_rate_rounded` of people (+/- 4 percentage points) were in relative poverty after housing costs in `r params$data_period`, and `r ch_rate_rounded` of children (+/- 7 percentage points).
 
 Population estimates are rounded to the nearest 10,000 individuals, the same as in the reference tables and in the commentary of the report.
 
-## Describing the data 
-
-We advise to use full percentages when talking about poverty rates, and to mention the level of uncertainty around them. For example, 19% of people (+/- 2 percentage points) were in relative poverty after housing costs in 2017-20, or 24% of children (+/- 4 percentage points) were in relative poverty after housing costs in 2017-20. 
-
 ## Tables
+
+All estimates and confidence intervals below were produced by `r abbr("DWP", "Department for Work and Pensions")`.  Confidence intervals were obtained via bootstrapping.
+
+Note that the latest population estimates for children and pensioners in material deprivation are both based on small sample sizes and considered not robust.
 
 ```{r table1}
 
@@ -137,6 +192,9 @@ datatable(data = data$absbhc,
           options = list(rowHeaders = TRUE))
 
 ```
+
+
+Note that numbers for children in combined low income and material deprivation, and for pensioners in material deprivation are not available in the latest period due to the small sample size.
 
 ```{r table5}
 

@@ -1,29 +1,32 @@
 ## Poverty exit and entry  
 
-People who are in persistent poverty stay below the poverty line for several years. But many people are in poverty only temporarily. More than a third of people in poverty move above the poverty line each year, exiting poverty. And a similar number of people who were not in poverty previously fall below the poverty line each year, newly entering poverty. Note that the share of those entering poverty is quite small, as it is a share of everyone previously not in poverty.
+```{r sankey}
 
-The diagram below shows an example of the flows of individuals in and out of poverty each year. It uses the latest after-housing-costs estimates.
+fign <- 1 + fign
+title <- "Diagram: poverty entry and exit, Scotland"
 
+chart <- persistentcharts$sankey  %>% 
+  highcharter::hc_title(text = paste0("Figure ", fign, ": ", title)) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
-```{r diagram}
+year <- as.numeric(str_sub(params$data_year, 6L, 9L))
 
-title <- "Diagram: poverty entry and exit"
+description <- paste0("People who are in persistent poverty stay below the poverty line for several years. But many people are in poverty only temporarily. More than a third of people in poverty move above the poverty line each year, exiting poverty. And a similar number of people who were not in poverty previously fall below the poverty line each year, newly entering poverty. Note that the share of those entering poverty is quite small, as it is a share of everyone previously not in poverty.
 
-chart <- persistentcharts$sankey
+Poverty entry and exit statistics use rates averaged over three two-wave periods. The latest estimates span the period between ", year - 4, " to ", year - 3, " and ", year - 1, " to ", year, ".
 
-id <- paste0("diagram")
+The diagram below shows an example of the flows of individuals in and out of poverty each year. It uses the latest after-housing-costs estimates.")
 
-# tidy up svg html
-chart$elementId <- paste0(id, "_htmlwidget")
-chart$x$uid <- paste0(id, "_svg")
+```
 
-tags <- htmltools::tags
+```{r sankey_chart}
 
-tags$div(tags$figure(id = id,
-                     "aria-labelledby" = paste0(id, "_caption"),
-                     tags$figcaption(id = paste0(id, "_caption"),
-                                     title),
-                     chart))
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
 
 ```
 
@@ -47,7 +50,8 @@ table <- datatable(data = persistenttables$table5,
                             caption = paste0("Table ", fign, ": ", title),
                             source = persistenttables$source,
                             options = list(rowHeaders = TRUE))
-tables_panel(table)
+#tables_panel(table)
+table
 
 ```
 
@@ -69,7 +73,8 @@ table <- datatable(data = persistenttables$table6,
                             caption = paste0("Table ", fign, ": ", title),
                             source = persistenttables$source,
                             options = list(rowHeaders = TRUE))
-tables_panel(table)
+#tables_panel(table)
+table
 
 ```
 

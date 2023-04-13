@@ -18,32 +18,47 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 source("R/00_functions.R")
 ```
 
-## Persistent poverty data
-
-The data used to produce the charts of the Persistent Poverty in Scotland report is available for download below:
-
-- [all data, XLSX format (10 KB)](xls/data2022_persistent.xlsx)
-- [all data, ODS format (40 KB)](xls/data2022_persistent.ods)
-
 ## Poverty and child poverty data
-
-`r message("These are not official statistics.\n\nThe latest estimates are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland.\n\nPlease refer to [Poverty and Income Inequality in Scotland 2017-20](../2021) for the latest National Statistics on poverty and income inequality.")`
 
 The data used to produce the charts of the main report is available for download below. The files also contain further poverty and child poverty analysis which is not shown in the charts of the main report.
 
-All estimates used in the main report except for the data in Figure 24, plus additional poverty and child poverty breakdowns, are available for download. Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately:
+### Three-year averages
 
-- [all data, XLSX format (800 KB)](xls/data2022.xlsx)
-- [all data, ODS format (280 KB)](xls/data2022.ods)
+All estimates used in the main report except for the data in Figure 36, plus additional poverty and child poverty breakdowns, are available for download. Estimates are averages of three years' worth of data in order to reduce data volatility and show trends more accurately.
 
-Measurement uncertainty information for the headline estimates:
+<button onclick="location.href='xls/data2023.xlsx'" type="button" class = "btn noprint">
+  Download, XLSX format (1 MB)
+</button>
+<button onclick="location.href='xls/data2023.ods'" type="button" class = "btn noprint">
+  Download, ODS format (330 KB)
+</button>
+
+### Single-year estimates
+
+In addition, estimates of the headline indicators and household income based on single years of data are also available. These are used in Figures 34 and 35 of the main report, and in the [child poverty update](cpupdate.html). They are not used in any other charts.
+
+<button onclick="location.href='xls/data2023_1yr.xlsx'" type="button" class = "btn noprint">
+  Download, XLSX format (260 KB)
+</button>
+<button onclick="location.href='xls/data2023_1yr.ods'" type="button" class = "btn noprint">
+  Download, ODS format (60 KB)
+</button>
+
+### Measurement uncertainty
+
+Measurement uncertainty information for the headline estimates is available.
 
 - [confidence intervals](uncertainty.html)
 
-In addition, estimates of the headline indicators and household income based on single years of data are also available. These are used in Figure 24 of the main report. They are not used in any other charts:
+## Persistent poverty data
 
-- [single-year poverty and income data, XLSX format (240 KB)](xls/data2022_1yr.xlsx)
-- [single-year poverty and income data, ODS format (60 KB)](xls/data2022_1yr.ods)
+The data used to produce the charts of the Persistent Poverty in Scotland report is available for download.
 
+<button onclick="location.href='xls/data2023_persistent.xlsx'" type="button" class = "btn noprint">
+  Download, XLSX format (10 KB)
+</button>
+<button onclick="location.href='xls/data2023_persistent.ods'" type="button" class = "btn noprint">
+  Download, ODS format (50 KB)
+</button>
 
 

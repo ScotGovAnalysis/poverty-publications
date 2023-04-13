@@ -10,3 +10,5 @@
 system_command <- paste("WScript", '"./Run Excel Macro.vbs"', sep = " ")
 system(command = system_command, wait = TRUE)
 
+cat("VBA postprocessing completed", fill = TRUE)
+

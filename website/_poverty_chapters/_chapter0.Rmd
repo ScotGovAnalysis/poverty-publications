@@ -1,24 +1,113 @@
+**A Scottish Government National Statistics publication**
+
 Published on `r params$pub_day`
-
-`r message("These are not official statistics.\n\nThe latest estimates are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland.\n\nPlease refer to [Poverty and Income Inequality in Scotland 2017-20](https://data.gov.scot/poverty/2021) for the latest National Statistics on poverty and income inequality.")`
-
-This report shows what the poverty and income statistics would look like if we included the unreliable latest data point.
 
 <button onclick = "window.print();" class = "btn noprint" >
   Print or save as PDF
 </button>
-<button onclick="location.href='download.html'" class = "btn noprint">
+<button onclick="location.href='download.html'" type="button" class = "btn noprint">
   Download tables
 </button>
-<br>
+
+`r message("This is the latest release.")`
+
+This report presents three-year averaged estimates of the proportion of people, children, working-age adults and pensioners in Scotland living in poverty, and other statistics on household income and income inequality. These estimates are used to monitor progress in reducing poverty, child poverty and income inequality.
+
+The latest estimates are from the period between April 2019 and March 2022. Data collected in the middle of this three-year period (April 2020 - March 2021) was removed due to data quality issues related to the pandemic.
+
+## Key trends
+
+* Child poverty appears stable after a recent gradual rise.
+* Working-age and pensioner poverty largely stable.
+
+```{r}
+
+ch_rate <- filter(htmltables$ch_rel, Measure == "After housing costs")[[params$data_period]]
+
+wa_rate <- filter(htmltables$wa_rel, Measure == "After housing costs")[[params$data_period]]
+
+pn_rate <- filter(htmltables$pn_rel, Measure == "After housing costs")[[params$data_period]]
+
+htmltools::div(class = "row fluid-row",
+     
+      htmltools::div(class = "col-md-4", 
+          htmltools::div(class = "panel panel-default",
+              htmltools::div(class = "panel-heading",
+                  htmltools::div(class = "panel-title",
+                     "Child poverty stable")),
+              htmltools::div(class = "panel-body",
+                  htmltools::a(href = "#children",
+                    htmltools::img(src = "img/chart0a.png", 
+                        alt = "Child poverty section",
+                        style = "width: 216px")),
+                  create_html(paste0(ch_rate, " of children were living in relative poverty after housing costs in ", params$data_period, ". Child poverty is stable following a gradual rise in recent years."))))),
+     
+     htmltools::div(class = "col-md-4", 
+          htmltools::div(class = "panel panel-default",
+              htmltools::div(class = "panel-heading",
+                  htmltools::div(class = "panel-title",
+                     "Working-age poverty broadly stable")),
+              htmltools::div(class = "panel-body",
+                  htmltools::a(href = "#working-age-adults",
+                    htmltools::img(src = "img/chart0b.png", 
+                        alt = "Working-age poverty section",
+                        style = "width: 216px")),
+                  create_html(paste0(wa_rate, " of working-age adults were living in relative poverty after housing costs in ", params$data_period, ". Working-age poverty has been broadly stable."))))),
+     
+     htmltools::div(class = "col-md-4",
+         htmltools::div(class = "panel panel-default",
+             htmltools::div(class = "panel-heading",
+                 htmltools::div(class = "panel-title",
+                    "Pensioner poverty stable")),
+             htmltools::div(class = "panel-body",
+                 htmltools::a(href = "#pensioners",
+                   htmltools::img(src = "img/chart0c.png", 
+                        alt = "Pensioner poverty section",
+                        style = "width: 216px")),
+                 create_html(paste0(pn_rate, " of pensioners were living in relative poverty after housing costs in ", params$data_period, ". Pensioner poverty has been largely stable in recent years.")))))
+     
+ )
+ 
+```
+
+Longer-term trends of poverty and income inequality in the `r abbr("UK", "United Kingdom")`, which are similar to those in Scotland, are available from the Department for Work and Pensions' [Households Below Average Income publication](https://www.gov.uk/government/statistics/households-below-average-income-for-financial-years-ending-1995-to-2021/households-below-average-income-an-analysis-of-the-income-distribution-fye-1995-to-fye-2021#long-term-trends-data-prior-to-fye-1995-are-not-national-statistics).
 
 ## What you need to know
 
-This report includes three-year averaged estimates of the proportion of people, children, working-age adults and pensioners in Scotland living in poverty, and measures of household income and income inequality. 
+Statistics in this report are based on data from the Family Resources Survey. This survey has been the main source of information on household income and poverty in Scotland since 1994/95.
 
-The analysis is based on data from the Family Resources Survey. This survey has been the main source of information on household income and poverty in Scotland since 1994/95.
+### Poverty measures
 
-The Scottish Government measures different aspects of poverty with different indicators. The most commonly used poverty indicator in Scotland for showing trends is relative poverty after housing costs. Other poverty measures in this report are absolute poverty, and material deprivation.
+The Scottish Government measures different aspects of poverty with different indicators. The most commonly used poverty indicator in Scotland for showing trends is relative poverty after housing costs. Other poverty measures in this report are absolute poverty, material deprivation, and degrees of household food security. These are included in additional charts throughout the report.
 
-The estimates in this publication are based on a sample survey and are therefore subject to sampling variation. The poverty and income estimates are shown as three-year rolling (overlapping) averages, unless stated otherwise. Taking the average over three years reduces fluctuation due to sampling variation and shows trends and differences between groups more clearly.
+Unless otherwise stated, these statistics are based on net income and adjusted for household size. Net income is income from earnings, social security payments and other sources minus taxes. All incomes are in `r params$data_year` prices, so the purchasing power is comparable over time. Estimates in this publication are rounded to the nearest £1 for weekly incomes, £100 for annual incomes, 1% for proportions and ratios, and 10,000 for populations. Poverty is defined at the household level. If the household income is below the poverty threshold, all people within the household are in poverty.
 
+### Survey data
+
+The estimates in this publication are based on a sample survey and are therefore subject to sampling variation.
+
+For example, the child poverty rates for Scotland in the latest period can vary within a typical uncertainty range of plus or minus seven percentage points, or plus or minus 80,000 children. This means that the proportion of children in relative poverty is likely to be somewhere between 16% and 31%. And the number of children in relative poverty after housing costs is likely to be somewhere between 160,000 and 310,000 children. Poverty rates and numbers shown in this report give the central estimates only.
+
+For some of the key estimates, you can find the ranges in the [measurement uncertainty section](uncertainty.html). To show this in the poverty charts, you can now also add [indicative confidence intervals](#reliability) around the trendlines.
+
+`r infobox("Add confidence intervals by clicking on the greyed-out parts of the legend.")`
+
+None of the latest changes in the estimated poverty rates in the Poverty and Child poverty sections of this report are statistically significant. It is therefore better to look at longer-term trends to confirm that a change over time is real, or that differences between groups are consistent.
+
+### Three-year averages
+
+The poverty and income estimates are shown as three-year rolling (overlapping) averages, unless stated otherwise. Taking the average over three years reduces fluctuation due to sampling variation and shows trends and differences between groups more clearly.
+
+Some single-year estimates are also available in the [associated tables](download.html).
+
+### Impact of the pandemic
+
+The coronavirus pandemic severely disrupted the data collection in 2020/21. As a result, we were unable to obtain a representative sample for Scotland in that year.
+
+The 2021/22 data is considered to be representative of the Scottish population. 
+
+This means that the three-year periods 2018-21 and 2019-22 only contain data from two financial years each. Therefore, some real changes that happened to incomes, such as the furlough scheme or the temporary increase of Universal Credit are only partially captured in the time series.
+
+Due to the missing data year and the ongoing impact of the pandemic on survey response rates, the sample size is much reduced in the latest two periods. This means that data is more volatile, and sudden changes need to be interpreted with caution.
+
+More information about the impact of the pandemic on data collection and the data itself is available in `r abbr("DWP", "Department for Work and Pensions")`'s [`r abbr("HBAI", "Households Below Average Income")` Technical report](https://www.gov.uk/government/statistics/households-below-average-income-for-financial-years-ending-1995-to-2022). 

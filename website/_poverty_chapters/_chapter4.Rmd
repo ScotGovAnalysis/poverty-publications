@@ -1,142 +1,240 @@
-## Income
+## Pensioners
 
-### Income inequality {.tabset}
+Pensioners are adults who have reached their state pension age.
 
-#### Palma
+Women’s state pension age reached 65 in November 2018, aligning it with men’s state pension age. Since December 2018, the state pension age for both men and women has been increasing. In the latest data period included in this report, the State Pension age for both men and women increased to 66 years.
 
-```{r}
-htmltools::h4("Palma",
-              class = 'prntonly')
-```
+### Relative poverty {#pensioners-relative-poverty}
 
-The Palma ratio of income inequality is the total income of the top ten percent of the population divided by the total income of the bottom forty percent of the population (written as a percentage). It is commonly used to estimate how much more income top-income households have compared to those at the bottom. 
+```{r pn_rel}
 
-The Palma ratio is usually calculated from income before housing costs, but we have included it for after-housing-costs income as well. After-housing-costs incomes are distributed more unequally.
+keymessage <- "Relative poverty rate for pensioners stable"
 
-```{r chart27}
-
-id <- 1
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
-subtitle <- "Palma ratio of income inequality, Scotland"
+subtitle <- "Proportion of pensioners in relative poverty, Scotland"
 
-interactive(povertycharts[[paste0("inc_", id)]], title = title, 
-            subtitle = subtitle)
+chart <- povertycharts$pn_rel %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+table1 <- datatable(data = htmltables$pn_rel,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+table2 <- datatable(data = htmltables$pn_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateA <- filter(htmltables$pn_rel, Measure == "After housing costs")[[params$data_period]]
+numberA <- scales::comma(filter(povertytables$relAHC$numbers, Group == "Pensioners")[[params$data_period]])
+rateB <- filter(htmltables$pn_rel, Measure == "Before housing costs")[[params$data_period]]
+numberB <- scales::comma(filter(povertytables$relBHC$numbers, Group == "Pensioners")[[params$data_period]])
+
+rate_wa <- filter(htmltables$wa_rel, Measure == "After housing costs")[[params$data_period]]
+rate_ch <- filter(htmltables$ch_rel, Measure == "After housing costs")[[params$data_period]]
+
+description <- paste0("The relative poverty rate after housing costs for pensioners was  ", rateA, " in ", params$data_period, ", or ", numberA, " pensioners each year. The poverty rate has been consistently below that for working-age adults (", rate_wa, ") and children (", rate_ch, ").
+
+Before housing costs, ", rateB, " of pensioners (", numberB, " pensioners) were in relative poverty.
+
+Relative pensioner poverty after housing costs showed a long decline until 2008-11, was then largely stable for a few years before it started to rise again. In recent years, relative pensioner poverty has been largely stable.
+
+Note that for pensioners, the before-housing-cost poverty rates are higher than the after-housing-costs poverty rates. This is because the majority of pensioners tend to have a relatively low income but also low housing costs as they own their home. It is therefore more meaningful to use the after-housing-costs poverty measure for comparing the standard of living between pensioners and other age groups.",
+infobox("Add confidence intervals by clicking on the greyed-out parts of the legend."))
 
 ```
 
-Income decile shares are also available in the associated tables.
+```{r pn_rel_chart}
 
-#### Gini
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
-```{r}
-htmltools::h4("Gini",
-              class = 'prntonly')
 ```
 
-The Gini coefficient measures income inequality on a scale from 0% to 100%. A Gini of 100% means that only one person has an income, and everyone else has none. A Gini of 0% means that everyone has the same income. 
+### Absolute poverty {#pensioners-absolute-poverty}
 
-```{r chart28}
+```{r pn_abs}
 
-id <- id + 1
+keymessage <- "Absolute poverty rate for pensioners gradually decreasing"
+
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
-subtitle <- "Gini coefficient of income inequality, Scotland"
+subtitle <- "Proportion of pensioners in absolute poverty, Scotland"
 
-interactive(povertycharts[[paste0("inc_", id)]], title = title, 
-            subtitle = subtitle)
+chart <- povertycharts$pn_abs %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+table1 <- datatable(data = htmltables$pn_abs,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+table2 <- datatable(data = htmltables$pn_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateA <- filter(htmltables$pn_abs, Measure == "After housing costs")[[params$data_period]]
+numberA <- scales::comma(filter(povertytables$absAHC$numbers, Group == "Pensioners")[[params$data_period]])
+rateB <- filter(htmltables$pn_abs, Measure == "Before housing costs")[[params$data_period]]
+numberB <- scales::comma(filter(povertytables$absBHC$numbers, Group == "Pensioners")[[params$data_period]])
+
+description <- paste0("Absolute poverty after housing costs for pensioners was ", rateA, " (", numberA, " pensioners each year) in ", params$data_period, ". Before housing costs, it was ", rateB, " (", numberB, " pensioners).
+
+Absolute poverty had remained broadly stable between 2008-11 and 2016-19, following a continuous decrease since the nineties, when reporting began. In recent years, absolute pensioner poverty has gradually decreased.")
 
 ```
 
-### Income trends
+```{r pn_abs_chart}
 
-```{r chart29}
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
-id <- id + 1
+```
+
+### Material deprivation {#pensioners-material-deprivation}
+
+```{r pmd}
+
+keymessage <- "Pensioners in material deprivation gradually decreasing"
+
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
-subtitle <- str_c("Median weekly household income in ", params$data_year, 
-                  " prices, Scotland")
+subtitle <- "Proportion of pensioners aged 65 and over in material deprivation, Scotland"
 
-interactive(povertycharts[[paste0("inc_", id)]], title = title, 
-            subtitle = subtitle)
+chart <- povertycharts$pn_dep %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+table1 <- datatable(data = htmltables$pn_dep,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+table2 <- datatable(data = htmltables$pn_dep_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rate <- htmltables$pn_dep[[params$data_period]]
+number <- scales::comma(povertytables$pmd$numbers[length(povertytables$pmd$numbers) - 1] %>% pull)
+
+description <- paste0("In ", params$data_period, ", ", rate, " of pensioners were in material deprivation. 
+
+While this estimate has been gradually declining over the years, we cannot directly compare the latest estimate to previous estimates. This is because the latest period covers a time when people were less able to undertake certain activities due to the pandemic, and not necessarily because they were deprived. This changed how people responded to the material deprivation questions.
+
+We cannot say exactly how many pensioners were affected, because the sample size is low this year. But in the previous period, about ", number, " pensioners were in material deprivation each year.
+
+Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure. It does not only consider low income. It also captures other barriers to accessing goods and services, such as poor health, disability and social isolation.
+
+More information about pensioner material deprivation can be found in the [Definitions section](#pensioner-material-deprivation).
+
+Pensioner material deprivation is included for all pensioners aged 65 or over. There were some pensioners in the analysis who were younger than 65; these were not included. Therefore, this measure looks at a slightly smaller group of people than the other measures in the Pensioners section.
+
+This data has been collected since 2009.")
 
 ```
 
-Figure `r fign + 1` shows inflation-adjusted weekly equivalised incomes before housing costs across the different income deciles for the last five years, using individual years of data.
+```{r pmd_chart}
 
-`r infobox("Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the population.")`
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
-```{r chart30}
+```
 
-id <- id + 1
+### Food security {#pensioners-food-security}
+
+```{r pn_foodsec}
+
+keymessage <- "Pensioners usually live in households with high food security"
+
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
-subtitle <- str_c("Weekly household income before housing costs at each decile point in ",
-params$data_year," prices, Scotland")
+subtitle <- str_c("Levels of food security of all pensioners and those in poverty after housing costs, Scotland ",
+                 params$data_period)
 
-interactive(povertycharts[[paste0("inc_", id)]], title = title, 
-            subtitle = subtitle)
+chart <- povertycharts$pn_foodsec %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("inc_", id)]],
+table1 <- datatable(data = htmltables$pn_foodsec,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("inc_", id, "_samples")]],
+table2 <- datatable(data = htmltables$pn_foodsec_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateH_all <- filter(htmltables$pn_foodsec, Group == "All pensioners")[["High"]]
+rateL_all <- fmtpct(1 - filter(povertytables$foodsec$comps, Group == "Pensioners")[["High"]])
+rateH_rel <- filter(htmltables$pn_foodsec, Group == "In relative poverty")[["High"]]
+rateH_sev <- filter(htmltables$pn_foodsec, Group == "In severe poverty")[["High"]]
+
+description <- paste0("Food security is measured at a household level. The person in the household who knows most about buying and preparing food responds to the questions about food security. Note that not everyone in the household may experience this in the same way.
+
+In ", params$data_period, ", ", rateH_all, " of pensioners lived in households with high food security. This means that ", rateL_all, " of pensioners lived in households with marginal, low or very low food security.
+
+Pensioners in poverty were slightly less likely to have high food security: ", rateH_rel, " of those in relative poverty, and ", rateH_sev, " of those in [severe poverty](#Relative_absolute_and_severe_poverty) lived in high food security households. 
+
+People are in severe poverty when their household income is less than half of the UK median income.
+
+", infobox("Household food security questions were newly added to the Family Resources Survey in 2019/20. They ask about whether people were worried about running out of food, had to reduce meal sizes or skip meals. More information can be found in the [Definitions section](#food-security-definition)."))
 
 ```
 
+```{r pn_foodsec_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```

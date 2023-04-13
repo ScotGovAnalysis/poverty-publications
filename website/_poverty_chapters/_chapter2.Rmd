@@ -1,148 +1,503 @@
-## Child poverty {.tabset}
+## Children
 
 Children are more likely to be in poverty across all measures compared to adults.
 
-`r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#dependent-children-definition).")`
+The Child Poverty (Scotland) Act 2017 requires us to report every year on four different child poverty measures. The latest single-year estimates can be found in the [Child poverty summary](cpupdate.html). In this report, however, we show three-year averaged estimates only, which are better for seeing trends.
 
-### Relative poverty
+`r infobox("In this publication, 'child' refers to a dependent child. This is explained in the [Definitions section](#dependent-children).")`
 
-```{r}
-htmltools::h4("Relative poverty",
-              class = 'prntonly')
-```
+### Relative poverty {#children-relative-poverty}
 
-```{r chart10}
+```{r ch_rel}
 
-id <- 1
+keymessage <- "Child poverty stable"
+
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
 subtitle <- "Proportion of children in relative poverty, Scotland"
 
-interactive(povertycharts[[paste0("child_", id)]], title = title, 
-            subtitle = subtitle)
+chart <- povertycharts$ch_rel %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+table1 <- datatable(data = htmltables$ch_rel,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+table2 <- datatable(data = htmltables$ch_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateA <- filter(htmltables$ch_rel, Measure == "After housing costs")[[params$data_period]]
+numberA <- scales::comma(filter(povertytables$relAHC$numbers, Group == "Children")[[params$data_period]])
+rateB <- filter(htmltables$ch_rel, Measure == "Before housing costs")[[params$data_period]]
+numberB <- scales::comma(filter(povertytables$relBHC$numbers, Group == "Children")[[params$data_period]])
+
+description <- paste0("It is estimated that ", rateA, " of children (", numberA, " children each year) were living in relative poverty after housing costs in ", params$data_period, ". Before housing costs, it is estimated that ", rateB, " of children (", numberB, " children each year) were in relative poverty.
+
+After a long fall between the late nineties and 2010-13, which slowed briefly just before the 2008/09 recession, child poverty rates were gradually rising again. The after-housing-cost rise appears to have stopped rising now, whereas the before-housing costs measure continues to rise slightly.",
+
+infobox("Add confidence intervals by clicking on the greyed-out parts of the legend."))
 
 ```
+
+```{r ch_rel_chart}
+
+message(keymessage)
+
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+
+tables_panel(list(table1, table2))
+
+```
+
+#### Working poverty
 
 Having paid work is an effective way out of poverty, and those families where all adults are in full-time work have a low poverty risk. But having a job is not always enough, for example when it does not pay well, or when someone is unable to work enough hours.
 
-While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to lift the household above the poverty threshold.
+```{r ch_work}
 
-`r infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment. They do not include unpaid work such as caring for your children or other family members. In-work poverty refers to the share of children in poverty who live in households where at least one member of the household is in either full or part-time paid work.")`
+keymessage <- "More than two thirds of children in poverty live in working households"
 
-```{r chart11}
-
-id <- id + 1
 fign <- fign + 1
 
-title <- paste0("Figure ", fign, ": ", keymessage)
-subtitle <- "Children in relative poverty after housing costs by household work status, Scotland, Scotland"
+title <- paste0("Figure ", fign, "a: ", keymessage)
+title2 <- paste0("Figure ", fign, "b: ", keymessage)
+subtitle <- "Children in relative poverty after housing costs by household work status, Scotland"
+subtitle2 <- "Share of children in relative poverty after housing costs who live in working households, Scotland"
 
-interactive(povertycharts[[paste0("child_", id)]], title = title, 
-            subtitle = subtitle, height = 4.5)
+chart <- povertycharts$ch_work %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign, "a")) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+chart2 <- povertycharts$ch_work2 %>% 
+  highcharter::hc_title(text = title2) %>% 
+  highcharter::hc_subtitle(text = subtitle2) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign, "b")) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
+
+table1 <- datatable(data = htmltables$ch_work,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+table2 <- datatable(data = htmltables$ch_work_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateA <- filter(htmltables$ch_work, Group == "In working households")[[params$data_period]]
+numberA <- scales::comma(filter(povertytables$workinghh_ch$rel_numbers, Group == "Someone in paid work")[[params$data_period]])
+
+description <- paste0("While the poverty risk is much lower for children in working households compared to those in non-working households, not all work pays enough to ensure the household is above the poverty threshold. Figure ", fign, "a shows the make-up of children in poverty, and Figure ", fign, "b shows the share who live in working households.
+
+It is estimated that in ", params$data_period, ", ", rateA, " of children in relative poverty after housing costs were living in working households (", numberA, " children each year). 
+
+Figure ", fign, "b shows that in-work poverty has been increasing consistently, reflecting high employment rates, and is now broadly stable at its highest level.
+
+", infobox("The terms ‘working’ and ‘in-work poverty’ here refer to paid employment. They do not include unpaid work such as caring for your children or other family members. In-work poverty refers to the share of children in poverty who live in households where at least one member of the household is in either full or part-time paid work."))
 
 ```
 
-Before-housing-costs data looks similar, and the analysis is available in the associated tables.
+```{r ch_work_chart}
 
-### Absolute poverty
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart,
+                       chart2)
+tables_panel(list(table1, table2))
 
-```{r}
-htmltools::h4("Absolute poverty",
-              class = 'prntonly')
 ```
 
-```{r chart12}
+### Absolute poverty {#children-absolute-poverty}
 
-id <- id + 1
+```{r ch_abs}
+
+keymessage <- "Absolute poverty rate for children largely stable"
+
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
 subtitle <- "Proportion of children in absolute poverty, Scotland"
 
-interactive(povertycharts[[paste0("child_", id)]], title = title, 
-            subtitle = subtitle, height = 4.5)
+chart <- povertycharts$ch_abs %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+table1 <- datatable(data = htmltables$ch_abs,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+table2 <- datatable(data = htmltables$ch_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateA <- filter(htmltables$ch_abs, Measure == "After housing costs")[[params$data_period]]
+numberA <- scales::comma(filter(povertytables$absAHC$numbers, Group == "Children")[[params$data_period]])
+rateB <- filter(htmltables$ch_abs, Measure == "Before housing costs")[[params$data_period]]
+numberB <- scales::comma(filter(povertytables$absBHC$numbers, Group == "Children")[[params$data_period]])
+
+description <- paste0("Absolute child poverty after housing costs affected ", rateA, " (", numberA, " children each year). Before housing costs, absolute child poverty was at ", rateB, " (", numberB, " children each year).
+
+Absolute child poverty before housing costs steadily decreased between the mid-nineties and just before the 2008/09 recession. The decrease of the after-housing-costs rate then slowed down. The before-housing-costs measure continued to decrease until 2013-16 and has been largely flat since.")
 
 ```
 
-### Material deprivation
+```{r ch_abs_chart}
 
-```{r}
-htmltools::h4("Material deprivation",
-              class = 'prntonly')
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
 ```
 
-Combined low income and child material deprivation is an additional way of measuring living standards. It is about households who cannot afford basic goods and activities that are seen as necessities in society.
+### Material deprivation {#children-material-deprivation}
 
-More detail on this can be found in the [Definitions section](#child-material-deprivation-definition).
+```{r cmd}
 
-```{r chart13}
+keymessage <- "Children in combined material deprivation and low income broadly stable"
 
-id <- id + 1
 fign <- fign + 1
 
 title <- paste0("Figure ", fign, ": ", keymessage)
 subtitle <- "Proportion of children in combined low income and material deprivation, Scotland"
 
-interactive(povertycharts[[paste0("child_", id)]], title = title, 
-            subtitle = subtitle)
+chart <- povertycharts$ch_dep %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
 
-table1 <- datatable(data = htmltables[[paste0("child_", id)]],
+
+table1 <- datatable(data = htmltables$ch_dep,
                             id = paste0("table-", fign, "a"),
                             caption = paste0("Table ", fign, "a: ", subtitle),
-                            source = "Source: Family Resources Survey",
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-table2 <- datatable(data = htmltables[[paste0("child_", id, "_samples")]],
+table2 <- datatable(data = htmltables$ch_dep_samples,
                             id = paste0("table-", fign, "b"),
-                            caption = paste0("Table ", fign, "b: Number of families in each group in the combined three-year survey sample, Scotland"),
-                            source = "Source: Family Resources Survey",
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
-tables_panel(div(table1, table2))
+rateA <- filter(htmltables$ch_dep, Measure ==  "New measure, after housing costs")[[params$data_period]]
+numberA <- scales::comma(filter(povertytables$cmd$numbers, Measure ==  "New measure, after housing costs")[length(htmltables$ch_dep)] %>% pull)
+rateB <- filter(htmltables$ch_dep, Measure ==  "New measure, before housing costs")[[params$data_period]]
+numberB <- scales::comma(filter(povertytables$cmd$numbers, Measure ==  "New measure, before housing costs")[length(htmltables$ch_dep)] %>% pull)
+
+description <- paste0("It is estimated that ", rateA, " of children were living in combined low income and material deprivation after housing costs in ", params$data_period, ". Before housing costs, this was ", rateB, " of children.
+
+We cannot say exactly how many children are affected, because the sample size is low this year. But in the previous period, ", numberA, " children were in combined low income after housing costs and material deprivation each year.
+
+This measure has not changed much since it was introduced, and the long-term trend is stable. The recent gradual fall is small and may not be real, as the latest two estimates cannot be directly compared to previous estimates. This is because the latest two periods cover a time when families were less able to undertake certain activities due to the pandemic, and not necessarily because they couldn't afford to. This changed how people responded to the material deprivation questions.
+
+Combined low income and child material deprivation is an additional way of measuring living standards. It is about households who cannot afford basic goods and activities that are seen as necessities in society.
+
+More detail on this can be found in the [Definitions section](#child-material-deprivation).")
 
 ```
 
-`r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13. This is shown as a break in the chart.")`
+```{r cmd_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+`r infobox("Material deprivation data has been collected since 2004/05. Due to a change in the methodology, it is not possible to compare the most recent years with years before 2010-13 directly. This is shown as a break in the chart. But trends before and after the break are broadly stable.")`
+
+### Food security {#children-food-security}
+
+```{r ch_foodsec}
+
+keymessage <- "Children in poverty often live in households that lack food security"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Levels of food security of all children and those in poverty after housing costs, Scotland ",
+                 params$data_period)
+
+chart <- povertycharts$ch_foodsec %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source,
+             href = href)
+
+
+table1 <- datatable(data = htmltables$ch_foodsec,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ch_foodsec_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rateH_all <- filter(htmltables$ch_foodsec, Group == "All children")[["High"]]
+rateL_all <- fmtpct(1 - filter(povertytables$foodsec$comps, Group == "Children")[["High"]])
+rateH_rel <- filter(htmltables$ch_foodsec, Group == "In relative poverty")[["High"]]
+rateH_sev <- filter(htmltables$ch_foodsec, Group == "In severe poverty")[["High"]]
+
+description <- paste0("Food security is measured at a household level. The person in the household who knows most about buying and preparing food responds to the questions about food security. Note that not everyone in the household may experience this in the same way. For example, a parent may have worried about running out of food or reduced their own meal sizes, but protected their young children from this experience. 
+
+In ", params$data_period, ", ", rateH_all, " of children lived in households with high food security. This means that ", rateL_all, " of children lived in households with marginal, low or very low food security.
+
+Children in poverty were less likely to have high food security: just ", rateH_rel, " of those in relative poverty, and ", rateH_sev, " of those in [severe poverty](#Relative_absolute_and_severe_poverty) lived in high food security households. 
+
+People are in severe poverty when their household income is less than half of the UK median income.
+
+", infobox("Household food security questions were newly added to the Family Resources Survey in 2019/20. They ask about whether people were worried about running out of food, had to reduce meal sizes or skip meals. More information can be found in the [Definitions section](#food-security-definition)."))
+
+```
+
+```{r ch_foodsec_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+### Priority groups {.tabset}
+
+Some types of households with children are known to be at a particularly high risk of poverty. These include households with single parents, three or more children, disabled household members, of a minority ethnic background, with a child aged under one, or a mother aged under 25. These groups do not cover everyone at higher risk of poverty, but taken together, they cover the majority of households with children that are in poverty.
+
+This section looks at children in these groups, and their poverty risk under four different poverty measures.
+
+Note that households with mothers aged under 25 and households with babies aged under 1 are not included in this analysis, because there were too few of them in the sample this year to provide robust estimates.
+
+`r infobox("Here, the minority ethnic group includes white minorities such as white people who are not British. The [Equality analysis section](#ethnicity) includes more detailed ethnicity categories.")`
+
+#### Relative poverty
+
+```{r ch_pri_rel}
+
+keymessage <- "Children in priority groups have a higher risk of being in relative poverty"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- paste0("Proportion of children in relative poverty after housing cost, Scotland ", params$data_period)
+
+chart <- povertycharts$ch_pri_rel %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$ch_pri_rel,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ch_pri_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- "Children in the priority groups were more likely to be in relative poverty compared to all children. This was in particular true for those in ethnic minority households, and those with a single parent in the household."
+
+```
+
+```{r ch_pri_rel_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+#### Absolute poverty
+
+```{r ch_pri_abs}
+
+keymessage <- "Children in priority groups have a higher risk of being in absolute poverty"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- paste0("Proportion of children in absolute poverty after housing costs, Scotland ", params$data_period)
+
+chart <- povertycharts$ch_pri_abs %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+
+table1 <- datatable(data = htmltables$ch_pri_abs,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ch_pri_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- "Children in the priority groups were more likely to be in absolute poverty compared to all children. This was in particular true for those with a single parent in the household and for ethnic minority households."
+
+```
+
+```{r ch_pri_abs_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+#### Material deprivation
+
+```{r ch_pri_dep}
+
+keymessage <- "Children in some priority groups have a higher risk of experiencing combined low income and material deprivation"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- paste0("Proportion of children in combined low income and material deprivation, Scotland ", params$data_period)
+
+chart <- povertycharts$ch_pri_dep %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+
+table1 <- datatable(data = htmltables$ch_pri_dep,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ch_pri_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- "Children in the priority groups tended to be more likely to be in combined low income and material deprivation compared to all children. This was in particular true for those with a single parent in the household."
+
+```
+
+```{r ch_pri_dep_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+#### Persistent poverty
+
+```{r ch_pri_per}
+
+keymessage <- "Children in priority groups have a higher risk of being in persistent poverty"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- paste0("Proportion of children in persistent poverty after housing cost, Scotland ", params$data_period_persistent)
+
+chart <- povertycharts$ch_pri_per %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = "Understanding Society Survey", href = href)
+
+
+table1 <- datatable(data = htmltables$ch_pri_per,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = "Understanding Society Survey",
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ch_pri_per_sample,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = "Understanding Society Survey",
+                            options = list(rowHeaders = TRUE))
+
+description <- "The persistent poverty measure is based on data from the Understanding Society Survey. We cover this measure in detail in the [Persistent Poverty report](persistent.html). Here, we only include persistent child poverty for the priority groups, where data is available.
+
+Note that the groups are slightly different from the groups used in the other priority group charts."
+
+```
+
+```{r ch_pri_per_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+

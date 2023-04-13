@@ -1,5 +1,6 @@
 # Careful - this code takes very long to run, only run once to import data to local machine
 
+# load -------------------------------------------------------------------------
 library(haven)
 
 years <- c("9495", "9596", "9697", "9798", "9899",
@@ -7,12 +8,12 @@ years <- c("9495", "9596", "9697", "9798", "9899",
            "0405", "0506", "0607", "0708", "0809",
            "0910", "1011", "1112", "1213", "1314",
            "1415", "1516", "1617", "1718", "1819",
-           "1920", "2021")
+           "1920", "2021", "2122")
 
 # Filenames and paths to SAS libraries
 
-path_socjust <- " -- path redacted -- "
-path_frs <- " -- path redacted -- "
+path_socjust <- "-- path redacted --"
+path_frs <- "-- path redacted --"
 
 # Import all -------------------------------------------------------------------
 
@@ -24,6 +25,7 @@ filenames_chldcare <- paste0(path_frs, "chldcare_", years[12:length(years)], ".s
 filenames_househol <- paste0(path_socjust, "frs_househol_", years, ".sas7bdat")
 filenames_benefits <- paste0(path_socjust, "frs_benefits_", years, ".sas7bdat")
 filenames_benunit <- paste0(path_frs, "benunit_", years, ".sas7bdat")
+filenames_job <- paste0(path_frs, "job_", years, ".sas7bdat")
 
 # Import SAS datasets (takes several hours for adult and hbai datasets)
 files_hbai <- lapply(filenames_hbai, read_sas)
@@ -33,6 +35,7 @@ files_chldcare <- lapply(filenames_chldcare, read_sas)
 files_househol <- lapply(filenames_househol, read_sas)
 files_benefits <- lapply(filenames_benefits, read_sas)
 files_benunit <- lapply(filenames_benunit, read_sas)
+files_job <- lapply(filenames_job, read_sas)
 inflationindex <- read_sas(paste0(path_socjust, "inflation_index.sas7bdat"))
 
 # Name list items
@@ -43,6 +46,7 @@ names(files_child) <- years
 names(files_househol) <- years
 names(files_benefits) <- years
 names(files_benunit) <- years
+names(files_job) <- years
 
 names(files_chldcare) <- years[12:length(years)]
 
@@ -55,6 +59,7 @@ saveRDS(files_househol, "data/files_househol.rds")
 saveRDS(files_benefits, "data/files_benefits.rds")
 saveRDS(files_benunit, "data/files_benunit.rds")
 saveRDS(files_chldcare, "data/files_chldcare.rds")
+saveRDS(files_job, "data/files_job.rds")
 saveRDS(inflationindex, "data/inflationindex.rds")
 
 # Import latest ----------------------------------------------------------------
@@ -68,6 +73,7 @@ filename_chldcare <- paste0(path_socjust, "frs_chldcare_", year, ".sas7bdat")
 filename_househol <- paste0(path_socjust, "frs_househol_", year, ".sas7bdat")
 filename_benefits <- paste0(path_socjust, "frs_benefits_", year, ".sas7bdat")
 filename_benunit <- paste0(path_socjust, "frs_benunit_", year, ".sas7bdat")
+filename_job <- paste0(path_socjust, "frs_job_", year, ".sas7bdat")
 
 # Import
 file_hbai <- read_sas(filename_hbai)
@@ -77,6 +83,7 @@ file_chldcare <- read_sas(filename_chldcare)
 file_househol <- read_sas(filename_househol)
 file_benefits <- read_sas(filename_benefits)
 file_benunit <- read_sas(filename_benunit)
+file_job <- read_sas(filename_job)
 inflationindex <- read_sas(paste0(path_socjust, "inflation_index.sas7bdat"))
 
 # Add to existing lists and save
@@ -111,6 +118,10 @@ saveRDS(files_benunit, "data/files_benunit.rds")
 files_chldcare <- readRDS("data/files_chldcare.rds")
 files_chldcare[[as.character(year)]] <- file_chldcare
 saveRDS(files_chldcare, "data/files_chldcare.rds")
+
+files_job <- readRDS("data/files_job.rds")
+files_job[[as.character(year)]] <- file_job
+saveRDS(files_job, "data/files_job.rds")
 
 saveRDS(inflationindex, "data/inflationindex.rds")
 

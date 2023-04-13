@@ -18,7 +18,7 @@ knitr::opts_knit$set(root.dir = rprojroot::find_rstudio_root_file())
 source("R/00_functions.R")
 ```
 
-This statement was prepared on 11 March 2022.
+This statement was prepared on 21 February 2023.
 
 This website is run by the Scottish Government. We want it to be accessible and usable for as many people as possible.
 
@@ -45,7 +45,7 @@ We believe that this website is compliant with the regulations. This is based on
 
 ### Potentially non-accessible content
 
-The content listed below is compliant with the regulations, and yet may not be fully accessible:
+The content listed below is compliant with the regulations, and yet may not be fully accessible for everyone:
 
 - Some links to external research lead to pdf documents which may not be fully accessible, and no other format is available.
 - The charts may be difficult to explore in detail using screen readers and other assistive tools.

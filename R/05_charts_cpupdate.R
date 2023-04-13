@@ -1,8 +1,7 @@
-# load packages ----------------------------------------------------------------
+# load ---------------------------------------------------------------------
+
 library(tidyverse)
-library(ggiraph)
-library(ggrepel)
-library(scales)
+library(highcharter)
 
 source("R/00_strings.R")
 source("R/00_functions.R")
@@ -11,198 +10,135 @@ source("R/00_colours.R")
 single <- readRDS("data/tables_1yr.rds")
 three <- readRDS("data/tables.rds")
 persistent <- readRDS("data/persistentpoverty.rds")
+CIs <- readRDS("data/indicative_CIs.rds")
+
+
+# 20/21 bad data is just excluded from each of the 3 datasets below
 
 years <- levels(labels$years$formatted)
-years <- years[1:length(years) - 1]
-
 periods <- levels(labels$years$periods)
-periods <- periods[1:length(periods) - 1]
-
 years_exp <- levels(labels$years_exp$formatted)
-
-mytheme <- theme_grey() +
-  theme(text = element_text(colour = SGgreys[1], size = 14),
-        line = element_line(colour = SGgreys[1],
-                            linetype = 1,
-                            lineend = 2,
-                            size = 0.5),
-
-        plot.title = element_text(hjust = 0, colour = SGgreys[1], size = 12),
-        plot.caption = element_text(hjust = 1),
-        plot.title.position = "plot",
-
-        legend.position = "top",
-        legend.title = element_blank(),
-
-        panel.background = element_blank(),
-        panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-
-        axis.line.x = element_line(),
-        axis.ticks.length = unit(2, "pt"),
-        axis.ticks.y = element_blank(),
-
-        axis.title = element_blank(),
-        axis.text.y = element_blank())
-
-theme_set(mytheme)
 
 cpcharts <- list()
 
 # rel pov ----------------------------------------------------------------------
+
 rel1 <- single$relAHC$rates %>%
   filter(Group == "Children") %>%
-  select(-Group, -"2020/21") %>%
+  select(-Group) %>%
   pivot_longer(cols = years, names_to = "x", values_to = "y")
 
 rel3 <- three$relAHC$rates %>%
   filter(Group == "Children") %>%
-  select(-Group, -"2018-21") %>%
+  select(-Group) %>%
   pivot_longer(cols = periods, names_to = "periods", values_to = "three")
 
 rel <- rbind(data.frame(periods = NA, three = NA),
-      rel3) %>%
+             rel3) %>%
   rbind(data.frame(periods = NA, three = NA)) %>%
   cbind(rel1) %>%
-  mutate(tooltip = case_when(is.na(three) ~ paste0(x, ": ", fmtpct(y)),
-                             TRUE ~ paste0(x, ": ", fmtpct(y), "\n",
-                                    periods, ": ", fmtpct(three))),
-         label = case_when(is.na(three) ~ fmtpct(y)),
-         data_id = x) %>%
   full_join(data.frame(x = years_exp, stringsAsFactors = FALSE), by = "x") %>%
-  mutate(x = factor(x, ordered = TRUE))
+  mutate(y = ifelse(x == "2020/21", NA, y)) %>%
 
-cpcharts$rel <- rel %>%
-  ggplot(aes(x = x,
-                 y = y,
-                 label = label,
-             group = "all")) +
-  addtargetbars() +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   labels = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   expand = expansion(add = c(5, 5))) +
+  # add CI data
+  left_join(CIs$rel_ch_1yr, by = c("x" = "period")) %>%
+  mutate(x = factor(x, ordered = TRUE),
+         low = y - halfCI_widened,
+         low = ifelse(low < 0, 0, low),
+         high = y + halfCI_widened) %>%
+  select(-halfCI_widened)
 
-  geom_line(aes(y = three),
-            size = 3,
-            lineend = "round",
-            colour = SGblue,
-            alpha = 0.8,
-            show.legend = FALSE) +
+# add in CI info for first 3 years
+rel$low[1:3] <- rel$low[4]
+rel$high[1:3] <- rel$high[4]
 
-  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
-                         size = 3,
-                         shape = 21,
-                         colour = SGgreys[1],
-                         fill = SGgreys[1],
-                         alpha = 0.4) +
+# add in CI info for 2021
+rel$low[27] <- rel$low[28]
+rel$high[27] <- rel$high[28]
 
-  geom_text_repel(data = rel %>% filter(x == min(x)),
-                  size = 5, nudge_x = -3,
-                  segment.size = NA) +
-
-  geom_text_repel(data = rel %>% filter(x == max(years)),
-                  size = 5, nudge_x = 3,
-                  segment.size = NA) +
-
-  annotate("text", x = 23.5, y = 0.5,
-           label = "Child Poverty (Scotland) Act 2017",
-           hjust = 1,
-           colour = SGgreys[2],
-           size = 5) +
-  annotate("text", x = 30, y = 0.45,
-           label = "Interim\ntarget\n2023/24",
-           hjust = 0,
-           colour = SGgreys[2],
-           size = 5) +
-  annotate("text", x = 37, y = 0.4,
-           label = "Final\ntarget\n2030/31",
-           hjust = 0,
-           colour = SGgreys[2],
-           size = 5) +
-  scale_y_continuous(limits = c(0, 0.53)) +
-  addinterimtarget(target = 0.18) +
-  addfinaltarget(target = 0.10) +
-  addsource()
+cpcharts$rel <- hc_target(rel) %>%
+  add_act_bars() %>%
+  hc_add_series(type = "arearange",
+                data = rel,
+                hcaes(x = x, low = low, high = high),
+                color = SGmix6_cat[2],
+                fillOpacity = 0.3,
+                enableMouseTracking = FALSE,
+                lineColor = "transparent",
+                marker = list(enabled = FALSE),
+                visible = TRUE,
+                zIndex = -1) %>%
+  hc_title(text = "Relative poverty") %>%
+  hc_subtitle(text = "Measures low income relative to the rest of society")
 
 # abs pov ----------------------------------------------------------------------
 abs1 <- single$absAHC$rates %>%
   filter(Group == "Children") %>%
-  select(-Group, -"2020/21") %>%
+  select(-Group) %>%
   pivot_longer(cols = years, names_to = "x", values_to = "y")
 
 abs3 <- three$absAHC$rates %>%
   filter(Group == "Children") %>%
-  select(-Group, -"2018-21") %>%
+  select(-Group) %>%
   pivot_longer(cols = periods, names_to = "periods", values_to = "three")
 
 abs <- rbind(data.frame(periods = NA, three = NA),
              abs3) %>%
   rbind(data.frame(periods = NA, three = NA)) %>%
   cbind(abs1) %>%
-  mutate(tooltip = case_when(is.na(three) ~ paste0(x, ": ", fmtpct(y)),
-                             TRUE ~ paste0(x, ": ", fmtpct(y), "\n",
-                                           periods, ": ", fmtpct(three))),
-         label = case_when(is.na(three) ~ fmtpct(y)),
-         data_id = x) %>%
   full_join(data.frame(x = years_exp, stringsAsFactors = FALSE), by = "x") %>%
-  mutate(x = factor(x, ordered = TRUE))
+  mutate(y = ifelse(x == "2020/21", NA, y)) %>%
 
-cpcharts$abs <- abs %>%
-  ggplot(aes(x = x,
-             y = y,
-             label = label,
-             group = "all")) +
-  addtargetbars() +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   labels = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   expand = expansion(add = c(5, 5))) +
+  # add CI data
+  left_join(CIs$abs_ch_1yr, by = c("x" = "period")) %>%
+  mutate(x = factor(x, ordered = TRUE),
+         low = y - halfCI_widened,
+         low = ifelse(low < 0, 0, low),
+         high = y + halfCI_widened) %>%
+  select(-halfCI_widened)
 
-  geom_line(aes(y = three),
-            size = 3,
-            lineend = "round",
-            colour = SGblue,
-            alpha = 0.8,
-            show.legend = FALSE) +
+# add in CI info for first 3 years
+abs$low[1:3] <- abs$low[4]
+abs$high[1:3] <- abs$high[4]
 
-  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
-                         size = 3,
-                         shape = 21,
-                         colour = SGgreys[1],
-                         fill = SGgreys[1],
-                         alpha = 0.4) +
+# add in CI info for 2021
+abs$low[27] <- abs$low[28]
+abs$high[27] <- abs$high[28]
 
-  geom_text_repel(data = abs %>% filter(x == min(x)),
-                  size = 5, nudge_x = -3,
-                  segment.size = NA) +
-
-  geom_text_repel(data = abs %>% filter(x == max(years)),
-                  size = 5, nudge_x = 3,
-                  segment.size = NA) +
-
-  scale_y_continuous(limits = c(0, 0.53)) +
-  addinterimtarget(target = 0.14) +
-  addfinaltarget(target = 0.05) +
-  addsource()
+cpcharts$abs <- hc_target(abs, targets = c(0.14, 0.05)) %>%
+  add_act_bars(annotations = FALSE) %>%
+  hc_add_series(type = "arearange",
+                data = abs,
+                hcaes(x = x, low = low, high = high),
+                color = SGmix6_cat[2],
+                fillOpacity = 0.3,
+                enableMouseTracking = FALSE,
+                lineColor = "transparent",
+                marker = list(enabled = FALSE),
+                visible = TRUE,
+                zIndex = -1) %>%
+  hc_title(text = "Absolute poverty") %>%
+  hc_subtitle(text = "Measures low living standards relative to 2010/11")
 
 # cmd --------------------------------------------------------------------------
 
 cmd1 <- single$cmd$rates %>%
   filter(Measure %in% c("Old measure, after housing costs",
                         "New measure, after housing costs")) %>%
-  select(-"2020/21") %>%
   pivot_longer(cols = years[11:length(years)], names_to = "x", values_to = "y") %>%
-  filter(!is.na(y)) %>%
+  filter(!is.na(y),
+         y < 99990) %>%
   arrange(x, desc(Measure)) %>%
-  select(-Measure)
+  select(-Measure) %>%
+  rbind(data.frame(x = "2020/21", y = NA)) %>%
+  arrange(x)
 
 cmd3 <- three$cmd$rates %>%
   filter(Measure %in% c("Old measure, after housing costs",
                         "New measure, after housing costs")) %>%
-  select( -"2018-21") %>%
   pivot_longer(cols = periods[11:length(periods)], names_to = "periods", values_to = "three") %>%
-  filter(!is.na(three)) %>%
+  filter(!is.na(three),
+         three < 99990) %>%
   arrange(periods) %>%
   select(-Measure)
 
@@ -212,61 +148,80 @@ cmd <- rbind(data.frame(periods = NA, three = NA),
   rbind(cmd3[6:nrow(cmd3), ]) %>%
   rbind(data.frame(periods = NA, three = NA)) %>%
   cbind(cmd1) %>%
-  mutate(tooltip = case_when(x == "2010/11" & (lag(x) != x) ~ paste0(x, " (old measure): ", fmtpct(y)),
-                             x == "2010/11" & (lag(x) == x) ~ paste0(x, " (new measure): ", fmtpct(y)),
-                             is.na(three) ~ paste0(x, ": ", fmtpct(y)),
-                             TRUE ~ paste0(x, ": ", fmtpct(y), "\n",
-                                           periods, ": ", fmtpct(three))),
-         label = case_when(is.na(three) & x != "2010/11" ~ fmtpct(y)),
-         data_id = x) %>%
   full_join(data.frame(x = years_exp, stringsAsFactors = FALSE), by = "x") %>%
-  mutate(x = factor(x, ordered = TRUE)) %>%
-  arrange(x, desc(y))
+  arrange(x, desc(y)) %>%
 
-cpcharts$cmd <- cmd %>%
-  ggplot(aes(x = x,
-             y = y,
-             label = label,
-             group = "all")) +
-  addtargetbars() +
-  geom_vline(aes(xintercept = 17), colour = SGgreys[4]) +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   labels = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   expand = expansion(add = c(5, 5))) +
+  # add CI data
+  left_join(CIs$dep_ch_1yr, by = c("x" = "period")) %>%
+  mutate(x = factor(x, ordered = TRUE),
+         low = y - halfCI_widened,
+         low = ifelse(low < 0, 0, low),
+         high = y + halfCI_widened) %>%
+  select(-halfCI_widened)
 
-  geom_line(aes(y = three),
-            size = 3,
-            lineend = "round",
-            colour = SGblue,
-            alpha = 0.8,
-            show.legend = FALSE) +
+# add in CI info for 2021
+cmd$low[28] <- cmd$low[29]
+cmd$high[28] <- cmd$high[29]
 
-  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
-                         size = 3,
-                         shape = 21,
-                         colour = SGgreys[1],
-                         fill = SGgreys[1],
-                         alpha = 0.4) +
+cpcharts$cmd <- hc_target(cmd, targets = c(0.08, 0.05)) %>%
+  hc_tooltip(formatter = JS('function () {
+               if (this.x === 16 && this.y > 0.14 && this.point.high > 0) {
+               return "<strong>" + this.point.name + " (old)</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "% (" +
+                       Highcharts.numberFormat(this.point.low*100, 0) + "-" +
+                       Highcharts.numberFormat(this.point.high*100, 0) + "%)";
+               } else if (this.x === 16 && this.y < 0.14 && this.point.high > 0) {
+               return "<strong>" + this.point.name + " (new)</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "% (" +
+                       Highcharts.numberFormat(this.point.low*100, 0) + "-" +
+                       Highcharts.numberFormat(this.point.high*100, 0) + "%)";
+               } else if (this.point.high > 0) {
+               return "<strong>" + this.point.name + "</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "% (" +
+                       Highcharts.numberFormat(this.point.low*100, 0) + "-" +
+                       Highcharts.numberFormat(this.point.high*100, 0) + "%)";
+               } else {
+               return "<strong>" + this.point.name + "</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "%"
+              }} ')) %>%
+  add_act_bars(annotations = FALSE, cmdbreak = TRUE) %>%
+  hc_add_series(type = "arearange",
+                data = cmd,
+                hcaes(x = x, low = low, high = high),
+                color = SGmix6_cat[2],
+                fillOpacity = 0.3,
+                enableMouseTracking = FALSE,
+                lineColor = "transparent",
+                marker = list(enabled = FALSE),
+                visible = TRUE,
+                zIndex = -1) %>%
+  hc_title(text = "Low income and material deprivation") %>%
+  hc_subtitle(text = "Measures if unable to afford basic necessities") %>%
+  hc_xAxis(plotBands = list(from = 26,
+                            to = 28,
+                            color = SGlightgrey,
+                            borderColor = SGmidgrey,
+                            borderWidth = 2,
+                            label = list(
+                              text = "Responses<br>affected by<br>the pandemic",
+                              rotation = 0,
+                              x = -10,
+                              align = "left",
+                              textAlign = "right",
+                              style = list(fontSize = "smaller")))) %>%
 
-  geom_text_repel(data = cmd %>% filter(x == "2004/05"),
-                  size = 5, nudge_x = -3,
-                  segment.size = NA) +
+  # mark covid estimates
+  hc_plotOptions(
+    scatter = list(
+      zoneAxis = "x",
+      zones = list(
+        list(value = 26),
+        list(value = 28,
+             color = SGdarkgrey)
+      )
+      )
+    )
 
-  geom_text_repel(data = cmd %>% filter(x == max(years)),
-                  size = 5, nudge_x = 3,
-                  segment.size = NA) +
-  scale_y_continuous(limits = c(0, 0.53)) +
-  addsource() +
-
-  annotate("text", x = 16.7, y = 0.02,
-           label = "Methodology change 2010/11",
-           hjust = 1,
-           colour = SGgreys[2],
-           size = 5) +
-
-  addinterimtarget(target = 0.08) +
-  addfinaltarget(target = 0.05)
 
 # pers pov ---------------------------------------------------------------------
 
@@ -279,51 +234,33 @@ per <- persistent %>%
          x = factor(x, levels = labels$years_exp$years,
                     labels = labels$years_exp$formatted,
                     ordered = TRUE),
-         tooltip = str_c(period, ": ", fmtpct(y)),
-         label = case_when(period == min(period) ~ fmtpct(y),
-                           period == max(period) ~ fmtpct(y)),
-         three = get3yrcentavg(y),
-         data_id = x)
+         x = as.character(x),
+         three = get3yrcentavg(y)) %>%
+  full_join(data.frame(x = years_exp, stringsAsFactors = FALSE), by = "x") %>%
+  arrange(x, desc(y))
 
-cpcharts$per <- per %>%
-  ggplot(aes(x = x,
-             y = y,
-             label = label,
-             group = "all")) +
-  addtargetbars() +
-  scale_x_discrete(drop = FALSE,
-                   breaks = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   labels = c("1994/95", "2007/08", "2019/20", "2030/31"),
-                   expand = expansion(add = c(5, 5))) +
+cpcharts$per <- hc_target(per, targets = c(0.08, 0.05)) %>%
+  hc_tooltip(formatter = JS('function () {
+              if (this.x === 29) {
+              return "<strong>2023/24</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "%";
+              } else if (this.x === 36) {
+              return "<strong>2030/31</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "%";
+              } else {
+               return "<strong>" + this.point.period + "</strong>: " +
+                       Highcharts.numberFormat(this.y*100, 0) + "%";
+                              }
+                            } ')) %>%
+  add_act_bars(annotations = FALSE) %>%
+  hc_credits(text = "Source: Understanding Society Survey",
+             href = "download.html") %>%
+  hc_title(text = "Persistent poverty" ) %>%
+  hc_subtitle(text = "Measures if in poverty for several years" )
 
-  geom_line(aes(y = three),
-            size = 3,
-            lineend = "round",
-            colour = SGblue,
-            alpha = 0.8,
-            show.legend = FALSE) +
-
-  geom_point_interactive(aes(tooltip = tooltip, data_id = tooltip),
-                         size = 3,
-                         shape = 21,
-                         colour = SGgreys[1],
-                         fill = SGgreys[1],
-                         alpha = 0.4) +
-
-  geom_text_repel(data = per %>% filter(period == min(period)),
-                  size = 5, nudge_x = -3,
-                  segment.size = NA) +
-
-  geom_text_repel(data = per %>% filter(period == max(period)),
-                  size = 5, nudge_x = 2, nudge_y = 0.02,
-                  segment.size = NA) +
-
-  addinterimtarget(target = 0.08) +
-  addfinaltarget(target = 0.05) +
-  scale_y_continuous(limits = c(0, 0.53)) +
-  labs(caption = "Source: Understanding Society Survey")
-
+# save all ---------------------------------------------------------------------
 
 saveRDS(cpcharts, "data/cpcharts.rds")
 rm(list = ls())
 
+cat("Child poverty update charts created", fill = TRUE)

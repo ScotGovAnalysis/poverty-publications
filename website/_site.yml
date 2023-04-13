@@ -7,6 +7,6 @@ output:
     number_sections: false
     mathjax: NULL
     template: _template.html
-    css: styles22.css
+    css: styles23.css
     includes:
       after_body: _footer.html

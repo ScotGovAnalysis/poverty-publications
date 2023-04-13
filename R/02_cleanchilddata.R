@@ -2,13 +2,9 @@
 # Clean datasets: select required variables, combine into single data frame ----
 
 library(tidyverse)
+source("R/00_strings.R")
 
-years = c("9495", "9596", "9697", "9798", "9899",
-          "9900", "0001", "0102", "0203", "0304",
-          "0405", "0506", "0607", "0708", "0809",
-          "0910", "1011", "1112", "1213", "1314",
-          "1415", "1516", "1617", "1718", "1819",
-          "1920", "2021")
+years <- unique(labels$years$years)
 
 files_child <- readRDS("data/files_child.rds")
 child_clean <- vector("list", length(years))
@@ -38,3 +34,5 @@ attr(child_clean$benunit, "label") <- NULL
 
 saveRDS(child_clean, "data/child_clean.rds")
 rm(list = ls())
+
+cat("Child dataset cleaned and saved", fill = TRUE)

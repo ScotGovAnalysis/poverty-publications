@@ -1,0 +1,389 @@
+## Income
+
+### Income inequality {.tabset}
+
+Summary measures of income inequality are useful for tracking change over time. In this section, we use a range of summary measures to describe different features of the income distribution.
+
+The Gini coefficient of inequality is widely used, and it is based on the whole distribution. But it is sometimes considered overly sensitive to changes in the middle, and not sensitive enough to changes at the top and the bottom.
+The Palma ratio focuses on the top and the bottom of the distribution only. In practice, both Gini and Palma measures show very similar trends.
+Decile shares give a more nuanced picture of the different parts of the distribution, but they cannot be summarised with a single estimate.
+
+#### Palma
+
+```{r palma}
+
+keymessage <- "Palma ratio of income inequality fluctuating"
+
+rateB <- fmtpct(filter(povertytables$palmagini$palma, Measure == "Before housing costs")[[params$data_period]] - 1)
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Palma ratio of income inequality, Scotland"
+
+chart <- povertycharts$palma %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$palma,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$pp_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- paste0("The Palma ratio of income inequality is the total income of the top ten percent of the population divided by the total income of the bottom forty percent of the population (written as a percentage). It is commonly used to estimate how much more income top-income households have compared to those at the bottom. 
+
+The Palma ratio is usually calculated from income before housing costs, but we have included it for after-housing-costs income as well. After-housing-costs incomes are distributed more unequally.
+
+In ", params$data_period, ", the top ten percent of the population had ", rateB, " more income (before housing costs) than the bottom forty percent combined. This compares to 33% more income of the top ten percent in 2007-10, the period with the highest income inequality in this time series as measured by the Palma ratio.
+
+Income inequality has been fluctuating since the beginning of this data collection in the mid-nineties, and, after the most recent high point in 2015-18 is currently decreasing again.")
+
+```
+
+```{r palma_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+Income decile shares are available in the associated tables.
+
+#### Gini
+
+```{r gini}
+
+keymessage <- "Gini coefficient of income inequality fluctuating"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Gini coefficient of income inequality, Scotland"
+
+chart <- povertycharts$gini %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$gini,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$pp_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rateB <- filter(htmltables$gini, Measure == "Before housing costs")[[params$data_period]]
+
+description <- paste0("The Gini coefficient measures income inequality on a scale from 0% to 100%. A Gini of 100% means that only one person has an income, and everyone else has none. A Gini of 0% means that everyone has the same income. 
+
+In ", params$data_period, ", the Gini coefficient (before housing costs) was ", rateB, ". The Gini coefficient is usually calculated from income before housing costs, but we have included it for after-housing-costs income as well.  After-housing-costs incomes are distributed more unequally.
+
+Income inequality has been fluctuating since the beginning of this data collection in the mid-nineties, and, after the most recent high point in 2015-18 is currently very gradually decreasing again.")
+
+```
+
+```{r gini_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+### Income trends
+
+```{r medians}
+
+keymessage <- "Median incomes may have stopped growing"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Median weekly household income in ", params$data_year, 
+                  " prices, Scotland")
+
+chart <- povertycharts$medians %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$medians,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$pp_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+incB <- filter(htmltables$medians, Measure == "Before housing costs")[[params$data_period]]
+incA <- filter(htmltables$medians, Measure == "After housing costs")[[params$data_period]]
+
+description <- paste0("In ", params$data_period, ", median household income before housing costs was ", incB, " per week. Median income had increased slowly but steadily since the recovery after the recession in 2008/09, but slightly dropped in the latest period. It is yet unclear whether this is the beginning of a new trend, or if it is a volatile data point.
+
+Following the same trend, median income after housing costs was ", incA, " per week in ", params$data_period, ".
+
+Median incomes for children, working-age adults and pensioners can be found in the associated tables. Note that pensioners' incomes continued to rise in the latest period.")
+
+```
+
+```{r medians_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+```{r deciles}
+
+keymessage <- "Incomes fluctuating during latest period, but top incomes growing"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Weekly household income before housing costs at each decile point in ",
+params$data_year," prices, Scotland")
+
+chart <- povertycharts$deciles %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$deciles,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$deciles_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- paste0("Figure ", fign, " shows inflation-adjusted weekly equivalised incomes before housing costs across the different income deciles for the last four years, using individual years of data. From year to year, the decile points fluctuate slightly, partly because of actual fluctuations in the income distribution, and partly due to the particular survey samples in each year. 
+
+In the latest year, incomes are lower than before the pandemic except for the top-decile incomes.
+
+", infobox("Data for 2020/21 is not available, see [our note about the data collection in 2020/21](#covid)."), 
+
+infobox("Deciles (or decile points) are the income values which divide the Scottish population, when ranked by income, into ten equal-sized groups. Decile is also often used as a shorthand term for decile group; for example 'the bottom decile' is used to describe the bottom ten percent of the population."))
+
+```
+
+```{r deciles_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+```{r dec_change}
+
+fign <- fign + 1
+keymessage <- "Lower and middle incomes decreasing in latest period"
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Change in weekly household income before housing costs at each decile point between 2018/19 and 2021/22 in ",
+params$data_year," prices, Scotland")
+
+chart <- povertycharts$dec_change %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$dec_change,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$dec_change_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- paste0("Figure ", fign, " shows how the income decile points changed during the latest three-year period, between 2018/19 and 2021/22. Lower and middle decile points saw decreases, whereas the top incomes increased.")
+
+```
+
+```{r dec_change_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+After-housing-costs data is available in the associated tables.
+
+### Income distribution
+
+```{r distribution}
+
+keymessage <- "Many people have incomes just above the poverty line."
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Equivalised weekly household income distribution before housing costs, Scotland ", 
+                 params$data_period)
+
+chart <- povertycharts$distribution %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+description <- paste0("Figure ", fign, " shows the distribution of weekly income before housing costs across Scotland in ", params$data_period, " with relative poverty threshold, UK median income, and Scottish income decile groups.
+
+Many people have household incomes near the poverty threshold. This means that small movements in the overall distribution can sometimes lead to sizeable movements in poverty rates.
+
+Decile groups are groups of the population defined by the decile points. The first decile group is the ten percent of the population with the lowest incomes. The second decile group contains individuals with incomes above the lowest decile point but below the second decile point.")
+
+```
+
+```{r distribution_chart}
+
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+
+```
+
+### Poverty thresholds {#poverty-thresholds}
+
+Most of the income estimates in this publication are based on equivalised income. This means that household income is adjusted to reflect different household sizes and compositions. When income is not equivalised, households of different sizes have different poverty thresholds. The table below shows the relative and absolute poverty thresholds, before equivalisation, for households of different sizes.
+
+The incomes presented elsewhere in this report use the value for "Couple with no children" as the standard; incomes of all other household types are adjusted (equivalised) to reflect their different household composition.
+
+```{r table1}
+
+subtitle <- str_c("Weekly income and poverty thresholds for different household types after housing costs, Scotland ", params$data_period)
+datatable(data = povertytables$thresholds$weekly_ahc[1:4, ] %>% mutate_if(is.numeric, comma, 1, prefix = "£"),
+          id = "table-a",
+          caption = paste0("Table A: ", subtitle),
+          source = source,
+          options = list(rowHeaders = TRUE))
+
+subtitle <- str_c("Weekly income and poverty thresholds for different household types before housing costs, Scotland ", params$data_period)
+datatable(data = povertytables$thresholds$weekly_bhc[1:4, ] %>% mutate_if(is.numeric, comma, 1, prefix = "£"),
+          id = "table-b",
+          caption = paste0("Table B: ", subtitle),
+          source = source,
+          options = list(rowHeaders = TRUE))
+
+subtitle <- str_c("Annual income and poverty thresholds for different household types after housing costs, Scotland ", params$data_period)
+datatable(data = povertytables$thresholds$annual_ahc[1:4, ] %>% mutate_if(is.numeric, comma, 1, prefix = "£"),
+          id = "table-c",
+          caption = paste0("Table C: ", subtitle),
+          source = source,
+          options = list(rowHeaders = TRUE))
+
+subtitle <- str_c("Annual income and poverty thresholds for different household types before housing costs, Scotland ", params$data_period)
+datatable(data = povertytables$thresholds$annual_bhc[1:4, ] %>% mutate_if(is.numeric, comma, 1, prefix = "£"),
+          id = "table-d",
+          caption = paste0("Table D: ", subtitle),
+          source = source,
+          options = list(rowHeaders = TRUE))
+
+```
+
+
+### Income sources
+
+```{r sources}
+
+keymessage <- "Earnings and social security payments main household income sources"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Income sources as a percentage of gross income by income decile, Scotland ", params$data_period)
+
+chart <- povertycharts$sources %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$sources,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$sources_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+description <- paste0("Figure ", fign, " shows the different sources of gross income by decile, ranking the population by income and dividing it into ten equal-sized groups. Income components are considered before tax; this is therefore a different definition of household income from that used elsewhere in this report.
+
+Higher income households receive a large proportion of their income from earnings, and lower income households receive more of their income from social security payments. Social security payments include the state pension.
+
+Earnings account for less than half of gross income for those in the first three deciles compared to over 80% for those in the top three deciles.
+
+Except for the people in the bottom two income deciles, earnings are the main income source.")
+
+```
+
+```{r sources_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```

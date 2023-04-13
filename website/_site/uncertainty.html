@@ -24,7 +24,7 @@
       div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
       ul.task-list{list-style: none;}
                </style>
-                     <link rel="stylesheet" href="styles22.css" type="text/css" />
+                     <link rel="stylesheet" href="styles23.css" type="text/css" />
          <style>
       .main-container {
       max-width: 940px;
@@ -289,42 +289,59 @@
                                                                            <div id="header">
                                                                         <h1 class="title toc-ignore">Measurement uncertainty</h1>
                                                                                                                            </div>
-                                                            <p>The poverty estimates in the <a href="index.html">Poverty and Income Inequality in Scotland report</a> are based on the Family Resources Survey (FRS). This is a sample survey, and therefore there is some degree of uncertainty around the estimates produced. For example, when it is reported that 19% of individuals are living in relative poverty after housing costs, then this should be understood not as an exact figure but as a best estimate within a range.</p>
-<div id="uncertainty" class="section level2">
-<h2>Uncertainty</h2>
+                                                            <p>The poverty estimates in the <a href="index.html">Poverty and Income Inequality in Scotland report</a> are based on the Family Resources Survey (FRS). This is a sample survey, and therefore there is some degree of uncertainty around the estimates produced. For example, when it is reported that 21% of individuals are living in relative poverty after housing costs, then this should be understood not as an exact figure but as a best estimate within a range.</p>
+<div id="why-estimates-are-uncertain" class="section level2">
+<h2>Why estimates are uncertain</h2>
 <p>Two different random samples from one population give slightly different results. These results are different again from the results that would be obtained if the whole population was surveyed. The level of uncertainty around a survey estimate can be calculated and is commonly referred to as sampling error.</p>
 <p>We calculate this by exploring how an estimate would change if we were to draw many survey samples for the same time period instead of just one. This allows us to define a range around the estimate (known as a “confidence interval”) and to state how likely it is that the real value that the survey is trying to measure lies within that range. Confidence intervals are typically set up so that we can be 95% sure that the true value lies within the range. In this case, we call it a “95% confidence interval”.</p>
-<p>Confidence intervals provide a guide to how robust the estimates are. Tables 1 to 4 below provide confidence limits around the key poverty estimates.</p>
-<p>For instance, Table 1 shows that the best estimate for the number of individuals in relative poverty after housing costs in 2017-20 was 19.35%, with a lower confidence limit of 17.42% and an upper confidence limit of 21.33%. This means that we can be 95% confident that the percentage of individuals in relative poverty lies between 17.42% and 21.33%. Similarly, the lower confidence limit for the number of people in relative poverty was 930,000, and the upper confidence limit was 1,140,000. So we can be 95% confident that the true number lies between those two figures.</p>
+<p>Confidence intervals provide a guide to how robust the estimates are. Tables 1 to 4 below provide 95% confidence limits around the key poverty estimates. For example, the proportion of individuals in relative poverty after housing costs in 2019-22 was 20.55%, with a lower confidence limit of 16.49% and an upper confidence limit of 23.78%. This means that we can be 95% confident that the percentage of individuals in relative poverty lies between 16.49% and 23.78%. Similarly, the lower confidence limit for the number of people in relative poverty was 890,000, and the upper confidence limit was 1,280,000. So we can be 95% confident that the true number lies between those two figures.</p>
+<p>We measure uncertainty in two different ways. Bootstrapping is more accurate, but takes more time to calculate. We also calculate indicative confidence intervals which we make available in all poverty charts. These are less accurate, but they sufficiently reflect how sample size and variation affect measurement uncertainty.</p>
+<p>The tables below contain bootstrapped confidence intervals, whereas the charts in the report contain indicative confidence intervals.</p>
 </div>
-<div id="change-over-time" class="section level2">
-<h2>Change over time</h2>
-<p>When the confidence interval is wider than the magnitude of change between years, caution should be exercised when making year on year comparisons.</p>
-<p>When calculating the difference in poverty rates between two years, the same methodology can be used to calculate a 95% confidence interval for this change. So if the range of likely values for the year on year change is either entirely greater or less than zero, that is that confidence interval does not contain zero, then the change in the latest year is 95% certain to be greater or less than zero. This is the approach used in the publication of poverty statistics to determine if a change is statistically significant.</p>
-<p>None of the recent changes of the headline poverty estimates included in the tables below were statistically significant.</p>
-</div>
-<div id="bootstrapping" class="section level2">
-<h2>Bootstrapping</h2>
-<p>The methodology used to calculate confidence intervals is called bootstrapping.</p>
+<div id="bootstrapped-intervals" class="section level2">
+<h2>Bootstrapped intervals</h2>
+<p>The most accurate methodology used to calculate confidence intervals for poverty estimates is called bootstrapping.</p>
 <p>In the bootstrap, multiple new samples (resamples) of the dataset are created, with some samples containing multiple copies of one case with no copies of other cases. Exploring how an estimate would change if we were to draw many survey samples for the same time period instead of just one sample allows us to generate confidence intervals around the estimate.</p>
-<p>The bootstrapping method used was improved for 2015/16. Resamples are now created by simulating stratified cluster sampling – the method used to draw the original <abbr title="Family Resources Survey">FRS</abbr> sample – and creating a unique set of grossing factors for each resample.</p>
-<p>In the past, multiple samples were created using a simpler technique of creating simple random samples and re-using the original <abbr title="Households Below Average Incomes">HBAI</abbr> grossing factors.</p>
+<p>The bootstrapping method used was improved for 2015/16. Resamples are now created by simulating stratified cluster sampling – the method used to draw the original <abbr title="Family Resources Survey">FRS</abbr> sample – and creating a unique set of grossing factors for each resample. In the past, multiple samples were created using a simpler technique of creating simple random samples and re-using the original <abbr title="Households Below Average Incomes">HBAI</abbr> grossing factors.</p>
 <p>More information on this change can be found in the <a href="https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf"><abbr title="Department for Work and Pensions">DWP</abbr> statistical notice (pdf)</a>. The new method widens confidence intervals for most estimates making statistically significant results less likely than before.</p>
 </div>
-<div id="rounding" class="section level2">
-<h2>Rounding</h2>
-<p>In the tables below, proportions are rounded to one decimal point in order to demonstrate the range within which the central estimates sit. In the reference tables (see <a href="download.html">Data</a>), proportions are available with five decimal points. Please note that using decimal points when talking about poverty rates may imply accuracy that the data cannot provide. To avoid this, we refer to full percentages in the commentary for the report, such as 19%.</p>
-<p>Population estimates are rounded to the nearest 10,000 individuals, the same as in the reference tables and in the commentary of the report.</p>
+<div id="indicative" class="section level2">
+<h2>Indicative intervals</h2>
+<p>We also used simpler, and less accurate method for calculating 95% confidence intervals. These were used to show a measurement range in the poverty charts of the main report.</p>
+<p>Using Scotland data for two single-year periods and four three-year periods, we calculated simplified standard errors for a range of poverty indicators and groups (all people, children, working-age adults, pensioners). Simplified standard errors were calculated using a variance estimation method that accounts for the complex sampling design. However, the simplified method treats poverty rates as linear estimates, in effect assuming that the poverty line is not subject to measurement uncertainty.</p>
+<p>We compared the simplified standard errors to bootstrapped standard errors derived from <abbr title="Department for Work and Penions">DWP</abbr>’s bootstrapped confidence intervals. Since the simplified standard errors assume that the poverty line is not subject to measurement uncertainty, they underestimate overall measurement uncertainty, resulting in too narrow confidence intervals. To widen the confidence intervals, we use a correction factor based on the average difference between simplified and bootstrapped standard errors. Note that this difference was broadly within a similar range for all groups (all people, children, working-age adults, pensioners). After applying the correction factor, we obtain indicative confidence intervals.</p>
+<p>For three-year averages, we pooled the data to calculate standard errors. (Note that this is a different approach from calculating poverty rates for a three-year period – for that, we would take a simple mean of the three single-year estimates.) The pooling leads to a larger sample size, resulting in smaller standard errors.</p>
+<p>As an example, for 2017-20, the correction factor ranged from 1.2 to 1.8, with a mean of 1.5.</p>
+<p>Note that our approach made the following assumptions:</p>
+<ul>
+<li>We assume that an average correction factor can sufficiently correct for the fact that we consider the poverty line not subject to measurement uncertainty.</li>
+<li>The average correction factor is based on large groups (all people, all children, all working-age adults, all pensioners in Scotland), but we assume that it applies to further disaggregations equally.</li>
+<li>In successive years, samples are not independent (half of the primary sampling units get reused), but we treat them as if they were, and we assume that the impact on standard errors is negligible.</li>
+</ul>
+<p>To mitigate the difference between (accurate) bootstrapped and (less accurate) simplified confidence intervals, we used correction factors of 1.5 for two-, three- and five-year averages, and 1.7 for single-year estimates. These correction factors are a pragmatic compromise, taking into account mean correction factors.</p>
+<p>Applying the correction factor widened the resulting confidence intervals, reflecting the fact that the poverty line itself is subject to measurement error as well. The widened confidence intervals can be obtained for any subgroup of the population, and they are indicative of measurement uncertainty around poverty estimates.</p>
+<p>We think that the resulting indicative confidence intervals are useful as an addition to trend charts in order to:</p>
+<ul>
+<li>visualise uncertainty for subgroups with varying sample sizes</li>
+<li>provide an understanding of ranges around central estimates</li>
+<li>provide clues as to whether trends and differences are likely to be meaningful or noise</li>
+<li>support a conversation about measurement uncertainty and other sources of error</li>
+</ul>
 </div>
 <div id="describing-the-data" class="section level2">
 <h2>Describing the data</h2>
-<p>We advise to use full percentages when talking about poverty rates, and to mention the level of uncertainty around them. For example, 19% of people (+/- 2 percentage points) were in relative poverty after housing costs in 2017-20, or 24% of children (+/- 4 percentage points) were in relative poverty after housing costs in 2017-20.</p>
+<p>In the tables below, proportions are rounded to two decimal points in order to demonstrate the range within which the central estimates sit. In the reference tables (see <a href="download.html">Data</a>), proportions are available with five decimal points. Please note that using decimal points when talking about poverty rates may imply accuracy that the data cannot provide. To avoid this, we refer to full percentages in the commentary for the report, such as 21%.</p>
+<p>We advise to use full percentages when talking about poverty rates, and to mention that the rates have some uncertainty around them. There are different ways of describing the level of uncertainty. The most important thing is to keep in mind that there is some measurement uncertainty; it is less important (and quite difficult) to try and be very precise about it.</p>
+<p>In the charts of the main report, we include percentage ranges in the tooltips, such as 24% (19-30%). Alternatively, and to keep it more general, a rough +/- percentage point range can be given: 21% of people (+/- 4 percentage points) were in relative poverty after housing costs in 2019-22, and 24% of children (+/- 7 percentage points).</p>
+<p>Population estimates are rounded to the nearest 10,000 individuals, the same as in the reference tables and in the commentary of the report.</p>
 </div>
 <div id="tables" class="section level2">
 <h2>Tables</h2>
+<p>All estimates and confidence intervals below were produced by <abbr title="Department for Work and Pensions">DWP</abbr>. Confidence intervals were obtained via bootstrapping.</p>
+<p>Note that the latest population estimates for children and pensioners in material deprivation are both based on small sample sizes and considered not robust.</p>
 <table class="table" id="table-1">
 <caption>
-Table 1: Relative poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2018-21
+Table 1: Relative poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2019-22
 <br/>
 <span>Source: DWP analysis of the Family Resources Survey</span>
 </caption>
@@ -338,29 +355,29 @@ Table 1: Relative poverty after housing costs - central estimates and 95% confid
 <tbody>
 <tr role="row">
 <th role="rowheader">People</th>
-<td role="cell">17.8% (15 - 20.2%)</td>
-<td role="cell">960,000 (800,000 - 1,080,000)</td>
+<td role="cell">20.55% (16.49 - 23.78%)</td>
+<td role="cell">1,110,000 (890,000 - 1,280,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Children</th>
-<td role="cell">21% (16.1 - 25.1%)</td>
-<td role="cell">210,000 (160,000 - 250,000)</td>
+<td role="cell">24.48% (16.45 - 31.08%)</td>
+<td role="cell">250,000 (160,000 - 310,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Working-age adults</th>
-<td role="cell">18.1% (14.9 - 20.8%)</td>
-<td role="cell">610,000 (500,000 - 700,000)</td>
+<td role="cell">21.04% (16.53 - 24.67%)</td>
+<td role="cell">710,000 (560,000 - 840,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Pensioners</th>
-<td role="cell">13.7% (10.7 - 16.4%)</td>
-<td role="cell">140,000 (110,000 - 160,000)</td>
+<td role="cell">14.89% (11.19 - 18.27%)</td>
+<td role="cell">150,000 (110,000 - 180,000)</td>
 </tr>
 </tbody>
 </table>
 <table class="table" id="table-2">
 <caption>
-Table 2: Relative poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2018-21
+Table 2: Relative poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2019-22
 <br/>
 <span>Source: DWP analysis of the Family Resources Survey</span>
 </caption>
@@ -374,29 +391,29 @@ Table 2: Relative poverty before housing costs - central estimates and 95% confi
 <tbody>
 <tr role="row">
 <th role="rowheader">People</th>
-<td role="cell">16% (13.3 - 18.1%)</td>
-<td role="cell">860,000 (710,000 - 970,000)</td>
+<td role="cell">18.57% (14.51 - 21.78%)</td>
+<td role="cell">1,000,000 (780,000 - 1,170,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Children</th>
-<td role="cell">17.6% (13.1 - 21.6%)</td>
-<td role="cell">180,000 (130,000 - 210,000)</td>
+<td role="cell">22.49% (15.33 - 28.68%)</td>
+<td role="cell">230,000 (150,000 - 290,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Working-age adults</th>
-<td role="cell">15.5% (12.2 - 18.2%)</td>
-<td role="cell">520,000 (410,000 - 610,000)</td>
+<td role="cell">18.27% (13.63 - 21.94%)</td>
+<td role="cell">620,000 (460,000 - 740,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Pensioners</th>
-<td role="cell">15.8% (12.5 - 18.4%)</td>
-<td role="cell">160,000 (120,000 - 180,000)</td>
+<td role="cell">15.6% (12.09 - 18.72%)</td>
+<td role="cell">150,000 (120,000 - 180,000)</td>
 </tr>
 </tbody>
 </table>
 <table class="table" id="table-3">
 <caption>
-Table 3: Absolute poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2018-21
+Table 3: Absolute poverty after housing costs - central estimates and 95% confidence intervals, Scotland 2019-22
 <br/>
 <span>Source: DWP analysis of the Family Resources Survey</span>
 </caption>
@@ -410,29 +427,29 @@ Table 3: Absolute poverty after housing costs - central estimates and 95% confid
 <tbody>
 <tr role="row">
 <th role="rowheader">People</th>
-<td role="cell">15.3% (12.9 - 17.6%)</td>
-<td role="cell">820,000 (690,000 - 940,000)</td>
+<td role="cell">17.19% (13.11 - 20.44%)</td>
+<td role="cell">930,000 (710,000 - 1,100,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Children</th>
-<td role="cell">18.2% (13.9 - 22.2%)</td>
-<td role="cell">180,000 (140,000 - 220,000)</td>
+<td role="cell">20.83% (13.37 - 27.24%)</td>
+<td role="cell">210,000 (130,000 - 270,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Working-age adults</th>
-<td role="cell">15.9% (12.8 - 18.5%)</td>
-<td role="cell">540,000 (430,000 - 620,000)</td>
+<td role="cell">18.23% (13.59 - 21.81%)</td>
+<td role="cell">620,000 (460,000 - 740,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Pensioners</th>
-<td role="cell">10.6% (8.1 - 13.1%)</td>
-<td role="cell">110,000 (80,000 - 130,000)</td>
+<td role="cell">9.97% (6.62 - 12.44%)</td>
+<td role="cell">100,000 (60,000 - 120,000)</td>
 </tr>
 </tbody>
 </table>
 <table class="table" id="table-4">
 <caption>
-Table 4: Absolute poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2018-21
+Table 4: Absolute poverty before housing costs - central estimates and 95% confidence intervals, Scotland 2019-22
 <br/>
 <span>Source: DWP analysis of the Family Resources Survey</span>
 </caption>
@@ -446,29 +463,30 @@ Table 4: Absolute poverty before housing costs - central estimates and 95% confi
 <tbody>
 <tr role="row">
 <th role="rowheader">People</th>
-<td role="cell">13.3% (10.7 - 15.4%)</td>
-<td role="cell">710,000 (580,000 - 820,000)</td>
+<td role="cell">15.26% (11.29 - 18.22%)</td>
+<td role="cell">820,000 (610,000 - 980,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Children</th>
-<td role="cell">14.3% (9.9 - 17.8%)</td>
-<td role="cell">140,000 (100,000 - 180,000)</td>
+<td role="cell">17.94% (10.69 - 24.16%)</td>
+<td role="cell">180,000 (110,000 - 240,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Working-age adults</th>
-<td role="cell">13% (10 - 15.6%)</td>
-<td role="cell">440,000 (340,000 - 530,000)</td>
+<td role="cell">15.3% (10.89 - 19.1%)</td>
+<td role="cell">520,000 (370,000 - 650,000)</td>
 </tr>
 <tr role="row">
 <th role="rowheader">Pensioners</th>
-<td role="cell">13.1% (10.1 - 15.5%)</td>
-<td role="cell">130,000 (100,000 - 150,000)</td>
+<td role="cell">12.42% (9.32 - 14.86%)</td>
+<td role="cell">120,000 (90,000 - 150,000)</td>
 </tr>
 </tbody>
 </table>
+<p>Note that numbers for children in combined low income and material deprivation, and for pensioners in material deprivation are not available in the latest period due to the small sample size.</p>
 <table class="table" id="table-5">
 <caption>
-Table 5: Children in combined low income and material deprivation - central estimates and 95% confidence intervals, Scotland 2018-21
+Table 5: Children in combined low income and material deprivation - central estimates and 95% confidence intervals, Scotland 2019-22
 <br/>
 <span>Source: DWP analysis of the Family Resources Survey</span>
 </caption>
@@ -482,15 +500,15 @@ Table 5: Children in combined low income and material deprivation - central esti
 <tbody>
 <tr role="row">
 <th role="rowheader">Children</th>
-<td role="cell">6.9% (3.9 - 8.7%)</td>
-<td role="cell">30,000 (20,000 - 40,000)</td>
+<td role="cell">10.17% (6.05 - 14.88%)</td>
+<td role="cell">Not available</td>
 </tr>
 </tbody>
 </table>
 <p>An after-housing-costs table for children in combined low income and material deprivation is not available. Confidence intervals are expected to be similar to the before-housing-costs measure.</p>
 <table class="table" id="table-6">
 <caption>
-Table 6: Pensioners aged 65 and over - central estimates and 95% confidence intervals, Scotland 2018-21
+Table 6: Pensioners aged 65 and over - central estimates and 95% confidence intervals, Scotland 2019-22
 <br/>
 <span>Source: DWP analysis of the Family Resources Survey</span>
 </caption>
@@ -504,8 +522,8 @@ Table 6: Pensioners aged 65 and over - central estimates and 95% confidence inte
 <tbody>
 <tr role="row">
 <th role="rowheader">Pensioners</th>
-<td role="cell">4.6% (3.2 - 6%)</td>
-<td role="cell">50,000 (30,000 - 60,000)</td>
+<td role="cell">4.31% (2.56 - 5.85%)</td>
+<td role="cell">Not available</td>
 </tr>
 </tbody>
 </table>

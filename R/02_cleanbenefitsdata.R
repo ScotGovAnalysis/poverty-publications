@@ -2,13 +2,9 @@
 # Clean dataset: variable name changes, combine into single data frame ---------
 
 library(tidyverse)
+source("R/00_strings.R")
 
-years = c("9495", "9596", "9697", "9798", "9899",
-          "9900", "0001", "0102", "0203", "0304",
-          "0405", "0506", "0607", "0708", "0809",
-          "0910", "1011", "1112", "1213", "1314",
-          "1415", "1516", "1617", "1718", "1819",
-          "1920", "2021")
+years <- unique(labels$years$years)
 
 files_benefits <- readRDS("data/files_benefits.rds")
 benefits_clean <- vector("list", length(years))
@@ -83,3 +79,5 @@ attr(benefits_clean$sernum, "label") <- NULL
 
 saveRDS(benefits_clean, "data/benefits_clean.rds")
 rm(list = ls())
+
+cat("Benefits dataset cleaned and saved", fill = TRUE)

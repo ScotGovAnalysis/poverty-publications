@@ -5,7 +5,7 @@
    <meta name="generator" content="pandoc" />
    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
       <meta name="description" content="Official persistent poverty statistics for Scotland with the proportion of people, children, working-age adults and pensioners in persistent poverty." />
-                  <title>Persistent Poverty in Scotland 2010-2020</title>
+                  <title>Persistent Poverty in Scotland 2010-2021</title>
       <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -17,13 +17,46 @@
    <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
    <script src="site_libs/navigation-1.1/tabsets.js"></script>
    <script src="site_libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
-   <script src="site_libs/d3-5.7.0/d3.min.js"></script>
-   <script src="site_libs/d3-lasso-0.0.5/d3-lasso.min.js"></script>
-   <link href="site_libs/ggiraphjs-0.3.0/ggiraphjs.min.css" rel="stylesheet" />
-   <script src="site_libs/ggiraphjs-0.3.0/ggiraphjs.min.js"></script>
-   <script src="site_libs/girafe-binding-0.7.8/girafe.js"></script>
-   <script src="site_libs/sankey-1/sankey.js"></script>
-   <script src="site_libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script>
+   <script src="site_libs/proj4js-2.3.15/proj4.js"></script>
+   <link href="site_libs/highcharts-7.0.1/css/motion.css" rel="stylesheet" />
+   <link href="site_libs/highcharts-7.0.1/css/htmlwdgtgrid.css" rel="stylesheet" />
+   <script src="site_libs/highcharts-7.0.1/highcharts.js"></script>
+   <script src="site_libs/highcharts-7.0.1/highcharts-3d.js"></script>
+   <script src="site_libs/highcharts-7.0.1/highcharts-more.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/stock.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/map.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/annotations.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/boost.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/data.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/drag-panes.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/drilldown.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/item-series.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/offline-exporting.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/overlapping-datalabels.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/exporting.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/export-data.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/funnel.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/heatmap.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/treemap.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/sankey.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/solid-gauge.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/streamgraph.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/sunburst.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/vector.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/wordcloud.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/xrange.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/tilemap.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/venn.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/gantt.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/timeline.js"></script>
+   <script src="site_libs/highcharts-7.0.1/modules/parallel-coordinates.js"></script>
+   <script src="site_libs/highcharts-7.0.1/plugins/grouped-categories.js"></script>
+   <script src="site_libs/highcharts-7.0.1/plugins/motion.js"></script>
+   <script src="site_libs/highcharts-7.0.1/plugins/multicolor_series.js"></script>
+   <script src="site_libs/highcharts-7.0.1/custom/reset.js"></script>
+   <script src="site_libs/highcharts-7.0.1/custom/symbols-extra.js"></script>
+   <script src="site_libs/highcharts-7.0.1/custom/text-symbols.js"></script>
+   <script src="site_libs/highchart-binding-0.7.0/highchart.js"></script>
       <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
@@ -32,7 +65,7 @@
       div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
       ul.task-list{list-style: none;}
                </style>
-                     <link rel="stylesheet" href="styles22.css" type="text/css" />
+                     <link rel="stylesheet" href="styles23.css" type="text/css" />
          <style>
       .main-container {
       max-width: 940px;
@@ -295,10 +328,10 @@
          </div>
                      <div class="toc-content col-xs-12 col-sm-8 col-md-9">
                                                                            <div id="header">
-                                                                        <h1 class="title toc-ignore">Persistent Poverty in Scotland 2010-2020</h1>
+                                                                        <h1 class="title toc-ignore">Persistent Poverty in Scotland 2010-2021</h1>
                                                                                                                            </div>
                                                             <p><strong>A Scottish Government Official Statistics publication</strong></p>
-<p>Published on 31 March 2022</p>
+<p>Published on 23 March 2023</p>
 <button onclick="window.print();" class="btn noprint">
 Print or save as PDF
 </button>
@@ -310,23 +343,23 @@ Download tables
 </strong>
 </div>
 <p>This publication presents estimates of the proportion of people, children, working-age adults and pensioners living in persistent poverty in Scotland and in the other countries in the UK. The estimates are used to monitor progress in reducing poverty.</p>
-<p>The latest persistent poverty estimates relate to the period between January 2016 and December 2020. The first <abbr title="United Kingdom">UK</abbr>-wide lockdown due to the coronavirus (COVID-19) pandemic began in March 2020. The pandemic had a small impact on data collection, see the <a href="#corona-impact">Data source section</a> for more information.</p>
+<p>The latest persistent poverty estimates relate to the period between January 2017 and December 2021. The coronavirus (COVID-19) pandemic had a small impact on data collection, see the <a href="#corona-impact">Data source section</a> for more information.</p>
 <div id="key-points" class="section level2">
 <h2>Key points</h2>
 <ul>
-<li><p>Between 2016 and 2020, 10% of people in Scotland were in persistent poverty after housing costs. Persistent poverty rates were similar for children (10%), working-age adults (10%) and pensioners (11%).</p></li>
-<li><p>Persistent child poverty saw a relatively large drop compared to previous estimates, and not all of this decrease is likely to be real. Persistent poverty estimates do tend to fluctuate. They also get revised when households re-enter the longitudinal sample and data gaps can be filled. However, some of the decrease is plausible in part due to increased financial support during the pandemic for some lower-income households. At the same time, reduced earnings and job losses may have resulted in a lower median income. This may have led to a fall in the poverty line, and thereby a drop in the relative poverty rate.</p></li>
+<li><p>Between 2017 and 2021, 12% of people in Scotland were in persistent poverty after housing costs.</p></li>
+<li><p>Persistent poverty rates were highest for children (18%), and lower for working-age adults (10%) and pensioners (10%).</p></li>
 <li><p>Not everyone in poverty is in persistent poverty: More than a third of people in poverty move out of poverty each year. At the same time, a similar number of people who were not in poverty previously newly enter poverty each year.</p></li>
 </ul>
 </div>
 <div id="what-you-need-to-know" class="section level2">
 <h2>What you need to know</h2>
-<p>Poverty can be measured in a number of different ways, each of which can tell us something different about poverty. One of the most common measures is relative (income) poverty which identifies people living in households with an equivalised income below 60% of the UK median household income. It therefore measures whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole. Statistics on relative poverty in Scotland can be found in the <a href="../2021">Poverty and Income Inequality in Scotland</a> report.</p>
+<p>Poverty can be measured in a number of different ways, each of which can tell us something different about poverty. One of the most common measures is relative (income) poverty which identifies people living in households with an equivalised income below 60% of the UK median household income. It therefore measures whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole. Statistics on relative poverty in Scotland can be found in the <a href=".">Poverty and Income Inequality in Scotland</a> report.</p>
 <p>The statistics in this report provide information on persistent poverty in Scotland. <strong>Persistent poverty identifies individuals who live in relative poverty for three or more of the last four years.</strong> It therefore identifies people who have been living in poverty for a significant period of time, which is more damaging than brief periods spent with a low income. The impacts can affect an individual throughout their lifetime.</p>
 <p>The estimates in this publication are derived from the Understanding Society survey. Understanding Society is a <abbr title="United Kingdom">UK</abbr>-wide longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years.</p>
-<p>Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.</p>
-<p>This publication presents persistent poverty estimates for seven overlapping periods from 2010-2014 to 2016-2020. It now also includes poverty entry and exit rates.</p>
-<div class="infobox-text"><p>The statistics presented below are subject to a degree of uncertainty. This means that implied changes over the years and between countries may not be statistically significant and instead be within a given error range. More information can be found in the <a href="#uncertainty">Data source</a> section.</p>
+<p>Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates. <a href="#revisions">More information about revisions</a> is available.</p>
+<p>This publication presents persistent poverty estimates for eight overlapping periods from 2010-2014 to 2017-2021. It also includes poverty entry and exit rates.</p>
+<div class="infobox-text"><p>The statistics presented below are subject to a degree of uncertainty. This means that implied changes over the years and between countries may not be statistically significant and instead be within a given error range. More information can be found in the <a href="#uncertainty">Data source section</a>.</p>
 </div>
 </div>
 <div id="persistent-poverty" class="section level2">
@@ -335,16 +368,12 @@ Download tables
 <p>Poverty estimates in this publication are derived by looking at household income before housing costs are paid for (BHC) and after housing costs are paid for (AHC). In Scotland, after-housing-costs poverty indicators are more commonly used.</p>
 <div id="all-individuals" class="section level3 tabset">
 <h3>All individuals</h3>
-<ul>
-<li>Between 2016 and 2020, 10% of people were in persistent poverty after housing costs, broadly similar to the previous period (2015-2019).</li>
-</ul>
-<p><div>
-<figure id="figure-1" aria-labelledby="figure-1_caption">
-<figcaption id="figure-1_caption">Figure 1: Proportion of people in persistent poverty, Scotland</figcaption>
-<div id="figure-1_htmlwidget" style="width:960px;height:500px;" class="girafe html-widget"></div>
-<script type="application/json" data-for="figure-1_htmlwidget">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' id='figure-1_svg' viewBox='0 0 504.00 252.00'>\n  <g>\n    <defs>\n      <clipPath id='figure-1_svg_cl_1'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-1_svg_el_1' clip-path='url(#figure-1_svg_cl_1)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-1_svg_cl_2'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-1_svg_el_2' clip-path='url(#figure-1_svg_cl_2)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-1_svg_cl_3'>\n        <rect x='7.47' y='14.12' width='491.05' height='201.99'/>\n      <\/clipPath>\n    <\/defs>\n    <circle cx='154.79' cy='133.47' r='5.07pt' id='figure-1_svg_el_3' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2010-2014' title='Before housing costs: 8% (2010-2014)'/>\n    <circle cx='203.89' cy='142.66' r='5.07pt' id='figure-1_svg_el_4' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2011-2015' title='Before housing costs: 7% (2011-2015)'/>\n    <circle cx='253.00' cy='133.47' r='5.07pt' id='figure-1_svg_el_5' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2012-2016' title='Before housing costs: 8% (2012-2016)'/>\n    <circle cx='302.10' cy='133.47' r='5.07pt' id='figure-1_svg_el_6' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2013-2017' title='Before housing costs: 8% (2013-2017)'/>\n    <circle cx='351.21' cy='124.29' r='5.07pt' id='figure-1_svg_el_7' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2014-2018' title='Before housing costs: 9% (2014-2018)'/>\n    <circle cx='400.31' cy='133.47' r='5.07pt' id='figure-1_svg_el_8' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2015-2019' title='Before housing costs: 8% (2015-2019)'/>\n    <circle cx='449.42' cy='142.66' r='5.07pt' id='figure-1_svg_el_9' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2016-2020' title='Before housing costs: 7% (2016-2020)'/>\n    <circle cx='154.79' cy='115.11' r='5.07pt' id='figure-1_svg_el_10' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2010-2014' title='After housing costs: 10% (2010-2014)'/>\n    <circle cx='203.89' cy='115.11' r='5.07pt' id='figure-1_svg_el_11' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2011-2015' title='After housing costs: 10% (2011-2015)'/>\n    <circle cx='253.00' cy='105.93' r='5.07pt' id='figure-1_svg_el_12' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2012-2016' title='After housing costs: 11% (2012-2016)'/>\n    <circle cx='302.10' cy='105.93' r='5.07pt' id='figure-1_svg_el_13' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2013-2017' title='After housing costs: 11% (2013-2017)'/>\n    <circle cx='351.21' cy='96.75' r='5.07pt' id='figure-1_svg_el_14' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2014-2018' title='After housing costs: 12% (2014-2018)'/>\n    <circle cx='400.31' cy='96.75' r='5.07pt' id='figure-1_svg_el_15' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2015-2019' title='After housing costs: 12% (2015-2019)'/>\n    <circle cx='449.42' cy='115.11' r='5.07pt' id='figure-1_svg_el_16' clip-path='url(#figure-1_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2016-2020' title='After housing costs: 10% (2016-2020)'/>\n    <polyline points='154.79,115.11 203.89,115.11 253.00,105.93 302.10,105.93 351.21,96.75 400.31,96.75 449.42,115.11' id='figure-1_svg_el_17' clip-path='url(#figure-1_svg_cl_3)' fill='none' stroke='#0065BD' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <polyline points='154.79,133.47 203.89,142.66 253.00,133.47 302.10,133.47 351.21,124.29 400.31,133.47 449.42,142.66' id='figure-1_svg_el_18' clip-path='url(#figure-1_svg_cl_3)' fill='none' stroke='#002D54' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='133.47' r='1.87pt' id='figure-1_svg_el_19' clip-path='url(#figure-1_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='142.66' r='1.87pt' id='figure-1_svg_el_20' clip-path='url(#figure-1_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='115.11' r='1.87pt' id='figure-1_svg_el_21' clip-path='url(#figure-1_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='115.11' r='1.87pt' id='figure-1_svg_el_22' clip-path='url(#figure-1_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <g clip-path='url(#figure-1_svg_cl_3)'>\n      <text x='10.35' y='137.43' id='figure-1_svg_el_23' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>Before housing costs: 8%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_3)'>\n      <text x='10.35' y='119.06' id='figure-1_svg_el_24' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>After housing costs: 10%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_3)'>\n      <text x='473.97' y='146.61' id='figure-1_svg_el_25' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>7%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_3)'>\n      <text x='473.55' y='119.06' id='figure-1_svg_el_26' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>10%<\/text>\n    <\/g>\n    <defs>\n      <clipPath id='figure-1_svg_cl_4'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <polyline points='7.47,216.11 498.52,216.11' id='figure-1_svg_el_27' clip-path='url(#figure-1_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='154.79,218.10 154.79,216.11' id='figure-1_svg_el_28' clip-path='url(#figure-1_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='253.00,218.10 253.00,216.11' id='figure-1_svg_el_29' clip-path='url(#figure-1_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='351.21,218.10 351.21,216.11' id='figure-1_svg_el_30' clip-path='url(#figure-1_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='449.42,218.10 449.42,216.11' id='figure-1_svg_el_31' clip-path='url(#figure-1_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <g clip-path='url(#figure-1_svg_cl_4)'>\n      <text x='128.01' y='228.31' id='figure-1_svg_el_32' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2010-2014<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_4)'>\n      <text x='226.22' y='228.31' id='figure-1_svg_el_33' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2012-2016<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_4)'>\n      <text x='324.43' y='228.31' id='figure-1_svg_el_34' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2014-2018<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_4)'>\n      <text x='422.64' y='228.31' id='figure-1_svg_el_35' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2016-2020<\/text>\n    <\/g>\n    <g clip-path='url(#figure-1_svg_cl_4)'>\n      <text x='306.15' y='244.16' id='figure-1_svg_el_36' font-size='8.40pt' fill='#333333' fill-opacity='1' font-family='Arial'>Source: Understanding Society Survey<\/text>\n    <\/g>\n  <\/g>\n<\/svg>","js":null,"uid":"figure-1_svg","ratio":2,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px ; position:absolute;pointer-events:none;z-index:999;}\n","offx":10,"offy":0,"use_cursor_pos":true,"opacity":0.9,"usefill":false,"usestroke":false,"delay":{"over":200,"out":500}},"hover":{"css":".hover_SVGID_ { fill:orange;stroke:gray; }\n","reactive":false},"hoverkey":{"css":".hover_key_SVGID_ { stroke:red; }\n","reactive":false},"hovertheme":{"css":".hover_theme_SVGID_ { fill:green; }\n","reactive":false},"hoverinv":{"css":""},"zoom":{"min":1,"max":1},"capture":{"css":".selected_SVGID_ { fill:red;stroke:gray; }\n","type":"multiple","only_shiny":true,"selected":[]},"capturekey":{"css":".selected_key_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"capturetheme":{"css":".selected_theme_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"toolbar":{"position":"topright","saveaspng":true,"pngname":"figure-1"},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
-</figure>
-</div><div class="accordion">
+<p><figure id="figure-1">
+<div class="highcharts-description" id="figure-1-description"><p>Between 2017 and 2021, 12% of people were in persistent poverty after housing costs, unchanged from the previous period (2016-2020). </p>
+</div>
+<div id="htmlwidget-83f9beee071564cdbdb7" style="width:680px;height:400px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-83f9beee071564cdbdb7">{"x":{"hc_opts":{"title":{"text":"Figure 1: Proportion of people in persistent poverty, Scotland"},"yAxis":{"title":{"text":""},"type":"linear","labels":{"formatter":"function () {\n                              return Math.round(this.value*100, 0) + \"%\";} "},"minRange":0.3,"showLastLabel":false,"accessibility":{"description":"Rate"}},"credits":{"enabled":true,"text":"Source: Understanding Society Survey","href":"https://data.gov.scot/poverty/2022/index.html#Data_source"},"exporting":{"enabled":true,"buttons":{"contextButton":{"menuItems":["fullscreen","printChart","downloadPNG","downloadSVG"]}},"menuItemDefinitions":{"fullscreen":{"text":"View in fullscreen","onclick":"function () {\n\n                   var container = this.renderTo;\n\n                   if (container.requestFullscreen) {\n                   container.requestFullscreen();\n                   } else if (container.mozRequestFullScreen) {\n                   container.mozRequestFullScreen();\n                   } else if (container.webkitRequestFullscreen) {\n                   container.webkitRequestFullscreen();\n                   } else if (container.msRequestFullscreen) {\n                   container.msRequestFullscreen();\n                   }\n                   }"}},"filename":"fig_1"},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true,"point":{"events":{"click":"function () {\n\n              var e = this.series.options.dataLabels.enabled\n\n              this.series.update({\n\n                dataLabels: {\n                    enabled: !e,\n                    /*style: {\n                      fontSize: \"medium\"\n                      },*/\n                    formatter: function() {\n\n                    var data = this.series.data,\n                        index = data.indexOf(this.point);\n                      /* add labels for first and last point, and after a break */\n                      if([0, (data.length - 1)].includes(this.x) || data[index-1].y === null ) {\n\n                          if (this.y < 100) {\n                            return Math.round(this.y*100, 2) + \"%\";\n                          } else {\n                            return \"Â£\" + Math.round(this.y, 0);\n                          }\n\n                        }\n                    }\n                  }\n\n              });\n\n          }"}}},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"After housing costs","data":[{"period":"2010-2014","value":0.0986745826164922,"housingcosts":"After housing costs","y":0.1,"key":"After housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.0984204149164825,"housingcosts":"After housing costs","y":0.1,"key":"After housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.102835525586972,"housingcosts":"After housing costs","y":0.1,"key":"After housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.108853518191178,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.117803642397939,"housingcosts":"After housing costs","y":0.12,"key":"After housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.125141972247845,"housingcosts":"After housing costs","y":0.13,"key":"After housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.118720049885742,"housingcosts":"After housing costs","y":0.12,"key":"After housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.116418979375423,"housingcosts":"After housing costs","y":0.12,"key":"After housing costs","name":"2017-2021"}],"type":"line"},{"name":"Before housing costs","data":[{"period":"2010-2014","value":0.0774895117523583,"housingcosts":"Before housing costs","y":0.08,"key":"Before housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.0675103262365351,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.0722976978212217,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.0812363104995143,"housingcosts":"Before housing costs","y":0.08,"key":"Before housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.0887827022455863,"housingcosts":"Before housing costs","y":0.09,"key":"Before housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.0848231547968475,"housingcosts":"Before housing costs","y":0.08,"key":"Before housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.0807163024010601,"housingcosts":"Before housing costs","y":0.08,"key":"Before housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.0815847805170794,"housingcosts":"Before housing costs","y":0.08,"key":"Before housing costs","name":"2017-2021"}],"type":"line"}],"xAxis":{"type":"category","title":{"text":""},"labels":{"autoRotation":-32},"tickLength":5,"tickInterval":2,"accessibility":{"description":"Time"},"tickPositions":[0,2,4,7]},"legend":{"align":"right","layout":"proximate"},"responsive":{"rules":[{"condition":{"maxWidth":500},"chartOptions":{"legend":{"enabled":false},"xAxis":{"plotBands":null}}}]},"tooltip":{"formatter":"function () {\n                if (this.y < 100) {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          Highcharts.numberFormat(this.y*100, 0) + \"%\";\n                } else {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          \"Â£\" + Highcharts.numberFormat(this.y, 0);\n                }\n\n                              }"}},"theme":{"colors":["#1d70b8","#003078","#F36720","#b58840","#85994b","#28a197"],"chart":{"backgroundColor":"#ffffff","style":{"fontFamily":"Roboto","fontSize":"medium","color":"#0b0c0c"}},"title":{"useHTML":true,"align":"left","style":{"fontSize":"large","color":"#0b0c0c","fontWeight":"bold"}},"subtitle":{"useHTML":true,"align":"left","style":{"fontSize":"medium","color":"#0b0c0c","whiteSpace":"inherit"}},"credits":{"style":{"fontSize":"small","color":"#505a5f"}},"yAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"style":{"fontSize":"medium","color":"#505a5f"}},"useHTML":true,"lineWidth":1,"tickAmount":5,"tickmarkPlacement":"on","tickLength":5},"xAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"useHTML":true,"style":{"fontSize":"medium","color":"#505a5f"}},"tickmarkPlacement":"on","tickLength":0},"tooltip":{"useHTML":true,"backgroundColor":"#ffffff","style":{"color":"#0b0c0c"}},"legend":{"itemStyle":{"color":"#0b0c0c","fontSize":"medium"}},"plotOptions":{"series":{"dataLabels":{"style":{"fontSize":"medium","color":"#0b0c0c"}},"marker":{"fillColor":"#ffffff","lineWidth":2,"lineColor":null}}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":",","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.exporting.menuItemDefinitions.fullscreen.onclick","hc_opts.plotOptions.series.point.events.click","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+</figure><div class="accordion">
 <button id="accordion-button-1" class="btn collapsed accordion-header noprint" data-toggle="collapse" data-target="#accordion-panel-1" aria-controls="accordion-panel-1">Show / hide data tables</button>
 <div id="accordion-panel-1" class="collapse accordion-panel">
 <table class="table" id="table-1">
@@ -356,53 +385,59 @@ Table 1: Proportion of people in persistent poverty, Scotland
 <thead>
 <tr role="row">
 <th scope="col">Period</th>
-<th scope="col">After housing costs</th>
 <th scope="col">Before housing costs</th>
+<th scope="col">After housing costs</th>
 <th scope="col">Sample</th>
 </tr>
 </thead>
 <tbody>
 <tr role="row">
 <th role="rowheader">2010-2014</th>
-<td role="cell">10%</td>
 <td role="cell">8%</td>
+<td role="cell">10%</td>
 <td role="cell">3,943</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2011-2015</th>
-<td role="cell">10%</td>
 <td role="cell">7%</td>
+<td role="cell">10%</td>
 <td role="cell">3,392</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2012-2016</th>
-<td role="cell">11%</td>
-<td role="cell">8%</td>
-<td role="cell">3,037</td>
+<td role="cell">7%</td>
+<td role="cell">10%</td>
+<td role="cell">3,136</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2013-2017</th>
-<td role="cell">11%</td>
 <td role="cell">8%</td>
-<td role="cell">2,765</td>
+<td role="cell">11%</td>
+<td role="cell">2,917</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2014-2018</th>
-<td role="cell">12%</td>
 <td role="cell">9%</td>
-<td role="cell">2,516</td>
+<td role="cell">12%</td>
+<td role="cell">2,737</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2015-2019</th>
-<td role="cell">12%</td>
 <td role="cell">8%</td>
-<td role="cell">2,355</td>
+<td role="cell">13%</td>
+<td role="cell">2,534</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2016-2020</th>
-<td role="cell">10%</td>
-<td role="cell">7%</td>
-<td role="cell">2,128</td>
+<td role="cell">8%</td>
+<td role="cell">12%</td>
+<td role="cell">2,271</td>
+</tr>
+<tr role="row">
+<th role="rowheader">2017-2021</th>
+<td role="cell">8%</td>
+<td role="cell">12%</td>
+<td role="cell">2,078</td>
 </tr>
 </tbody>
 </table>
@@ -411,17 +446,15 @@ Table 1: Proportion of people in persistent poverty, Scotland
 </div>
 <div id="children" class="section level3 tabset">
 <h3>Children</h3>
-<ul>
-<li>10% of children were in persistent poverty after housing costs in 2016-2020, compared to 15% in the previous period.</li>
-<li>This represents a relatively large drop compared to previous estimates, and not all of this decrease is likely to be real. Persistent poverty estimates do tend to fluctuate. They also get revised when households re-enter the longitudinal sample and data gaps can be filled. However, some of the decrease is plausible in part due to increased financial support during the pandemic for some lower-income households. At the same time, reduced earnings and job losses may have resulted in a lower median income. This may have led to a fall in the poverty line, and thereby a drop in the relative poverty rate.</li>
-</ul>
-<p><div>
-<figure id="figure-2" aria-labelledby="figure-2_caption">
-<figcaption id="figure-2_caption">Figure 2: Proportion of children in persistent poverty, Scotland</figcaption>
-<div id="figure-2_htmlwidget" style="width:960px;height:500px;" class="girafe html-widget"></div>
-<script type="application/json" data-for="figure-2_htmlwidget">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' id='figure-2_svg' viewBox='0 0 504.00 252.00'>\n  <g>\n    <defs>\n      <clipPath id='figure-2_svg_cl_1'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-2_svg_el_1' clip-path='url(#figure-2_svg_cl_1)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-2_svg_cl_2'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-2_svg_el_2' clip-path='url(#figure-2_svg_cl_2)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-2_svg_cl_3'>\n        <rect x='7.47' y='14.12' width='491.05' height='201.99'/>\n      <\/clipPath>\n    <\/defs>\n    <circle cx='154.79' cy='115.11' r='5.07pt' id='figure-2_svg_el_3' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2010-2014' title='Before housing costs: 10% (2010-2014)'/>\n    <circle cx='203.89' cy='133.47' r='5.07pt' id='figure-2_svg_el_4' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2011-2015' title='Before housing costs: 8% (2011-2015)'/>\n    <circle cx='253.00' cy='124.29' r='5.07pt' id='figure-2_svg_el_5' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2012-2016' title='Before housing costs: 9% (2012-2016)'/>\n    <circle cx='302.10' cy='124.29' r='5.07pt' id='figure-2_svg_el_6' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2013-2017' title='Before housing costs: 9% (2013-2017)'/>\n    <circle cx='351.21' cy='124.29' r='5.07pt' id='figure-2_svg_el_7' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2014-2018' title='Before housing costs: 9% (2014-2018)'/>\n    <circle cx='400.31' cy='124.29' r='5.07pt' id='figure-2_svg_el_8' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2015-2019' title='Before housing costs: 9% (2015-2019)'/>\n    <circle cx='449.42' cy='151.84' r='5.07pt' id='figure-2_svg_el_9' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2016-2020' title='Before housing costs: 6% (2016-2020)'/>\n    <circle cx='154.79' cy='78.39' r='5.07pt' id='figure-2_svg_el_10' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2010-2014' title='After housing costs: 14% (2010-2014)'/>\n    <circle cx='203.89' cy='78.39' r='5.07pt' id='figure-2_svg_el_11' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2011-2015' title='After housing costs: 14% (2011-2015)'/>\n    <circle cx='253.00' cy='87.57' r='5.07pt' id='figure-2_svg_el_12' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2012-2016' title='After housing costs: 13% (2012-2016)'/>\n    <circle cx='302.10' cy='60.02' r='5.07pt' id='figure-2_svg_el_13' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2013-2017' title='After housing costs: 16% (2013-2017)'/>\n    <circle cx='351.21' cy='78.39' r='5.07pt' id='figure-2_svg_el_14' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2014-2018' title='After housing costs: 14% (2014-2018)'/>\n    <circle cx='400.31' cy='69.20' r='5.07pt' id='figure-2_svg_el_15' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2015-2019' title='After housing costs: 15% (2015-2019)'/>\n    <circle cx='449.42' cy='115.11' r='5.07pt' id='figure-2_svg_el_16' clip-path='url(#figure-2_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2016-2020' title='After housing costs: 10% (2016-2020)'/>\n    <polyline points='154.79,78.39 203.89,78.39 253.00,87.57 302.10,60.02 351.21,78.39 400.31,69.20 449.42,115.11' id='figure-2_svg_el_17' clip-path='url(#figure-2_svg_cl_3)' fill='none' stroke='#0065BD' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <polyline points='154.79,115.11 203.89,133.47 253.00,124.29 302.10,124.29 351.21,124.29 400.31,124.29 449.42,151.84' id='figure-2_svg_el_18' clip-path='url(#figure-2_svg_cl_3)' fill='none' stroke='#002D54' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='115.11' r='1.87pt' id='figure-2_svg_el_19' clip-path='url(#figure-2_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='151.84' r='1.87pt' id='figure-2_svg_el_20' clip-path='url(#figure-2_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='78.39' r='1.87pt' id='figure-2_svg_el_21' clip-path='url(#figure-2_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='115.11' r='1.87pt' id='figure-2_svg_el_22' clip-path='url(#figure-2_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <g clip-path='url(#figure-2_svg_cl_3)'>\n      <text x='10.35' y='119.06' id='figure-2_svg_el_23' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>Before housing costs: 10%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_3)'>\n      <text x='10.35' y='82.34' id='figure-2_svg_el_24' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>After housing costs: 14%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_3)'>\n      <text x='473.97' y='155.79' id='figure-2_svg_el_25' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>6%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_3)'>\n      <text x='473.55' y='119.06' id='figure-2_svg_el_26' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>10%<\/text>\n    <\/g>\n    <defs>\n      <clipPath id='figure-2_svg_cl_4'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <polyline points='7.47,216.11 498.52,216.11' id='figure-2_svg_el_27' clip-path='url(#figure-2_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='154.79,218.10 154.79,216.11' id='figure-2_svg_el_28' clip-path='url(#figure-2_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='253.00,218.10 253.00,216.11' id='figure-2_svg_el_29' clip-path='url(#figure-2_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='351.21,218.10 351.21,216.11' id='figure-2_svg_el_30' clip-path='url(#figure-2_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='449.42,218.10 449.42,216.11' id='figure-2_svg_el_31' clip-path='url(#figure-2_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <g clip-path='url(#figure-2_svg_cl_4)'>\n      <text x='128.01' y='228.31' id='figure-2_svg_el_32' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2010-2014<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_4)'>\n      <text x='226.22' y='228.31' id='figure-2_svg_el_33' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2012-2016<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_4)'>\n      <text x='324.43' y='228.31' id='figure-2_svg_el_34' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2014-2018<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_4)'>\n      <text x='422.64' y='228.31' id='figure-2_svg_el_35' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2016-2020<\/text>\n    <\/g>\n    <g clip-path='url(#figure-2_svg_cl_4)'>\n      <text x='306.15' y='244.16' id='figure-2_svg_el_36' font-size='8.40pt' fill='#333333' fill-opacity='1' font-family='Arial'>Source: Understanding Society Survey<\/text>\n    <\/g>\n  <\/g>\n<\/svg>","js":null,"uid":"figure-2_svg","ratio":2,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px ; position:absolute;pointer-events:none;z-index:999;}\n","offx":10,"offy":0,"use_cursor_pos":true,"opacity":0.9,"usefill":false,"usestroke":false,"delay":{"over":200,"out":500}},"hover":{"css":".hover_SVGID_ { fill:orange;stroke:gray; }\n","reactive":false},"hoverkey":{"css":".hover_key_SVGID_ { stroke:red; }\n","reactive":false},"hovertheme":{"css":".hover_theme_SVGID_ { fill:green; }\n","reactive":false},"hoverinv":{"css":""},"zoom":{"min":1,"max":1},"capture":{"css":".selected_SVGID_ { fill:red;stroke:gray; }\n","type":"multiple","only_shiny":true,"selected":[]},"capturekey":{"css":".selected_key_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"capturetheme":{"css":".selected_theme_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"toolbar":{"position":"topright","saveaspng":true,"pngname":"figure-2"},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
-</figure>
-</div><div class="accordion">
+<p><figure id="figure-2">
+<div class="highcharts-description" id="figure-2-description"><p>18% of children were in persistent poverty after housing costs in 2017-2021, compared to 16% in the previous period.</p>
+
+<div class="infobox-text"><p>Note that previously published estimates have been revised upwards as more accurate data has become available. The Understanding Society dataset gets revised routinely when households re-enter the longitudinal sample and data gaps can be filled. This can affect persistent poverty estimates. Furthermore, an addition to the sample size since 2015 has led to further improvements to existing estimates. Both of these factors are likely to have contributed to the more recent revisions. More information is available in the <a href="#revisions">Revisions section</a>.</p>
+</div>
+</div>
+<div id="htmlwidget-8b9d02fb264dad541e7a" style="width:680px;height:400px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-8b9d02fb264dad541e7a">{"x":{"hc_opts":{"title":{"text":"Figure 2: Proportion of children in persistent poverty, Scotland"},"yAxis":{"title":{"text":""},"type":"linear","labels":{"formatter":"function () {\n                              return Math.round(this.value*100, 0) + \"%\";} "},"minRange":0.3,"showLastLabel":false,"accessibility":{"description":"Rate"}},"credits":{"enabled":true,"text":"Source: Understanding Society Survey","href":"https://data.gov.scot/poverty/2022/index.html#Data_source"},"exporting":{"enabled":true,"buttons":{"contextButton":{"menuItems":["fullscreen","printChart","downloadPNG","downloadSVG"]}},"menuItemDefinitions":{"fullscreen":{"text":"View in fullscreen","onclick":"function () {\n\n                   var container = this.renderTo;\n\n                   if (container.requestFullscreen) {\n                   container.requestFullscreen();\n                   } else if (container.mozRequestFullScreen) {\n                   container.mozRequestFullScreen();\n                   } else if (container.webkitRequestFullscreen) {\n                   container.webkitRequestFullscreen();\n                   } else if (container.msRequestFullscreen) {\n                   container.msRequestFullscreen();\n                   }\n                   }"}},"filename":"fig_2"},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true,"point":{"events":{"click":"function () {\n\n              var e = this.series.options.dataLabels.enabled\n\n              this.series.update({\n\n                dataLabels: {\n                    enabled: !e,\n                    /*style: {\n                      fontSize: \"medium\"\n                      },*/\n                    formatter: function() {\n\n                    var data = this.series.data,\n                        index = data.indexOf(this.point);\n                      /* add labels for first and last point, and after a break */\n                      if([0, (data.length - 1)].includes(this.x) || data[index-1].y === null ) {\n\n                          if (this.y < 100) {\n                            return Math.round(this.y*100, 2) + \"%\";\n                          } else {\n                            return \"Â£\" + Math.round(this.y, 0);\n                          }\n\n                        }\n                    }\n                  }\n\n              });\n\n          }"}}},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"After housing costs","data":[{"period":"2010-2014","value":0.138930868306942,"housingcosts":"After housing costs","y":0.14,"key":"After housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.138137211423329,"housingcosts":"After housing costs","y":0.14,"key":"After housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.128667214235785,"housingcosts":"After housing costs","y":0.13,"key":"After housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.162177156856591,"housingcosts":"After housing costs","y":0.16,"key":"After housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.157992705724153,"housingcosts":"After housing costs","y":0.16,"key":"After housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.186135072211035,"housingcosts":"After housing costs","y":0.19,"key":"After housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.158343227342259,"housingcosts":"After housing costs","y":0.16,"key":"After housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.178800994226481,"housingcosts":"After housing costs","y":0.18,"key":"After housing costs","name":"2017-2021"}],"type":"line"},{"name":"Before housing costs","data":[{"period":"2010-2014","value":0.10014566062751,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.0666057741503681,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.0850672543946318,"housingcosts":"Before housing costs","y":0.09,"key":"Before housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.104555708287695,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.0998493343877837,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.097939771575625,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.0860291299026801,"housingcosts":"Before housing costs","y":0.09,"key":"Before housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.0859050228288045,"housingcosts":"Before housing costs","y":0.09,"key":"Before housing costs","name":"2017-2021"}],"type":"line"}],"xAxis":{"type":"category","title":{"text":""},"labels":{"autoRotation":-32},"tickLength":5,"tickInterval":2,"accessibility":{"description":"Time"},"tickPositions":[0,2,4,7]},"legend":{"align":"right","layout":"proximate"},"responsive":{"rules":[{"condition":{"maxWidth":500},"chartOptions":{"legend":{"enabled":false},"xAxis":{"plotBands":null}}}]},"tooltip":{"formatter":"function () {\n                if (this.y < 100) {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          Highcharts.numberFormat(this.y*100, 0) + \"%\";\n                } else {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          \"Â£\" + Highcharts.numberFormat(this.y, 0);\n                }\n\n                              }"}},"theme":{"colors":["#1d70b8","#003078","#F36720","#b58840","#85994b","#28a197"],"chart":{"backgroundColor":"#ffffff","style":{"fontFamily":"Roboto","fontSize":"medium","color":"#0b0c0c"}},"title":{"useHTML":true,"align":"left","style":{"fontSize":"large","color":"#0b0c0c","fontWeight":"bold"}},"subtitle":{"useHTML":true,"align":"left","style":{"fontSize":"medium","color":"#0b0c0c","whiteSpace":"inherit"}},"credits":{"style":{"fontSize":"small","color":"#505a5f"}},"yAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"style":{"fontSize":"medium","color":"#505a5f"}},"useHTML":true,"lineWidth":1,"tickAmount":5,"tickmarkPlacement":"on","tickLength":5},"xAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"useHTML":true,"style":{"fontSize":"medium","color":"#505a5f"}},"tickmarkPlacement":"on","tickLength":0},"tooltip":{"useHTML":true,"backgroundColor":"#ffffff","style":{"color":"#0b0c0c"}},"legend":{"itemStyle":{"color":"#0b0c0c","fontSize":"medium"}},"plotOptions":{"series":{"dataLabels":{"style":{"fontSize":"medium","color":"#0b0c0c"}},"marker":{"fillColor":"#ffffff","lineWidth":2,"lineColor":null}}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":",","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.exporting.menuItemDefinitions.fullscreen.onclick","hc_opts.plotOptions.series.point.events.click","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+</figure><div class="accordion">
 <button id="accordion-button-2" class="btn collapsed accordion-header noprint" data-toggle="collapse" data-target="#accordion-panel-2" aria-controls="accordion-panel-2">Show / hide data tables</button>
 <div id="accordion-panel-2" class="collapse accordion-panel">
 <table class="table" id="table-2">
@@ -433,53 +466,59 @@ Table 2: Proportion of children in persistent poverty, Scotland
 <thead>
 <tr role="row">
 <th scope="col">Period</th>
-<th scope="col">After housing costs</th>
 <th scope="col">Before housing costs</th>
+<th scope="col">After housing costs</th>
 <th scope="col">Sample</th>
 </tr>
 </thead>
 <tbody>
 <tr role="row">
 <th role="rowheader">2010-2014</th>
-<td role="cell">14%</td>
 <td role="cell">10%</td>
+<td role="cell">14%</td>
 <td role="cell">973</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2011-2015</th>
+<td role="cell">7%</td>
 <td role="cell">14%</td>
-<td role="cell">8%</td>
 <td role="cell">792</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2012-2016</th>
-<td role="cell">13%</td>
 <td role="cell">9%</td>
-<td role="cell">687</td>
+<td role="cell">13%</td>
+<td role="cell">707</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2013-2017</th>
+<td role="cell">10%</td>
 <td role="cell">16%</td>
-<td role="cell">9%</td>
-<td role="cell">616</td>
+<td role="cell">646</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2014-2018</th>
-<td role="cell">14%</td>
-<td role="cell">9%</td>
-<td role="cell">528</td>
+<td role="cell">10%</td>
+<td role="cell">16%</td>
+<td role="cell">582</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2015-2019</th>
-<td role="cell">15%</td>
-<td role="cell">9%</td>
-<td role="cell">474</td>
+<td role="cell">10%</td>
+<td role="cell">19%</td>
+<td role="cell">515</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2016-2020</th>
-<td role="cell">10%</td>
-<td role="cell">6%</td>
-<td role="cell">407</td>
+<td role="cell">9%</td>
+<td role="cell">16%</td>
+<td role="cell">434</td>
+</tr>
+<tr role="row">
+<th role="rowheader">2017-2021</th>
+<td role="cell">9%</td>
+<td role="cell">18%</td>
+<td role="cell">382</td>
 </tr>
 </tbody>
 </table>
@@ -488,16 +527,12 @@ Table 2: Proportion of children in persistent poverty, Scotland
 </div>
 <div id="working-age-adults" class="section level3 tabset">
 <h3>Working-age adults</h3>
-<ul>
-<li>Between 2016 and 2020, 10% of working-age adults were in persistent poverty after housing costs, similar to the previous period.</li>
-</ul>
-<p><div>
-<figure id="figure-3" aria-labelledby="figure-3_caption">
-<figcaption id="figure-3_caption">Figure 3: Proportion of working-age adults in persistent poverty, Scotland</figcaption>
-<div id="figure-3_htmlwidget" style="width:960px;height:500px;" class="girafe html-widget"></div>
-<script type="application/json" data-for="figure-3_htmlwidget">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' id='figure-3_svg' viewBox='0 0 504.00 252.00'>\n  <g>\n    <defs>\n      <clipPath id='figure-3_svg_cl_1'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-3_svg_el_1' clip-path='url(#figure-3_svg_cl_1)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-3_svg_cl_2'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-3_svg_el_2' clip-path='url(#figure-3_svg_cl_2)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-3_svg_cl_3'>\n        <rect x='7.47' y='14.12' width='491.05' height='201.99'/>\n      <\/clipPath>\n    <\/defs>\n    <circle cx='154.79' cy='151.84' r='5.07pt' id='figure-3_svg_el_3' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2010-2014' title='Before housing costs: 6% (2010-2014)'/>\n    <circle cx='203.89' cy='151.84' r='5.07pt' id='figure-3_svg_el_4' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2011-2015' title='Before housing costs: 6% (2011-2015)'/>\n    <circle cx='253.00' cy='142.66' r='5.07pt' id='figure-3_svg_el_5' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2012-2016' title='Before housing costs: 7% (2012-2016)'/>\n    <circle cx='302.10' cy='151.84' r='5.07pt' id='figure-3_svg_el_6' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2013-2017' title='Before housing costs: 6% (2013-2017)'/>\n    <circle cx='351.21' cy='142.66' r='5.07pt' id='figure-3_svg_el_7' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2014-2018' title='Before housing costs: 7% (2014-2018)'/>\n    <circle cx='400.31' cy='142.66' r='5.07pt' id='figure-3_svg_el_8' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2015-2019' title='Before housing costs: 7% (2015-2019)'/>\n    <circle cx='449.42' cy='142.66' r='5.07pt' id='figure-3_svg_el_9' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2016-2020' title='Before housing costs: 7% (2016-2020)'/>\n    <circle cx='154.79' cy='124.29' r='5.07pt' id='figure-3_svg_el_10' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2010-2014' title='After housing costs: 9% (2010-2014)'/>\n    <circle cx='203.89' cy='124.29' r='5.07pt' id='figure-3_svg_el_11' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2011-2015' title='After housing costs: 9% (2011-2015)'/>\n    <circle cx='253.00' cy='124.29' r='5.07pt' id='figure-3_svg_el_12' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2012-2016' title='After housing costs: 9% (2012-2016)'/>\n    <circle cx='302.10' cy='115.11' r='5.07pt' id='figure-3_svg_el_13' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2013-2017' title='After housing costs: 10% (2013-2017)'/>\n    <circle cx='351.21' cy='105.93' r='5.07pt' id='figure-3_svg_el_14' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2014-2018' title='After housing costs: 11% (2014-2018)'/>\n    <circle cx='400.31' cy='105.93' r='5.07pt' id='figure-3_svg_el_15' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2015-2019' title='After housing costs: 11% (2015-2019)'/>\n    <circle cx='449.42' cy='115.11' r='5.07pt' id='figure-3_svg_el_16' clip-path='url(#figure-3_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2016-2020' title='After housing costs: 10% (2016-2020)'/>\n    <polyline points='154.79,124.29 203.89,124.29 253.00,124.29 302.10,115.11 351.21,105.93 400.31,105.93 449.42,115.11' id='figure-3_svg_el_17' clip-path='url(#figure-3_svg_cl_3)' fill='none' stroke='#0065BD' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <polyline points='154.79,151.84 203.89,151.84 253.00,142.66 302.10,151.84 351.21,142.66 400.31,142.66 449.42,142.66' id='figure-3_svg_el_18' clip-path='url(#figure-3_svg_cl_3)' fill='none' stroke='#002D54' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='151.84' r='1.87pt' id='figure-3_svg_el_19' clip-path='url(#figure-3_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='142.66' r='1.87pt' id='figure-3_svg_el_20' clip-path='url(#figure-3_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='124.29' r='1.87pt' id='figure-3_svg_el_21' clip-path='url(#figure-3_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='115.11' r='1.87pt' id='figure-3_svg_el_22' clip-path='url(#figure-3_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <g clip-path='url(#figure-3_svg_cl_3)'>\n      <text x='10.35' y='155.79' id='figure-3_svg_el_23' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>Before housing costs: 6%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_3)'>\n      <text x='14.26' y='128.24' id='figure-3_svg_el_24' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>After housing costs: 9%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_3)'>\n      <text x='473.97' y='146.61' id='figure-3_svg_el_25' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>7%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_3)'>\n      <text x='473.55' y='119.06' id='figure-3_svg_el_26' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>10%<\/text>\n    <\/g>\n    <defs>\n      <clipPath id='figure-3_svg_cl_4'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <polyline points='7.47,216.11 498.52,216.11' id='figure-3_svg_el_27' clip-path='url(#figure-3_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='154.79,218.10 154.79,216.11' id='figure-3_svg_el_28' clip-path='url(#figure-3_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='253.00,218.10 253.00,216.11' id='figure-3_svg_el_29' clip-path='url(#figure-3_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='351.21,218.10 351.21,216.11' id='figure-3_svg_el_30' clip-path='url(#figure-3_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='449.42,218.10 449.42,216.11' id='figure-3_svg_el_31' clip-path='url(#figure-3_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <g clip-path='url(#figure-3_svg_cl_4)'>\n      <text x='128.01' y='228.31' id='figure-3_svg_el_32' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2010-2014<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_4)'>\n      <text x='226.22' y='228.31' id='figure-3_svg_el_33' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2012-2016<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_4)'>\n      <text x='324.43' y='228.31' id='figure-3_svg_el_34' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2014-2018<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_4)'>\n      <text x='422.64' y='228.31' id='figure-3_svg_el_35' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2016-2020<\/text>\n    <\/g>\n    <g clip-path='url(#figure-3_svg_cl_4)'>\n      <text x='306.15' y='244.16' id='figure-3_svg_el_36' font-size='8.40pt' fill='#333333' fill-opacity='1' font-family='Arial'>Source: Understanding Society Survey<\/text>\n    <\/g>\n  <\/g>\n<\/svg>","js":null,"uid":"figure-3_svg","ratio":2,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px ; position:absolute;pointer-events:none;z-index:999;}\n","offx":10,"offy":0,"use_cursor_pos":true,"opacity":0.9,"usefill":false,"usestroke":false,"delay":{"over":200,"out":500}},"hover":{"css":".hover_SVGID_ { fill:orange;stroke:gray; }\n","reactive":false},"hoverkey":{"css":".hover_key_SVGID_ { stroke:red; }\n","reactive":false},"hovertheme":{"css":".hover_theme_SVGID_ { fill:green; }\n","reactive":false},"hoverinv":{"css":""},"zoom":{"min":1,"max":1},"capture":{"css":".selected_SVGID_ { fill:red;stroke:gray; }\n","type":"multiple","only_shiny":true,"selected":[]},"capturekey":{"css":".selected_key_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"capturetheme":{"css":".selected_theme_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"toolbar":{"position":"topright","saveaspng":true,"pngname":"figure-3"},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
-</figure>
-</div><div class="accordion">
+<p><figure id="figure-3">
+<div class="highcharts-description" id="figure-3-description"><p>Between 2017 and 2021, 10% of working-age adults were in persistent poverty after housing costs, similar to the previous period.</p>
+</div>
+<div id="htmlwidget-6ccb684322ab0626aae9" style="width:680px;height:400px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6ccb684322ab0626aae9">{"x":{"hc_opts":{"title":{"text":"Figure 3: Proportion of working-age adults in persistent poverty, Scotland"},"yAxis":{"title":{"text":""},"type":"linear","labels":{"formatter":"function () {\n                              return Math.round(this.value*100, 0) + \"%\";} "},"minRange":0.3,"showLastLabel":false,"accessibility":{"description":"Rate"}},"credits":{"enabled":true,"text":"Source: Understanding Society Survey","href":"https://data.gov.scot/poverty/2022/index.html#Data_source"},"exporting":{"enabled":true,"buttons":{"contextButton":{"menuItems":["fullscreen","printChart","downloadPNG","downloadSVG"]}},"menuItemDefinitions":{"fullscreen":{"text":"View in fullscreen","onclick":"function () {\n\n                   var container = this.renderTo;\n\n                   if (container.requestFullscreen) {\n                   container.requestFullscreen();\n                   } else if (container.mozRequestFullScreen) {\n                   container.mozRequestFullScreen();\n                   } else if (container.webkitRequestFullscreen) {\n                   container.webkitRequestFullscreen();\n                   } else if (container.msRequestFullscreen) {\n                   container.msRequestFullscreen();\n                   }\n                   }"}},"filename":"fig_3"},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true,"point":{"events":{"click":"function () {\n\n              var e = this.series.options.dataLabels.enabled\n\n              this.series.update({\n\n                dataLabels: {\n                    enabled: !e,\n                    /*style: {\n                      fontSize: \"medium\"\n                      },*/\n                    formatter: function() {\n\n                    var data = this.series.data,\n                        index = data.indexOf(this.point);\n                      /* add labels for first and last point, and after a break */\n                      if([0, (data.length - 1)].includes(this.x) || data[index-1].y === null ) {\n\n                          if (this.y < 100) {\n                            return Math.round(this.y*100, 2) + \"%\";\n                          } else {\n                            return \"Â£\" + Math.round(this.y, 0);\n                          }\n\n                        }\n                    }\n                  }\n\n              });\n\n          }"}}},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"After housing costs","data":[{"period":"2010-2014","value":0.089390725460839,"housingcosts":"After housing costs","y":0.09,"key":"After housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.0871004489835227,"housingcosts":"After housing costs","y":0.09,"key":"After housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.0920399164529449,"housingcosts":"After housing costs","y":0.09,"key":"After housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.0940993727055683,"housingcosts":"After housing costs","y":0.09,"key":"After housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.106104075487184,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.109957403908085,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.111245881662605,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.100500867029969,"housingcosts":"After housing costs","y":0.1,"key":"After housing costs","name":"2017-2021"}],"type":"line"},{"name":"Before housing costs","data":[{"period":"2010-2014","value":0.0601764077403105,"housingcosts":"Before housing costs","y":0.06,"key":"Before housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.0556287917757776,"housingcosts":"Before housing costs","y":0.06,"key":"Before housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.0587977683890813,"housingcosts":"Before housing costs","y":0.06,"key":"Before housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.0683010165207962,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.0716751184784369,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.0710339430332685,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.0709917595408821,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.068814870081744,"housingcosts":"Before housing costs","y":0.07,"key":"Before housing costs","name":"2017-2021"}],"type":"line"}],"xAxis":{"type":"category","title":{"text":""},"labels":{"autoRotation":-32},"tickLength":5,"tickInterval":2,"accessibility":{"description":"Time"},"tickPositions":[0,2,4,7]},"legend":{"align":"right","layout":"proximate"},"responsive":{"rules":[{"condition":{"maxWidth":500},"chartOptions":{"legend":{"enabled":false},"xAxis":{"plotBands":null}}}]},"tooltip":{"formatter":"function () {\n                if (this.y < 100) {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          Highcharts.numberFormat(this.y*100, 0) + \"%\";\n                } else {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          \"Â£\" + Highcharts.numberFormat(this.y, 0);\n                }\n\n                              }"}},"theme":{"colors":["#1d70b8","#003078","#F36720","#b58840","#85994b","#28a197"],"chart":{"backgroundColor":"#ffffff","style":{"fontFamily":"Roboto","fontSize":"medium","color":"#0b0c0c"}},"title":{"useHTML":true,"align":"left","style":{"fontSize":"large","color":"#0b0c0c","fontWeight":"bold"}},"subtitle":{"useHTML":true,"align":"left","style":{"fontSize":"medium","color":"#0b0c0c","whiteSpace":"inherit"}},"credits":{"style":{"fontSize":"small","color":"#505a5f"}},"yAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"style":{"fontSize":"medium","color":"#505a5f"}},"useHTML":true,"lineWidth":1,"tickAmount":5,"tickmarkPlacement":"on","tickLength":5},"xAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"useHTML":true,"style":{"fontSize":"medium","color":"#505a5f"}},"tickmarkPlacement":"on","tickLength":0},"tooltip":{"useHTML":true,"backgroundColor":"#ffffff","style":{"color":"#0b0c0c"}},"legend":{"itemStyle":{"color":"#0b0c0c","fontSize":"medium"}},"plotOptions":{"series":{"dataLabels":{"style":{"fontSize":"medium","color":"#0b0c0c"}},"marker":{"fillColor":"#ffffff","lineWidth":2,"lineColor":null}}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":",","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.exporting.menuItemDefinitions.fullscreen.onclick","hc_opts.plotOptions.series.point.events.click","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+</figure><div class="accordion">
 <button id="accordion-button-3" class="btn collapsed accordion-header noprint" data-toggle="collapse" data-target="#accordion-panel-3" aria-controls="accordion-panel-3">Show / hide data tables</button>
 <div id="accordion-panel-3" class="collapse accordion-panel">
 <table class="table" id="table-3">
@@ -509,53 +544,59 @@ Table 3: Proportion of working-age adults in persistent poverty, Scotland
 <thead>
 <tr role="row">
 <th scope="col">Period</th>
-<th scope="col">After housing costs</th>
 <th scope="col">Before housing costs</th>
+<th scope="col">After housing costs</th>
 <th scope="col">Sample</th>
 </tr>
 </thead>
 <tbody>
 <tr role="row">
 <th role="rowheader">2010-2014</th>
-<td role="cell">9%</td>
 <td role="cell">6%</td>
+<td role="cell">9%</td>
 <td role="cell">2,175</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2011-2015</th>
-<td role="cell">9%</td>
 <td role="cell">6%</td>
+<td role="cell">9%</td>
 <td role="cell">1,876</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2012-2016</th>
+<td role="cell">6%</td>
 <td role="cell">9%</td>
-<td role="cell">7%</td>
-<td role="cell">1,667</td>
+<td role="cell">1,738</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2013-2017</th>
-<td role="cell">10%</td>
-<td role="cell">6%</td>
-<td role="cell">1,495</td>
+<td role="cell">7%</td>
+<td role="cell">9%</td>
+<td role="cell">1,598</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2014-2018</th>
-<td role="cell">11%</td>
 <td role="cell">7%</td>
-<td role="cell">1,367</td>
+<td role="cell">11%</td>
+<td role="cell">1,507</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2015-2019</th>
-<td role="cell">11%</td>
 <td role="cell">7%</td>
-<td role="cell">1,290</td>
+<td role="cell">11%</td>
+<td role="cell">1,400</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2016-2020</th>
-<td role="cell">10%</td>
 <td role="cell">7%</td>
-<td role="cell">1,172</td>
+<td role="cell">11%</td>
+<td role="cell">1,266</td>
+</tr>
+<tr role="row">
+<th role="rowheader">2017-2021</th>
+<td role="cell">7%</td>
+<td role="cell">10%</td>
+<td role="cell">1,178</td>
 </tr>
 </tbody>
 </table>
@@ -564,16 +605,12 @@ Table 3: Proportion of working-age adults in persistent poverty, Scotland
 </div>
 <div id="pensioners" class="section level3 tabset">
 <h3>Pensioners</h3>
-<ul>
-<li>Between 2016 and 2020, 11% of pensioners were in persistent poverty after housing costs, unchanged from the previous period.</li>
-</ul>
-<p><div>
-<figure id="figure-4" aria-labelledby="figure-4_caption">
-<figcaption id="figure-4_caption">Figure 4: Proportion of pensioners in persistent poverty, Scotland</figcaption>
-<div id="figure-4_htmlwidget" style="width:960px;height:500px;" class="girafe html-widget"></div>
-<script type="application/json" data-for="figure-4_htmlwidget">{"x":{"html":"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' id='figure-4_svg' viewBox='0 0 504.00 252.00'>\n  <g>\n    <defs>\n      <clipPath id='figure-4_svg_cl_1'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-4_svg_el_1' clip-path='url(#figure-4_svg_cl_1)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='0.75' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-4_svg_cl_2'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <rect x='0.00' y='0.00' width='504.00' height='252.00' id='figure-4_svg_el_2' clip-path='url(#figure-4_svg_cl_2)' fill='#FFFFFF' fill-opacity='1' stroke='#FFFFFF' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <defs>\n      <clipPath id='figure-4_svg_cl_3'>\n        <rect x='7.47' y='14.12' width='491.05' height='201.99'/>\n      <\/clipPath>\n    <\/defs>\n    <circle cx='154.79' cy='105.93' r='5.07pt' id='figure-4_svg_el_3' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2010-2014' title='Before housing costs: 11% (2010-2014)'/>\n    <circle cx='203.89' cy='105.93' r='5.07pt' id='figure-4_svg_el_4' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2011-2015' title='Before housing costs: 11% (2011-2015)'/>\n    <circle cx='253.00' cy='115.11' r='5.07pt' id='figure-4_svg_el_5' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2012-2016' title='Before housing costs: 10% (2012-2016)'/>\n    <circle cx='302.10' cy='115.11' r='5.07pt' id='figure-4_svg_el_6' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2013-2017' title='Before housing costs: 10% (2013-2017)'/>\n    <circle cx='351.21' cy='87.57' r='5.07pt' id='figure-4_svg_el_7' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2014-2018' title='Before housing costs: 13% (2014-2018)'/>\n    <circle cx='400.31' cy='105.93' r='5.07pt' id='figure-4_svg_el_8' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2015-2019' title='Before housing costs: 11% (2015-2019)'/>\n    <circle cx='449.42' cy='115.11' r='5.07pt' id='figure-4_svg_el_9' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='Before housing costs 2016-2020' title='Before housing costs: 10% (2016-2020)'/>\n    <circle cx='154.79' cy='133.47' r='5.07pt' id='figure-4_svg_el_10' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2010-2014' title='After housing costs: 8% (2010-2014)'/>\n    <circle cx='203.89' cy='124.29' r='5.07pt' id='figure-4_svg_el_11' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2011-2015' title='After housing costs: 9% (2011-2015)'/>\n    <circle cx='253.00' cy='105.93' r='5.07pt' id='figure-4_svg_el_12' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2012-2016' title='After housing costs: 11% (2012-2016)'/>\n    <circle cx='302.10' cy='115.11' r='5.07pt' id='figure-4_svg_el_13' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2013-2017' title='After housing costs: 10% (2013-2017)'/>\n    <circle cx='351.21' cy='96.75' r='5.07pt' id='figure-4_svg_el_14' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2014-2018' title='After housing costs: 12% (2014-2018)'/>\n    <circle cx='400.31' cy='105.93' r='5.07pt' id='figure-4_svg_el_15' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2015-2019' title='After housing costs: 11% (2015-2019)'/>\n    <circle cx='449.42' cy='105.93' r='5.07pt' id='figure-4_svg_el_16' clip-path='url(#figure-4_svg_cl_3)' fill='#FFFFFF' fill-opacity='0.012' stroke='#FFFFFF' stroke-opacity='0.012' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round' data-id='After housing costs 2016-2020' title='After housing costs: 11% (2016-2020)'/>\n    <polyline points='154.79,133.47 203.89,124.29 253.00,105.93 302.10,115.11 351.21,96.75 400.31,105.93 449.42,105.93' id='figure-4_svg_el_17' clip-path='url(#figure-4_svg_cl_3)' fill='none' stroke='#0065BD' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <polyline points='154.79,105.93 203.89,105.93 253.00,115.11 302.10,115.11 351.21,87.57 400.31,105.93 449.42,115.11' id='figure-4_svg_el_18' clip-path='url(#figure-4_svg_cl_3)' fill='none' stroke='#002D54' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='105.93' r='1.87pt' id='figure-4_svg_el_19' clip-path='url(#figure-4_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='115.11' r='1.87pt' id='figure-4_svg_el_20' clip-path='url(#figure-4_svg_cl_3)' fill='#002D54' fill-opacity='1' stroke='#002D54' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='154.79' cy='133.47' r='1.87pt' id='figure-4_svg_el_21' clip-path='url(#figure-4_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <circle cx='449.42' cy='105.93' r='1.87pt' id='figure-4_svg_el_22' clip-path='url(#figure-4_svg_cl_3)' fill='#0065BD' fill-opacity='1' stroke='#0065BD' stroke-opacity='1' stroke-width='0.71' stroke-linejoin='round' stroke-linecap='round'/>\n    <g clip-path='url(#figure-4_svg_cl_3)'>\n      <text x='10.35' y='109.88' id='figure-4_svg_el_23' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>Before housing costs: 11%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_3)'>\n      <text x='14.26' y='137.43' id='figure-4_svg_el_24' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>After housing costs: 8%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_3)'>\n      <text x='473.55' y='121.45' id='figure-4_svg_el_25' font-size='8.28pt' fill='#002D54' fill-opacity='1' font-family='Arial'>10%<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_3)'>\n      <text x='473.55' y='107.68' id='figure-4_svg_el_26' font-size='8.28pt' fill='#0065BD' fill-opacity='1' font-family='Arial'>11%<\/text>\n    <\/g>\n    <defs>\n      <clipPath id='figure-4_svg_cl_4'>\n        <rect x='0.00' y='0.00' width='504.00' height='252.00'/>\n      <\/clipPath>\n    <\/defs>\n    <polyline points='7.47,216.11 498.52,216.11' id='figure-4_svg_el_27' clip-path='url(#figure-4_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='154.79,218.10 154.79,216.11' id='figure-4_svg_el_28' clip-path='url(#figure-4_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='253.00,218.10 253.00,216.11' id='figure-4_svg_el_29' clip-path='url(#figure-4_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='351.21,218.10 351.21,216.11' id='figure-4_svg_el_30' clip-path='url(#figure-4_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <polyline points='449.42,218.10 449.42,216.11' id='figure-4_svg_el_31' clip-path='url(#figure-4_svg_cl_4)' fill='none' stroke='#333333' stroke-opacity='1' stroke-width='1.07' stroke-linejoin='round' stroke-linecap='square'/>\n    <g clip-path='url(#figure-4_svg_cl_4)'>\n      <text x='128.01' y='228.31' id='figure-4_svg_el_32' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2010-2014<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_4)'>\n      <text x='226.22' y='228.31' id='figure-4_svg_el_33' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2012-2016<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_4)'>\n      <text x='324.43' y='228.31' id='figure-4_svg_el_34' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2014-2018<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_4)'>\n      <text x='422.64' y='228.31' id='figure-4_svg_el_35' font-size='8.40pt' fill='#4D4D4D' fill-opacity='1' font-family='Arial'>2016-2020<\/text>\n    <\/g>\n    <g clip-path='url(#figure-4_svg_cl_4)'>\n      <text x='306.15' y='244.16' id='figure-4_svg_el_36' font-size='8.40pt' fill='#333333' fill-opacity='1' font-family='Arial'>Source: Understanding Society Survey<\/text>\n    <\/g>\n  <\/g>\n<\/svg>","js":null,"uid":"figure-4_svg","ratio":2,"settings":{"tooltip":{"css":".tooltip_SVGID_ { padding:5px;background:black;color:white;border-radius:2px 2px 2px 2px ; position:absolute;pointer-events:none;z-index:999;}\n","offx":10,"offy":0,"use_cursor_pos":true,"opacity":0.9,"usefill":false,"usestroke":false,"delay":{"over":200,"out":500}},"hover":{"css":".hover_SVGID_ { fill:orange;stroke:gray; }\n","reactive":false},"hoverkey":{"css":".hover_key_SVGID_ { stroke:red; }\n","reactive":false},"hovertheme":{"css":".hover_theme_SVGID_ { fill:green; }\n","reactive":false},"hoverinv":{"css":""},"zoom":{"min":1,"max":1},"capture":{"css":".selected_SVGID_ { fill:red;stroke:gray; }\n","type":"multiple","only_shiny":true,"selected":[]},"capturekey":{"css":".selected_key_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"capturetheme":{"css":".selected_theme_SVGID_ { stroke:gray; }\n","type":"single","only_shiny":true,"selected":[]},"toolbar":{"position":"topright","saveaspng":true,"pngname":"figure-4"},"sizing":{"rescale":true,"width":1}}},"evals":[],"jsHooks":[]}</script>
-</figure>
-</div><div class="accordion">
+<p><figure id="figure-4">
+<div class="highcharts-description" id="figure-4-description"><p>Between 2017 and 2021, 10% of pensioners were in persistent poverty after housing costs, unchanged from the previous period.</p>
+</div>
+<div id="htmlwidget-2b867190bdafc1b029c2" style="width:680px;height:400px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2b867190bdafc1b029c2">{"x":{"hc_opts":{"title":{"text":"Figure 4: Proportion of pensioners in persistent poverty, Scotland"},"yAxis":{"title":{"text":""},"type":"linear","labels":{"formatter":"function () {\n                              return Math.round(this.value*100, 0) + \"%\";} "},"minRange":0.3,"showLastLabel":false,"accessibility":{"description":"Rate"}},"credits":{"enabled":true,"text":"Source: Understanding Society Survey","href":"https://data.gov.scot/poverty/2022/index.html#Data_source"},"exporting":{"enabled":true,"buttons":{"contextButton":{"menuItems":["fullscreen","printChart","downloadPNG","downloadSVG"]}},"menuItemDefinitions":{"fullscreen":{"text":"View in fullscreen","onclick":"function () {\n\n                   var container = this.renderTo;\n\n                   if (container.requestFullscreen) {\n                   container.requestFullscreen();\n                   } else if (container.mozRequestFullScreen) {\n                   container.mozRequestFullScreen();\n                   } else if (container.webkitRequestFullscreen) {\n                   container.webkitRequestFullscreen();\n                   } else if (container.msRequestFullscreen) {\n                   container.msRequestFullscreen();\n                   }\n                   }"}},"filename":"fig_4"},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0,"showInLegend":true,"point":{"events":{"click":"function () {\n\n              var e = this.series.options.dataLabels.enabled\n\n              this.series.update({\n\n                dataLabels: {\n                    enabled: !e,\n                    /*style: {\n                      fontSize: \"medium\"\n                      },*/\n                    formatter: function() {\n\n                    var data = this.series.data,\n                        index = data.indexOf(this.point);\n                      /* add labels for first and last point, and after a break */\n                      if([0, (data.length - 1)].includes(this.x) || data[index-1].y === null ) {\n\n                          if (this.y < 100) {\n                            return Math.round(this.y*100, 2) + \"%\";\n                          } else {\n                            return \"Â£\" + Math.round(this.y, 0);\n                          }\n\n                        }\n                    }\n                  }\n\n              });\n\n          }"}}},"treemap":{"layoutAlgorithm":"squarified"},"scatter":{"marker":{"symbol":"circle"}}},"series":[{"name":"After housing costs","data":[{"period":"2010-2014","value":0.0787599773795524,"housingcosts":"After housing costs","y":0.08,"key":"After housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.0877297636732133,"housingcosts":"After housing costs","y":0.09,"key":"After housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.105087212701383,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.0919867228907489,"housingcosts":"After housing costs","y":0.09,"key":"After housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.108441488225033,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.105745623216577,"housingcosts":"After housing costs","y":0.11,"key":"After housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.101184031305201,"housingcosts":"After housing costs","y":0.1,"key":"After housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.102292081934056,"housingcosts":"After housing costs","y":0.1,"key":"After housing costs","name":"2017-2021"}],"type":"line"},{"name":"Before housing costs","data":[{"period":"2010-2014","value":0.102625761271512,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2010-2014"},{"period":"2011-2015","value":0.103495927608347,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2011-2015","marker":{"enabled":false}},{"period":"2012-2016","value":0.0970410475036289,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2012-2016","marker":{"enabled":false}},{"period":"2013-2017","value":0.0922345858470593,"housingcosts":"Before housing costs","y":0.09,"key":"Before housing costs","name":"2013-2017","marker":{"enabled":false}},{"period":"2014-2018","value":0.125418321437814,"housingcosts":"Before housing costs","y":0.13,"key":"Before housing costs","name":"2014-2018","marker":{"enabled":false}},{"period":"2015-2019","value":0.110477441212727,"housingcosts":"Before housing costs","y":0.11,"key":"Before housing costs","name":"2015-2019","marker":{"enabled":false}},{"period":"2016-2020","value":0.102318642799862,"housingcosts":"Before housing costs","y":0.1,"key":"Before housing costs","name":"2016-2020","marker":{"enabled":false}},{"period":"2017-2021","value":0.11294078241215,"housingcosts":"Before housing costs","y":0.11,"key":"Before housing costs","name":"2017-2021"}],"type":"line"}],"xAxis":{"type":"category","title":{"text":""},"labels":{"autoRotation":-32},"tickLength":5,"tickInterval":2,"accessibility":{"description":"Time"},"tickPositions":[0,2,4,7]},"legend":{"align":"right","layout":"proximate"},"responsive":{"rules":[{"condition":{"maxWidth":500},"chartOptions":{"legend":{"enabled":false},"xAxis":{"plotBands":null}}}]},"tooltip":{"formatter":"function () {\n                if (this.y < 100) {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          Highcharts.numberFormat(this.y*100, 0) + \"%\";\n                } else {\n                  return \"<strong> \" + this.point.name + \"<\/strong><br>\" +\n                          this.series.name + \": \" +\n                          \"Â£\" + Highcharts.numberFormat(this.y, 0);\n                }\n\n                              }"}},"theme":{"colors":["#1d70b8","#003078","#F36720","#b58840","#85994b","#28a197"],"chart":{"backgroundColor":"#ffffff","style":{"fontFamily":"Roboto","fontSize":"medium","color":"#0b0c0c"}},"title":{"useHTML":true,"align":"left","style":{"fontSize":"large","color":"#0b0c0c","fontWeight":"bold"}},"subtitle":{"useHTML":true,"align":"left","style":{"fontSize":"medium","color":"#0b0c0c","whiteSpace":"inherit"}},"credits":{"style":{"fontSize":"small","color":"#505a5f"}},"yAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"style":{"fontSize":"medium","color":"#505a5f"}},"useHTML":true,"lineWidth":1,"tickAmount":5,"tickmarkPlacement":"on","tickLength":5},"xAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"useHTML":true,"style":{"fontSize":"medium","color":"#505a5f"}},"tickmarkPlacement":"on","tickLength":0},"tooltip":{"useHTML":true,"backgroundColor":"#ffffff","style":{"color":"#0b0c0c"}},"legend":{"itemStyle":{"color":"#0b0c0c","fontSize":"medium"}},"plotOptions":{"series":{"dataLabels":{"style":{"fontSize":"medium","color":"#0b0c0c"}},"marker":{"fillColor":"#ffffff","lineWidth":2,"lineColor":null}}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":",","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":["hc_opts.yAxis.labels.formatter","hc_opts.exporting.menuItemDefinitions.fullscreen.onclick","hc_opts.plotOptions.series.point.events.click","hc_opts.tooltip.formatter"],"jsHooks":[]}</script>
+</figure><div class="accordion">
 <button id="accordion-button-4" class="btn collapsed accordion-header noprint" data-toggle="collapse" data-target="#accordion-panel-4" aria-controls="accordion-panel-4">Show / hide data tables</button>
 <div id="accordion-panel-4" class="collapse accordion-panel">
 <table class="table" id="table-4">
@@ -585,53 +622,59 @@ Table 4: Proportion of pensioners in persistent poverty, Scotland
 <thead>
 <tr role="row">
 <th scope="col">Period</th>
-<th scope="col">After housing costs</th>
 <th scope="col">Before housing costs</th>
+<th scope="col">After housing costs</th>
 <th scope="col">Sample</th>
 </tr>
 </thead>
 <tbody>
 <tr role="row">
 <th role="rowheader">2010-2014</th>
+<td role="cell">10%</td>
 <td role="cell">8%</td>
-<td role="cell">11%</td>
 <td role="cell">795</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2011-2015</th>
+<td role="cell">10%</td>
 <td role="cell">9%</td>
-<td role="cell">11%</td>
 <td role="cell">724</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2012-2016</th>
-<td role="cell">11%</td>
 <td role="cell">10%</td>
-<td role="cell">683</td>
+<td role="cell">11%</td>
+<td role="cell">691</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2013-2017</th>
-<td role="cell">10%</td>
-<td role="cell">10%</td>
-<td role="cell">654</td>
+<td role="cell">9%</td>
+<td role="cell">9%</td>
+<td role="cell">673</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2014-2018</th>
-<td role="cell">12%</td>
 <td role="cell">13%</td>
-<td role="cell">621</td>
+<td role="cell">11%</td>
+<td role="cell">648</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2015-2019</th>
 <td role="cell">11%</td>
 <td role="cell">11%</td>
-<td role="cell">591</td>
+<td role="cell">619</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2016-2020</th>
+<td role="cell">10%</td>
+<td role="cell">10%</td>
+<td role="cell">571</td>
+</tr>
+<tr role="row">
+<th role="rowheader">2017-2021</th>
 <td role="cell">11%</td>
 <td role="cell">10%</td>
-<td role="cell">549</td>
+<td role="cell">518</td>
 </tr>
 </tbody>
 </table>
@@ -641,191 +684,196 @@ Table 4: Proportion of pensioners in persistent poverty, Scotland
 </div>
 <div id="poverty-exit-and-entry" class="section level2">
 <h2>Poverty exit and entry</h2>
-<p>People who are in persistent poverty stay below the poverty line for several years. But many people are in poverty only temporarily. More than a third of people in poverty move above the poverty line each year, exiting poverty. And a similar number of people who were not in poverty previously fall below the poverty line each year, newly entering poverty. Note that the share of those entering poverty is quite small, as it is a share of everyone previously not in poverty.</p>
+<figure id="figure-5">
+<div class="highcharts-description" id="figure-5-description"><p>People who are in persistent poverty stay below the poverty line for several years. But many people are in poverty only temporarily. More than a third of people in poverty move above the poverty line each year, exiting poverty. And a similar number of people who were not in poverty previously fall below the poverty line each year, newly entering poverty. Note that the share of those entering poverty is quite small, as it is a share of everyone previously not in poverty.</p>
+
+<p>Poverty entry and exit statistics use rates averaged over three two-wave periods. The latest estimates span the period between 2017 to 2018 and 2020 to 2021.</p>
+
 <p>The diagram below shows an example of the flows of individuals in and out of poverty each year. It uses the latest after-housing-costs estimates.</p>
-<div>
-<figure id="diagram" aria-labelledby="diagram_caption">
-<figcaption id="diagram_caption">Diagram: poverty entry and exit</figcaption>
-<div id="diagram_htmlwidget" style="width:650px;height:300px;" class="sankeyNetwork html-widget"></div>
-<script type="application/json" data-for="diagram_htmlwidget">{"x":{"links":{"source":[0,0,1,1],"target":[2,3,2,3],"value":[0.743532886616008,0.0564671133839916,0.0724734795928335,0.127526520407167],"group":["#7fb2de","#7fb2de","#f47738","#f47738"],"tooltips":["Not in poverty -> Not in poverty: 93%","Not in poverty -> In poverty: 7%","In poverty -> Not in poverty: 36%","In poverty -> In poverty: 64%"]},"nodes":{"name":["Not in poverty","In poverty",null,null],"group":["#7fb2de","#f47738","#7fb2de","#f47738"],"tooltips":["Not in poverty","Not in poverty","In poverty","In poverty"]},"options":{"NodeID":"name","NodeGroup":"group","LinkGroup":"group","colourScale":"d3.scaleOrdinal() .domain(['Not in poverty', 'In poverty']) .range(['#7fb2de', '#f47738'])","fontSize":16,"fontFamily":"Arial","nodeWidth":40,"nodePadding":20,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true},"uid":"diagram_svg"},"evals":[],"jsHooks":{"render":[{"code":"\n            function(el, x) {\n\n              d3.selectAll(\".node, .link\").select(\"title foreignObject body pre\")\n                .text(function(d) { return d.tooltips; });\n              d3.selectAll(\".node text\").attr(\"font-weight\", \"bold\");\n              d3.selectAll(\".node text\").style(\"fill\", \"#333333\");\n            }\n            ","data":null}]}}</script>
-</figure>
 </div>
+<div id="htmlwidget-7f77ffd2601475399d37" style="width:680px;height:300px;" class="highchart html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7f77ffd2601475399d37">{"x":{"hc_opts":{"title":{"text":"Figure 5: Diagram: poverty entry and exit, Scotland"},"yAxis":{"title":{"text":null}},"credits":{"enabled":true,"text":"Source: Understanding Society Survey","href":"https://data.gov.scot/poverty/2022/index.html#Data_source"},"exporting":{"enabled":false,"filename":"fig_5"},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"type":"sankey","data":[{"description":"Remaining in poverty","from":"In poverty","to":"in","weight":13,"custom":{"extraInformation":"Remaining in poverty","value":61}},{"description":"Exiting poverty","from":"In poverty","to":"out","weight":8,"custom":{"extraInformation":"Exiting poverty","value":39}},{"description":"Entering poverty","from":"Not in poverty","to":"in","weight":6,"custom":{"extraInformation":"Entering poverty","value":8}},{"description":"Remaining out of poverty","from":"Not in poverty","to":"out","weight":73,"custom":{"extraInformation":"Remaining out of poverty","value":92}}],"nodes":[{"id":"Not in poverty","color":"#1d70b8"},{"id":"In poverty","color":"#F36720"},{"id":"in","name":"In poverty","color":"#F36720"},{"id":"out","name":"Not in poverty","color":"#1d70b8"}],"tooltip":{"nodeFormat":"{point.name}<br/>","headerFormat":"","pointFormat":"<b>{point.custom.extraInformation}:\n                  {point.custom.value}%<\/b><br/>"}}]},"theme":{"colors":["#1d70b8","#003078","#F36720","#b58840","#85994b","#28a197"],"chart":{"backgroundColor":"#ffffff","style":{"fontFamily":"Roboto","fontSize":"medium","color":"#0b0c0c"}},"title":{"useHTML":true,"align":"left","style":{"fontSize":"large","color":"#0b0c0c","fontWeight":"bold"}},"subtitle":{"useHTML":true,"align":"left","style":{"fontSize":"medium","color":"#0b0c0c","whiteSpace":"inherit"}},"credits":{"style":{"fontSize":"small","color":"#505a5f"}},"yAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"style":{"fontSize":"medium","color":"#505a5f"}},"useHTML":true,"lineWidth":1,"tickAmount":5,"tickmarkPlacement":"on","tickLength":5},"xAxis":{"title":{"style":{"fontSize":"medium","color":"#505a5f"}},"labels":{"useHTML":true,"style":{"fontSize":"medium","color":"#505a5f"}},"tickmarkPlacement":"on","tickLength":0},"tooltip":{"useHTML":true,"backgroundColor":"#ffffff","style":{"color":"#0b0c0c"}},"legend":{"itemStyle":{"color":"#0b0c0c","fontSize":"medium"}},"plotOptions":{"series":{"dataLabels":{"style":{"fontSize":"medium","color":"#0b0c0c"}},"marker":{"fillColor":"#ffffff","lineWidth":2,"lineColor":null}}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":",","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":"Roboto","debug":false},"evals":[],"jsHooks":[]}</script>
+</figure>
 <p>Poverty exit and entry data for Scotland is only available for all people, and not for individual age groups. However, the <abbr title="Department for Work and Pensions">DWP</abbr> <a href="https://www.gov.uk/government/collections/income-dynamics-statistics#latest-release">Income Dynamics report</a> includes estimates for children, working-age adults and pensioners in the <abbr title="United Kingdom">UK</abbr> overall. It also analyses what events are linked to poverty entry and exit, for example a change in earnings, or a change in household composition.</p>
 <div id="exiting-poverty" class="section level3 tabset">
 <h3>Exiting poverty</h3>
 <ul>
-<li>Between 2016 and 2020, an average of 36% of people per year who had been in poverty (after housing costs) in the previous year exited poverty.</li>
+<li>Between 2017 and 2021, an average of 39% of people per year who had been in poverty (after housing costs) in the previous year exited poverty.</li>
 </ul>
 <div class="infobox-text"><p>For an exit to occur, the individual must be in a household whose income is at least 10% above the poverty threshold, while in the previous wave they were in a household whose income was below the poverty threshold.</p>
 </div>
-<div class="accordion">
-<button id="accordion-button-5" class="btn collapsed accordion-header noprint" data-toggle="collapse" data-target="#accordion-panel-5" aria-controls="accordion-panel-5">Show / hide data tables</button>
-<div id="accordion-panel-5" class="collapse accordion-panel">
-<table class="table" id="table-5">
+<table class="table" id="table-6">
 <caption>
-Table 5: Proportion of people exiting relative poverty, Scotland
+Table 6: Proportion of people exiting relative poverty, Scotland
 <br/>
 <span>Source: Understanding Society Survey</span>
 </caption>
 <thead>
 <tr role="row">
 <th scope="col">Period</th>
-<th scope="col">After housing costs (AHC)</th>
 <th scope="col">Before housing costs (BHC)</th>
-<th scope="col">Sample AHC</th>
 <th scope="col">Sample BHC</th>
+<th scope="col">After housing costs (AHC)</th>
+<th scope="col">Sample AHC</th>
 </tr>
 </thead>
 <tbody>
 <tr role="row">
 <th role="rowheader">2010-2014</th>
-<td role="cell">34%</td>
 <td role="cell">37%</td>
-<td role="cell">2,046</td>
-<td role="cell">1,809</td>
+<td role="cell">1,777</td>
+<td role="cell">33%</td>
+<td role="cell">2,056</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2011-2015</th>
+<td role="cell">38%</td>
+<td role="cell">1,450</td>
 <td role="cell">34%</td>
-<td role="cell">39%</td>
-<td role="cell">1,709</td>
-<td role="cell">1,496</td>
+<td role="cell">1,707</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2012-2016</th>
-<td role="cell">35%</td>
-<td role="cell">39%</td>
-<td role="cell">1,491</td>
-<td role="cell">1,309</td>
+<td role="cell">40%</td>
+<td role="cell">1,329</td>
+<td role="cell">36%</td>
+<td role="cell">1,541</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2013-2017</th>
-<td role="cell">36%</td>
+<td role="cell">39%</td>
+<td role="cell">1,226</td>
 <td role="cell">38%</td>
-<td role="cell">1,334</td>
-<td role="cell">1,198</td>
+<td role="cell">1,388</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2014-2018</th>
-<td role="cell">35%</td>
-<td role="cell">39%</td>
-<td role="cell">1,294</td>
-<td role="cell">1,153</td>
+<td role="cell">41%</td>
+<td role="cell">1,208</td>
+<td role="cell">37%</td>
+<td role="cell">1,372</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2015-2019</th>
-<td role="cell">36%</td>
-<td role="cell">40%</td>
-<td role="cell">1,203</td>
-<td role="cell">1,037</td>
+<td role="cell">41%</td>
+<td role="cell">1,098</td>
+<td role="cell">38%</td>
+<td role="cell">1,286</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2016-2020</th>
-<td role="cell">36%</td>
 <td role="cell">40%</td>
-<td role="cell">1,100</td>
-<td role="cell">946</td>
+<td role="cell">996</td>
+<td role="cell">35%</td>
+<td role="cell">1,171</td>
+</tr>
+<tr role="row">
+<th role="rowheader">2017-2021</th>
+<td role="cell">39%</td>
+<td role="cell">926</td>
+<td role="cell">39%</td>
+<td role="cell">1,068</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 </div>
 <div id="entering-poverty" class="section level3 tabset">
 <h3>Entering poverty</h3>
 <ul>
-<li>Between 2016 and 2020, an average of 7% of people per year who hadn’t been in poverty (after housing costs) in the previous year entered poverty.</li>
+<li>Between 2017 and 2021, an average of 8% of people per year who hadn’t been in poverty (after housing costs) in the previous year entered poverty.</li>
 </ul>
 <div class="infobox-text"><p>For an entry to occur, the individual must be in a household whose income is at least 10 per cent below the poverty threshold, while in the previous wave they were in a household whose income was above the poverty threshold.</p>
 </div>
-<div class="accordion">
-<button id="accordion-button-6" class="btn collapsed accordion-header noprint" data-toggle="collapse" data-target="#accordion-panel-6" aria-controls="accordion-panel-6">Show / hide data tables</button>
-<div id="accordion-panel-6" class="collapse accordion-panel">
-<table class="table" id="table-6">
+<table class="table" id="table-7">
 <caption>
-Table 6: Proportion of people entering relative poverty, Scotland
+Table 7: Proportion of people entering relative poverty, Scotland
 <br/>
 <span>Source: Understanding Society Survey</span>
 </caption>
 <thead>
 <tr role="row">
 <th scope="col">Period</th>
-<th scope="col">After housing costs (AHC)</th>
 <th scope="col">Before housing costs (BHC)</th>
-<th scope="col">Sample AHC</th>
 <th scope="col">Sample BHC</th>
+<th scope="col">After housing costs (AHC)</th>
+<th scope="col">Sample AHC</th>
 </tr>
 </thead>
 <tbody>
 <tr role="row">
 <th role="rowheader">2010-2014</th>
 <td role="cell">5%</td>
-<td role="cell">4%</td>
-<td role="cell">11,426</td>
-<td role="cell">11,663</td>
+<td role="cell">11,695</td>
+<td role="cell">6%</td>
+<td role="cell">11,416</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2011-2015</th>
-<td role="cell">6%</td>
 <td role="cell">5%</td>
-<td role="cell">10,129</td>
-<td role="cell">10,342</td>
+<td role="cell">10,388</td>
+<td role="cell">6%</td>
+<td role="cell">10,131</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2012-2016</th>
-<td role="cell">6%</td>
 <td role="cell">5%</td>
-<td role="cell">9,010</td>
-<td role="cell">9,192</td>
+<td role="cell">9,497</td>
+<td role="cell">5%</td>
+<td role="cell">9,285</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2013-2017</th>
 <td role="cell">6%</td>
+<td role="cell">8,738</td>
 <td role="cell">6%</td>
-<td role="cell">8,032</td>
-<td role="cell">8,168</td>
+<td role="cell">8,576</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2014-2018</th>
 <td role="cell">6%</td>
-<td role="cell">6%</td>
-<td role="cell">7,254</td>
-<td role="cell">7,395</td>
+<td role="cell">8,169</td>
+<td role="cell">7%</td>
+<td role="cell">8,005</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2015-2019</th>
-<td role="cell">7%</td>
 <td role="cell">6%</td>
-<td role="cell">6,684</td>
-<td role="cell">6,850</td>
+<td role="cell">7,475</td>
+<td role="cell">7%</td>
+<td role="cell">7,287</td>
 </tr>
 <tr role="row">
 <th role="rowheader">2016-2020</th>
+<td role="cell">6%</td>
+<td role="cell">6,765</td>
 <td role="cell">7%</td>
-<td role="cell">7%</td>
-<td role="cell">6,092</td>
-<td role="cell">6,246</td>
+<td role="cell">6,590</td>
+</tr>
+<tr role="row">
+<th role="rowheader">2017-2021</th>
+<td role="cell">6%</td>
+<td role="cell">6,132</td>
+<td role="cell">8%</td>
+<td role="cell">5,990</td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
 </div>
 </div>
 <div id="data-source" class="section level2">
 <h2>Data source</h2>
 <p>This section provides key information on the data source and methodology used to produce persistent poverty statistics.</p>
-<p>The estimates in this publication are derived from the Understanding Society survey. Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.</p>
-<p>The Understanding Society survey has longitudinal information about over 2,100 individuals in Scotland in 2019-2020. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by the Department of Work and Pensions (DWP) for the annual Income Dynamics publication. Detailed information on the method used to calculate persistent poverty estimates can be found on the <a href="https://www.gov.uk/government/collections/income-dynamics-statistics"><abbr title="United Kingdom">UK</abbr> government webpages</a>.</p>
+<p>The estimates in this publication are derived from the Understanding Society survey by the Department for Work and Pensions (DWP). Understanding Society is a large scale longitudinal survey that captures information about people’s social and economic circumstances, attitudes, behaviours and health. Being longitudinal, the same individuals are interviewed each year allowing identification of those who have been in poverty over a number of years rather than just at a single point in time.</p>
+<p>The Understanding Society survey has longitudinal information about just under 2,100 individuals in Scotland in 2020-2021. The survey is conducted by the University of Essex, and persistent poverty estimates are calculated by <abbr title="Department for Work and Pensions">DWP</abbr> for the annual Income Dynamics publication. Detailed information on the method used to calculate persistent poverty estimates can be found on the <a href="https://www.gov.uk/government/collections/income-dynamics-statistics"><abbr title="United Kingdom">UK</abbr> government webpages</a>.</p>
 <p>Surveys gather information from a sample rather than from the whole population. Results from sample surveys are always estimates, not precise figures. This means that they are subject to a margin of error which can affect how changes in the numbers should be interpreted, especially in the short-term. Year-on-year movements should be treated with caution. We are unable to calculate sampling uncertainties for these statistics, but please note that small changes are unlikely to be statistically significant.</p>
 <div id="other-sources" class="section level3">
 <h3>Other sources</h3>
-<p>Poverty estimates presented in the <a href="../2021">Poverty and Income Inequality in Scotland report</a> come from a different source – <abbr title="Department for Work and Pensions">DWP</abbr>’s Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). This is the best source of household income data available in the <abbr title="United Kingdom">UK</abbr>. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.</p>
+<p>Poverty estimates presented in the <a href=".">Poverty and Income Inequality in Scotland report</a> come from a different source – <abbr title="Department for Work and Pensions">DWP</abbr>’s Households Below Average Income dataset which is produced from the Family Resources Survey (FRS). This is the best source of household income data available in the <abbr title="United Kingdom">UK</abbr>. However, it does not track individuals or households over time and so cannot be used to calculate persistent poverty rates.</p>
 <p>The <abbr title="Family Resources Survey">FRS</abbr> and Understanding Society use different income definitions and cover different time periods, and so figures which come from the two surveys are not comparable with each other. It should also be noted that an individual can be in persistent poverty without being in relative poverty in the most recent year (if they were in relative poverty in the three previous years), and so those in persistent poverty are not simply a sub-group of those in relative poverty.</p>
 </div>
 <div id="periods" class="section level3">
 <h3>Time periods</h3>
-<p>This publication presents persistent poverty rates for seven overlapping periods, each consisting of four two-year periods (waves):</p>
+<p>This publication presents persistent poverty rates for eight overlapping periods, each consisting of four two-year periods (waves):</p>
 <ul>
 <li>2010-2014: Jan 2010 - Dec 2011 (Wave 2) to Jan 2013 - Dec 2014 (Wave 5)</li>
 <li>2011-2015: Jan 2011 - Dec 2012 (Wave 3) to Jan 2014 - Dec 2015 (Wave 6)</li>
@@ -834,8 +882,9 @@ Table 6: Proportion of people entering relative poverty, Scotland
 <li>2014-2018: Jan 2014 - Dec 2015 (Wave 6) to Jan 2017 - Dec 2018 (Wave 9)</li>
 <li>2015-2019: Jan 2015 - Dec 2016 (Wave 7) to Jan 2018 - Dec 2019 (Wave 10)</li>
 <li>2016-2020: Jan 2016 - Dec 2017 (Wave 8) to Jan 2019 - Dec 2020 (Wave 11)</li>
+<li>2017-2021: Jan 2017 - Dec 2018 (Wave 9) to Jan 2020 - Dec 2021 (Wave 12)</li>
 </ul>
-<p>Persistent poverty statistics are based on tracking an individual over a four-year period. Each set of results are therefore based on four waves of the Understanding Society survey. This publication presents persistent poverty statistics based on waves 2-5, waves 3-6, waves 4-7, waves 5-8, waves 6-9, waves 7-10, and waves 8-11. Each wave of interviews is conducted over a two-year period, and each individual is interviewed once every year.</p>
+<p>Persistent poverty statistics are based on tracking an individual over a four-year period. Each set of results are therefore based on four waves of the Understanding Society survey. Each wave of interviews is conducted over a two-year period, and each individual is interviewed once every year.</p>
 <p>An individual is in persistent poverty if they are in relative poverty for at least three years in any four-year period. This means that the same individual can be in persistent poverty in all, any or none of the time periods covered in this publication.</p>
 <p>There are known issues with the income information in the first Understanding Society wave covering 2009-2010. See Paul Fisher’s paper <a href="https://www.iser.essex.ac.uk/research/publications/working-papers/iser/2016-11">Does repeated measurement improve income data quality? (ISER Working Paper Series, 2016-11)</a> for details of why income data on the first wave of Understanding Society are not comparable with subsequent waves and are likely to be of lower quality. The first wave has therefore been excluded from any analysis presented in this publication.</p>
 </div>
@@ -845,22 +894,26 @@ Table 6: Proportion of people entering relative poverty, Scotland
 </div>
 <div id="uncertainty" class="section level3">
 <h3>Reliability of estimates</h3>
-<p>The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations.</p>
+<p>The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Often, it is better to look at trends over several periods to understand change.</p>
 <p>As with most longitudinal surveys, attrition reduces the Understanding Society sample size over time. As well as attrition reducing the sample size, we have missing data for many of the variables we are using in the analysis. We exclude individuals with missing data from relevant analysis, but include individuals whenever we can. Weights have been applied which adjust for unequal selection probabilities, differential non-response, and potential sampling error.</p>
-<p>Some estimates from previous years have been improved and will therefore differ between publications. The latest publication provides the most accurate estimates.</p>
+</div>
+<div id="revisions" class="section level3">
+<h3>Revisions</h3>
+<p>Some estimates from previous years have been improved and will therefore differ between publications. Estimates get routinely revised when households re-enter the longitudinal sample and data gaps can be filled. The latest publication provides the most accurate estimates.</p>
+<p>In addition to these routine revisions, an Immigrant and Ethnic Minority Boost sample was included in the analysis for the 2023 report for the first time, improving previously published estimates.</p>
+<p>The <abbr title="Immigrant and Ethnic Minority Boost">IEMB</abbr> was introduced in Wave 6 (2014-2015) of the Understanding Society survey and comprised a sample of approximately 2,900 households across the <abbr title="United Kingdom">UK</abbr> where members were born outside of the <abbr title="United Kingdom">UK</abbr>, and / or members considered themselves or their parents or grandparents to be of Indian, Pakistani, Bangladeshi, Black Caribbean or Black African origin.</p>
+<p>The inclusion of the <abbr title="Immigrant and Ethnic Minority Boost">IEMB</abbr> has improved the representativeness of the statistics as well as increased the sample size of ethnic minority categories.</p>
 </div>
 <div id="corona-impact" class="section level3">
 <h3>COVID-19 impact</h3>
-<p>The COVID-19 pandemic and subsequent policy announcements resulted in several changes to Understanding Society Wave 11 fieldwork, data collection, and processing. These are detailed in the <a href="https://www.gov.uk/government/statistics/income-dynamics-2010-to-2020/income-dynamics-background-information-and-methodology">Background information and methodology section of the <abbr title="Office for National Statistics">ONS</abbr> report</a>. Key points to note are:</p>
+<p>The coronavirus pandemic continued to affect fieldwork and data collection during Wave 11 (2019-2020) and Wave 12 (2020 to 2021). Policy changes associated with the pandemic resulted in some changes to income-related questions and will also have affected household incomes during this period.</p>
+<p>These impacts are detailed in the <a href="https://www.gov.uk/government/statistics/income-dynamics-2010-to-2021/income-dynamics-background-information-and-methodology">Background information and methodology section of the <abbr title="Department for Work and Pensions">DWP</abbr> report</a>. Key points to note are:</p>
 <ul>
-<li>Wave 11 fieldwork was conducted from January 2019 to December 2020. The first <abbr title="United Kingdom">UK</abbr>-wide lockdown began in March 2020.<br />
-</li>
-<li>Understanding Society moved to a web-first approach, with telephone interviews used as follow-up. While response rates held up well overall, the shift in mode was associated with lower response rates for some groups. Weights have been adjusted accordingly.<br />
-</li>
-<li>Changes were made to the Understanding Society questionnaire at the end of July 2020 to capture support available to employees and the self-employed via the Coronavirus Job Retention Scheme (CJRS or ‘furlough’), and the Self-Employment Income Support Scheme (SEISS) respectively.<br />
-</li>
-<li>No obvious changes in rates of persistent poverty have been observed (as we might expect for a four-year measure), nor in rates of poverty entry and exit.</li>
-<li>It is important to note that for various reasons, not least fieldwork timings and gaps in data mentioned above, that attributing any observed changes to the pandemic is beyond the scope of these statistics.</li>
+<li>The first national lockdown due to the coronavirus pandemic began in March 2020, which was the third month of the 24-month Wave 12 survey period.</li>
+<li>At this point in time, around two-thirds of the Understanding Society data collection was web-based, with around a third completed via face-to-face interviewing, and about 1% being conducted via telephone. Following lockdown, data collection for all respondents was swiftly moved online in the first instance, with telephone follow-up used as necessary. The survey maintained a web-first approach throughout the remainder of Wave 12.</li>
+<li>Fieldwork figures show that the survey response rates were largely protected over this period: the response rate for April to December 2020 was just 1.5 percentage points lower than that of the same period in 2019.</li>
+<li><abbr title="Department for Work and Pensions">DWP</abbr> has therefore been able to release a full set of tables with no additional detriment to sub-samples beyond the attrition that is usual for this type of longitudinal panel survey.</li>
+<li>While survey response rates held up well, there were small changes in the sample profile in 2020 compared to 2019, as some groups – including those in higher age groups, those living alone, those not in work, and those with lower levels of education, were less likely to respond to the survey. Survey weights were adjusted to account for these changes.</li>
 </ul>
 </div>
 <div id="age-groups" class="section level3">
@@ -903,7 +956,7 @@ Table 6: Proportion of people entering relative poverty, Scotland
 <h2>More information</h2>
 <div id="further-analysis" class="section level3">
 <h3>Further analysis</h3>
-<p>The headline poverty and income inequality statistics can be found in the latest <a href="../2021">Poverty and Income Inequality in Scotland report</a>. Further analysis published throughout the year are available on the <a href="https://www.gov.scot/collections/poverty-and-income-inequality-statistics/">Scottish Government poverty analysis website</a></p>
+<p>The headline poverty and income inequality statistics can be found in the latest <a href=".">Poverty and Income Inequality in Scotland report</a>. Further analysis published throughout the year are available on the <a href="https://www.gov.scot/collections/poverty-and-income-inequality-statistics/">Scottish Government poverty analysis website</a></p>
 <p>Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please <a href="contact.html">contact us</a>.</p>
 </div>
 <div class="section level3">
@@ -917,7 +970,8 @@ Table 6: Proportion of people entering relative poverty, Scotland
 <h3>Previous reports</h3>
 <p>Previous Persistent Poverty in Scotland reports are available:</p>
 <ul>
-<li><a href="../2021/persistent.html">2010-2019 report</a></li>
+<li><a href="../poverty/2022/persistent.html">2011-2020 report</a></li>
+<li><a href="../poverty/2021/persistent.html">2010-2019 report</a></li>
 <li><a href="https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/">2010-2018 report</a></li>
 <li><a href="https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/">2010-2017 report</a></li>
 <li><a href="https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/">2010-2016 report</a></li>

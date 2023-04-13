@@ -1,3 +1,7 @@
+
+# TO DO -----
+# update publication date in Readme
+
 # prelims ----------------------------------------------------------------------
 
 library(tidyverse)
@@ -6,7 +10,7 @@ library(openxlsx)
 source("R/00_functions.R")
 source("R/00_strings.R")
 
-filename <- "output/data2022_1yr.xlsx"
+filename <- "website/xls/data2023_1yr.xlsx"
 mytables <- readRDS("data/tables_1yr.rds")
 
 latestyear <- max(levels(labels$years$formatted))
@@ -19,7 +23,6 @@ myheaders <- list(
 
   list(header = c("Relative poverty after housing costs",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of people in each group who are in relative poverty (below 60% of UK median income after housing costs), Scotland",
                   "Composition: Proportion of people in relative poverty (below 60% of UK median income after housing costs) who are in each group, Scotland",
@@ -27,7 +30,6 @@ myheaders <- list(
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Absolute poverty after housing costs",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of people in each group who are in absolute poverty (below 60% of the 2010/11 UK median income after housing costs), Scotland",
                   "Composition: Proportion of people in severe poverty (below 60% of the 2010/11 UK median income after housing costs) who are in each group, Scotland",
@@ -35,7 +37,6 @@ myheaders <- list(
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Severe poverty after housing costs",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of people in each group who are in severe poverty (below 50% of UK median income after housing costs), Scotland",
                   "Composition: Proportion of people in severe poverty (below 50% of UK median income after housing costs) who are in each group, Scotland",
@@ -43,7 +44,6 @@ myheaders <- list(
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Relative poverty before housing costs",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of people in each group who are in relative poverty (below 60% of UK median income before housing costs), Scotland",
                   "Composition: Proportion of people in relative poverty (below 60% of UK median income before housing costs) who are in each group, Scotland",
@@ -51,7 +51,6 @@ myheaders <- list(
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Absolute poverty before housing costs",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of people in each group who are in absolute poverty (below 60% of the 2010/11 UK median income before housing costs), Scotland",
                   "Composition: Proportion of people in severe poverty (below 60% of the 2010/11 UK median income before housing costs) who are in each group, Scotland",
@@ -59,7 +58,6 @@ myheaders <- list(
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Severe poverty before housing costs",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of people in each group who are in severe poverty (below 50% of UK median income before housing costs), Scotland",
                   "Composition: Proportion of people in severe poverty (below 50% of UK median income before housing costs) who are in each group, Scotland",
@@ -67,7 +65,7 @@ myheaders <- list(
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Children's combined low income and material deprivation",
                   "This worksheet contains three tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
+                  "Note: The latest estimate cannot be directly compared to previous estimates. This is because the latest period covers a time when families were less able to undertake certain activities due to the pandemic, and not necessarily because they couldn't afford to. This changed how people responded to the material deprivation questions.",
                   "Note: The definition of material deprivation changed in 2010/11, creating a break in the time series.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of children who are in combined low income (below 70% of UK median income) and material deprivation, Scotland",
@@ -75,7 +73,7 @@ myheaders <- list(
                   "Sample size: Number of families with children in the survey sample, Scotland")),
   list(header = c("Pensioners material deprivation",
                   "This worksheet contains three tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
+                  "Note: The latest estimate cannot be directly compared to previous estimates. This is because the latest period covers a time when families were less able to undertake certain activities due to the pandemic, and not necessarily because they couldn't afford to. This changed how people responded to the material deprivation questions.",
                   "Note: Pensioner material deprivation is calculated for pensioners aged 65 or over. Pensioner material deprivation is different to other measures of poverty, including the child low income and material deprivation measure in that it is not associated with an income threshold. It captures issues such as whether poor health, disability and social isolation prevent access to goods and services, rather than solely low income.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Rate: Proportion of pensioners aged 65 and over who have limited access to goods and services, Scotland",
@@ -86,35 +84,30 @@ myheaders <- list(
 
   list(header = c("Median household income",
                   "This worksheet contains three tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c(paste0("Before housing costs: Median weekly equivalised household income in £ (in ", latestyear, " prices), Scotland"),
                   paste0("After housing costs: Median weekly equivalised household income in £ (in ", latestyear, " prices), Scotland"),
                   "Sample size: Number of families in each group in the survey sample, Scotland")),
   list(header = c("Household income decile points",
                   "This worksheet contains three tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c(paste0("Before housing costs: Median weekly equivalised household income decile points in £ (in ", latestyear, " prices), Scotland"),
                   paste0("After housing costs: Median weekly equivalised household income decile points in £ (in ", latestyear, " prices), Scotland"),
                   "Sample size: Number of families in the survey sample, Scotland")),
   list(header = c("Income decile shares",
                   "This worksheet contains three tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c(paste0("Before housing costs: Annual household income shares in £ million (in ", latestyear, " prices), Scotland"),
                   paste0("After housing costs: Annual household income shares in £ million (in ", latestyear, " prices), Scotland"),
                   "Sample size: Number of families in the survey sample, Scotland")),
   list(header = c("Income inequality measures",
                   "This worksheet contains three tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c("Palma ratio (income share of the top 10% divided by the the bottom 40% of the household population), Scotland",
                   "Gini coefficient",
                   "Sample size: Number of families in the survey sample, Scotland")),
   list(header = c("Poverty and other income thresholds",
                   "This worksheet contains four tables.",
-                  "Important: The latest estimate is unreliable, please do not use. See README for more information.",
                   "Source: Scottish Government analysis of the Family Resources Survey"),
        titles = c(paste0("Before housing costs: Weekly income in £, and after tax and transfers, Scotland ", latestyear),
                   paste0("After housing costs: Annual income in £, and after tax and transfers, Scotland ", latestyear),
@@ -134,36 +127,28 @@ for (i in 1:sheet_n) {
 }
 
 # run all worksheets -----------------------------------------------------------
-lapply(seq(1, sheet_n, 1),
-       function(x) {
-         create_worksheet(sheet_no = x,
-                          file = filename,
-                          tables = mytables[[x]],
-                          headers = myheaders[[paste0("sheet_", x)]]$header,
-                          titles = myheaders[[paste0("sheet_", x)]]$titles)
-       }
+
+# Open / create workbook
+if (file.exists(filename)) {wb <- loadWorkbook(filename)
+} else {wb <- createWorkbook()}
+
+invisible(
+  sapply(seq(1, sheet_n, 1),
+         function(x) {
+           create_worksheet(sheet_no = x,
+                            wb = wb,
+                            tables = mytables[[x]],
+                            headers = myheaders[[paste0("sheet_", x)]]$header,
+                            titles = myheaders[[paste0("sheet_", x)]]$titles)
+         }
+  )
 )
-
-# mark missing data ------------------------------------------------------------
-# note: do this once headers are finalised, otherwise cell references will change
-
-# [b] = break in time series
-# [u] = low reliability
-# [x] = not available
-
-mark_list <- list(
-  # child material deprivation
-  "7" = list(markers = rep("[x]", 6),
-             ranges = c("B8:G9", "I10:R11", "B14:G15", "I16:R17", "B20:G20",
-                        "I21:R21")))
-
-mark_missing(filename, mark_list)
 
 
 # create TOC -------------------------------------------------------------------
-createContentSheet(filename = filename,
+createContentSheet(wb = wb,
                    title = "H1-Table of contents",
-                   toptext = "These are not official statistics. The latest estimates (for 2020/21) are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland. Please refer to Poverty and Income Inequality in Scotland 2017-20 for the latest National Statistics on poverty and income inequality.",
+                   toptext = "This workbook contains single-year estimates used in the Poverty and Income Inequality in Scotland National Statistics report and the child poverty update, published in March 2023, and additional analysis. The report is available here: data.gov.scot/poverty",
                    headings = list(titles = c("H2-Headline poverty measures - after housing costs",
                                               "H2-Headline poverty measures - before housing costs",
                                               "H2-Material deprivation",
@@ -172,18 +157,16 @@ createContentSheet(filename = filename,
 
 # create Readme sheet ----------------------------------------------------------
 createReadmeSheet(
-
-  filename = filename,
-
+  wb = wb,
   notes = list(
-    "H1-Important notes" = c("Published: 31 March 2022",
-                             "Next update: March 2023",
-                             "The tables in this spreadsheet contain single-year estimates to complement the three-year averages shown in the 'Poverty and Income Inequality in Scotland' analytical report. The report can be found here: https://data.gov.scot/poverty/2022",
+    "H1-Important notes" = c("Published: 23 March 2023",
+                             "Next update: March 2024",
+                             "The tables in this spreadsheet contain single-year estimates to complement the three-year averages shown in the 'Poverty and Income Inequality in Scotland' National Statistics report. The report can be found here: https://data.gov.scot/poverty",
                              "Estimates are based on Scotland data from the Family Resources Survey. This survey is managed by the Department for Work and Pensions, who also published a report, available on their website.",
                              "Detailed information on definitions and methodology can be found in the report.",
                              "Three-year averages show trends better than single-year estimates. Three-year averages are also available for download."),
 
-    "H2-COVID-19 impact" = "These are not official statistics. The latest estimates (for 2020/21) are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland. Please refer to Poverty and Income Inequality in Scotland 2017-20 for the latest National Statistics on poverty and income inequality.",
+    "H2-COVID-19 impact" = c("The 2020/21 estimates are excluded. They are unreliable as they are based on data collected during the first year of the coronavirus (COVID-19) pandemic. Lockdown rules severely disrupted the data collection. As a result, we were unable to obtain a representative sample for Scotland in this year."),
 
     "H2-Tables" = c("Each worksheet contains one or more tables. The main table is at the top, and extra tables are below. The extra tables give context such as sample sizes, compositions, or population estimates.",
                     "Poverty rate tables show the proportion of individuals who are in poverty. Poverty rates describe the risk of being in poverty. If one group has a higher poverty rate than another, people in this group have a higher risk of being in poverty.",
@@ -200,6 +183,7 @@ createReadmeSheet(
 
     "H2-Missing data" = c("In the tables, the following conventions have been used where figures are unavailable:",
                           "[u] - unreliable due to small sample size",
+                          "[low] - below 0.5%",
                           "[b] - break in the time series",
                           "[x] - not available for another reason (data accuracy, data wasn't collected etc.)"),
 
@@ -216,3 +200,9 @@ createReadmeSheet(
                      "Scottish Government",
                      "Communities Analysis Division",
                      "Email: social-justice-analysis@gov.scot")))
+
+# save -------------------------------------------------------------------------
+
+saveWorkbook(wb, filename, overwrite = TRUE)
+cat(filename, " created", fill = TRUE)
+rm(list = ls())

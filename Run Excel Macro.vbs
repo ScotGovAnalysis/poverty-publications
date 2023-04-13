@@ -20,7 +20,7 @@ Excel.Visible = FALSE
 'Open the Document
 Set ExcelDoc = Excel.Workbooks.Open(strFolder & "\vba_for_postprocessing.xlsm")
 
-'Run the macro called foo
+'Run the macro
 Excel.Run "WorksheetLoop"
 
 'Release the object variables

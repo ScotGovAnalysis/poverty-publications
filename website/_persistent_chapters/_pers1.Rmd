@@ -6,23 +6,35 @@ Poverty estimates in this publication are derived by looking at household income
 
 ### All individuals {.tabset}
 
-- Between `r params$data_period_long`, `r persistenttables$tableScotland$pp %>% tail(1L)` of people were in persistent poverty after housing costs, broadly similar to the previous period (`r params$prev_period`). 
-
-```{r chart1}
+```{r pp}
 
 fign <- 1
 title <- "Proportion of people in persistent poverty, Scotland"
+source <- "Source: Understanding Society Survey"
+href <- "https://data.gov.scot/poverty/2022/index.html#Data_source"
 
-interactive(persistentcharts$chart1, 
-            title = paste0("Figure ", fign, ": ", title), 
-            subtitle = NULL)
+chart <- persistentcharts$chart1 %>% 
+  highcharter::hc_title(text = paste0("Figure ", fign, ": ", title)) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
 table <- datatable(data = persistenttables$table1,
                             id = paste0("table-", fign),
                             caption = paste0("Table ", fign, ": ", title),
-                            source = persistenttables$source,
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
+description <- paste0("Between ", params$data_period_long, ", ", persistenttables$tableScotland$pp %>% tail(1L), " of people were in persistent poverty after housing costs, unchanged from the previous period (", params$prev_period, "). ")
+
+```
+
+```{r pp_chart}
+
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
 tables_panel(table)
 
 ```
@@ -30,25 +42,37 @@ tables_panel(table)
 
 ### Children {.tabset}
 
-- `r persistenttables$tableScotland$ch %>% tail(1L)` of children were in persistent poverty after housing costs in `r params$data_period`, compared to `r persistenttables$tableScotland$ch %>% tail(2L) %>% head(1L)` in the previous period.
-- This represents a relatively large drop compared to previous estimates, and not all of this decrease is likely to be real. Persistent poverty estimates do tend to fluctuate. They also get revised when households re-enter the longitudinal sample and data gaps can be filled. However, some of the decrease is plausible in part due to increased financial support during the pandemic for some lower-income households. At the same time, reduced earnings and job losses may have resulted in a lower median income. This may have led to a fall in the poverty line, and thereby a drop in the relative poverty rate.
-
-```{r chart2}
+```{r ch}
 
 fign <- 1 + fign
 
 title <- "Proportion of children in persistent poverty, Scotland"
 
-interactive(persistentcharts$chart2, 
-            title = paste0("Figure ", fign, ": ", title), 
-            subtitle = NULL)
+chart <- persistentcharts$chart2 %>% 
+  highcharter::hc_title(text = paste0("Figure ", fign, ": ", title)) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
 table <- datatable(data = persistenttables$table2,
                             id = paste0("table-", fign),
                             caption = paste0("Table ", fign, ": ", title),
-                            source = persistenttables$source,
+                            source = source,
                             options = list(rowHeaders = TRUE))
 
+description <- paste0(persistenttables$tableScotland$ch %>% tail(1L), " of children were in persistent poverty after housing costs in ", params$data_period, ", compared to ", persistenttables$tableScotland$ch %>% tail(2L) %>% head(1L), " in the previous period.
+
+", infobox("Note that previously published estimates have been revised upwards as more accurate data has become available. The Understanding Society dataset gets revised routinely when households re-enter the longitudinal sample and data gaps can be filled. This can affect persistent poverty estimates. Furthermore, an addition to the sample size since 2015 has led to further improvements to existing estimates. Both of these factors are likely to have contributed to the more recent revisions. More information is available in the [Revisions section](#revisions).")
+)
+
+```
+
+```{r ch_chart}
+
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
 tables_panel(table)
 
 ```
@@ -56,44 +80,67 @@ tables_panel(table)
 
 ### Working-age adults {.tabset}
 
-- Between `r params$data_period_long`, `r persistenttables$tableScotland$wa %>% tail(1L)` of working-age adults were in persistent poverty after housing costs, similar to the previous period.
-
-```{r chart3}
+```{r wa}
 fign <- 1 + fign
 
 title <- "Proportion of working-age adults in persistent poverty, Scotland"
 
-interactive(persistentcharts$chart3, 
-            title = paste0("Figure ", fign, ": ", title), 
-            subtitle = NULL)
+chart <- persistentcharts$chart3 %>% 
+  highcharter::hc_title(text = paste0("Figure ", fign, ": ", title)) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
 table <- datatable(data = persistenttables$table3,
                             id = paste0("table-", fign),
                             caption = paste0("Table ", fign, ": ", title),
-                            source = persistenttables$source,
+                            source = source,
                             options = list(rowHeaders = TRUE))
+
+description <- paste0("Between ", params$data_period_long, ", ", persistenttables$tableScotland$wa %>% tail(1L), " of working-age adults were in persistent poverty after housing costs, similar to the previous period.")
+
+```
+
+```{r wa_chart}
+
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+
 tables_panel(table)
 ```
 
 ### Pensioners {.tabset}
 
-- Between `r params$data_period_long`, `r persistenttables$tableScotland$pn %>% tail(1L)` of pensioners were in persistent poverty after housing costs, unchanged from the previous period.
-
-```{r chart4}
+```{r pn}
 fign <- 1 + fign
 
 title <- "Proportion of pensioners in persistent poverty, Scotland"
 
-interactive(persistentcharts$chart4, 
-            title = paste0("Figure ", fign, ": ", title), 
-            subtitle = NULL)
+chart <- persistentcharts$chart4 %>% 
+  highcharter::hc_title(text = paste0("Figure ", fign, ": ", title)) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
 table <- datatable(data = persistenttables$table4,
                             id = paste0("table-", fign),
                             caption = paste0("Table ", fign, ": ", title),
-                            source = persistenttables$source,
+                            source = source,
                             options = list(rowHeaders = TRUE))
+
+description <- paste0("Between ", params$data_period_long, ", ", persistenttables$tableScotland$pn %>% tail(1L), " of pensioners were in persistent poverty after housing costs, unchanged from the previous period.")
+```
+
+```{r pn_chart}
+
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
 tables_panel(table)
+
 ```
 
 

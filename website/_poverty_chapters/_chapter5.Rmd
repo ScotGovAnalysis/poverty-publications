@@ -1,280 +1,643 @@
-## Data source
+## Equality analysis
 
-All the figures in this publication come from the Department for Work and Pensions' (DWP) Households Below Average Income dataset, which is produced from the Family Resources Survey (FRS). `r abbr("UK", "United Kingdom")` figures are published by `r abbr("DWP", "Department for Work and Pensions")` in [Households Below Average Income](https://www.gov.uk/government/collections/households-below-average-income-hbai--2) on the same day as [Poverty and Income Inequality in Scotland](./). For the `r abbr("UK", "United Kingdom")` figures, as well as more detail about the way these figures are collected and calculated, see the `r abbr("DWP", "Department for Work and Pensions")` website.
+Poverty is measured at a household level. Everyone in the same household is considered either in poverty or not in poverty. This makes it difficult to measure the poverty risk by individual characteristics such as age or gender for people who share the households with others. 
 
-### What does `r abbr("HBAI", "Households Below Average Income")` measure?
+For most characteristics in this section, we include everyone in the analysis, but keep in mind that the poverty risk is influenced by others in the household.
 
-Households Below Average Income (HBAI) uses household disposable incomes, adjusted for the household size and composition, as a proxy for material living standards. More precisely, it is a proxy for the level of consumption of goods and services that people could attain given the disposable income of the household in which they live.
+`r infobox("Note that estimates in this section tend to fluctuate, because some groups are smaller and have small sample sizes. This means that we can comment on consistent differences between groups, but any short-term changes over time are hidden in the fluctuations.")`
 
-The unit of analysis is the individual, so the populations and percentages in the tables are numbers and percentages of individuals - both adults and children.
+### Age
 
-Data is collected during the financial year, so between April and March of the following year. Statistics are usually published in March, a year after the end of the data collection.
+The age analysis looks at the age of the [head of the household](#household-head). Poverty rates refer to the proportion of people in households by age of the household head.
 
-The living standards of an individual depend not only on his or her own income, but also on the income of others in the household. Consequently, the analyses are based on total household income: the equivalised income of a household is taken to represent the income level of every individual in the household. Equivalisation, a technique that allows comparison of incomes between households of different sizes and compositions, is explained in the [Definitions section](#equivalisation-definition). Thus, all members of any one household will appear at the same point in the income distribution.
+#### Working-age households
 
-### Revision of the data
+```{r wa_age}
 
-In 2021, previously published datasets underwent a minor methodological revision to capture all income from child maintenance. This led to small changes in household income and small adjustments to some poverty estimates. Therefore, some poverty and income estimates that were published in 2021 and after may not exactly match previously published estimates for 1994/95 to 2019/20. The revision did not affect any trends in poverty or household income.
+keymessage <- "Relative poverty rates highest for the youngest households"
 
-### Population coverage
+fign <- fign + 1
 
-The Family Resources Survey is a survey of private households. This means that people in residential institutions, such as nursing homes, barracks, prisons or university halls of residence, and also homeless people are excluded from the scope of the analysis presented here. The area of Scotland north of the Caledonian Canal was included in the `r abbr("FRS", "Family Resources Survey")` for the first time in the 2001/02 survey year, and from the 2002/03 survey year, the `r abbr("FRS", "Family Resources Survey")` was extended to include a 100 percent boost of the Scottish sample. This has increased the sample size available for analysis at the Scottish level. In 2002/03, the sample size was around five thousand. However, following cost savings introduced to the `r abbr("FRS", "Family Resources Survey")` in 2010, the sample size in Scotland has reduced. It was just over 2,800 households in `r params$data_year`. For further information see the `r abbr("DWP", "Department for Work and Pensions")` [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty after housing costs, Scotland"
 
-### Reliability of estimates
+chart <- povertycharts$wa_age %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
-The figures are estimates based on sample surveys and are therefore subject to sampling variation. Caution should be exercised in the interpretation of small year-on-year fluctuations. Identification of trends should be based on data for several years. Estimates for the [confidence intervals around the key figures](uncertainty.html) presented are available.
+table1 <- datatable(data = htmltables$wa_age,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-The method used to calculate these confidence intervals changed in 2015/16. Information on this can be found in `r abbr("DWP", "Department for Work and Pensions")`'s [statistical notice (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/592042/dwp-family-household-income-stats-estimating-uncertainty-statistical-notice.pdf). The new method widens confidence intervals for most estimates making statistically significant results less likely than before.
+table2 <- datatable(data = htmltables$wa_age_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-The [Family Resources Survey publication](https://www.gov.uk/government/collections/family-resources-survey--2#background-information-and-guidance) contains information on topics such as sample design, non-response biases, weighting; item non-response, imputation and editing; accuracy of income data.
+rate_16_24 <- filter(htmltables$wa_age, Group == "16-24")[[params$data_period]]
+rate_25_34 <- filter(htmltables$wa_age, Group == "25-34")[[params$data_period]]
+rate_65 <- filter(htmltables$wa_age, Group == "65+")[[params$data_period]]
 
-### Detailed methodology
+num_16_24 <- scales::comma(filter(povertytables$ageband_pp$rel_numbers, Group == "16-24")[[params$data_period]])
+num_25_34 <- scales::comma(filter(povertytables$ageband_pp$rel_numbers, Group == "25-34")[[params$data_period]])
+num_65 <- scales::comma(filter(povertytables$ageband_pp$rel_numbers, Group == "65+")[[params$data_period]])
 
-More detailed information on definitions and methodology can be found on the Scottish Government's [poverty methodology pages](https://www.gov.scot/publications/poverty-in-scotland-methodology/) and in `r abbr("DWP", "Department for Work and Pensions")`'s [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+description <- paste0("In the last 15 years, the youngest households (household heads aged 16-24) have been consistently more likely to be in relative poverty compared to older households.
 
-### Housing costs
+Figure ", fign, " shows that in ", params$data_period, ", ", rate_16_24, " of people in households with household heads aged 16-24 were in relative poverty after housing costs (", num_16_24, " people each year).
 
-It could be argued that the costs of housing faced by different households at a given time do not always match the true value of the housing that they actually enjoy, and that housing costs should therefore be deducted from any definition of disposable income. However, any measure of income defined in this way would understate the relative standard of living of those individuals who were actually benefiting from a better quality of housing by paying more for better accommodation. Income growth over time would also understate improvements in living standards where higher costs reflected improvements in the quality of housing.
-
-Conversely, any income measure which does not deduct housing costs may overstate the living standards of individuals whose housing costs are high relative to the quality of their accommodation. Growth over time in income before housing costs could also overstate improvements in living standards for low income groups in receipt of housing benefit, and whose rents have risen in real terms. This is because housing benefit may also rise to offset the higher rents (for a given quality of accommodation) and would be counted as an income rise, although there would be no associated increase in the standard of living.
-
-Therefore, this publication presents analyses on two bases: before housing costs (BHC) and after housing costs (AHC).
-
-## Definitions
-
-### Household income
-
-The income measure used in `r abbr("HBAI", "Households Below Average Income")` is weekly net (disposable) equivalised household income. This comprises total income from all sources of all household members including dependants. An adjustment is made to sample cases at the top of the income distribution to correct for volatility in the highest incomes captured in the survey.
-
-Income is adjusted for household size and composition by means of equivalence scales, which reflect the extent to which households of different size and composition require a different level of income to achieve the same standard of living. This adjusted income is referred to as equivalised income (see definition below for more information on equivalisation).
-
-Income before housing costs (BHC) includes the following main components: 
-
-- net earnings
-- profit or loss from self-employment (after income tax and National Insurance contributions)
-- all `r abbr("UK", "United Kingdom")` and Scottish social security payments, including housing and council tax benefits, tax credits, and the state pension
-- occupational and private pension income
-- investment income
-- maintenance payments
-- top-up loans and parental contributions for students, educational grants and payments
-- the cash value of certain forms of income in kind such as free school meals, free welfare milk and free school milk and free TV licences for the over 75s (where data is available)
-
-Income is net of: 
-
-- income tax payments
-- National Insurance contributions
-- contributions to occupational, stakeholder and personal pension schemes
-- council tax
-- maintenance and child support payments made
-- parental contributions to students living away from home
-
-Income after housing costs (AHC) is derived by deducting a [measure of housing costs](#housing-costs-definition) from the above income measure.
-
-### Housing costs {#housing-costs-definition}
-
-Housing costs include the following: rent (gross of housing benefit); water rates; mortgage interest payments; structural insurance premiums; ground rent and service charges.
-
-### Income sources
-
-The analysis on income sources is the only analysis in this report not using net income. This analysis is based on income before taxes from employment or self-employment, social security payments, investment, occupational pensions and other income. In some cases, income from self-employment was negative in a year, for example, when someone in self-employment made a loss. In these cases, total income from earnings was set to zero. Negative investment income was also set to zero.
-
-### Real prices
-
-Unless otherwise stated, all figures relating to income are in `r params$data_year` prices. Values from previous years are uprated to account for inflation using a variant of the Consumer Price Index (CPI). This follows a change in methodology for 2014/15. Prior to this the Retail Price Index (RPI) was used.
-
-Full details can be found at this link: [Methodological changes to poverty statistics (pdf)](https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/519332/dwp-family-household-income-stats-adjusting-for-inflation-statistical-notice.pdf)
-
-### Equivalisation {#equivalisation-definition}
-
-Equivalisation is the process by which household income is adjusted to take into account variations in the size and composition of the households in which individuals live. This reflects the common sense notion that, in order to enjoy a comparable standard of living, a household of, for example, three adults will need a higher income than a single person living alone. The process of adjusting income in this way is known as equivalisation and is needed in order to make sensible income comparisons between households.
-
-Equivalence scales conventionally take an adult couple without children as the reference point, with an equivalence value of one. The process then increases relatively the income of single person households (since their incomes are divided by a value of less than one) and reduces relatively the incomes of households with three or more persons, which have an equivalence value of greater than one.
-
-Consider a single person, a couple with no children, and a couple with two children aged fourteen and ten, all having unadjusted weekly household incomes of £200 (Before Housing Costs). The process of equivalisation, as conducted in `r abbr("HBAI", "Households Below Average Income")`, gives an equivalised income of £299 to the single person, £200 to the couple with no children, but only £131 to the couple with children.
-
-The equivalence scales used here are the modified OECD scales. Two separate scales are used, one for income Before Housing Costs (BHC) and the companion scale for income After Housing Costs (AHC). 
-
-```{r table2}
-
-subtitle <- "Modified OECD equivalence scales, rescaled to a couple without children"
-  
-datatable(data = povertytables$equivalence,
-          id = "table-a",
-          caption = paste0("Table A: ", subtitle),
-          source = "Source: Family Resources Survey",
-          options = list(rowHeaders = TRUE))
+In comparison, the age groups 25-34, 35-44, 45-54 and 55-64 all had similar (and lower) poverty rates between 17% and 22%.")
 
 ```
 
-The construction of household equivalence values from these scales is quite straightforward. For example, the `r abbr("BHC", "Before Housing Costs")` equivalence value for a household containing a couple with a fourteen year old and a ten year old child together with one other adult would be 1.86 from the sum of the scale values:
+```{r wa_age_chart}
 
-0.67 + 0.33 + 0.33 + 0.33 + 0.20 = 1.86
-
-This is made up of 0.67 for the first adult, 0.33 for their spouse, the other adult and the fourteen year old child and 0.20 for the ten year old child. The total income for the household would then be divided by 1.86 in order to arrive at the measure of equivalised household income used in `r abbr("HBAI", "Households Below Average Income")` analysis.
-
-Further information on equivalisation can be found in the [methodology report](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/income-equivalisation/) on the Scottish Government website.
-
-### Poverty measurement
-
-Individuals are defined as being in poverty if their equivalised net disposable household income is below 60 percent of the `r abbr("UK", "United Kingdom")` median. The median is the income value which divides a population, when ranked by income, into two equal sized groups. Since the mean is influenced considerably by the highest incomes, median income thresholds are widely accepted as a better benchmark when considering a derived measure for poverty. Sixty percent of the median is the most commonly used poverty measure.
-
-```{r}
-
-incA <- filter(htmltables$inc_3, Measure == "After housing costs")[[params$data_period]]
-incB <- filter(htmltables$inc_3, Measure == "Before housing costs")[[params$data_period]]
-incA_1 <- filter(povertytables$medians$ahc, Group == "All people")[[length(povertytables$medians$bhc) - 1]]
-incB_1 <- filter(povertytables$medians$bhc, Group == "All people")[[length(povertytables$medians$bhc) - 1]]
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
 ```
 
-For a couple with no children, the `r abbr("UK", "United Kingdom")` median income before housing costs in `r params$data_period` was `r incB` per week, compared to £`r incB_1` in the previous period. After housing costs, the `r abbr("UK", "United Kingdom")` median also increased from £`r incA_1` in the previous period to `r incA` per week.
+#### Pensioner households
 
-Consequently, the 60 percent poverty threshold, which is used to derive the low income household figures, has also increased in real terms, before and after housing costs. This means a household has to have a larger income in real terms to be above the poverty threshold.
+```{r pn_age}
 
-### Relative and absolute poverty
+fign <- fign + 1
 
-* Absolute poverty - individuals living in households whose equivalised income is below 60 percent of inflation-adjusted median income in 2010/11. This is a measure of whether those in the lowest income households are seeing their incomes rise in real terms.
-* Relative poverty - individuals living in households whose equivalised income is below 60 percent of median income in the same year. This is a measure of whether those in the lowest income households are keeping pace with the growth of incomes in the economy as a whole.
+keymessage <- "Poverty rates similar among older age groups"
 
-### Child material deprivation {#child-material-deprivation-definition}
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty after housing costs, Scotland"
 
-A suite of questions designed to capture the material deprivation experienced by households with children has been included in the Family Resources Survey since 2004/05. Respondents are asked whether they have 21 goods and services, including child, adult and household items. The list of items was identified by [independent academic analysis (pdf, McKay, S. and Collard, S. (2004))](https://www.bristol.ac.uk/media-library/sites/geography/migrated/documents/pfrc0311.pdf). Together, these questions form a discriminator between those households with children that are deprived and those that are not. If they do not have a good or service, they are asked whether this is because they do not want them or because they cannot afford them.
+chart <- povertycharts$pn_age %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
-These questions are used as an additional way of measuring living standards for children and their households.
+table1 <- datatable(data = htmltables$pn_age,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-A prevalence weighted approach has been used, in combination with a relative low income threshold. The income threshold is 70 percent of the median income. Prevalence weighting is a technique of scoring deprivation in which more weight in the deprivation measure is given to households lacking those items that most in the population already have. This means a greater importance, when an item is lacked, is assigned to those items that are more commonly owned in the population.
+table2 <- datatable(data = htmltables$pn_age_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-#### Changes to measuring material deprivation in 2010/11
+description <- paste0("Older households tend to have lower poverty rates compared to working-age households. There were no marked differences between households with heads aged 65-74, 75-84, and 85 and older.")
 
-The 21 items in the suite of questions used to measure material deprivation are designed to reflect the items and activities people in the `r abbr("UK", "United Kingdom")` believe to be necessary. These items are reviewed periodically to ensure the measure remains a relative measure of poverty. In 2010/11, four new questions about additional items were included in the `r abbr("FRS", "Family Resources Survey")` to be used in the future calculation of material deprivation scores, replacing the four existing items that were identified by research as potentially out of date partly because the proportion of the population considering them necessary had fallen. As such, there is a break in the series for child low income/material deprivation and estimates from 2010/11 onwards cannot be compared to those from before 2010/11.
+```
 
-In the 2010/11 `r abbr("FRS", "Family Resources Survey")`, both the new and the old questions were asked. As such, single-year estimates are presented based on both sets of questions for this year.
+```{r pn_age_chart}
 
-For further information about material deprivation see the `r abbr("DWP", "Department for Work and Pensions")` [Households Below Average Income publication](https://www.gov.uk/government/collections/households-below-average-income-hbai--2).
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
-### Pensioner material deprivation {#pensioner-material-deprivation-definition}
+```
 
-A suite of questions designed to capture the material deprivation experienced by pensioner households has been included in the Family Resources Survey since 2009/10. Respondents are asked whether they have access to 15 goods and services. The list of items was identified by independent academic analysis. See:
+Poverty estimates for children by age are available in the associated tables.
 
-* Legard, R., Gray, M. and Blake, M. (2008), [Cognitive testing: older people and the `r abbr("FRS", "Family Resources Survey")` material deprivation questions, Department for Work and Pensions Working Paper Number 55 (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20cognitive%20testing%20of%20older%20people%20dep%20questions.pdf)
-* McKay, S. (2008), [Measuring material deprivation among older people: Methodological study to revise the Family Resources Survey questions, Department for Work and Pensions Working Paper Number 54 (pdf)](https://www.bristol.ac.uk/poverty/downloads/keyofficialdocuments/FRS%20Older%20people%20deprivation%20questions%20report.pdf)
+### Gender
 
-Together, these questions form the best discriminator between those pensioner households that are deprived and those that are not.
+```{r gender}
 
-Where they do not have a good or service, pensioner households are asked whether this is because they do not have the money for this, it is not a priority on their current income, their health / disability prevents them, it is too much trouble or tiring, they have no one to do this with or help them, it is not something they want, it is not relevant to them, or any other reason. Where a pensioner lacks one of the material deprivation items for one of the following reasons - they do not have the money for this, it is not a priority for them on their current income, their health / disability prevents them, it is too much trouble or tiring, they have no one to do this with or help them, or any other reason - they are counted as being deprived for that item.
+rate_all <- fmtpct(filter(povertytables$marital_ad$rel_rates, Group == "All")[[params$data_period]])
+rate_single <- fmtpct(filter(povertytables$singlehh_ad$rel_rates, Group == "All")[[params$data_period]])
 
-The exception to this is for the question on whether they could cover an unexpected expense, where the follow up question was asked to explore how those who responded 'yes' would cover this cost. Options were: use own income but cut back on essentials, use own income but not need to cut back on essentials, use savings; use a form of credit, get money from friends or family, or any other reason. Pensioners are counted as materially deprived for this item if and only if they responded 'no' to the initial question.
+rate_allmen <- fmtpct(filter(povertytables$sex_ad$rel_rates, Group == "Male")[[params$data_period]])
 
-The same prevalence weighted approach has been used to that for children, in determining a deprivation score. Prevalence weighting is a technique of scoring deprivation in which more weight in the deprivation measure is given to households lacking those items that most already have. This means a greater importance, when an item is lacked, is assigned to those items that are more commonly owned in the pensioner population.
+rate_allwomen <- fmtpct(filter(povertytables$sex_ad$rel_rates, Group == "Female")[[params$data_period]])
 
-For children, material deprivation is presented as an indicator in combination with a low income threshold. However for pensioners, the concept of material deprivation is broad and very different from low income; therefore, it is appropriate to present it as a separate measure.
+```
 
-A [technical note giving a full explanation of the pensioner material deprivation measure](https://www.gov.uk/government/statistics/households-below-average-income-hbai-technical-note-on-pensioner-material-deprivation) is available for download.
+In `r params$data_period`, `r rate_allwomen` of women and `r rate_allmen` of men were in relative poverty after housing costs. 
 
-### Food security
+Poverty is measured at a household level. This means that men and women in the same household are both either in poverty or not in poverty. In the analysis below, we therefore only include single adult households (with or without dependent children).
 
-The Family Resources Survey collected household food security information for the first time in 2019/20. The questions were adopted from the [United States Department of Agriculture's Adult Food Security Survey Module (pdf)](https://www.ers.usda.gov/media/8279/ad2012.pdf), using a 30-day reference period, and using the same food security levels ("high", "marginal", "low", "very low"). 
+In `r params$data_period`, the relative poverty rate after housing costs for single adults (working-age and pensioners) was `r rate_single`, higher than for the total adult population (`r rate_all`).
 
-The food security analysis in this report excludes [shared households](#shared-households-definition), such as a house shared by a group of professionals. These respondents may not have insight into the food security status of others in their household and may not regularly share financial information.
+#### Single working-age adults and gender
 
-Previously, data on household food insecurity in Scotland had been collected by the Scottish Health Survey. The measure in this report is different from the one from the Scottish Health Survey, because it is based on different questions, which are asked in a different context, using a different sample of the population, and refer to a different period of time. Therefore, these measures cannot be directly compared.
+```{r wa_gender}
 
-### Dependent children {#dependent-children-definition}
+keymessage <- "Relative poverty rates highest for single mothers and single men"
 
-In this publication, 'child' refers to a dependent child. A dependent child is a person aged 0-15, or a person aged 16-19 and: not married nor in a Civil Partnership nor living with a partner, and living with their parents, and in full-time non-advanced education or in unwaged government training.
+fign <- fign + 1
 
-### Single parents
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of single working-age adults in relative poverty after housing costs, Scotland"
 
-Family types are becoming increasingly complex. In this publication, 'single parents' and 'single mothers' refer to a situation where the primary residence of a dependent child is in a household with one adult. Data for single fathers is not available due to small sample sizes. This household type does not necessarily imply that the child only has contact with one parent. The child may have non-resident parents who contribute to their welfare. Income transfers from a non-resident parent to the resident parent (such as Child Maintenance payments) are included in the household income.
+chart <- povertycharts$wa_gender %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
-### Shared households {#shared-households-definition}
+table1 <- datatable(data = htmltables$wa_gender,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-A shared household is a household where the household reference person is unclear or arbitrary, such as a group of students, unrelated adults etc., where the household is being shared on an equal basis. Households where adult children are living with their parents or where there are lodgers, but the owner lives in the household, are both not considered shared households for the purposes of this definition.
+table2 <- datatable(data = htmltables$wa_gender_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-## Find more information
+rate_singlemother <- fmtpct(filter(povertytables$singlehh_ad$rel_rates, Group == "Female working-age adult with dependent children")[[params$data_period]])
+rate_singlewoman <- fmtpct(filter(povertytables$singlehh_ad$rel_rates, Group == "Female working-age adult, no dependent children")[[params$data_period]])
+rate_singleman <- fmtpct(filter(povertytables$singlehh_ad$rel_rates, Group == "Male working-age adult, no dependent children")[[params$data_period]])
 
-### Tables and further analysis
+num_singlemother <- scales::comma(filter(povertytables$singlehh_ad$rel_numbers, Group == "Female working-age adult with dependent children")[[params$data_period]])
+num_singlewoman <- scales::comma(filter(povertytables$singlehh_ad$rel_numbers, Group == "Female working-age adult, no dependent children")[[params$data_period]])
+num_singleman <- scales::comma(filter(povertytables$singlehh_ad$rel_numbers, Group == "Male working-age adult, no dependent children")[[params$data_period]])
 
-This analytical report contains poverty, child poverty and household income time series. [Associated tables](download.html) are available for download and contain:
+description <- paste0("The poverty rate was highest for single mothers (", rate_singlemother, ", number not available) and single childless men (", rate_singleman, ", ", num_singleman, "). The poverty rate for single childless women was ", rate_singlewoman, " (", num_singlewoman, "). Estimates for single fathers are not available due to small sample sizes.
 
-- all estimates used in the charts
-- additional estimates, for example, the equivalent before-housing-costs estimates where charts show after-housing-costs estimates only (where available)
-- additional relative and severe poverty and child poverty estimates including numbers, rates and compositions of those in poverty disaggregated by a wide range of personal and household characteristics
+", infobox("In this publication, 'child' refers to a dependent child living in the household. This is explained in the [Definitions section](#dependent-children)."))
 
-Additional analysis themes are based on the needs of users. If you have any suggestions for future analysis please [contact us](contact.html).
+```
 
-### Local poverty analysis
+```{r wa_gender_chart}
 
-The main poverty data source, the Family Resources Survey, provides information at national level only. Alternative data sources are not directly comparable with the official poverty estimates presented in this report.
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
-More information on [local poverty and income analysis from alternative data sources](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/#localstatistics) is available.
+```
 
-### Persistent poverty
+#### Single pensioners and gender
 
-[New figures on persistent poverty](persistent.html) were published on `r params$pub_day`.
+```{r pn_gender}
 
-Persistent poverty identifies the number of individuals living in relative poverty for 3 or more of the last 4 years. It therefore identifies people who have been living in poverty for a significant period of time, the rationale being that this is more damaging than brief periods spent with a low income, with the impacts affecting an individual through their lifetime.
+keymessage <- "Relative poverty rates similar for male and female pensioners"
 
-One of the four statutory child poverty target measures is persistent child poverty after housing costs.
+fign <- fign + 1
 
-These figures come from the Understanding Society survey which tracks individuals over time. The persistent poverty figures are not directly comparable to the figures in this publication as they use different income definitions and cover different time periods, but they provide useful additional information on poverty in Scotland.
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of single pensioners in relative poverty after housing costs, Scotland"
 
-### Previous reports
+chart <- povertycharts$pn_gender %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
-Previously published Poverty and Income Inequality in Scotland and Persistent Poverty in Scotland reports are available. Note that [the latest Poverty and Income Inequality in Scotland National Statistics](../2021) were published in 2021, while the [latest Persistent Poverty in Scotland Offical Statistics](../2022/persistent.html) were published in 2022.
+table1 <- datatable(data = htmltables$pn_gender,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-#### Poverty and Income Inequality in Scotland
+table2 <- datatable(data = htmltables$pn_gender_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
-- [2017-20 report](../2021)
-- [2016-19 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2016-19/)
-- [2015-18 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-18/)
-- [2014-17 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-17/)
-- [2015/16 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2015-16/)
-- [2014/15 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2014-15/)
-- [2013/14 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2013-14/)
-- [2012/13 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2012-13/)
-- [2011/12 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2011-12/)
-- [2010/11 report](https://www.gov.scot/publications/poverty-income-inequality-scotland-2010-11/)
+rate_fem <- fmtpct(filter(povertytables$singlehh_ad$rel_rates, Group == "Female pensioner")[[params$data_period]])
+rate_man <- fmtpct(filter(povertytables$singlehh_ad$rel_rates, Group == "Male pensioner")[[params$data_period]])
 
-#### Persistent Poverty in Scotland
+num_fem <- scales::comma(filter(povertytables$singlehh_ad$rel_numbers, Group == "Female pensioner")[[params$data_period]])
 
-- [Latest report](../2022/persistent.html)
-- [2010-2019 report](../2021/persistent.html)
-- [2010-2018 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2018/)
-- [2010-2017 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2017/)
-- [2010-2016 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2016/)
-- [2010-2015 report](https://www.gov.scot/publications/persistent-poverty-scotland-2010-2015/)
+rate_men80 <- filter(povertytables$median_ages$gender, singlehh == "Male pensioner")[["share"]]
+rate_women80 <- filter(povertytables$median_ages$gender, singlehh == "Female pensioner")[["share"]]
 
-### Scottish Government websites
+description <- paste0("In ", params$data_period, ", ", rate_fem, " of single female pensioners (", num_fem, " women each year) and ", rate_man, " of single male pensioners (number not available) were in relative poverty after housing costs. Note that there were too few single male pensioners in poverty in the sample to produce a robust estimate of their number.
 
-Further analysis based on the `r abbr("FRS", "Family Resources Survey")` and `r abbr("HBAI", "Households Below Average Income")` datasets is published by the Scottish Government throughout the year on the Scottish Government's poverty and child poverty statistics webpages. These and other Scottish Government  statistics are available here:
+In most years, the poverty rate after housing costs for single female pensioners had been higher than that for single male pensioners.")
 
-- [Poverty and income inequality analysis](https://www.gov.scot/collections/poverty-and-income-inequality-statistics/)
-- [Confidence limits surrounding Scotland's key poverty estimates](https://www.gov.scot/publications/poverty-in-scotland-methodology/pages/measurement-uncertainty/)
-- [Child poverty analysis](https://www.gov.scot/collections/child-poverty-statistics/)
-- [Wealth analysis](https://www.gov.scot/collections/wealth-statistics/)
-- [Scottish Index of Multiple Deprivation](https://www.gov.scot/simd)
-- [Further information on all Scottish Government statistics](https://www.gov.scot/about/how-government-is-run/statistics-and-research/)
-- [Scottish Government approach to tackling poverty](https://www.gov.scot/policies/poverty-and-social-justice/)
+```
 
+```{r pn_gender_chart}
 
-## National Statistics
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
 
-**This report is not designated as official statistics of any kind.** It was produced to show what the estimates would look like if the most recent year was included. However, the most recent data collection was severely impacted by the COVID-19 pandemic, and we consider the Scottish data as unreliable.
+```
 
-Official and National Statistics are produced to high professional standards set out in the Code of Practice for Official Statistics. Both undergo regular quality assurance reviews to ensure that they meet customer needs and are produced free from any political interference.
+Estimates for all men and women (whether in single, couple or other households) are available in the associated tables.
 
-Statistics assessed, or subject to assessment, by the `r abbr("UK", "United Kingdom")` Statistics Authority carry the National Statistics label, a stamp of assurance that the statistics have been produced and explained to high standards and that they serve the public good.
+### Sexual orientation
 
-The designation of the Poverty and Income Inequality in Scotland Official Statistics report as National Statistics was confirmed in May 2012 following a compliance check by the Office for Statistics Regulation.
+```{r sexid}
 
-### Access source data
+fign <- fign + 1
 
-The data collected for this report cannot be made available by Scottish Government for further analysis, as the Scottish Government is not the data controller. However, the data controller (the `r abbr("UK", "United Kingdom")` Department for Work and Pensions) are making the data available through the [`r abbr("UK", "United Kingdom")` Data Service](https://beta.ukdataservice.ac.uk/datacatalogue/studies/study?id=5828).
+keymessage <- "Relative poverty rates higher for LGB+ adults"
 
-### Crown Copyright
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
 
-You may use or re-use this information (not including logos) free of charge in any format or medium, under the terms of the [Open Government Licence](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
+chart <- povertycharts$ad_sexid %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
 
+table1 <- datatable(data = htmltables$ad_sexid,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
+table2 <- datatable(data = htmltables$ad_sexid_age,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Median age"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
 
+table3 <- datatable(data = htmltables$ad_sexid_samples,
+                            id = paste0("table-", fign, "c"),
+                            caption = paste0("Table ", fign, "c: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rate_lgb <- fmtpct(filter(povertytables$sexid_ad$rel_rates, Group == "Other")[[params$data_period]])
+rate_straight <- fmtpct(filter(povertytables$sexid_ad$rel_rates, Group == "Heterosexual / straight")[[params$data_period]])
+rate_miss <- fmtpct(filter(povertytables$sexid_ad$rel_rates, Group == "(Missing)")[[params$data_period]])
+
+num_lgb <- scales::comma(filter(povertytables$sexid_ad$rel_numbers, Group == "Other")[[params$data_period]])
+num_straight <- scales::comma(filter(povertytables$sexid_ad$rel_numbers, Group == "Heterosexual / straight")[[params$data_period]])
+num_miss <- scales::comma(filter(povertytables$sexid_ad$rel_numbers, Group == "(Missing)")[[params$data_period]])
+
+description <- paste0("The poverty rate has been consistently higher for LGB+ adults compared to straight / heterosexual adults. In ", params$data_period, ", ", rate_lgb, " of LGB+ adults (number not available) were in poverty, compared to ", rate_straight, " of straight adults (", num_straight, " adults) and ", rate_miss, " of adults whose sexual orientation we don't know (", num_miss, " adults).
+
+We included the 'Missing' category in the tables because it contains a fairly large number of adults. This group contains adults who were not asked the question because they weren't present at the interview. It also includes adults who chose not to answer the question.  
+
+Note that there were too few LGB+ adults in poverty in the sample to produce a robust estimate of their population. Also, measurement uncertainty is quite wide for this group.
+
+", infobox("LGB+ adults in this analysis are those adults who responded that they thought of themselves as gay, lesbian, bisexual or something other than straight or heterosexual."))
+
+```
+
+```{r sexid_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+### Marital status
+
+```{r marital}
+keymessage <- "Relative poverty rates highest for single, divorced & separated, and lowest for married adults"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of adults in relative poverty after housing costs, Scotland"
+
+chart <- povertycharts$ad_marital %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$ad_marital,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ad_marital_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rate_single <- fmtpct(filter(povertytables$marital_ad$rel_rates, Group == "Single")[[params$data_period]])
+rate_divorced <- fmtpct(filter(povertytables$marital_ad$rel_rates, Group == "Divorced / Civil Partnership dissolved / separated")[[params$data_period]])
+rate_married <- fmtpct(filter(povertytables$marital_ad$rel_rates, Group == "Married / Civil Partnership")[[params$data_period]])
+rate_widowed <- fmtpct(filter(povertytables$marital_ad$rel_rates, Group == "Widowed")[[params$data_period]])
+rate_cohab <- fmtpct(filter(povertytables$marital_ad$rel_rates, Group == "Cohabiting")[[params$data_period]])
+
+num_single <- scales::comma(filter(povertytables$marital_ad$rel_numbers, Group == "Single")[[params$data_period]])
+num_divorced <- scales::comma(filter(povertytables$marital_ad$rel_numbers, Group == "Divorced / Civil Partnership dissolved / separated")[[params$data_period]])
+num_married <- scales::comma(filter(povertytables$marital_ad$rel_numbers, Group == "Married / Civil Partnership")[[params$data_period]])
+num_widowed <- scales::comma(filter(povertytables$marital_ad$rel_numbers, Group == "Widowed")[[params$data_period]])
+num_cohab <- scales::comma(filter(povertytables$marital_ad$rel_numbers, Group == "Cohabiting")[[params$data_period]])
+
+description <- paste0("In ", params$data_period, ", the relative poverty rate after housing costs was highest for single adults (", rate_single, ", ", num_single, " adults each year) and divorced (or separated) adults (", rate_divorced, ", ", num_divorced, "). Married adults were the least likely to be in poverty (", rate_married, ", ", num_married, "), and widowed and cohabiting adults were in the middle (", rate_widowed, " and ", rate_cohab, "; ", num_widowed, " and ", num_cohab, ").
+
+Poverty among widowed and divorced/separated adults largely decreased over the long term, whereas the trend for singles, cohabiting and married adults was broadly flat over time.
+
+", infobox("By 'Single' we mean adults who have never been married or in a Civil Partnership, and are not living with their partner. The 'Married' category includes Civil Partnerships, and couples who are married or in a Civil Partnership but temporarily living apart. The 'Divorced' category includes divorced couples, dissolved Civil Partnerships, and couples who are married or in a Civil partnership but are not living together because of estrangement."))
+
+```
+
+```{r marital_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+### Ethnicity
+
+Ethnicity data relates to all people in a household and is based on the ethnicity of the adult with the highest income.
+
+```{r ethnic}
+
+keymessage <- "Relative poverty rates higher for ethnic minorities"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Proportion of people in relative poverty after housing costs, Scotland ", params$data_period_5)
+
+chart <- povertycharts$pp_ethnic %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$pp_ethnic,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$pp_ethnic_age,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Median age of household head"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table3 <- datatable(data = htmltables$pp_ethnic_samples,
+                            id = paste0("table-", fign, "c"),
+                            caption = paste0("Table ", fign, "c: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rate_asian <- scales::percent(filter(povertytables$ethgrphh_pp$rel_rates, Group == "Asian or Asian British")[[params$data_period_5]]) 
+rate_mixed <- scales::percent(filter(povertytables$ethgrphh_pp$rel_rates, Group == "Mixed, Black or Black British, and Other")[[params$data_period_5]])
+rate_brits <- scales::percent(filter(povertytables$ethgrphh_pp$rel_rates, Group == "White - British")[[params$data_period_5]])
+rate_white <- scales::percent(filter(povertytables$ethgrphh_pp$rel_rates, Group == "White - Other")[[params$data_period_5]])
+
+num_brits <- scales::comma(filter(povertytables$ethgrphh_pp$rel_numbers, Group == "White - British")[[params$data_period_5]])
+num_white <- scales::comma(filter(povertytables$ethgrphh_pp$rel_numbers, Group == "White - Other")[[params$data_period_5]])
+
+age_white <- filter(povertytables$median_ages$ethnic, ethgrphh == "White - Other")[["age"]]
+age_brits <- filter(povertytables$median_ages$ethnic, ethgrphh == "White - British")[["age"]]
+age_asian <- filter(povertytables$median_ages$ethnic, ethgrphh == "Asian or Asian British")[["age"]]
+age_mixed <- filter(povertytables$median_ages$ethnic, ethgrphh == "Mixed, Black or Black British, and Other")[["age"]]
+
+description <- paste0("In ", params$data_period_5, ", people from non-white minority ethnic groups were more likely to be in relative poverty after housing costs compared to those from the 'White - British' and 'White - Other' groups.
+
+The poverty rate was ", rate_asian, " for the 'Asian or Asian British' ethnic groups and ", rate_mixed, " for 'Mixed, Black or Black British and Other' ethnic groups (no population estimates available due to the small sample).
+
+The poverty rate amongst the 'White - Other' group was ", rate_white, " (", num_white, " people) and that of the 'White - British' group was ", rate_brits, " (", num_brits, " people).
+
+", infobox(paste0("This analysis doesn't take into account differences in the age profiles of the ethnic groups.\n\nFor the 'White - British' ethnic group the median average age of the highest income earner was ", age_brits, ", compared with a median age of ", age_white, " for the 'White - Other' ethnic group, ", age_asian, " for 'Asian or Asian British' and ", age_mixed, " for 'Mixed, Black, Black British or Other' ethnic groups.\n\nOlder people have a lower poverty rate, so the age profile partly explains the lower poverty rate for the 'White - British' ethnic group. However, the age difference cannot explain the entire gap in poverty rates between ethnic groups.\n\nThe  ", abbr('ONS', 'Office for National Statistics')," [working paper on 'Equality across different areas of life in the UK'](https://www.ons.gov.uk/methodology/methodologicalpublications/generalmethodology/onsworkingpaperseries/equalityacrossdifferentareasoflifeintheuk2011to2020#ethnic-group) has more information on how age may partly explain different outcomes for different ethnic groups.")))
+
+```
+
+```{r ethnic_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+#### More information on ethnicity data
+
+Figure `r fign` shows an ethnicity breakdown based on an average of data from the past five years. This provides a reasonably detailed breakdown, whilst still using relatively recent data. A more [detailed ethnicity breakdown using ten years of data](https://www.gov.scot/publications/additional-poverty-statistics-2018/) was previously published. 
+
+Due to the small sample sizes for some of the ethnic groups, and the fact that ethnic composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty is fairly large.
+
+### Religion
+
+Data on religion is available for adults only, so this analysis does not include children.
+
+```{r religion}
+
+keymessage <- "Relative poverty rates higher for Muslims"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- str_c("Proportion of adults in relative poverty after housing costs, Scotland ", 
+                  params$data_period_5)
+
+chart <- povertycharts$ad_religion %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$ad_religion,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$ad_religion_age,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Median age"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table3 <- datatable(data = htmltables$ad_religion_samples,
+                            id = paste0("table-", fign, "c"),
+                            caption = paste0("Table ", fign, "c: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rate_all <- fmtpct(filter(povertytables$religsc_ad$rel_rates, Group == "All")[[params$data_period_5]])
+
+rate_muslim <- scales::percent(filter(povertytables$religsc_ad$rel_rates, Group == "Muslim")[[params$data_period_5]])
+rate_cos <- scales::percent(filter(povertytables$religsc_ad$rel_rates, Group == "Church of Scotland")[[params$data_period_5]])
+rate_cath <- scales::percent(filter(povertytables$religsc_ad$rel_rates, Group == "Roman Catholic")[[params$data_period_5]]) 
+rate_other <- scales::percent(filter(povertytables$religsc_ad$rel_rates, Group == "Other Christian")[[params$data_period_5]])
+
+num_muslim <- scales::comma(filter(povertytables$religsc_ad$rel_numbers, Group == "Muslim")[[params$data_period_5]])
+num_cos <- scales::comma(filter(povertytables$religsc_ad$rel_numbers, Group == "Church of Scotland")[[params$data_period_5]])
+num_cath <- scales::comma(filter(povertytables$religsc_ad$rel_numbers, Group == "Roman Catholic")[[params$data_period_5]])
+num_other <- scales::comma(filter(povertytables$religsc_ad$rel_numbers, Group == "Other Christian")[[params$data_period_5]])
+
+age_cos <- filter(povertytables$median_ages$religion, religsc == "Church of Scotland")[["age"]]
+age_muslim <- filter(povertytables$median_ages$religion, religsc == "Muslim")[["age"]]
+age_none <- filter(povertytables$median_ages$religion, religsc == "No religion")[["age"]]
+
+description <- paste0("In ", params$data_period_5, ", Muslim adults were more likely to be in relative poverty (", rate_muslim, ", ", num_muslim, " each year) than adults overall (", rate_all, "), after housing costs were taken into account.
+
+Of adults belonging to the Church of Scotland, ", rate_cos, " were in relative poverty after housing costs (", num_cos, " adults each year), compared to ", rate_cath, " of Roman Catholic adults (", num_cath, " adults) and adults of other Christian denominations (", rate_other, "; ", num_other, " adults).
+
+", infobox(paste0("This analysis doesn't take into account differences in the age profiles of the religions.\n\nFor adults belonging to the Church of Scotland, the median average age was ", age_cos , ". In contrast, the median age was ", age_muslim, " for Muslim adults, and ", age_none, " for adults belonging to no religion.\n\nOlder adults have a lower poverty rate, so age profile partly explains the lower poverty rate for adults belonging to the Church of Scotland. However, the age difference cannot explain the entire gap in poverty rates between religious groups.")))
+
+```
+
+```{r religion_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+#### More information on religion data
+
+Figure `r fign` shows an average for data from the past five financial years.
+
+Due to the small sample sizes for some of the religious groups, and the fact that religious composition of the population is not accounted for in the survey weighting process, estimates fluctuate between years and the measurement uncertainty is fairly large.
+
+### Disability
+
+```{r disability1}
+
+keymessage <- "Relative poverty rates higher where a household member is disabled"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty after housing costs, Scotland"
+
+chart <- povertycharts$pp_dis1 %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$pp_dis1,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$pp_dis1_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rate_dis <- filter(htmltables$pp_dis1, Group == "Someone disabled")[[params$data_period]]
+rate_nodis <- filter(htmltables$pp_dis1, Group == "No-one disabled")[[params$data_period]]
+
+num_dis <- scales::comma(filter(povertytables$disab_pp$rel_numbers, Group == "In household with disabled person(s)")[[params$data_period]])
+num_nodis <- scales::comma(filter(povertytables$disab_pp$rel_numbers, Group == "In household with no disabled person(s)")[[params$data_period]])
+
+description <- paste0("Poverty rates remain higher for households in which somebody is disabled compared to those where no-one is disabled. The gap between the two groups has remained fairly steady over the last few years. However, the latest estimate shows an increase for people with disabled household members. It is yet unclear whether this is the beginning of a new trend, or if it is a volatile data point. We do know that the increase is related to the increase of economically inactive working-age adults in poverty, see the discussion in the [working-age section](#working-age-relative-poverty).
+
+In ", params$data_period, ", the poverty rate after housing costs for people in households with a disabled person was ", rate_dis, " (", num_dis, " people each year). This compares with ", rate_nodis, " (", num_nodis, " people) in a household without disabled household members.")
+
+```
+
+```{r pp_disability1_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+`r infobox("The way in which information on disabled people is collected changed several times during this timeseries. This causes breaks in the timeseries. Due to these changes, care needs to be taken when considering long-term trends.\n\nSince 2012/13, disabled people are identified as those who report any physical or mental health condition(s) or illness(es) that last or are expected to last 12 months or more, and which limit their ability to carry out day-to-day activities.\n\nMore detail can be found on pages 34-36 in the [2015/16 Households Below Average Incomes technical report](https://www.gov.uk/government/statistics/households-below-average-income-199495-to-201516).")`
+
+#### Additional living costs of disabled people
+
+Some illnesses and disabilities incur additional living costs. The poverty measure does not normally consider this. However, the analysis shown in Figure `r fign + 1` uses an adjusted poverty rate that partly accounts for additional living costs for those households where someone receives disability benefits.
+
+```{r disability2}
+
+keymessage <- "Relative poverty rates, with disability benefits removed from household income, are higher where a household member is disabled"
+
+fign <- fign + 1
+
+title <- paste0("Figure ", fign, ": ", keymessage)
+subtitle <- "Proportion of people in relative poverty (disability benefits removed from household income) after housing costs, Scotland"
+
+chart <- povertycharts$pp_dis2 %>% 
+  highcharter::hc_title(text = title) %>% 
+  highcharter::hc_subtitle(text = subtitle) %>% 
+  highcharter::hc_exporting(filename = paste0("fig_", fign)) %>% 
+  highcharter::hc_credits(enabled = TRUE, text = source, href = href)
+
+table1 <- datatable(data = htmltables$pp_dis2,
+                            id = paste0("table-", fign, "a"),
+                            caption = paste0("Table ", fign, "a: ", subtitle),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+table2 <- datatable(data = htmltables$pp_dis2_samples,
+                            id = paste0("table-", fign, "b"),
+                            caption = paste0("Table ", fign, "b: Sample size"),
+                            source = source,
+                            options = list(rowHeaders = TRUE))
+
+rate_dis <- filter(htmltables$pp_dis2, Group == "Someone disabled")[[params$data_period]]
+rate_nodis <- filter(htmltables$pp_dis2, Group == "No-one disabled")[[params$data_period]]
+
+num_dis <- scales::comma(filter(povertytables$disab_nobens_pp$rel_numbers, Group == "In household with disabled person(s)")[[params$data_period]])
+num_nodis <- scales::comma(filter(povertytables$disab_nobens_pp$rel_numbers, Group == "In household with no disabled person(s)")[[params$data_period]])
+
+description <- paste0("Research shows that additional costs associated with disability vary greatly in level and nature. There is no general agreement on how to measure these costs.
+
+The analysis in Figure ", fign, " excludes Disability Living Allowance, Attendance Allowance and Personal Independence Payments from total household income. These benefits are paid as a contribution towards the additional living costs for disabled people. If this income is excluded from total household income, then we are able to compare households with and without a disabled household member on a more like for like basis.
+
+In ", params$data_period, ", as in previous years, the poverty rate was higher for individuals in households with a disabled person, when disability-related benefits are not included in the household income. After housing costs, the poverty rate was ", rate_dis, " (", num_dis, " people each year) for people living with a disabled household member, and ", rate_nodis, " (", num_nodis, " people) for those without.")
+
+```
+
+```{r pp_disability2_chart}
+
+message(keymessage)
+htmltools::tags$figure(id = paste0("figure-", fign),
+                       htmltools::tags$div(class = "highcharts-description",
+                                           id = paste0("figure-", fign, "-description"),
+                                           create_html(description)),
+                       chart)
+tables_panel(list(table1, table2))
+
+```
+
+`r infobox("Excluding disability benefits from the analysis changes the poverty threshold. This is because some households now have a lower income, which lowers the median and therefore also the poverty threshold. As a consequence, some households without a disabled person that were just below the poverty threshold in the previous analysis will now be above the threshold. As a result, the poverty rate for households without a disabled person is slightly lower.")`

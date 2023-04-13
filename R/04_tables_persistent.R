@@ -1,11 +1,15 @@
 
 # Create tables to include on website and as Excel files for download
+
+# load -------------------------------------------------------------------------
 library(tidyverse)
 library(scales)
 
 source("R/00_functions.R")
 
 persistent <- readRDS("data/persistentpoverty.rds")
+priority <- readRDS("data/persistentpriority.rds") %>%
+  mutate(Period = factor(Period, ordered = TRUE))
 
 data <- persistent %>%
   filter(group %in% c("ch", "wa", "pn", "pp"),
@@ -29,31 +33,31 @@ persistenttables$source <- "Source: Understanding Society Survey"
 persistenttables$tableScotland <- data %>%
   filter(housingcosts == "After housing costs") %>%
   select(Period, value, group) %>%
-  spread(group, value)
+  pivot_wider(names_from = group, values_from = value)
 
 # table 1 ----------------------------------------------------------------------
 persistenttables$table1 <- data %>%
   filter(group == "pp") %>%
   select(-group) %>%
-  spread(housingcosts, value)
+  pivot_wider(names_from = housingcosts, values_from = value)
 
 # table 2 ----------------------------------------------------------------------
 persistenttables$table2 <- data %>%
   filter(group == "ch") %>%
   select(-group) %>%
-  spread(housingcosts, value)
+  pivot_wider(names_from = housingcosts, values_from = value)
 
 # table 3 ----------------------------------------------------------------------
 persistenttables$table3 <- data %>%
   filter(group == "wa") %>%
   select(-group) %>%
-  spread(housingcosts, value)
+  pivot_wider(names_from = housingcosts, values_from = value)
 
 # table 4 ----------------------------------------------------------------------
 persistenttables$table4 <- data %>%
   filter(group == "pn") %>%
   select(-group) %>%
-  spread(housingcosts, value)
+  pivot_wider(names_from = housingcosts, values_from = value)
 
 # Entry / exit -----------------------------------------------------------------
 data2 <- persistent %>%
@@ -76,15 +80,78 @@ data2 <- persistent %>%
 persistenttables$table5 <- data2 %>%
   filter(group == "exit") %>%
   select(-group) %>%
-  spread(measure, value)
+  pivot_wider(names_from = measure, values_from = value)
 
 # table 6 entry ----------------------------------------------------------------
 persistenttables$table6 <- data2 %>%
   filter(group == "entry") %>%
   select(-group) %>%
-  spread(measure, value)
+  pivot_wider(names_from = measure, values_from = value)
+
+# table 7 priority groups ------------------------------------------------------
+
+data1 <- priority %>%
+  filter(Group %in% c("Mixed/ multiple ethnic groups", "Asian/ Asian British",
+                      "Black/ African/ Caribbean/ Black British",
+                      "Other ethnic group")) %>%
+  group_by(Period) %>%
+  summarise(Group = "Minority ethnic family",
+            Rate = NA,
+            Sample = sum(Sample))
+
+data2 <- priority %>%
+  filter(!Group %in% c("Mixed/ multiple ethnic groups", "Asian/ Asian British",
+                       "Black/ African/ Caribbean/ Black British",
+                       "Other ethnic group"))
+
+persistenttables$table7a <- rbind(data1, data2) %>%
+  mutate(Group = factor(Group,
+                        levels = c("Total",
+                                   "Three or more children",
+                                   "At least one disabled adult",
+                                   "0 - 4",
+                                   "Minority ethnic family",
+                                   "Lone parent family",
+                                   "Yes, mother under 25"),
+                        labels = c("All children",
+                                   "3 or more children in the family",
+                                   "Disabled adult(s) in family",
+                                   "Youngest child in the family is under 5",
+                                   "Minority ethnic family",
+                                   "Single parent family",
+                                   "Mother under 25"),
+                        ordered = TRUE),
+         Rate = round2(Rate, 2)) %>%
+  arrange(Group) %>%
+  select(-Sample) %>%
+  pivot_wider(names_from = Period, values_from = Rate)
+
+persistenttables$table7b <- rbind(data1, data2) %>%
+  mutate(Group = factor(Group,
+                        levels = c("Total",
+                                   "Three or more children",
+                                   "At least one disabled adult",
+                                   "0 - 4",
+                                   "Minority ethnic family",
+                                   "Lone parent family",
+                                   "Yes, mother under 25"),
+                        labels = c("All children",
+                                   "3 or more children in the family",
+                                   "Disabled adult(s) in family",
+                                   "Youngest child in the family is under 5",
+                                   "Minority ethnic family",
+                                   "Single parent family",
+                                   "Mother under 25"),
+                        ordered = TRUE)) %>%
+  arrange(Group) %>%
+  select(-Rate) %>%
+  pivot_wider(names_from = Period, values_from = Sample)
+
+
+# save all ---------------------------------------------------------------------
 
 saveRDS(persistenttables, "data/persistenttables.rds")
 rm(list = ls())
 
+cat("Persistent poverty tables created", fill = TRUE)
 

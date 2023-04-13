@@ -1,115 +1,132 @@
-# prelims ----------------------------------------------------------------------
+# Note: this is how we dealt with the bad 2021 data.
+
+# - all 2021 weights set to 0
+# - added na.rm = TRUE to all getnyrtable, getrollingmean, getrollingtotal,
+#   getheadlines & summarise_data function calls
+# - wtd.medians and wtd.quantile don't deal with an all-zero weights vector, so
+#   needed to be dealt with like so: in each table, filter bad year out and then
+#   add it back in before taking 3-year average
+
+# missing codes
+
+# numeric and character missing codes (will be automatically replaced in spreadsheets)
+# NA -> [u]: unreliable due to small sample size
+# 99991 -> [b]: break in the time series
+# 99992 -> [x]: not available for another reason (data accuracy, data wasn't collected etc.)"),
+# 99993 -> [low]: low figure but not a real zero
+
+# load -------------------------------------------------------------------------
+
 library(tidyverse)
 library(analysistools)
 source("R/00_functions.R")
 source("R/00_strings.R")
 
-hbai <- readRDS("data/tidyhbai.rds") %>% filter(gvtregn == "Scotland")
-adult <- readRDS("data/tidyadult.rds") %>% filter(gvtregn == "Scotland")
+hbai <- readRDS("data/tidyhbai.rds") %>%
+  filter(gvtregn == "Scotland")
 
-# on re-run, use existing dataset
-# (but note that any new elements will be added at the end)
-if (file.exists("data/tables.rds")) {
-  tables <- readRDS("data/tables.rds")
-} else {tables <- list()}
+adult <- readRDS("data/tidyadult.rds") %>%
+  filter(gvtregn == "Scotland")
+
+tables <- list()
 
 latestyear <- max(levels(labels$years$formatted))
 periods <- levels(labels$years$periods)
 
 # :----------------------- -----------------------------------------------------
-# 1 rel ------------------------------------------------------------------------
-tables$relAHC <- list(rates = getheadlines(hbai, pov = "low60ahc",
+# rel --------------------------------------------------------------------------
+tables$relAHC <- list(rates = getheadlines(hbai, pov = "low60ahc", na.rm = TRUE,
                                            threeyr = TRUE)[["rates"]],
-                      comps = getheadlines(hbai, pov = "low60ahc",
+                      comps = getheadlines(hbai, pov = "low60ahc", na.rm = TRUE,
                                            threeyr = TRUE)[["comps"]],
-                      numbers = getheadlines(hbai, pov = "low60ahc",
+                      numbers = getheadlines(hbai, pov = "low60ahc", na.rm = TRUE,
                                              threeyr = TRUE)[["numbers"]],
-                      sample = getheadlines(hbai, pov = "low60ahc",
+                      sample = getheadlines(hbai, pov = "low60ahc", na.rm = TRUE,
                                             threeyr = TRUE)[["sample"]])
 
-# 2 abs ------------------------------------------------------------------------
-tables$absAHC <- list(rates = getheadlines(hbai, pov = "low60ahcabs",
+# abs --------------------------------------------------------------------------
+tables$absAHC <- list(rates = getheadlines(hbai, pov = "low60ahcabs", na.rm = TRUE,
                                            threeyr = TRUE)[["rates"]],
-                      comps = getheadlines(hbai, pov = "low60ahcabs",
+                      comps = getheadlines(hbai, pov = "low60ahcabs", na.rm = TRUE,
                                            threeyr = TRUE)[["comps"]],
-                      numbers = getheadlines(hbai, pov = "low60ahcabs",
+                      numbers = getheadlines(hbai, pov = "low60ahcabs", na.rm = TRUE,
                                              threeyr = TRUE)[["numbers"]],
-                      sample = getheadlines(hbai, pov = "low60ahcabs",
+                      sample = getheadlines(hbai, pov = "low60ahcabs", na.rm = TRUE,
                                             threeyr = TRUE)[["sample"]])
 
-# 3 sev ------------------------------------------------------------------------
-tables$sevAHC <- list(rates = getheadlines(hbai, pov = "low50ahc",
+# sev --------------------------------------------------------------------------
+tables$sevAHC <- list(rates = getheadlines(hbai, pov = "low50ahc", na.rm = TRUE,
                                            threeyr = TRUE)[["rates"]],
-                      comps = getheadlines(hbai, pov = "low50ahc",
+                      comps = getheadlines(hbai, pov = "low50ahc", na.rm = TRUE,
                                            threeyr = TRUE)[["comps"]],
-                      numbers = getheadlines(hbai, pov = "low50ahc",
+                      numbers = getheadlines(hbai, pov = "low50ahc", na.rm = TRUE,
                                              threeyr = TRUE)[["numbers"]],
-                      sample = getheadlines(hbai, pov = "low50ahc",
+                      sample = getheadlines(hbai, pov = "low50ahc", na.rm = TRUE,
                                             threeyr = TRUE)[["sample"]])
 
-# 4 rel BHC --------------------------------------------------------------------
-tables$relBHC <- list(rates = getheadlines(hbai, pov = "low60bhc",
+# rel BHC ----------------------------------------------------------------------
+tables$relBHC <- list(rates = getheadlines(hbai, pov = "low60bhc", na.rm = TRUE,
                                            threeyr = TRUE)[["rates"]],
-                      comps = getheadlines(hbai, pov = "low60bhc",
+                      comps = getheadlines(hbai, pov = "low60bhc", na.rm = TRUE,
                                            threeyr = TRUE)[["comps"]],
-                      numbers = getheadlines(hbai, pov = "low60bhc",
+                      numbers = getheadlines(hbai, pov = "low60bhc", na.rm = TRUE,
                                              threeyr = TRUE)[["numbers"]],
-                      sample = getheadlines(hbai, pov = "low60bhc",
+                      sample = getheadlines(hbai, pov = "low60bhc", na.rm = TRUE,
                                             threeyr = TRUE)[["sample"]])
 
-# 5 abs BHC --------------------------------------------------------------------
-tables$absBHC <- list(rates = getheadlines(hbai, pov = "low60bhcabs",
+# abs BHC ----------------------------------------------------------------------
+tables$absBHC <- list(rates = getheadlines(hbai, pov = "low60bhcabs", na.rm = TRUE,
                                            threeyr = TRUE)[["rates"]],
-                      comps = getheadlines(hbai, pov = "low60bhcabs",
+                      comps = getheadlines(hbai, pov = "low60bhcabs", na.rm = TRUE,
                                            threeyr = TRUE)[["comps"]],
-                      numbers = getheadlines(hbai, pov = "low60bhcabs",
+                      numbers = getheadlines(hbai, pov = "low60bhcabs", na.rm = TRUE,
                                              threeyr = TRUE)[["numbers"]],
-                      sample = getheadlines(hbai, pov = "low60bhcabs",
+                      sample = getheadlines(hbai, pov = "low60bhcabs", na.rm = TRUE,
                                             threeyr = TRUE)[["sample"]])
 
-# 6 sev BHC --------------------------------------------------------------------
-tables$sevBHC <- list(rates = getheadlines(hbai, pov = "low50bhc",
+# sev BHC ----------------------------------------------------------------------
+tables$sevBHC <- list(rates = getheadlines(hbai, pov = "low50bhc", na.rm = TRUE,
                                            threeyr = TRUE)[["rates"]],
-                      comps = getheadlines(hbai, pov = "low50bhc",
+                      comps = getheadlines(hbai, pov = "low50bhc", na.rm = TRUE,
                                            threeyr = TRUE)[["comps"]],
-                      numbers = getheadlines(hbai, pov = "low50bhc",
+                      numbers = getheadlines(hbai, pov = "low50bhc", na.rm = TRUE,
                                              threeyr = TRUE)[["numbers"]],
-                      sample = getheadlines(hbai, pov = "low50bhc",
+                      sample = getheadlines(hbai, pov = "low50bhc", na.rm = TRUE,
                                             threeyr = TRUE)[["sample"]])
 
-# 7 cmd ------------------------------------------------------------------------
-cmd_ahc <- filter(hbai, gs_newch > 0) %>%
+# cmd --------------------------------------------------------------------------
+cmd_ahc <- filter(hbai, depchldh != "No children in the household") %>%
   getpovby(pov = "cmdahc", weight = "gs_newch") %>%
   filter(yearn >= 18)
-cmd_ahc_new <- filter(hbai, gs_newch > 0) %>%
+cmd_ahc_new <- filter(hbai, depchldh != "No children in the household") %>%
   getpovby(pov = "cmdahc_new", weight = "gs_newch") %>%
   rbind(cmd_ahc) %>%
   mutate(Measure = "New measure, after housing costs")
-cmd_ahc <- filter(hbai, gs_newch > 0) %>%
+cmd_ahc <- filter(hbai, depchldh != "No children in the household") %>%
   getpovby(pov = "cmdahc", weight = "gs_newch") %>%
   filter(yearn <= 17) %>%
   mutate(Measure = "Old measure, after housing costs") %>%
   rbind(cmd_ahc_new) %>%
   group_by(Measure) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   roundall() %>%
   filter(type != "cmdahc_new")
 
-cmd_bhc <- filter(hbai, gs_newch > 0) %>%
+cmd_bhc <- filter(hbai, depchldh != "No children in the household") %>%
   getpovby(pov = "cmdbhc", weight = "gs_newch") %>%
   filter(yearn >= 18)
-cmd_bhc_new <- filter(hbai, gs_newch > 0) %>%
+cmd_bhc_new <- filter(hbai, depchldh != "No children in the household") %>%
   getpovby(pov = "cmdbhc_new", weight = "gs_newch") %>%
   rbind(cmd_bhc) %>%
   mutate(Measure = "New measure, before housing costs")
-cmd_bhc <- filter(hbai, gs_newch > 0) %>%
+cmd_bhc <- filter(hbai, depchldh != "No children in the household") %>%
   getpovby(pov = "cmdbhc", weight = "gs_newch") %>%
   filter(yearn <= 17) %>%
   mutate(Measure = "Old measure, before housing costs") %>%
   rbind(cmd_bhc_new) %>%
   group_by(Measure) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   roundall() %>%
   filter(type != "cmdahc_new")
@@ -119,31 +136,44 @@ cmd <- rbind(cmd_ahc, cmd_bhc)  %>%
 
 rates <- cmd  %>%
   select(year, rate, Measure) %>%
-  spread(year, rate) %>%
-  mutate("2009-12" = NA) %>%
+  pivot_wider(names_from = year, values_from = rate,
+
+              # missing code for time series break
+              values_fill = list(rate = 99992)) %>%
+
+  # missing code for time series break
+  mutate("2009-12" = 99991) %>%
+
   select(1:6, "2009-12", everything())
+
 numbers <- cmd %>%
   select(year, number, Measure) %>%
-  spread(year, number) %>%
-  mutate("2009-12" = NA) %>%
+  pivot_wider(names_from = year, values_from = number,
+
+              # missing code for time series break
+              values_fill = list(number = 99992)) %>%
+
+  mutate("2009-12" = 99991) %>%
   select(1:6, "2009-12", everything())
+
 sample <- cmd %>%
   select(year, sample, Measure) %>%
   filter(Measure %in% c("Old measure, after housing costs",
                         "New measure, after housing costs")) %>%
-  spread(year, sample)  %>%
-  mutate("2009-12" = NA) %>%
+  pivot_wider(names_from = year, values_from = sample) %>%
+  mutate("2009-12" = 99991) %>%
   select(1:6, "2009-12", everything()) %>%
   mutate(Measure = ifelse(Measure == "Old measure, after housing costs",
-                          "Old measure", "New measure"))
+                          "Old measure", "New measure")) %>%
+  replace(is.na(.), 99992)
 
 tables$cmd <- list(rates = rates,
                    numbers = numbers,
                    sample = sample)
 
-# 8 pmd ------------------------------------------------------------------------
+# pmd --------------------------------------------------------------------------
 pmd <- getpovby(hbai, pov = "mdpn", weight = "wgt65") %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   roundall() %>%
   mutate(Group = "Pensioners aged 65 and older",
@@ -151,104 +181,25 @@ pmd <- getpovby(hbai, pov = "mdpn", weight = "wgt65") %>%
 
 tables$pmd <- list(rates = pmd %>%
                      select(Group, year, rate) %>%
-                     spread(year, rate),
+                     pivot_wider(names_from = year, values_from = rate),
                    numbers = pmd %>%
                      select(Group, year, number) %>%
-                     spread(year, number),
+                     pivot_wider(names_from = year, values_from = number),
                    sample = pmd  %>%
                      select(Group, year, sample) %>%
-                     spread(year, sample))
+                     pivot_wider(names_from = year, values_from = sample))
 # :----------------------- -----------------------------------------------------
-# 9 newfambu (adults) ----------------------------------------------------------
+# hd agebands (pp) -------------------------------------------------------------
 
-rel <- getpovby(hbai, pov = "low60ahc", by = "newfambu", weight = "gs_newad") %>%
-  summarise_data()
-sev <- getpovby(hbai, pov = "low50ahc", by = "newfambu", weight = "gs_newad") %>%
-  summarise_data()
-
-tables$newfambu_ad <- list(rel_rates = splitntranspose(rel, "rate"),
-                           rel_comps = splitntranspose(rel, "composition"),
-                           rel_numbers = splitntranspose(rel, "number"),
-
-                           sev_rates = splitntranspose(sev, "rate"),
-                           sev_comps = splitntranspose(sev, "composition"),
-                           sev_numbers = splitntranspose(sev, "number"),
-                           sample = splitntranspose(rel, "sample"))
-
-# 10 depchldh ------------------------------------------------------------------
-
-rel <- getpovby(hbai, by = "depchldh") %>%
-  summarise_data() %>%
+rel <- getpovby(hbai, by = "agehdband8", weight = "gs_newpp") %>%
+  summarise_data(na.rm = TRUE) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
 
-sev <- getpovby(hbai, pov = "low50ahc", by = "depchldh") %>%
-  summarise_data() %>%
+sev <- getpovby(hbai, pov = "low50ahc", by = "agehdband8", weight = "gs_newpp") %>%
+  summarise_data(na.rm = TRUE) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
 
-tables$depchldh_pp <- list(rel_rates = splitntranspose(rel, "rate"),
-                           rel_comps = splitntranspose(rel, "composition"),
-                           rel_numbers = splitntranspose(rel, "number"),
-
-                           sev_rates = splitntranspose(sev, "rate"),
-                           sev_comps = splitntranspose(sev, "composition"),
-                           sev_numbers = splitntranspose(sev, "number"),
-                           sample = splitntranspose(rel, "sample"))
-
-# 11 ecobu (working-age adults) ------------------------------------------------
-
-rel <- getpovby(hbai, by = "ecobu", weight = "gs_newwa") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 5)
-
-sev <- getpovby(hbai, pov = "low50ahc", by = "ecobu", weight = "gs_newwa") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 5)
-
-tables$ecobu_wa <- list(rel_rates = splitntranspose(rel, "rate"),
-                        rel_comps = splitntranspose(rel, "composition"),
-                        rel_numbers = splitntranspose(rel, "number"),
-
-                        sev_rates = splitntranspose(sev, "rate"),
-                        sev_comps = splitntranspose(sev, "composition"),
-                        sev_numbers = splitntranspose(sev, "number"),
-                        sample = splitntranspose(rel, "sample"))
-
-# 12 workinghh (working-age adults) --------------------------------------------
-
-rel <- getpovby(hbai, by = "workinghh", weight = "gs_newwa") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 5)
-
-sev <- getpovby(hbai, pov = "low50ahc", by = "workinghh", weight = "gs_newwa") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 5)
-
-tables$workinghh_wa <- list(rel_rates = splitntranspose(rel, "rate"),
-                            rel_comps = splitntranspose(rel, "composition"),
-                            rel_numbers = splitntranspose(rel, "number"),
-
-                            sev_rates = splitntranspose(sev, "rate"),
-                            sev_comps = splitntranspose(sev, "composition"),
-                            sev_numbers = splitntranspose(sev, "number"),
-                            sample = splitntranspose(rel, "sample"))
-
-# 13 tenhbai -------------------------------------------------------------------
-
-rel <- getpovby(hbai, by = "tenhbai") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 12)
-
-sev <- getpovby(hbai, pov = "low50ahc", by = "tenhbai") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 12)
-
-tables$tenhbai_pp <- list(rel_rates = splitntranspose(rel, "rate"),
+tables$ageband_pp <- list(rel_rates = splitntranspose(rel, "rate"),
                           rel_comps = splitntranspose(rel, "composition"),
                           rel_numbers = splitntranspose(rel, "number"),
 
@@ -257,108 +208,30 @@ tables$tenhbai_pp <- list(rel_rates = splitntranspose(rel, "rate"),
                           sev_numbers = splitntranspose(sev, "number"),
                           sample = splitntranspose(rel, "sample"))
 
-# 14 urinds --------------------------------------------------------------------
-
-rel <- getpovby(hbai, by = "urinds") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 15)
-
-sev <- getpovby(hbai, pov = "low50ahc", by = "urinds") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  filter(yearn >= 15)
-
-tables$urinds_pp <- list(rel_rates = splitntranspose(rel, "rate"),
-                         rel_comps = splitntranspose(rel, "composition"),
-                         rel_numbers = splitntranspose(rel, "number"),
-
-                         sev_rates = splitntranspose(sev, "rate"),
-                         sev_comps = splitntranspose(sev, "composition"),
-                         sev_numbers = splitntranspose(sev, "number"),
-                         sample = splitntranspose(rel, "sample"))
-
-# 15 agebands (adults) ---------------------------------------------------------
-
-rel <- getpovby(adult, by = "ageband", weight = "adultwgt") %>%
-  summarise_data() %>%
-  mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
-
-sev <- getpovby(adult, pov = "low50ahc", by = "ageband", weight = "adultwgt") %>%
-  summarise_data() %>%
-  mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
-
-tables$ageband_ad <- list(rel_rates = splitntranspose(rel, "rate"),
-                          rel_comps = splitntranspose(rel, "composition"),
-                          rel_numbers = splitntranspose(rel, "number"),
-
-                          sev_rates = splitntranspose(sev, "rate"),
-                          sev_comps = splitntranspose(sev, "composition"),
-                          sev_numbers = splitntranspose(sev, "number"),
-                          sample = splitntranspose(rel, "sample"))
-
-# 16 sex / singlehh (adults) ---------------------------------------------------
-
-rel <- filter(hbai, singlehh != "(Missing)") %>%
-  getpovby(by = "singlehh", weight = "gs_newad") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data()
-
-sev <- filter(hbai, singlehh != "(Missing)") %>%
-  getpovby(pov = "low50ahc", by = "singlehh", weight = "gs_newad") %>%
-  filter(groupingvar != "(Missing)") %>%
-  summarise_data()
-
-tables$singlehh_ad <- list(rel_rates = splitntranspose(rel, "rate"),
-                           rel_comps = splitntranspose(rel, "composition"),
-                           rel_numbers = splitntranspose(rel, "number"),
-
-                           sev_rates = splitntranspose(sev, "rate"),
-                           sev_comps = splitntranspose(sev, "composition"),
-                           sev_numbers = splitntranspose(sev, "number"),
-                           sample = splitntranspose(rel, "sample"))
-
-# 17 marital (adults) ----------------------------------------------------------
-
-rel <- getpovby(adult, by = "marital", weight = "adultwgt") %>%
-  summarise_data()
-
-sev <- getpovby(adult, pov = "low50ahc", by = "marital", weight = "adultwgt") %>%
-  summarise_data()
-
-tables$marital_ad <- list(rel_rates = splitntranspose(rel, "rate"),
-                          rel_comps = splitntranspose(rel, "composition"),
-                          rel_numbers = splitntranspose(rel, "number"),
-
-                          sev_rates = splitntranspose(sev, "rate"),
-                          sev_comps = splitntranspose(sev, "composition"),
-                          sev_numbers = splitntranspose(sev, "number"),
-                          sample = splitntranspose(rel, "sample"))
-
-# 18 disability ----------------------------------------------------------------
+# disability (pp) -------------------------------------------------------------------
 rel_pp <- getpovby(hbai, by = "dispp_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc", by = "dispp_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ch <- getpovby(hbai, by = "disch_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc", by = "disch_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ad <- getpovby(hbai, by = "disad_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc", by = "disad_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -387,41 +260,50 @@ rel_numbers3 <- splitntranspose(rel_ad, "number")  %>% filter(Group != "All")
 sev_rates3 <- splitntranspose(sev_ad, "rate") %>% filter(Group != "All")
 sev_comps3 <- splitntranspose(sev_ad, "composition") %>% filter(Group != "All")
 sev_numbers3 <- splitntranspose(sev_ad, "number")  %>% filter(Group != "All")
+
+# mark break in time series (numbers only)
+rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
+
+sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
 
 tables$disab_pp <- list(rel_rates = rbind(rel_rates1, rel_rates2, rel_rates3),
                         rel_comps = rbind(rel_comps1, rel_comps2, rel_comps3),
-                        rel_numbers = rbind(rel_numbers1, rel_numbers2, rel_numbers3),
+                        rel_numbers = rel_numbers,
 
                         sev_rates = rbind(sev_rates1, sev_rates2, sev_rates3),
                         sev_comps = rbind(sev_comps1, sev_comps2, sev_comps3),
-                        sev_numbers = rbind(sev_numbers1, sev_numbers2, sev_numbers3),
+                        sev_numbers = sev_numbers,
 
                         sample = rbind(sample1, sample2, sample3))
 
-# 19 disability no bens --------------------------------------------------------
+# disability no bens (pp) -----------------------------------------------------------
 rel_pp <- getpovby(hbai, pov = "low60ahc_dis", by = "dispp_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc_dis", by = "dispp_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ch <- getpovby(hbai, pov = "low60ahc_dis", by = "disch_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc_dis", by = "disch_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ad <- getpovby(hbai, pov = "low60ahc_dis", by = "disad_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc_dis", by = "disad_hh") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -451,48 +333,39 @@ sev_rates3 <- splitntranspose(sev_ad, "rate") %>% filter(Group != "All")
 sev_comps3 <- splitntranspose(sev_ad, "composition") %>% filter(Group != "All")
 sev_numbers3 <- splitntranspose(sev_ad, "number")  %>% filter(Group != "All")
 
+# mark break in time series (numbers only)
+rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
+
+sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
+
 tables$disab_nobens_pp <- list(rel_rates = rbind(rel_rates1, rel_rates2, rel_rates3),
                                rel_comps = rbind(rel_comps1, rel_comps2, rel_comps3),
-                               rel_numbers = rbind(rel_numbers1, rel_numbers2, rel_numbers3),
+                               rel_numbers = rel_numbers,
 
                                sev_rates = rbind(sev_rates1, sev_rates2, sev_rates3),
                                sev_comps = rbind(sev_comps1, sev_comps2, sev_comps3),
-                               sev_numbers = rbind(sev_numbers1, sev_numbers2, sev_numbers3),
+                               sev_numbers = sev_numbers,
 
                                sample = rbind(sample1, sample2, sample3))
-# 20 ethgrphh ------------------------------------------------------------------
+# ethgrphh (pp) ---------------------------------------------------------------------
 
-rel <- getpovby(hbai, by = "ethgrphh") %>%
+rel <- hbai %>%
   filter(yearn >= 8,
-         groupingvar != "(Missing)") %>%
-  group_by(groupingvar) %>%
-  get5yrtable() %>%
-  samplesizecheck() %>%
-  roundall() %>%
-  mutate(year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr)) %>%
-  mutate(groupingvar = factor(groupingvar,
-                              levels = c("All", "White - British",
-                                         "White - Other",
-                                         "Asian or Asian British",
-                                         "Mixed, Black or Black British, and Other")))
+         ethgrphh != "(Missing)") %>%
+  mutate(ethgrphh = fct_drop(ethgrphh)) %>%
+  getpovby(by = "ethgrphh") %>%
+  summarise_data(5, na.rm = TRUE)
 
-sev <- getpovby(hbai, pov = "low50ahc", by = "ethgrphh") %>%
+sev <- hbai %>%
   filter(yearn >= 8,
-         groupingvar != "(Missing)") %>%
-  group_by(groupingvar) %>%
-  get5yrtable() %>%
-  samplesizecheck() %>%
-  roundall() %>%
-  mutate(year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr)) %>%
-  mutate(groupingvar = factor(groupingvar,
-                              levels = c("All", "White - British",
-                                         "White - Other",
-                                         "Asian or Asian British",
-                                         "Mixed, Black or Black British, and Other")))
+         ethgrphh != "(Missing)")  %>%
+  mutate(ethgrphh = fct_drop(ethgrphh)) %>%
+  getpovby(pov = "low50ahc", by = "ethgrphh") %>%
+  summarise_data(5, na.rm = TRUE)
 
 age <- hbai %>%
   rbind(hbai %>% filter(ethgrphh != "(Missing)") %>% mutate(ethgrphh = "All")) %>%
@@ -504,19 +377,25 @@ age <- hbai %>%
             by = c("sernum", "benunit")) %>%
   filter(yearn >= 8,
          ethgrphh != "(Missing)",
-         hrpid == 1) %>%
+         hrpid == 1,
+         # exclude bad data year
+         yearn != 27) %>%
   group_by(yearn, ethgrphh) %>%
   summarise(age = wtd.median(agehd, gs_newbu),
-            sample = n()) %>%
+            sample = sum(gs_newbu > 0, na.rm = TRUE)) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27,
+                       ethgrphh = unique(.$ethgrphh))) %>%
+  arrange(yearn) %>%
+
   group_by(ethgrphh) %>%
-  mutate(age = getrollingmean(age, 5),
-         sample = getrollingtotal(sample, 5)) %>%
+  mutate(age = analysistools::getrollingmean(age, 5, na.rm = TRUE),
+         sample = analysistools::getrollingtotal(sample, 5, na.rm = TRUE)) %>%
   ungroup() %>%
   filter(yearn >= 12) %>%
   mutate(age = ifelse(sample < 50, NA, round2(age, 0)),
-         year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr),
+         year = get_periods(yearn, n = 5),
          ethgrphh = factor(ethgrphh,
                               levels = c("All", "White - British",
                                          "White - Other",
@@ -539,196 +418,105 @@ tables$ethgrphh_pp <- list(rel_rates = splitntranspose(rel, "rate"),
                            age = age,
                            sample = splitntranspose(rel, "sample"))
 
-# 21 religsc (adults) ----------------------------------------------------------
+# depchldh (pp) ----------------------------------------------------------------
 
-rel <- adult %>%
-  filter(religsc != "(Missing)") %>%
-  getpovby(by = "religsc", weight = "adultwgt") %>%
+rel <- getpovby(hbai, by = "depchldh") %>%
+  summarise_data(na.rm = TRUE) %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
+
+sev <- getpovby(hbai, pov = "low50ahc", by = "depchldh") %>%
+  summarise_data(na.rm = TRUE) %>%
+  mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
+
+tables$depchldh_pp <- list(rel_rates = splitntranspose(rel, "rate"),
+                           rel_comps = splitntranspose(rel, "composition"),
+                           rel_numbers = splitntranspose(rel, "number"),
+
+                           sev_rates = splitntranspose(sev, "rate"),
+                           sev_comps = splitntranspose(sev, "composition"),
+                           sev_numbers = splitntranspose(sev, "number"),
+                           sample = splitntranspose(rel, "sample"))
+
+# tenhbai (pp) -----------------------------------------------------------------
+
+rel <- getpovby(hbai, by = "tenhbai") %>%
   filter(groupingvar != "(Missing)") %>%
-  group_by(groupingvar) %>%
-  get5yrtable() %>%
-  samplesizecheck() %>%
-  roundall() %>%
-  mutate(year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr),
-         groupingvar = factor(groupingvar,
-                              levels = c("All",
-                                         "Church of Scotland",
-                                         "Roman Catholic",
-                                         "Other Christian",
-                                         "Muslim",
-                                         "Other religion",
-                                         "No religion")))
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 12)
 
-sev <- adult %>%
-  filter(religsc != "(Missing)") %>%
-  getpovby(pov = "low50ahc", by = "religsc", weight = "adultwgt") %>%
+sev <- getpovby(hbai, pov = "low50ahc", by = "tenhbai") %>%
   filter(groupingvar != "(Missing)") %>%
-  group_by(groupingvar) %>%
-  get5yrtable() %>%
-  samplesizecheck() %>%
-  roundall() %>%
-  mutate(year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr),
-         groupingvar = factor(groupingvar,
-                              levels = c("All",
-                                         "Church of Scotland",
-                                         "Roman Catholic",
-                                         "Other Christian",
-                                         "Muslim",
-                                         "Other religion",
-                                         "No religion")))
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 12)
 
-age <- adult %>%
-  rbind(adult %>% filter(religsc != "(Missing)") %>% mutate(religsc = "All")) %>%
-  filter(religsc != "(Missing)") %>%
-  group_by(yearn, religsc) %>%
-  summarise(age = wtd.median(age, adultwgt),
-            sample = n()) %>%
-  group_by(religsc) %>%
-  mutate(age = getrollingmean(age, 5),
-         sample = getrollingtotal(sample, 5)) %>%
-  ungroup() %>%
-  filter(yearn >= 22) %>%
-  mutate(age = ifelse(sample < 50, NA, round2(age, 0)),
-         year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr),
-         religsc = factor(religsc,
-                          levels = c("All",
-                                     "Church of Scotland",
-                                     "Roman Catholic",
-                                     "Other Christian",
-                                     "Muslim",
-                                     "Other religion",
-                                     "No religion"))) %>%
-  select(year, age, religsc) %>%
-  arrange(religsc) %>%
-  pivot_wider(names_from = year, values_from = age) %>%
-  rename(Group = religsc)
-
-tables$religsc_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+tables$tenhbai_pp <- list(rel_rates = splitntranspose(rel, "rate"),
                           rel_comps = splitntranspose(rel, "composition"),
                           rel_numbers = splitntranspose(rel, "number"),
 
                           sev_rates = splitntranspose(sev, "rate"),
                           sev_comps = splitntranspose(sev, "composition"),
                           sev_numbers = splitntranspose(sev, "number"),
-
-                          age = age,
                           sample = splitntranspose(rel, "sample"))
 
-# 22 food security -------------------------------------------------------------
+# urinds (pp) ------------------------------------------------------------------
 
-total <- hbai %>%
-  filter(foodsec != "(Missing)",
-         yearn >= 26) %>%
-  group_by(yearn) %>%
-  mutate(population = sum(gs_newpp),
-         sample = sum(gs_newpp > 0, na.rm = TRUE)) %>%
-  group_by(yearn, foodsec) %>%
-  summarise(number = sum(gs_newpp),
-            sample = max(sample),
-            povsample = sum(gs_newpp > 0, na.rm = TRUE),
-            composition = number / max(population),
-            Group = "All people") %>%
-  group_by(foodsec) %>%
-  mutate(number = mean(number),
-         composition = mean(composition),
-         sample = sum(sample),
-         povsample = sum(povsample),
-         number = ifelse(povsample >= 100, number, NA),
-         number = roundpop(number),
-         composition = ifelse(sample >= 100, composition, NA),
-         composition = roundpct(composition)) %>%
-  filter(yearn == max(yearn)) %>%
-  ungroup() %>%
-  mutate(foodsec = fct_rev(foodsec))
+rel <- getpovby(hbai, by = "urinds") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 15)
 
-total_comp <- select(total, Group, foodsec, composition) %>%
-  spread(foodsec, composition)
-total_num <- select(total, Group, foodsec, number) %>%
-  spread(foodsec, number)
-total_sample <- select(total, Group, sample)[1, ]
+sev <- getpovby(hbai, pov = "low50ahc", by = "urinds") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 15)
 
-relpov <- hbai %>%
-  filter(foodsec != "(Missing)",
-         yearn >= 26,
-         low60ahc == 1) %>%
-  group_by(yearn) %>%
-  mutate(population = sum(gs_newpp),
-         sample = sum(gs_newpp > 0, na.rm = TRUE)) %>%
-  group_by(yearn, foodsec) %>%
-  summarise(number = sum(gs_newpp),
-            sample = max(sample),
-            povsample = sum(gs_newpp > 0, na.rm = TRUE),
-            composition = number / max(population),
-            Group = "In relative poverty") %>%
-  group_by(foodsec) %>%
-  mutate(number = mean(number),
-         sample = sum(sample),
-         povsample = sum(povsample),
-         number = ifelse(povsample >= 100, number, NA),
-         number = roundpop(number),
-         composition = mean(composition),
-         composition = ifelse(sample >= 100, composition, NA),
-         composition = roundpct(composition)) %>%
-  filter(yearn == max(yearn)) %>%
-  ungroup()
+tables$urinds_pp <- list(rel_rates = splitntranspose(rel, "rate"),
+                         rel_comps = splitntranspose(rel, "composition"),
+                         rel_numbers = splitntranspose(rel, "number"),
 
-relpov_comp <- select(relpov, Group, foodsec, composition) %>%
-  spread(foodsec, composition)
-relpov_num <- select(relpov, Group, foodsec, number) %>%
-  spread(foodsec, number)
-relpov_sample <- select(relpov, Group, sample)[1, ]
+                         sev_rates = splitntranspose(sev, "rate"),
+                         sev_comps = splitntranspose(sev, "composition"),
+                         sev_numbers = splitntranspose(sev, "number"),
+                         sample = splitntranspose(rel, "sample"))
 
-abspov <- hbai %>%
-  filter(foodsec != "(Missing)",
-         yearn >= 26,
-         low60ahcabs == 1) %>%
-  group_by(yearn) %>%
-  mutate(population = sum(gs_newpp),
-         sample = sum(gs_newpp > 0, na.rm = TRUE)) %>%
-  group_by(yearn, foodsec) %>%
-  summarise(number = sum(gs_newpp),
-            sample = max(sample),
-            povsample = sum(gs_newpp > 0, na.rm = TRUE),
-            composition = number / max(population),
-            Group = "In absolute poverty") %>%
-  group_by(foodsec) %>%
-  mutate(number = mean(number),
-         sample = sum(sample),
-         povsample = sum(povsample),
-         number = ifelse(povsample >= 100, number, NA),
-         number = roundpop(number),
-         composition = mean(composition),
-         composition = ifelse(sample >= 100, composition, NA),
-         composition = roundpct(composition)) %>%
-  filter(yearn == max(yearn)) %>%
-  ungroup()
+# SIMD (NEW) (pp) --------------------------------------------------------------
+# tables only
 
-abspov_comp <- select(abspov, Group, foodsec, composition) %>%
-  spread(foodsec, composition)
-abspov_num <- select(abspov, Group, foodsec, number) %>%
-  spread(foodsec, number)
-abspov_sample  <- select(abspov, Group, sample)[1, ]
-sample <- rbind(total_sample, relpov_sample, abspov_sample) %>%
-  rename(Sample = sample)
+rel <- hbai %>%
+  filter(imds != "(Missing)") %>%
+  getpovby(by = "imds") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  mutate(groupingvar = factor(groupingvar,
+                              levels = c("All", "1", "2", "3", "4", "5", "6",
+                                         "7", "8", "9", "10", "(Missing)")))
 
-tables$foodsec_pp <- list(comps = rbind(total_comp, relpov_comp, abspov_comp),
-                          numbers = rbind(total_num, relpov_num, abspov_num),
-                          sample = sample)
+sev <- hbai %>%
+  filter(imds != "(Missing)") %>%
+  getpovby(pov = "low50ahc", by = "imds") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  mutate(groupingvar = factor(groupingvar,
+                              levels = c("All", "1", "2", "3", "4", "5", "6",
+                                         "7", "8", "9", "10", "(Missing)")))
+
+tables$simd_pp <- list(rel_rates = splitntranspose(rel, "rate"),
+                       rel_comps = splitntranspose(rel, "composition"),
+                       rel_numbers = splitntranspose(rel, "number"),
+
+                       sev_rates = splitntranspose(sev, "rate"),
+                       sev_comps = splitntranspose(sev, "composition"),
+                       sev_numbers = splitntranspose(sev, "number"),
+                       sample = splitntranspose(rel, "sample"))
 
 # :----------------------- -----------------------------------------------------
-# 23 loneparenthh --------------------------------------------------------------
+# loneparenthh (ch) -----------------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "loneparenthh", weight = "gs_newch") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "loneparenthh", weight = "gs_newch") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 tables$loneparenthh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                                rel_comps = splitntranspose(rel, "composition"),
@@ -738,18 +526,18 @@ tables$loneparenthh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                                sev_numbers = splitntranspose(sev, "number"),
                                sample = splitntranspose(rel, "sample"))
 
-# 24 depchldh_ch ---------------------------------------------------------------
+# depchldh_ch (ch) ------------------------------------------------------------------
 
 rel <- hbai %>%
   getpovby(pov = "low60ahc", by = "depchldh_ch", weight = "gs_newch") %>%
   filter(groupingvar != "No children in the household") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
 
 sev <- hbai  %>%
   getpovby(pov = "low50ahc", by = "depchldh_ch", weight = "gs_newch") %>%
   filter(groupingvar != "No children in the household") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   mutate(groupingvar = fct_relevel(groupingvar, "All", after = 0L))
 
 tables$depchldh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
@@ -760,19 +548,19 @@ tables$depchldh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                            sev_numbers = splitntranspose(sev, "number"),
                            sample = splitntranspose(rel, "sample"))
 
-# 25 child age -----------------------------------------------------------------
+# child age (ch) --------------------------------------------------------------------
 
-rel0 <- getpovby(hbai, weight = "gs_newch") %>% get3yrtable()
-rel1 <- getpovby(hbai, weight = "wgt0_4") %>% get3yrtable()
-rel2 <- getpovby(hbai, weight = "wgt5_12") %>% get3yrtable()
-rel3 <- getpovby(hbai, weight = "wgt13plus") %>% get3yrtable()
+rel0 <- getpovby(hbai, weight = "gs_newch") %>% getnyrtable(na.rm = TRUE)
+rel1 <- getpovby(hbai, weight = "wgt0_4") %>% getnyrtable(na.rm = TRUE)
+rel2 <- getpovby(hbai, weight = "wgt5_12") %>% getnyrtable(na.rm = TRUE)
+rel3 <- getpovby(hbai, weight = "wgt13plus") %>% getnyrtable(na.rm = TRUE)
 
 rel <- rbind(rel0, rel1, rel2, rel3) %>% mutate(year = get_periods(yearn))
 
-sev0 <- getpovby(hbai, pov = "low50ahc", weight = "gs_newch") %>% get3yrtable()
-sev1 <- getpovby(hbai, pov = "low50ahc", weight = "wgt0_4") %>% get3yrtable()
-sev2 <- getpovby(hbai, pov = "low50ahc", weight = "wgt5_12") %>% get3yrtable()
-sev3 <- getpovby(hbai, pov = "low50ahc", weight = "wgt13plus") %>% get3yrtable()
+sev0 <- getpovby(hbai, pov = "low50ahc", weight = "gs_newch") %>% getnyrtable(na.rm = TRUE)
+sev1 <- getpovby(hbai, pov = "low50ahc", weight = "wgt0_4") %>% getnyrtable(na.rm = TRUE)
+sev2 <- getpovby(hbai, pov = "low50ahc", weight = "wgt5_12") %>% getnyrtable(na.rm = TRUE)
+sev3 <- getpovby(hbai, pov = "low50ahc", weight = "wgt13plus") %>% getnyrtable(na.rm = TRUE)
 
 sev <- rbind(sev0, sev1, sev2, sev3) %>% mutate(year = get_periods(yearn))
 
@@ -780,7 +568,7 @@ rel_rates <- rel %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, rate) %>%
-  spread(year, rate) %>%
+  pivot_wider(names_from = year, values_from = rate) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -794,7 +582,7 @@ rel_comps <- rel %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, composition) %>%
-  spread(year, composition) %>%
+  pivot_wider(names_from = year, values_from = composition) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -805,7 +593,7 @@ rel_numbers <- rel %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, number) %>%
-  spread(year, number) %>%
+  pivot_wider(names_from = year, values_from = number) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -816,7 +604,7 @@ sev_rates <- sev %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, rate) %>%
-  spread(year, rate) %>%
+  pivot_wider(names_from = year, values_from = rate) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -830,7 +618,7 @@ sev_comps <- sev %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, composition) %>%
-  spread(year, composition) %>%
+  pivot_wider(names_from = year, values_from = composition) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -841,7 +629,7 @@ sev_numbers <- sev %>%
   samplesizecheck() %>%
   roundall() %>%
   select(weight, year, number) %>%
-  spread(year, number) %>%
+  pivot_wider(names_from = year, values_from = number) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -850,7 +638,7 @@ sev_numbers <- sev %>%
 
 sample <- rel %>%
   select(weight, year, sample) %>%
-  spread(year, sample) %>%
+  pivot_wider(names_from = year, values_from = sample) %>%
   rename(Group = weight) %>%
   mutate(Group = factor(Group,
                         levels = c("gs_newch", "wgt0_4", "wgt5_12", "wgt13plus"),
@@ -865,25 +653,25 @@ tables$age_ch <- list(rel_rates = rel_rates,
                       sev_numbers = sev_numbers,
                       sample = sample)
 
-# 26 babyhh --------------------------------------------------------------------
+# babyhh (ch) -----------------------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "babyhh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  # remove years where individual age data was unavailable
-  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, number),
-         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, rate),
-         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, composition),
-         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, sample))
+  summarise_data(na.rm = TRUE) %>%
+  # mark missing (code 99992) the years where individual age data was unavailable
+  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, number),
+         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, rate),
+         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, composition),
+         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, sample))
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "babyhh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
-  # remove years where individual age data was unavailable
-  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, number),
-         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, rate),
-         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, composition),
-         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, sample))
+  summarise_data(na.rm = TRUE) %>%
+  # mark missing (code 99992) the years where individual age data was unavailable
+  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, number),
+         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, rate),
+         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, composition),
+         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, sample))
 
 tables$baby_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                        rel_comps = splitntranspose(rel, "composition"),
@@ -893,27 +681,27 @@ tables$baby_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                        sev_numbers = splitntranspose(sev, "number"),
                        sample = splitntranspose(rel, "sample"))
 
-# 27 youngmumhh ----------------------------------------------------------------
+# youngmumhh (ch) -------------------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "youngmumhh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)",
          yearn >= 4) %>%
-  summarise_data() %>%
-  # remove years where individual age data was unavailable
-  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, number),
-         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, rate),
-         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, composition),
-         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, sample))
+  summarise_data(na.rm = TRUE) %>%
+  # mark missing (code 99992) the years where individual age data was unavailable
+  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, number),
+         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, rate),
+         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, composition),
+         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, sample))
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "youngmumhh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)",
          yearn >= 4) %>%
-  summarise_data() %>%
-  # remove years where individual age data was unavailable
-  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, number),
-         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, rate),
-         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, composition),
-         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", NA, sample))
+  summarise_data(na.rm = TRUE) %>%
+  # mark missing (code 99992) the years where individual age data was unavailable
+  mutate(number = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, number),
+         rate = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, rate),
+         composition = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, composition),
+         sample = ifelse(yearn %in% seq(9, 16, 1) & groupingvar != "All", 99992, sample))
 
 tables$youngmum_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                            rel_comps = splitntranspose(rel, "composition"),
@@ -923,16 +711,16 @@ tables$youngmum_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                            sev_numbers = splitntranspose(sev, "number"),
                            sample = splitntranspose(rel, "sample"))
 
-# 28 ecobu (children) ----------------------------------------------------------
+# ecobu (ch) -------------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "ecobu", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 5)
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "ecobu", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 5)
 
 tables$ecobu_ch <- list(rel_rates = splitntranspose(rel, "rate"),
@@ -943,16 +731,16 @@ tables$ecobu_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                         sev_numbers = splitntranspose(sev, "number"),
                         sample = splitntranspose(rel, "sample"))
 
-# 29 workinghh (children) ------------------------------------------------------
+# workinghh (ch) ---------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "workinghh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 5)
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "workinghh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 5)
 
 tables$workinghh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
@@ -963,16 +751,16 @@ tables$workinghh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                             sev_numbers = splitntranspose(sev, "number"),
                             sample = splitntranspose(rel, "sample"))
 
-# 30 tenhbai (children) --------------------------------------------------------
+# tenhbai (ch) -----------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "tenhbai", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 12)
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "tenhbai", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 12)
 
 tables$tenhbai_ch <- list(rel_rates = splitntranspose(rel, "rate"),
@@ -983,16 +771,16 @@ tables$tenhbai_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                           sev_numbers = splitntranspose(sev, "number"),
                           sample = splitntranspose(rel, "sample"))
 
-# 31 urinds (children) ---------------------------------------------------------
+# urinds (ch) ------------------------------------------------------------
 
 rel <- getpovby(hbai, pov = "low60ahc", by = "urinds", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 15)
 
 sev <- getpovby(hbai, pov = "low50ahc", by = "urinds", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data() %>%
+  summarise_data(na.rm = TRUE) %>%
   filter(yearn >= 15)
 
 tables$urinds_ch <- list(rel_rates = splitntranspose(rel, "rate"),
@@ -1003,30 +791,30 @@ tables$urinds_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                          sev_numbers = splitntranspose(sev, "number"),
                          sample = splitntranspose(rel, "sample"))
 
-# 32 disability (children) -----------------------------------------------------
+# disability (ch) --------------------------------------------------------
 rel_pp <- getpovby(hbai, by = "dispp_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc", by = "dispp_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ch <- getpovby(hbai, by = "disch_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc", by = "disch_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ad <- getpovby(hbai, by = "disad_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc", by = "disad_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -1055,39 +843,47 @@ rel_numbers3 <- splitntranspose(rel_ad, "number")  %>% filter(Group != "All")
 sev_rates3 <- splitntranspose(sev_ad, "rate") %>% filter(Group != "All")
 sev_comps3 <- splitntranspose(sev_ad, "composition") %>% filter(Group != "All")
 sev_numbers3 <- splitntranspose(sev_ad, "number")  %>% filter(Group != "All")
+
+rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
+
+sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
 
 tables$disab_ch <- list(rel_rates = rbind(rel_rates1, rel_rates2, rel_rates3),
                         rel_comps = rbind(rel_comps1, rel_comps2, rel_comps3),
-                        rel_numbers = rbind(rel_numbers1, rel_numbers2, rel_numbers3),
+                        rel_numbers = rel_numbers,
                         sev_rates = rbind(sev_rates1, sev_rates2, sev_rates3),
                         sev_comps = rbind(sev_comps1, sev_comps2, sev_comps3),
-                        sev_numbers = rbind(sev_numbers1, sev_numbers2, sev_numbers3),
+                        sev_numbers = sev_numbers,
                         sample = rbind(sample1, sample2, sample3))
 
-# 33 disability no bens (children) ---------------------------------------------
+# disability no bens (ch) ------------------------------------------------
 rel_pp <- getpovby(hbai, pov = "low60ahc_dis", by = "dispp_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_pp <- getpovby(hbai, pov = "low50ahc_dis", by = "dispp_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ch <- getpovby(hbai, pov = "low60ahc_dis", by = "disch_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ch <- getpovby(hbai, pov = "low50ahc_dis", by = "disch_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 rel_ad <- getpovby(hbai, pov = "low60ahc_dis", by = "disad_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sev_ad <- getpovby(hbai, pov = "low50ahc_dis", by = "disad_hh", weight = "gs_newch") %>%
   filter(groupingvar != "(Missing)") %>%
-  summarise_data()
+  summarise_data(na.rm = TRUE)
 
 sample1 <- splitntranspose(rel_pp, "sample")
 sample2 <- splitntranspose(rel_ch, "sample") %>% filter(Group != "All")
@@ -1117,47 +913,37 @@ sev_rates3 <- splitntranspose(sev_ad, "rate") %>% filter(Group != "All")
 sev_comps3 <- splitntranspose(sev_ad, "composition") %>% filter(Group != "All")
 sev_numbers3 <- splitntranspose(sev_ad, "number")  %>% filter(Group != "All")
 
+rel_numbers <- rbind(rel_numbers1, rel_numbers2, rel_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
+
+sev_numbers <- rbind(sev_numbers1, sev_numbers2, sev_numbers3) %>%
+  mutate("2010-13" = ifelse(Group == "All", get("2010-13"), 99991),
+         "2011-14" = ifelse(Group == "All", get("2011-14"), 99991))
+
 tables$disab_nobens_ch <- list(rel_rates = rbind(rel_rates1, rel_rates2, rel_rates3),
                                rel_comps = rbind(rel_comps1, rel_comps2, rel_comps3),
-                               rel_numbers = rbind(rel_numbers1, rel_numbers2, rel_numbers3),
+                               rel_numbers = rel_numbers,
                                sev_rates = rbind(sev_rates1, sev_rates2, sev_rates3),
                                sev_comps = rbind(sev_comps1, sev_comps2, sev_comps3),
-                               sev_numbers = rbind(sev_numbers1, sev_numbers2, sev_numbers3),
+                               sev_numbers = sev_numbers,
                                sample = rbind(sample1, sample2, sample3))
 
-# 34 ethgrphh (children) -------------------------------------------------------
+# ethgrphh (ch) ----------------------------------------------------------
 
-rel <- getpovby(hbai, by = "ethgrphh", weight = "gs_newch") %>%
-  filter(groupingvar != "(Missing)") %>%
-  filter(yearn >= 8) %>%
-  group_by(groupingvar) %>%
-  get5yrtable() %>%
-  samplesizecheck() %>%
-  roundall() %>%
-  mutate(year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr)) %>%
-  mutate(groupingvar = factor(groupingvar,
-                              levels = c("All", "White - British",
-                                         "White - Other",
-                                         "Asian or Asian British",
-                                         "Mixed, Black or Black British, and Other")))
+rel <- hbai %>%
+  filter(ethgrphh != "(Missing)",
+         yearn >= 8) %>%
+  mutate(ethgrphh = fct_drop(ethgrphh)) %>%
+  getpovby(by = "ethgrphh", weight = "gs_newch") %>%
+  summarise_data(5, na.rm = TRUE)
 
-sev <- getpovby(hbai, pov = "low50ahc", by = "ethgrphh", weight = "gs_newch") %>%
-  filter(groupingvar != "(Missing)") %>%
-  filter(yearn >= 8) %>%
-  group_by(groupingvar) %>%
-  get5yrtable() %>%
-  samplesizecheck() %>%
-  roundall() %>%
-  mutate(year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr)) %>%
-  mutate(groupingvar = factor(groupingvar,
-                              levels = c("All", "White - British",
-                                         "White - Other",
-                                         "Asian or Asian British",
-                                         "Mixed, Black or Black British, and Other")))
+sev <- hbai %>%
+  filter(ethgrphh != "(Missing)",
+         yearn >= 8) %>%
+  mutate(ethgrphh = fct_drop(ethgrphh)) %>%
+  getpovby(pov = "low50ahc", by = "ethgrphh", weight = "gs_newch") %>%
+  summarise_data(5, na.rm = TRUE)
 
 age <- hbai %>%
   rbind(hbai %>% filter(ethgrphh != "(Missing)") %>% mutate(ethgrphh = "All")) %>%
@@ -1173,16 +959,14 @@ age <- hbai %>%
          gs_newch > 0) %>%
   group_by(yearn, ethgrphh) %>%
   summarise(age = wtd.median(agehd, gs_newbu),
-            sample = n()) %>%
+            sample = sum(gs_newbu > 0, na.rm = TRUE)) %>%
   group_by(ethgrphh) %>%
-  mutate(age = getrollingmean(age, 5),
-         sample = getrollingtotal(sample, 5)) %>%
+  mutate(age = analysistools::getrollingmean(age, 5, na.rm = TRUE),
+         sample = analysistools::getrollingtotal(sample, 5, na.rm = TRUE)) %>%
   ungroup() %>%
   filter(yearn >= 12) %>%
   mutate(age = ifelse(sample < 50, NA, round2(age, 0)),
-         year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$period5yr),
+         year = get_periods(yearn, n = 5),
          ethgrphh = factor(ethgrphh,
                            levels = c("All", "White - British",
                                       "White - Other",
@@ -1202,17 +986,21 @@ tables$ethgrphh_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                            age = age,
                            sample = splitntranspose(rel, "sample"))
 
-# 35 ethgrphh_2f ---------------------------------------------------------------
+# ethgrphh_2f (ch) ------------------------------------------------------------------
 
-rel <- getpovby(hbai, by = "ethgrphh_2f", weight = "gs_newch") %>%
-  filter(groupingvar != "(Missing)") %>%
-  filter(yearn >= 8) %>%
-  summarise_data()
+rel <- hbai %>%
+  filter(ethgrphh_2f != "(Missing)",
+         yearn >= 8) %>%
+  mutate(ethgrphh_2f = fct_drop(ethgrphh_2f)) %>%
+  getpovby(by = "ethgrphh_2f", weight = "gs_newch") %>%
+  summarise_data(na.rm = TRUE)
 
-sev <- getpovby(hbai, pov = "low50ahc", by = "ethgrphh_2f", weight = "gs_newch") %>%
-  filter(groupingvar != "(Missing)") %>%
-  filter(yearn >= 8) %>%
-  summarise_data()
+sev <- hbai %>%
+  filter(ethgrphh_2f != "(Missing)",
+         yearn >= 8) %>%
+  mutate(ethgrphh_2f = fct_drop(ethgrphh_2f)) %>%
+  getpovby(pov = "low50ahc", by = "ethgrphh_2f", weight = "gs_newch") %>%
+  summarise_data(na.rm = TRUE)
 
 age <- hbai %>%
   rbind(hbai %>% filter(ethgrphh_2f != "(Missing)") %>% mutate(ethgrphh_2f = "All")) %>%
@@ -1227,16 +1015,14 @@ age <- hbai %>%
          gs_newch > 0) %>%
   group_by(yearn, ethgrphh_2f) %>%
   summarise(age = wtd.median(agehd, gs_newbu),
-            sample = n()) %>%
+            sample = sum(gs_newbu > 0, na.rm = TRUE)) %>%
   group_by(ethgrphh_2f) %>%
-  mutate(age = getrollingmean(age, 3),
-         sample = getrollingtotal(sample, 3)) %>%
+  mutate(age = analysistools::getrollingmean(age, 3, na.rm = TRUE),
+         sample = analysistools::getrollingtotal(sample, 3, na.rm = TRUE)) %>%
   ungroup() %>%
   filter(yearn >= 10) %>%
   mutate(age = ifelse(sample < 50, NA, round2(age, 0)),
-         year = factor(yearn,
-                       levels = labels$years$numbered,
-                       labels = labels$years$periods),
+         year = get_periods(yearn, n = 5),
          ethgrphh_2f = factor(ethgrphh_2f,
                            levels = c("All", "White - British",
                                       "White - Other",
@@ -1255,108 +1041,7 @@ tables$ethgrphh_2f_ch <- list(rel_rates = splitntranspose(rel, "rate"),
                               age = age,
                               sample = splitntranspose(rel, "sample"))
 
-# 36 food security (children) --------------------------------------------------
-
-total <- hbai %>%
-  filter(foodsec != "(Missing)",
-         yearn >= 26) %>%
-  group_by(yearn) %>%
-  mutate(population = sum(gs_newch),
-         sample = sum(gs_newch > 0, na.rm = TRUE)) %>%
-  group_by(yearn, foodsec) %>%
-  summarise(number = sum(gs_newch),
-            sample = max(sample),
-            povsample = sum(gs_newch > 0, na.rm = TRUE),
-            composition = number / max(population),
-            Group = "All children") %>%
-  group_by(foodsec) %>%
-  mutate(number = mean(number),
-         sample = sum(sample),
-         povsample = sum(povsample),
-         number = ifelse(povsample >= 100, number, NA),
-         number = roundpop(number),
-         composition = mean(composition),
-         composition = ifelse(sample >= 100, composition, NA),
-         composition = roundpct(composition)) %>%
-  filter(yearn == max(yearn)) %>%
-  ungroup() %>%
-  mutate(foodsec = fct_rev(foodsec))
-
-total_comp <- select(total, Group, foodsec, composition) %>%
-  spread(foodsec, composition)
-total_num <- select(total, Group, foodsec, number) %>%
-  spread(foodsec, number)
-total_sample <- select(total, Group, sample)[1, ]
-
-relpov <- hbai %>%
-  filter(foodsec != "(Missing)",
-         yearn >= 26,
-         low60ahc == 1) %>%
-  group_by(yearn) %>%
-  mutate(population = sum(gs_newch),
-         sample = sum(gs_newch > 0, na.rm = TRUE)) %>%
-  group_by(yearn, foodsec) %>%
-  summarise(number = sum(gs_newch),
-            sample = max(sample),
-            povsample = sum(gs_newch > 0, na.rm = TRUE),
-            composition = number / max(population),
-            Group = "In relative poverty") %>%
-  group_by(foodsec) %>%
-  mutate(number = mean(number),
-         sample = sum(sample),
-         povsample = sum(povsample),
-         number = ifelse(povsample >= 100, number, NA),
-         number = roundpop(number),
-         composition = mean(composition),
-         composition = ifelse(sample >= 100, composition, NA),
-         composition = roundpct(composition)) %>%
-  filter(yearn == max(yearn)) %>%
-  ungroup()
-
-relpov_comp <- select(relpov, Group, foodsec, composition) %>%
-  spread(foodsec, composition)
-relpov_num <- select(relpov, Group, foodsec, number) %>%
-  spread(foodsec, number)
-relpov_sample <- select(relpov, Group, sample)[1, ]
-
-abspov <- hbai %>%
-  filter(foodsec != "(Missing)",
-         yearn >= 26,
-         low60ahcabs == 1) %>%
-  group_by(yearn) %>%
-  mutate(population = sum(gs_newch),
-         sample = sum(gs_newch > 0, na.rm = TRUE)) %>%
-  group_by(yearn, foodsec) %>%
-  summarise(number = sum(gs_newch),
-            sample = max(sample),
-            povsample = sum(gs_newch > 0, na.rm = TRUE),
-            composition = number / max(population),
-            Group = "In absolute poverty") %>%
-  group_by(foodsec) %>%
-  mutate(number = mean(number),
-         sample = sum(sample),
-         povsample = sum(povsample),
-         number = ifelse(povsample >= 100, number, NA),
-         number = roundpop(number),
-         composition = mean(composition),
-         composition = ifelse(sample >= 100, composition, NA),
-         composition = roundpct(composition)) %>%
-  filter(yearn == max(yearn)) %>%
-  ungroup()
-
-abspov_comp <- select(abspov, Group, foodsec, composition) %>%
-  spread(foodsec, composition)
-abspov_num <- select(abspov, Group, foodsec, number) %>%
-  spread(foodsec, number)
-abspov_sample  <- select(abspov, Group, sample)[1, ]
-sample <- rbind(total_sample, relpov_sample, abspov_sample) %>%
-  rename(Sample = sample)
-
-tables$foodsec_ch <- list(comps = rbind(total_comp, relpov_comp, abspov_comp),
-                          numbers = rbind(total_num, relpov_num, abspov_num),
-                          sample = sample)
-
-# 37 priority groups -----------------------------------------------------------
+# priority groups (ch) --------------------------------------------------------------
 # JUST DO LATEST PERIOD
 
 hbai3yr <- filter(hbai, yearn >= max(yearn) - 2)
@@ -1373,14 +1058,14 @@ dis_rel <- filter(tables$disab_ch$rel_rates,
 
 dis_abs <- getpovby(hbai3yr, pov = "low60ahcabs", by = "dispp_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "In household with disabled person(s)") %>%
   pull(rate)
 
 dis_cmd <- getpovby(hbai3yr, pov = "cmdahc", by = "dispp_hh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "In household with disabled person(s)") %>%
   pull(rate)
@@ -1391,14 +1076,14 @@ many_rel <- filter(tables$depchldh_ch$rel_rates,
 
 many_abs <- getpovby(hbai3yr, pov = "low60ahcabs", by = "depchldh_ch", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "3 or more children in the household") %>%
   pull(rate)
 
 many_cmd <- getpovby(hbai3yr, pov = "cmdahc", by = "depchldh_ch", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "3 or more children in the household") %>%
   pull(rate)
@@ -1409,14 +1094,14 @@ baby_rel <- filter(tables$baby_ch$rel_rates,
 
 baby_abs <- getpovby(hbai3yr, pov = "low60ahcabs", by = "babyhh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "Youngest child is younger than 1") %>%
   pull(rate)
 
 baby_cmd <- getpovby(hbai3yr, pov = "cmdahc", by = "babyhh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "Youngest child is younger than 1") %>%
   pull(rate)
@@ -1427,14 +1112,14 @@ eth_rel <- filter(tables$ethgrphh_2f_ch$rel_rates,
 
 eth_abs <- getpovby(hbai3yr, pov = "low60ahcabs", by = "ethgrphh_2f", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "Minority ethnic") %>%
   pull(rate)
 
 eth_cmd <- getpovby(hbai3yr, pov = "cmdahc", by = "ethgrphh_2f", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "Minority ethnic") %>%
   pull(rate)
@@ -1445,14 +1130,14 @@ lone_rel <- filter(tables$loneparenthh_ch$rel_rates,
 
 lone_abs <- getpovby(hbai3yr, pov = "low60ahcabs", by = "loneparenthh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "Single parent in household") %>%
   pull(rate)
 
 lone_cmd <- getpovby(hbai3yr, pov = "cmdahc", by = "loneparenthh", weight = "gs_newch") %>%
   group_by(groupingvar) %>%
-  get3yrtable() %>%
+  getnyrtable(na.rm = TRUE) %>%
   samplesizecheck() %>%
   filter(groupingvar == "Single parent in household") %>%
   pull(rate)
@@ -1479,96 +1164,813 @@ cmd <- data.frame(Group = groups,
                   Rate = c(all_cmd, many_cmd, dis_cmd, baby_cmd, eth_cmd,
                            lone_cmd, NA))
 
+
+sample <- data.frame(Group = c("All children",
+                               "3 or more children in the household",
+                               "Disabled household member(s)",
+                               "Youngest child in the household is under 1",
+                               "Minority ethnic household",
+                               "Single parent in the household",
+                               "Mother under 25 in household"),
+                     Sample = c(filter(tables$relAHC$sample, Group == "Children")[[max(periods)]],
+                                filter(tables$depchldh_ch$sample, Group == "3 or more children in the household")[[max(periods)]],
+
+                                filter(tables$disab_ch$sample, Group == "In household with disabled person(s)")[[max(periods)]],
+                                filter(tables$baby_ch$sample, Group == "Youngest child is younger than 1")[[max(periods)]],
+                                filter(tables$ethgrphh_2f_ch$sample, Group == "Minority ethnic")[[max(periods)]],
+                                filter(tables$loneparenthh_ch$sample, Group == "Single parent in household")[[max(periods)]],
+                                filter(tables$youngmum_ch$sample, Group == "Mother under 25 in household")[[max(periods)]]   ))
+
+
 tables$priority <- list(rel = rel,
                         abs = abs,
-                        cmd = cmd)
+                        cmd = cmd,
+                        sample = sample)
 
 # :----------------------- -----------------------------------------------------
-# 38 medians -------------------------------------------------------------------
+# ecobu (wa) -------------------------------------------------------------------
+
+rel <- getpovby(hbai, by = "ecobu", weight = "gs_newwa") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 5)
+
+sev <- getpovby(hbai, pov = "low50ahc", by = "ecobu", weight = "gs_newwa") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 5)
+
+tables$ecobu_wa <- list(rel_rates = splitntranspose(rel, "rate"),
+                        rel_comps = splitntranspose(rel, "composition"),
+                        rel_numbers = splitntranspose(rel, "number"),
+
+                        sev_rates = splitntranspose(sev, "rate"),
+                        sev_comps = splitntranspose(sev, "composition"),
+                        sev_numbers = splitntranspose(sev, "number"),
+                        sample = splitntranspose(rel, "sample"))
+
+
+# workinghh (wa) ---------------------------------------------------------------
+
+rel <- getpovby(hbai, by = "workinghh", weight = "gs_newwa") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 5)
+
+sev <- getpovby(hbai, pov = "low50ahc", by = "workinghh", weight = "gs_newwa") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE) %>%
+  filter(yearn >= 5)
+
+tables$workinghh_wa <- list(rel_rates = splitntranspose(rel, "rate"),
+                            rel_comps = splitntranspose(rel, "composition"),
+                            rel_numbers = splitntranspose(rel, "number"),
+
+                            sev_rates = splitntranspose(sev, "rate"),
+                            sev_comps = splitntranspose(sev, "composition"),
+                            sev_numbers = splitntranspose(sev, "number"),
+                            sample = splitntranspose(rel, "sample"))
+
+# :----------------------- -----------------------------------------------------
+# newfambu (ad) ----------------------------------------------------------------
+
+rel <- getpovby(hbai, pov = "low60ahc", by = "newfambu", weight = "gs_newad") %>%
+  summarise_data(na.rm = TRUE)
+sev <- getpovby(hbai, pov = "low50ahc", by = "newfambu", weight = "gs_newad") %>%
+  summarise_data(na.rm = TRUE)
+
+tables$newfambu_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                           rel_comps = splitntranspose(rel, "composition"),
+                           rel_numbers = splitntranspose(rel, "number"),
+
+                           sev_rates = splitntranspose(sev, "rate"),
+                           sev_comps = splitntranspose(sev, "composition"),
+                           sev_numbers = splitntranspose(sev, "number"),
+                           sample = splitntranspose(rel, "sample"))
+
+# agebands (ad - discontinued) ----------------------------------------------------------------
+# discontinued due to too many missing values in adult age variable
+
+# sex binary (NEW) (ad) --------------------------------------------------------
+# tables only? And numbers in report commentary for reference
+
+rel <- adult %>%
+  getpovby(by = "sex", weight = "adultwgt") %>%
+  summarise_data(na.rm = TRUE)
+
+sev <- adult %>%
+  getpovby(pov = "low50ahc", by = "sex", weight = "adultwgt") %>%
+  summarise_data(na.rm = TRUE)
+
+tables$sex_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                      rel_comps = splitntranspose(rel, "composition"),
+                      rel_numbers = splitntranspose(rel, "number"),
+
+                      sev_rates = splitntranspose(sev, "rate"),
+                      sev_comps = splitntranspose(sev, "composition"),
+                      sev_numbers = splitntranspose(sev, "number"),
+                      sample = splitntranspose(rel, "sample"))
+
+# sex / singlehh (ad) ------------------------------------------------------
+
+rel <- filter(hbai, singlehh != "(Missing)") %>%
+  getpovby(by = "singlehh", weight = "gs_newad") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE)
+
+sev <- filter(hbai, singlehh != "(Missing)") %>%
+  getpovby(pov = "low50ahc", by = "singlehh", weight = "gs_newad") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE)
+
+tables$singlehh_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                           rel_comps = splitntranspose(rel, "composition"),
+                           rel_numbers = splitntranspose(rel, "number"),
+
+                           sev_rates = splitntranspose(sev, "rate"),
+                           sev_comps = splitntranspose(sev, "composition"),
+                           sev_numbers = splitntranspose(sev, "number"),
+                           sample = splitntranspose(rel, "sample"))
+
+
+
+# sexual identity (NEW) (ad) ------------------------------------------------
+# decide: include missings as category? if not, set lump_n to 1
+
+rel <- filter(adult, yearn >= 18) %>% #filter(adult, sidqn != "(Missing)") %>%
+  mutate(sidqn = fct_lump_n(sidqn, 2)) %>%
+  getpovby(by = "sidqn", weight = "adultwgt") %>%
+  summarise_data(na.rm = TRUE) %>%
+  mutate(groupingvar = factor(groupingvar,
+                              levels = c("All", "Heterosexual / straight",
+                                         "Other", "(Missing)"))) %>%
+  arrange(groupingvar)
+
+sev <- filter(adult, yearn >= 18) %>% #filter(adult, sidqn != "(Missing)") %>%
+  mutate(sidqn = fct_lump_n(sidqn, 2)) %>%
+  getpovby(pov = "low50ahc", by = "sidqn", weight = "adultwgt") %>%
+  summarise_data(na.rm = TRUE) %>%
+  mutate(groupingvar = factor(groupingvar,
+                              levels = c("All", "Heterosexual / straight",
+                                         "Other", "(Missing)"))) %>%
+  arrange(groupingvar)
+
+age <- adult %>%
+  mutate(sidqn = fct_lump_n(sidqn, 2)) %>%
+  rbind(adult %>% mutate(sidqn = "All")) %>%
+  filter(yearn >= 18,
+         # exclude bad data year
+         yearn != 27) %>%
+
+  group_by(yearn, sidqn) %>%
+  summarise(age = wtd.median(age, adultwgt),
+            sample = sum(adultwgt > 0, na.rm = TRUE)) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27,
+                       sidqn = unique(.$sidqn))) %>%
+  arrange(yearn) %>%
+
+  group_by(sidqn) %>%
+  mutate(age = analysistools::getrollingmean(age, 3, na.rm = TRUE),
+         sample = analysistools::getrollingtotal(sample, 3, na.rm = TRUE)) %>%
+  ungroup() %>%
+  filter(yearn >= 20) %>%
+  mutate(age = ifelse(sample < 50, NA, round2(age, 0)),
+         year = get_periods(yearn)) %>%
+  select(year, age, sidqn) %>%
+  arrange(sidqn) %>%
+  pivot_wider(names_from = year, values_from = age) %>%
+  rename(Group = sidqn) %>%
+  mutate(Group = factor(Group, levels = c("All", "Heterosexual / straight",
+                                          "Other", "(Missing)"))) %>%
+  arrange(Group)
+
+tables$sexid_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                        rel_comps = splitntranspose(rel, "composition"),
+                        rel_numbers = splitntranspose(rel, "number"),
+
+                        sev_rates = splitntranspose(sev, "rate"),
+                        sev_comps = splitntranspose(sev, "composition"),
+                        sev_numbers = splitntranspose(sev, "number"),
+
+                        age = age,
+                        sample = splitntranspose(rel, "sample"))
+
+# marital (ad) -------------------------------------------------------------
+
+rel <- getpovby(adult, by = "marital", weight = "adultwgt") %>%
+  summarise_data(na.rm = TRUE)
+
+sev <- getpovby(adult, pov = "low50ahc", by = "marital", weight = "adultwgt") %>%
+  summarise_data(na.rm = TRUE)
+
+tables$marital_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                          rel_comps = splitntranspose(rel, "composition"),
+                          rel_numbers = splitntranspose(rel, "number"),
+
+                          sev_rates = splitntranspose(sev, "rate"),
+                          sev_comps = splitntranspose(sev, "composition"),
+                          sev_numbers = splitntranspose(sev, "number"),
+                          sample = splitntranspose(rel, "sample"))
+
+# religsc (ad) -------------------------------------------------------------
+
+rel <- adult %>%
+  filter(religsc != "(Missing)") %>%
+  mutate(religsc = fct_drop(religsc)) %>%
+  getpovby(by = "religsc", weight = "adultwgt") %>%
+  summarise_data(5, na.rm = TRUE)
+
+sev <- adult %>%
+  filter(religsc != "(Missing)") %>%
+  mutate(religsc = fct_drop(religsc)) %>%
+  getpovby(pov = "low50ahc", by = "religsc", weight = "adultwgt") %>%
+  summarise_data(5, na.rm = TRUE)
+
+age <- adult %>%
+  rbind(adult %>% filter(religsc != "(Missing)") %>% mutate(religsc = "All")) %>%
+  filter(religsc != "(Missing)",
+         # exclude bad data year
+         yearn != 27) %>%
+  group_by(yearn, religsc) %>%
+  summarise(age = wtd.median(age, adultwgt),
+            sample = sum(adultwgt > 0, na.rm = TRUE)) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27,
+                       religsc = unique(.$religsc))) %>%
+  arrange(yearn) %>%
+
+  group_by(religsc) %>%
+  mutate(age = analysistools::getrollingmean(age, 5, na.rm = TRUE),
+         sample = analysistools::getrollingtotal(sample, 5, na.rm = TRUE)) %>%
+  ungroup() %>%
+  filter(yearn >= 22) %>%
+  mutate(age = ifelse(sample < 50, NA, round2(age, 0)),
+         year = get_periods(yearn, n = 5),
+         religsc = factor(religsc,
+                          levels = c("All",
+                                     "Church of Scotland",
+                                     "Roman Catholic",
+                                     "Other Christian",
+                                     "Muslim",
+                                     "Other religion",
+                                     "No religion"))) %>%
+  select(year, age, religsc) %>%
+  arrange(religsc) %>%
+  pivot_wider(names_from = year, values_from = age) %>%
+  rename(Group = religsc)
+
+tables$religsc_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                          rel_comps = splitntranspose(rel, "composition"),
+                          rel_numbers = splitntranspose(rel, "number"),
+
+                          sev_rates = splitntranspose(sev, "rate"),
+                          sev_comps = splitntranspose(sev, "composition"),
+                          sev_numbers = splitntranspose(sev, "number"),
+
+                          age = age,
+                          sample = splitntranspose(rel, "sample"))
+
+# NOT USED - country of origin (ad) ----------------------------------------
+# bit inconclusive and not a long time series, probably not to be included in
+# report.
+
+rel <- adult %>%
+  filter(yearn >= 19,
+         corign != "(Missing)") %>%
+  getpovby(by = "corign", weight = "adultwgt") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE)
+
+sev <- adult %>%
+  filter(yearn >= 19,
+         corign != "(Missing)") %>%
+  getpovby(pov = "low50ahc", by = "corign", weight = "adultwgt") %>%
+  filter(groupingvar != "(Missing)") %>%
+  summarise_data(na.rm = TRUE)
+
+tables$corign_ad <- list(rel_rates = splitntranspose(rel, "rate"),
+                         rel_comps = splitntranspose(rel, "composition"),
+                         rel_numbers = splitntranspose(rel, "number"),
+
+                         sev_rates = splitntranspose(sev, "rate"),
+                         sev_comps = splitntranspose(sev, "composition"),
+                         sev_numbers = splitntranspose(sev, "number"),
+
+                         sample = splitntranspose(rel, "sample"))
+
+
+# :----------------------- -----------------------------------------------------
+
+# food security ----------------------------------------------------------------
+
+total_pp <- hbai %>%
+  mutate(Group = gvtregn) %>%
+  getfoodsecbyGroup() %>%
+  filter(Group != "All") %>%
+  mutate(Group = "People")
+
+total_ch <- hbai %>%
+  mutate(Group = gvtregn) %>%
+  getfoodsecbyGroup(weight = "gs_newch") %>%
+  filter(Group != "All") %>%
+  mutate(Group = "Children")
+
+total_wa <- hbai %>%
+  mutate(Group = gvtregn) %>%
+  getfoodsecbyGroup(weight = "gs_newwa") %>%
+  filter(Group != "All") %>%
+  mutate(Group = "Working-age adults")
+
+total_pn <- hbai %>%
+  mutate(Group = gvtregn) %>%
+  getfoodsecbyGroup(weight = "gs_newpn") %>%
+  filter(Group != "All") %>%
+  mutate(Group = "Pensioners")
+
+total <- rbind(total_pp, total_ch, total_wa, total_pn) %>%
+  mutate(Group = factor(Group,
+                        levels = c("People", "Children", "Working-age adults",
+                                   "Pensioners"))) %>%
+  arrange(Group)
+
+total_comp <- select(total, Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+total_num <- select(total, Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+total_sample <- select(total, Group, Sample) %>%
+  distinct()
+
+tables$foodsec <- list(comps = total_comp, numbers = total_num,
+                           sample = total_sample)
+
+# food security - poverty pp ---------------------------------------------------
+
+# relative poverty
+
+pp_rel <- hbai %>%
+  mutate(Group = low60ahc) %>%
+  getfoodsecbyGroup() %>%
+  filter(Group == 1) %>%
+  mutate(Group = "People")
+
+ch_rel <- hbai %>%
+  mutate(Group = low60ahc) %>%
+  getfoodsecbyGroup(weight = "gs_newch") %>%
+  filter(Group == 1) %>%
+  mutate(Group = "Children")
+
+wa_rel <- hbai %>%
+  mutate(Group = low60ahc) %>%
+  getfoodsecbyGroup(weight = "gs_newwa") %>%
+  filter(Group == 1) %>%
+  mutate(Group = "Working-age adults")
+
+pn_rel <- hbai %>%
+  mutate(Group = low60ahc) %>%
+  getfoodsecbyGroup(weight = "gs_newpn") %>%
+  filter(Group == 1) %>%
+  mutate(Group = "Pensioners")
+
+# severe poverty
+
+pp_sev <- hbai %>%
+  mutate(Group = low50ahc) %>%
+  getfoodsecbyGroup() %>%
+  filter(Group == 1) %>%
+  mutate(Group = "People")
+
+ch_sev <- hbai %>%
+  mutate(Group = low50ahc) %>%
+  getfoodsecbyGroup(weight = "gs_newch") %>%
+  filter(Group == 1) %>%
+  mutate(Group = "Children")
+
+wa_sev <- hbai %>%
+  mutate(Group = low50ahc) %>%
+  getfoodsecbyGroup(weight = "gs_newwa") %>%
+  filter(Group == 1) %>%
+  mutate(Group = "Working-age adults")
+
+pn_sev <- hbai %>%
+  mutate(Group = low50ahc) %>%
+  getfoodsecbyGroup(weight = "gs_newpn") %>%
+  filter(Group == 1) %>%
+  mutate(Group = "Pensioners")
+
+# combine all
+
+rel <- rbind(pp_rel, ch_rel, wa_rel, pn_rel) %>%
+  mutate(Group = factor(Group,
+                        levels = c("People", "Children", "Working-age adults",
+                                   "Pensioners"))) %>%
+  arrange(Group)
+
+sev <- rbind(pp_sev, ch_sev, wa_sev, pn_sev) %>%
+  mutate(Group = factor(Group,
+                        levels = c("People", "Children", "Working-age adults",
+                                   "Pensioners"))) %>%
+  arrange(Group)
+
+rel_comp <- rel %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+rel_num <- rel %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+rel_sample <- rel %>%
+  select(Group, Sample) %>%
+  distinct()
+
+sev_comp <- sev %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+sev_num <- sev %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sev_sample  <- sev %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_pov_pp <- list(rel_comp = rel_comp,
+                           rel_num = rel_num,
+                           rel_sample = rel_sample,
+                           sev_comp = sev_comp,
+                           sev_num = sev_num,
+                           sev_sample = sev_sample)
+
+# food security - hdage pp -----------------------------------------------------
+
+fs <- hbai %>%
+  mutate(Group = agehdband8) %>%
+  getfoodsecbyGroup()
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_hdage_pp <- list(comp = comp,
+                           num = num,
+                           sample = sample)
+
+# food security - hdsex pp -----------------------------------------------------
+
+fs <- hbai %>%
+  mutate(Group = factor(sexhd, levels = c(1, 2),
+                        labels = c("Male", "Female"))) %>%
+  getfoodsecbyGroup()
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_hdsex_pp <- list(comp = comp,
+                             num = num,
+                             sample = sample)
+
+
+# food security - singlesex ad -------------------------------------------------
+
+fs <- hbai %>%
+  filter(singlehh != "(Missing)") %>%
+  mutate(Group = singlehh) %>%
+  getfoodsecbyGroup(weight = "gs_newad")
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993)) %>%
+
+  # deal with special case which would otherwise show as [low]
+  mutate(Marginal = ifelse(Group == "Male working-age adult with dependent children",
+                           NA, Marginal))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_singlesex_ad <- list(comp = comp,
+                                    num = num,
+                                    sample = sample)
+
+# food security - sexual identity ad -------------------------------------------
+
+fs <- adult %>%
+  mutate(Group = fct_lump_n(sidqn, 2),
+         Group = factor(Group, levels = c("All", "Heterosexual / straight",
+                                          "Other", "(Missing)"))) %>%
+  getfoodsecbyGroup(weight = "adultwgt")
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_sexid_ad <- list(comp = comp,
+                             num = num,
+                             sample = sample)
+
+# food security - disability pp ------------------------------------------------
+
+fs <- hbai %>%
+  mutate(Group = dispp_hh) %>%
+  getfoodsecbyGroup()
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_dis_pp <- list(comp = comp,
+                           num = num,
+                           sample = sample)
+
+# food security - hd ethnic pp -------------------------------------------------
+
+fs <- hbai %>%
+  filter(ethgrphh != "(Missing)") %>%
+  mutate(Group = ethgrphh) %>%
+  getfoodsecbyGroup()
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_ethnic_pp <- list(comp = comp,
+                             num = num,
+                             sample = sample)
+
+# food security - religion ad --------------------------------------------------
+
+fs <- adult %>%
+  filter(religsc != "(Missing)") %>%
+  mutate(Group = fct_drop(religsc)) %>%
+  getfoodsecbyGroup(weight = "adultwgt")
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_religion_ad <- list(comp = comp,
+                             num = num,
+                             sample = sample)
+
+# food security - family type ad -----------------------------------------------
+# (for parenthood)
+
+fs <- hbai %>%
+  mutate(Group = newfambu) %>%
+  getfoodsecbyGroup()
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_newfambu_ad <- list(comp = comp,
+                                    num = num,
+                                    sample = sample)
+
+
+# food security - marital ad ---------------------------------------------------
+# marriage is protected characteristic
+
+fs <- adult %>%
+  mutate(Group = marital) %>%
+  getfoodsecbyGroup(weight = "adultwgt")
+
+comp <- fs %>%
+  select(Group, foodsec, composition) %>%
+  pivot_wider(names_from = foodsec, values_from = composition,
+              # mark missing combinations due to no cases
+              values_fill = list(composition = 99993))
+
+num <- fs %>%
+  select(Group, foodsec, number) %>%
+  pivot_wider(names_from = foodsec, values_from = number)
+
+sample <- fs %>%
+  select(Group, Sample) %>%
+  distinct()
+
+tables$foodsec_marital_ad <- list(comp = comp,
+                                num = num,
+                                sample = sample)
+
+
+# :----------------------- -----------------------------------------------------
+# medians ----------------------------------------------------------------------
 
 bhc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  getmediansbhc() %>%
-  mutate_at(vars(c("pp", "ch", "wa", "pn")), get3yraverage) %>%
-  mutate_at(vars(contains("sample")), get3yrtotal) %>%
+  summarise(pp = analysistools::wtd.median(s_oe_bhc * bhcpubdef / bhcyrdef,
+                              weights = gs_newpp),
+            ch = analysistools::wtd.median(s_oe_bhc * bhcpubdef / bhcyrdef,
+                              weights = gs_newch),
+            wa = analysistools::wtd.median(s_oe_bhc * bhcpubdef / bhcyrdef,
+                              weights = gs_newwa),
+            pn = analysistools::wtd.median(s_oe_bhc * bhcpubdef / bhcyrdef,
+                              weights = gs_newpn),
+            pp_sample = sum(gs_newpp > 0, na.rm = TRUE),
+            ch_sample = sum(gs_newch > 0, na.rm = TRUE),
+            wa_sample = sum(gs_newwa > 0, na.rm = TRUE),
+            pn_sample = sum(gs_newpn > 0, na.rm = TRUE )) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27)) %>%
+  arrange(yearn) %>%
+
+  mutate_at(vars(c("pp", "ch", "wa", "pn")),
+            analysistools::getrollingmean, na.rm = TRUE) %>%
+  mutate_at(vars(contains("sample")), analysistools::getrollingtotal, na.rm = TRUE) %>%
   mutate(year = get_periods(yearn)) %>%
   mutate_if(is.numeric, ~round2(., 0)) %>%
   tail(-2L)
 
 numbers_pp <- select(bhc, year, pp) %>%
-  spread(year, pp) %>%
+  pivot_wider(names_from = year, values_from = pp) %>%
   mutate(Group = "All people")
 
 numbers_ch <- select(bhc, year, ch) %>%
-  spread(year, ch) %>%
+  pivot_wider(names_from = year, values_from = ch) %>%
   mutate(Group = "Children")
 
 numbers_wa <- select(bhc, year, wa) %>%
-  spread(year, wa) %>%
+  pivot_wider(names_from = year, values_from = wa) %>%
   mutate(Group = "Working-age adults")
 
 numbers_pn <- select(bhc, year, pn) %>%
-  spread(year, pn) %>%
+  pivot_wider(names_from = year, values_from = pn) %>%
   mutate(Group = "Pensioners")
 
 sample_pp <- select(bhc, year, pp_sample) %>%
-  spread(year, pp_sample) %>%
+  pivot_wider(names_from = year, values_from = pp_sample) %>%
   mutate(Group = "All people")
 
 sample_ch <- select(bhc, year, ch_sample) %>%
-  spread(year, ch_sample) %>%
+  pivot_wider(names_from = year, values_from = ch_sample) %>%
   mutate(Group = "Children")
 
 sample_wa <- select(bhc, year, wa_sample) %>%
-  spread(year, wa_sample) %>%
+  pivot_wider(names_from = year, values_from = wa_sample) %>%
   mutate(Group = "Working-age adults")
 
 sample_pn <- select(bhc, year, pn_sample) %>%
-  spread(year, pn_sample) %>%
+  pivot_wider(names_from = year, values_from = pn_sample) %>%
   mutate(Group = "Pensioners")
 
 numbers_bhc <- rbind(numbers_pp, numbers_ch, numbers_wa, numbers_pn) %>%
   select(Group, everything())
 
 ahc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  getmediansahc() %>%
-  mutate_at(vars(c("pp", "ch", "wa", "pn")), get3yraverage) %>%
-  mutate_at(vars(contains("sample")), get3yrtotal) %>%
+  summarise(pp = analysistools::wtd.median(s_oe_ahc * ahcpubdef / ahcyrdef,
+                              weights = gs_newpp),
+            ch = analysistools::wtd.median(s_oe_ahc * ahcpubdef / ahcyrdef,
+                              weights = gs_newch),
+            wa = analysistools::wtd.median(s_oe_ahc * ahcpubdef / ahcyrdef,
+                              weights = gs_newwa),
+            pn = analysistools::wtd.median(s_oe_ahc * ahcpubdef / ahcyrdef,
+                              weights = gs_newpn),
+            pp_sample = sum(gs_newpp > 0, na.rm = TRUE),
+            ch_sample = sum(gs_newch > 0, na.rm = TRUE),
+            wa_sample = sum(gs_newwa > 0, na.rm = TRUE),
+            pn_sample = sum(gs_newpn > 0, na.rm = TRUE )) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27)) %>%
+  arrange(yearn) %>%
+
+  mutate_at(vars(c("pp", "ch", "wa", "pn")), analysistools::getrollingmean, na.rm = TRUE) %>%
+  mutate_at(vars(contains("sample")), analysistools::getrollingtotal, na.rm = TRUE) %>%
   mutate(year = get_periods(yearn)) %>%
   mutate_if(is.numeric, ~round2(., 0)) %>%
   tail(-2L)
 
 numbers_pp <- select(ahc, year, pp) %>%
-  spread(year, pp) %>%
+  pivot_wider(names_from = year, values_from = pp) %>%
   mutate(Group = "All people")
 
 numbers_ch <- select(ahc, year, ch) %>%
-  spread(year, ch) %>%
+  pivot_wider(names_from = year, values_from = ch) %>%
   mutate(Group = "Children")
 
 numbers_wa <- select(ahc, year, wa) %>%
-  spread(year, wa) %>%
+  pivot_wider(names_from = year, values_from = wa) %>%
   mutate(Group = "Working-age adults")
 
 numbers_pn <- select(ahc, year, pn) %>%
-  spread(year, pn) %>%
+  pivot_wider(names_from = year, values_from = pn) %>%
   mutate(Group = "Pensioners")
 
 sample_pp <- select(ahc, year, pp_sample) %>%
-  spread(year, pp_sample) %>%
+  pivot_wider(names_from = year, values_from = pp_sample) %>%
   mutate(Group = "All people")
 
 sample_ch <- select(ahc, year, ch_sample) %>%
-  spread(year, ch_sample) %>%
+  pivot_wider(names_from = year, values_from = ch_sample) %>%
   mutate(Group = "Children")
 
 sample_wa <- select(ahc, year, wa_sample) %>%
-  spread(year, wa_sample) %>%
+  pivot_wider(names_from = year, values_from = wa_sample) %>%
   mutate(Group = "Working-age adults")
 
 sample_pn <- select(ahc, year, pn_sample) %>%
-  spread(year, pn_sample) %>%
+  pivot_wider(names_from = year, values_from = pn_sample) %>%
   mutate(Group = "Pensioners")
 
 numbers_ahc <- rbind(numbers_pp, numbers_ch, numbers_wa, numbers_pn) %>%
@@ -1581,38 +1983,56 @@ tables$medians <- list(bhc = numbers_bhc,
                        ahc = numbers_ahc,
                        sample = sample)
 
-# 39 decile points -------------------------------------------------------------
+# decile points ----------------------------------------------------------------
 
 bhc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
   getdecptsbhc() %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27)) %>%
+  arrange(yearn) %>%
+
   mutate(year = get_periods(yearn)) %>%
   arrange(yearn) %>%
-  mutate_if(is.numeric, ~get3yraverage(.)) %>%
+  mutate_if(is.numeric, ~analysistools::getrollingmean(., na.rm = TRUE)) %>%
   mutate_if(is.numeric, ~round2(., 0)) %>%
   tail(-2L) %>%
   select(-yearn) %>%
   gather(Decile, value, -year) %>%
   filter(Decile != "10") %>%
-  spread(year, value)
+  pivot_wider(names_from = year, values_from = value)
 
 ahc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
   getdecptsahc() %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27)) %>%
+  arrange(yearn) %>%
+
   mutate(year = get_periods(yearn)) %>%
   arrange(yearn) %>%
-  mutate_if(is.numeric, ~get3yraverage(.)) %>%
+  mutate_if(is.numeric, ~analysistools::getrollingmean(., na.rm = TRUE)) %>%
   mutate_if(is.numeric, ~round2(., 0)) %>%
   tail(-2L) %>%
   select(-yearn) %>%
   gather(Decile, value, -year) %>%
   filter(Decile != "10") %>%
-  spread(year, value)
+  pivot_wider(names_from = year, values_from = value)
 
 sample <- hbai %>%
   group_by(yearn) %>%
-  summarise(sample = n()) %>%
-  mutate(sample = getrollingtotal(sample, 3),
+  summarise(sample = sum(gs_newpp > 0, na.rm = TRUE)) %>%
+  mutate(sample = analysistools::getrollingtotal(sample, 3, na.rm = TRUE),
          year = get_periods(yearn),
          Group = "All") %>%
   filter(yearn >= 3) %>%
@@ -1623,53 +2043,97 @@ tables$decilepoints <- list(bhc = bhc,
                             ahc = ahc,
                             sample = sample)
 
-# 40 decile shares -------------------------------------------------------------
+# decile shares ----------------------------------------------------------------
 
 bhc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  getdecsharesbhc() %>%
+  mutate(Decile = analysistools::getdeciles(s_oe_bhc, weights = gs_newpp)) %>%
+  group_by(yearn, Decile) %>%
+  summarise(share = sum(s_oe_bhc * gs_newpp) * bhcpubdef[1] / bhcyrdef[1] * 365/7) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27, Decile = unique(.$Decile))) %>%
+  arrange(yearn) %>%
+
   group_by(Decile) %>%
-  mutate(share = get3yraverage(share),
+  mutate(share = analysistools::getrollingmean(share, na.rm = TRUE),
          share = round2(share / 1000000, 0)) %>%
   filter(yearn >= 3) %>%
   mutate(year = get_periods(yearn)) %>%
   select(year, share, Decile) %>%
-  spread(year, share)
+  pivot_wider(names_from = year, values_from = share)
 
 ahc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  getdecsharesahc() %>%
+  mutate(Decile = analysistools::getdeciles(s_oe_ahc, weights = gs_newpp)) %>%
+  group_by(yearn, Decile) %>%
+  summarise(share = sum(s_oe_ahc * gs_newpp) * ahcpubdef[1] / ahcyrdef[1] * 365/7) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27, Decile = unique(.$Decile))) %>%
+  arrange(yearn) %>%
+
   group_by(Decile) %>%
-  mutate(share = get3yraverage(share),
+  mutate(share = analysistools::getrollingmean(share, na.rm = TRUE),
          share = round2(share / 1000000, 0)) %>%
   filter(yearn >= 3) %>%
   mutate(year = get_periods(yearn)) %>%
   select(year, share, Decile) %>%
-  spread(year, share)
+  pivot_wider(names_from = year, values_from = share)
 
 sample <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  summarise(sample = n()) %>%
-  mutate(sample = getrollingtotal(sample, 3),
-         year = get_periods(yearn),
-         Group = "All") %>%
+  mutate(Decile = analysistools::getdeciles(s_oe_bhc, weights = gs_newpp)) %>%
+  group_by(yearn, Decile) %>%
+  summarise(sample = sum(gs_newpp > 0, na.rm = TRUE)) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27, Decile = unique(.$Decile))) %>%
+  arrange(yearn) %>%
+
+  group_by(Decile) %>%
+  mutate(sample = analysistools::getrollingtotal(sample, 3, na.rm = TRUE),
+         year = get_periods(yearn)) %>%
   filter(yearn >= 3) %>%
-  select(Group, year, sample) %>%
+  select(-yearn) %>%
   pivot_wider(names_from = year, values_from = sample)
 
 tables$decileshares <- list(bhc = bhc,
                             ahc = ahc,
                             sample = sample)
 
-# 41 Palma & Gini --------------------------------------------------------------
+# Palma & Gini -----------------------------------------------------------------
 
 palma_bhc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  getdecsharesbhc() %>%
+  mutate(Decile = analysistools::getdeciles(s_oe_bhc, weights = gs_newpp)) %>%
+  group_by(yearn, Decile) %>%
+  summarise(share = sum(s_oe_bhc * gs_newpp)) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27, Decile = unique(.$Decile))) %>%
+  arrange(yearn) %>%
+
   group_by(yearn) %>%
   mutate(Palma = share[10] / sum(share[1:4])) %>%
   group_by(Decile) %>%
-  mutate(Palma = get3yraverage(Palma),
+  mutate(Palma = analysistools::getrollingmean(Palma, na.rm = TRUE),
          Palma = roundpct(Palma),
          Measure = "Before housing costs") %>%
   filter(Decile == 10,
@@ -1677,15 +2141,26 @@ palma_bhc <- hbai %>%
   ungroup() %>%
   mutate(year = get_periods(yearn)) %>%
   select(Measure, year, Palma) %>%
-  spread(year, Palma)
+  pivot_wider(names_from = year, values_from = Palma)
 
 palma_ahc <- hbai %>%
+
+  # exclude bad data year
+  filter(yearn != 27) %>%
+
   group_by(yearn) %>%
-  getdecsharesahc() %>%
+  mutate(Decile = analysistools::getdeciles(s_oe_ahc, weights = gs_newpp)) %>%
+  group_by(yearn, Decile) %>%
+  summarise(share = sum(s_oe_ahc * gs_newpp)) %>%
+
+  # add year back in
+  full_join(data.frame(yearn = 27, Decile = unique(.$Decile))) %>%
+  arrange(yearn) %>%
+
   group_by(yearn) %>%
   mutate(Palma = share[10] / sum(share[1:4])) %>%
   group_by(Decile) %>%
-  mutate(Palma = get3yraverage(Palma),
+  mutate(Palma = analysistools::getrollingmean(Palma, na.rm = TRUE),
          Palma = roundpct(Palma),
          Measure = "After housing costs") %>%
   filter(Decile == 10,
@@ -1693,38 +2168,38 @@ palma_ahc <- hbai %>%
   ungroup() %>%
   mutate(year = get_periods(yearn)) %>%
   select(Measure, year, Palma) %>%
-  spread(year, Palma)
+  pivot_wider(names_from = year, values_from = Palma)
 
 palma <- rbind(palma_bhc, palma_ahc)
 
 gini_bhc <- hbai %>%
   group_by(yearn) %>%
   summarise(Gini = gini(s_oe_bhc, weights = gs_newpp)) %>%
-  mutate(Gini = get3yraverage(Gini),
+  mutate(Gini = analysistools::getrollingmean(Gini, na.rm = TRUE),
          Gini = roundpct(Gini),
          Measure = "Before housing costs") %>%
   filter(yearn >= 3) %>%
   mutate(year = get_periods(yearn)) %>%
   select(-yearn) %>%
-  spread(year, Gini)
+  pivot_wider(names_from = year, values_from = Gini)
 
 gini_ahc <- hbai %>%
   group_by(yearn) %>%
   summarise(Gini = gini(s_oe_ahc, weights = gs_newpp)) %>%
-  mutate(Gini = get3yraverage(Gini),
+  mutate(Gini = analysistools::getrollingmean(Gini, na.rm = TRUE),
          Gini = roundpct(Gini),
          Measure = "After housing costs") %>%
   filter(yearn >= 3) %>%
   mutate(year = get_periods(yearn)) %>%
   select(-yearn) %>%
-  spread(year, Gini)
+  pivot_wider(names_from = year, values_from = Gini)
 
 gini <- rbind(gini_bhc, gini_ahc)
 
 sample <- hbai %>%
   group_by(yearn) %>%
-  summarise(sample = n()) %>%
-  mutate(sample = getrollingtotal(sample, 3),
+  summarise(sample = sum(gs_newpp > 0, na.rm = TRUE)) %>%
+  mutate(sample = analysistools::getrollingtotal(sample, 3, na.rm = TRUE),
          year = get_periods(yearn),
          Group = "All") %>%
   filter(yearn >= 3) %>%
@@ -1735,17 +2210,18 @@ tables$palmagini <- list(palma = palma,
                          gini = gini,
                          sample = sample)
 
-# 42 poverty thresholds --------------------------------------------------------
+# poverty thresholds -----------------------------------------------------------
+# ADAPTED TO BAD DATA ISSUE - Shousl usually be a three-year average
 
 hbai1 <- filter(hbai, yearn == max(yearn))
 hbai2 <- filter(hbai, yearn == max(yearn) - 1)
 hbai3 <- filter(hbai, yearn == max(yearn) - 2)
 
 bhc1 <- getpovertythresholdsbhc(hbai1)
-bhc2 <- getpovertythresholdsbhc(hbai2)
+#bhc2 <- getpovertythresholdsbhc(hbai2)
 bhc3 <- getpovertythresholdsbhc(hbai3)
 
-weekly_bhc <- (bhc1[, 2:9] + bhc2[, 2:9] + bhc3[, 2:9]) / 3
+weekly_bhc <- (bhc1[, 2:9] + bhc3[, 2:9]) / 2
 weekly_bhc$Measure <- bhc1$Measure
 
 weekly_bhc <- weekly_bhc %>%
@@ -1756,7 +2232,7 @@ weekly_bhc <- weekly_bhc %>%
          "Single person with children aged 5 and 14" = weekly3,
          "Couple with children aged 5 and 14" = weekly4)
 
-annual_bhc <- (bhc1[, 2:9] + bhc2[, 2:9] + bhc3[, 2:9]) / 3
+annual_bhc <- (bhc1[, 2:9] + bhc3[, 2:9]) / 2
 annual_bhc$Measure <- bhc1$Measure
 
 annual_bhc <- annual_bhc %>%
@@ -1768,10 +2244,10 @@ annual_bhc <- annual_bhc %>%
          "Couple with children aged 5 and 14" = annual4)
 
 ahc1 <- getpovertythresholdsahc(hbai1)
-ahc2 <- getpovertythresholdsahc(hbai2)
+#ahc2 <- getpovertythresholdsahc(hbai2)
 ahc3 <- getpovertythresholdsahc(hbai3)
 
-weekly_ahc <- (ahc1[, 2:9] + ahc2[, 2:9] + ahc3[, 2:9]) / 3
+weekly_ahc <- (ahc1[, 2:9] + ahc3[, 2:9]) / 2
 weekly_ahc$Measure <- ahc1$Measure
 
 weekly_ahc <- weekly_ahc %>%
@@ -1782,7 +2258,7 @@ weekly_ahc <- weekly_ahc %>%
          "Single person with children aged 5 and 14" = weekly3,
          "Couple with children aged 5 and 14" = weekly4)
 
-annual_ahc <- (ahc1[, 2:9] + ahc2[, 2:9] + ahc3[, 2:9]) / 3
+annual_ahc <- (ahc1[, 2:9] + ahc3[, 2:9]) / 2
 annual_ahc$Measure <- ahc1$Measure
 
 annual_ahc <- annual_ahc %>%
@@ -1798,22 +2274,23 @@ tables$thresholds <- list(weekly_bhc = weekly_bhc,
                           weekly_ahc = weekly_ahc,
                           annual_ahc = annual_ahc)
 
-# 43 income sources ------------------------------------------------------------
+# income sources ---------------------------------------------------------------
+# ADAPTED TO BAD DATA ISSUE - Shousl usually be a three-year average
 
 hbai1 <- filter(hbai, yearn == max(yearn))
 hbai2 <- filter(hbai, yearn == max(yearn) - 1)
 hbai3 <- filter(hbai, yearn == max(yearn) - 2)
 
 df1 <- getsources(hbai1)
-df2 <- getsources(hbai2)
+#df2 <- getsources(hbai2)
 df3 <- getsources(hbai3)
 
 df <- data.frame(df1[1])
-df[2] <- (df1[2] + df2[2] + df3[2])/3
-df[3] <- (df1[3] + df2[3] + df3[3])/3
-df[4] <- (df1[4] + df2[4] + df3[4])/3
-df[5] <- (df1[5] + df2[5] + df3[5])/3
-df[6] <- (df1[6] + df2[6] + df3[6])/3
+df[2] <- (df1[2] + df3[2])/2
+df[3] <- (df1[3] + df3[3])/2
+df[4] <- (df1[4] + df3[4])/2
+df[5] <- (df1[5] + df3[5])/2
+df[6] <- (df1[6] + df3[6])/2
 
 sources <- df %>%
   mutate(Decile = fct_relevel(Decile, "All", after = 0L)) %>%
@@ -1822,36 +2299,43 @@ sources <- df %>%
 
 tables$sources <- list(sources = sources)
 
-# xx distribution --------------------------------------------------------------
+# distribution -----------------------------------------------------------------
+# ADAPTED TO BAD DATA
+
 tables$distribution <- list()
 
 tables$distribution$dist <- hbai %>%
+  filter(yearn >= max(yearn) - 2,
+         yearn != 27) %>%
   group_by(yearn) %>%
   mutate(income = s_oe_bhc * bhcpubdef / bhcyrdef) %>%
   select(yearn, gs_newpp, income) %>%
-  ungroup() %>%
-  filter(yearn >= max(yearn) - 2)
+  ungroup()
 
 tables$distribution$distdecs <- hbai %>%
-  filter(yearn >= max(yearn) - 2) %>%
+  filter(yearn >= max(yearn) - 2,
+         yearn != 27) %>%
   group_by(yearn) %>%
   getdecptsbhc() %>%
   gather(x, value, -yearn) %>%
   group_by(x) %>%
-  mutate(value = get3yraverage(value)) %>%
+  # ADAPTED TO BAD DATA
+  mutate(value = analysistools::getrollingmean(value, 2)) %>%
   ungroup() %>%
   filter(yearn == max(yearn)) %>%
 
   mutate(xpos = lag(value) + 1/2*(value - lag(value)),
          xpos = ifelse(x == "1", value/2 + 50, xpos),
-         xpos = ifelse(x == "10", (lag(value) + 50), xpos))
+         xpos = ifelse(x == "10", (lag(value) + 50), xpos)) %>%
+  select(-yearn)
 
 tables$distribution$distthresh <- hbai %>%
-  filter(yearn >= max(yearn) - 2) %>%
+  filter(yearn >= max(yearn) - 2,
+         yearn != 27) %>%
   group_by(yearn) %>%
   summarise(UKmedian = max(mdoebhc * bhcpubdef / bhcyrdef),
-            Scotmedian = wtd.quantile(s_oe_bhc * bhcpubdef / bhcyrdef,
-                                      probs = 0.5, weights = gs_newpp),
+            Scotmedian = analysistools::wtd.median(s_oe_bhc * bhcpubdef / bhcyrdef,
+                                      weights = gs_newpp),
             povthresh = 0.6 * UKmedian) %>%
   ungroup() %>%
   summarise(UKmedian = mean(UKmedian),
@@ -1864,7 +2348,8 @@ tables$distribution$distthresh <- hbai %>%
 # gender (pensioners)
 gender <- hbai %>%
   filter(singlehh %in% c("Female pensioner", "Male pensioner"),
-         yearn >= max(yearn) - 2) %>%
+         yearn >= max(yearn) - 2,
+         yearn != 27) %>%
   mutate(over79 = ifelse(agehd >= 80, 1 , 0)) %>%
   group_by(singlehh, over79) %>%
   summarise(pensioners = sum(gs_newad)) %>%
@@ -1877,13 +2362,15 @@ gender <- hbai %>%
 # ethnicity
 ethnic <- hbai %>%
   filter(yearn >= max(yearn) - 4,
+         yearn != 27,
          benunit == 1) %>%
   group_by(ethgrphh) %>%
   summarise(age = wtd.median(agehd, gs_newbu))
 
 # religion
 religion <- adult %>%
-  filter(yearn >= max(yearn) - 4) %>%
+  filter(yearn >= max(yearn) - 4,
+         yearn != 27) %>%
   group_by(religsc) %>%
   summarise(age = wtd.median(age, adultwgt))
 
@@ -1915,6 +2402,8 @@ names(tables$equivalence) <- c("Household member", "Before housing costs",
 # save all ---------------------------------------------------------------------
 saveRDS(tables, "data/tables.rds")
 rm(list = ls())
+
+cat("3 yr Scot data aggregated", fill = TRUE)
 
 
 
