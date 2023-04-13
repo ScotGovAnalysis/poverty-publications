@@ -66,21 +66,21 @@ source("R/06_xlsx_postprocessing.R")
 
 # * website --------------------------------------------------------------------
 
+# optional: delete existing output folder (./website/_site)
 rmarkdown::clean_site(input = "./website")
+
+# render website
 rmarkdown::render_site(input = "./website",
                        output_format = 'bookdown::html_document2',
                        encoding = 'UTF-8')
 
 # * copy to website folder and rename ------------------------------------------
 
+# optional: creates a copy of the website folder with the correct name ("poverty")
+#   ready for publishing on data.gov.scot
+
+if (!dir.exists("poverty")){dir.create("poverty")}
 file.copy(from = file.path("website/_site/", list.files("website/_site/")),
-          to = "website_for_datagovscot/poverty",
+          to = "poverty",
           recursive = TRUE,
           overwrite = TRUE)
-
-# copy to data share folder for sharing
-file.copy(from = file.path("website_for_datagovscot/poverty/", list.files("website_for_datagovscot/poverty/")),
-          to = "//s0177a/datashare/Social_Justice/Poverty/Prerelease/2023 reports/draft_report",
-          recursive = TRUE,
-          overwrite = TRUE)
-
