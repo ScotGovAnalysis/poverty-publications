@@ -57,9 +57,9 @@ Any R packages required in each script are loaded at the beginning of the script
 - highcharter (interactive charts)
 - analysistools (rounding, create n-year averages, see below)
 
-### analysistools package
+### [analysistools package](https://github.com/DataScienceScotland/analysistools)
 
-This contains the functions getrollingmean, getrollingtotal, round2, wtd.median, getdeciles and getquintiles (and zipsave, which is no longer used in this project). The package is available on [github](https://github.com/DataScienceScotland/analysistools), where is can be installed from, or alternatively, the functions can be copied from.
+This contains the functions getrollingmean, getrollingtotal, round2, wtd.median, getdeciles and getquintiles (and zipsave, which is no longer used in this project). The package is available on [github](https://github.com/DataScienceScotland/analysistools), where it can be installed from, or alternatively, the functions can be copied from.
 
 Note that the base R function round performs a different kind of rounding compared to Excel. analysistools::round2 is equivalent to Excel rounding, i.e. rounding 0.5 always rounds up, and rounding 0.499.. always rounds down.
 
